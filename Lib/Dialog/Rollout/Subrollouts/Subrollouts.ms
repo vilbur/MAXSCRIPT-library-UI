@@ -28,7 +28,7 @@ struct Subrollouts_v
 			return()
 			
 		for _rollout in Rollouts do
-			_rollout._createRollout()
+			_rollout.createRollout()
 	),
 	
 	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -84,8 +84,6 @@ struct Subrollouts_v
 	(
 		Rollouts.count > 0 --return
 	),
-	
-	private
 	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT

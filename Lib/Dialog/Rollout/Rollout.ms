@@ -26,22 +26,20 @@ struct Rollout_v
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
 
-	
-	/** Create rollout dialog
-	  * [ Wrapper for CreateDialog()](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm)
-	  * @return	RolloutClass
+
+	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
+	  * Used for creation of rollout and subrollout subrollout
 	 */
-    function dialogCreate width: height: pos: =
+	function createRollout =
 	(
-		this._createRollout()
-
-		CreateDialog ( RolloutCreator.getDefinition() ) height:height
+		Subrollouts.createSubRollouts()
+		Subrollouts.setSubrolloutSlot()
 		
-		Subrollouts.addSubRollouts id
-		
-		RolloutCreator --return
+		RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
+	
+		RolloutCreator.endOfCreation()
 	),
-
+	
 	/** Add subrollout
 	  *
 	  * @return	object new instance of Rollout_v
@@ -55,19 +53,8 @@ struct Rollout_v
 		new_subrollout --return 
 	),
 	
-	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	  * Used for creation of rollout and subrollout subrollout
-	 */
-	function _createRollout =
-	(
-		Subrollouts.createSubRollouts()
-		Subrollouts.setSubrolloutSlot()
-		
-		RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
-	
-		RolloutCreator.endOfCreation()
-	),
-	
+	private
+
 	/** Set id by title if not defined
 	 */
 	function _setId =

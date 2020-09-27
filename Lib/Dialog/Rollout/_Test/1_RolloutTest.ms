@@ -7,4 +7,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../Rollout.ms" )
 _rollout	= Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable_id"
 
 /* CREATE ROLLOUT */
-_rollout.dialogCreate()	-- create with default parameters
+_rollout.createRollout()	-- create with default parameters
+
+/* CREATE DIALOG */
+CreateDialog ( _rollout.RolloutCreator.getDefinition() )
