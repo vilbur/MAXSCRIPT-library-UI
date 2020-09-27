@@ -17,7 +17,8 @@ struct Subrollouts_v
 	 */
 	function add _subrollout =
 	(
-		append Rollouts _subrollout  
+		--format "_subrollout=%"_subrollout
+		append Rollouts _subrollout
 	),
 	
 	/** Create Subrollouts and generate slot_string

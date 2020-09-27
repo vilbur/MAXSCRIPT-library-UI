@@ -47,9 +47,9 @@ struct Rollout_v
 	function subrollout title id: =
 	(
 		new_subrollout = Rollout_v title:title id:id Parent_roll:this
-		
+		--format "new_subrollout=%"new_subrollout
 		Subrollouts.add new_subrollout
-
+		
 		new_subrollout --return 
 	),
 	
