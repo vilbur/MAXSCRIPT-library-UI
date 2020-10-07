@@ -1,12 +1,9 @@
-
-
-
-
 /** Button
  */
 struct Button_v 
 (
-	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlExtends.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlOnCreate.ms"
 	
 	/*------------------------------------------------------------------------------
 		PRIVATE
@@ -53,10 +50,4 @@ struct Button_v
 	--	--print "------------\nButton._construct()"
 	--	type	= #button
 	--),
-	/** Test
-	 */
-	function test =
-	(
-		
-	)
 )

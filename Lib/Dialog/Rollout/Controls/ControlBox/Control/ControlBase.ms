@@ -21,9 +21,9 @@
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 	
 	/*------ EXTENDED EVENTS ------*/
-	--pressed	= Events.pressed,
-	--changed	= Events.changed,
-	--rightclick	= Events.rightclick,
+	--pressed	 = Events.pressed,
+	--changed	 = Events.changed,
+	--rightclick = Events.rightclick,
 	
 	/** Set parameters for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
@@ -39,6 +39,7 @@
 		)
 		this --return  
 	),
+	
 	/** Param
 	 */
 	function param key value =
@@ -47,6 +48,7 @@
 
 		this --return
 	),
+	
 	/** Set width of control in columns 
 	  * @param	integer	columns	Number of columns
 	  * @return	self
@@ -57,6 +59,7 @@
 
 		this --return
 	),
+	
 	/** Find if control is rendered in ui already
 	  *
 	  * When rollout is rendered, then control is rendered immediately
@@ -86,33 +89,8 @@
 		this.id = ControlId.id
 	),
 	
-	private
+	--private
 	
-	--/** Add control to UI 
-	-- */
-	--function addControlToUi =
-	--(
-	--	--print "------------\nControlExtends._renderControl()"
-	--	Parent_roll.roll.addControl type ControlId.id caption paramStr:(this._getParameters())
-	--
-	--	Events._addHandlers()
-	--),
-	
-	/*---------------------------------------
-		GETTERS & SETTERS
-	-----------------------------------------*/
-	--/** _set value
-	-- */
-	--function _setValue =
-	--(
-	--	if( value==undefined ) then
-	--		this._getValueFromIni()
-	--
-	--	if( value!=undefined and value!=""  ) then
-	--		this._setValueParameter value
-	--	----else
-	--		----this._getValueFromIni()
-	--),
 	/** Add quotes to parameter if value is string
 	  * Add value to params
 	 */
@@ -137,19 +115,7 @@
 	(
 		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
-	--/** Get value from ini
-	-- */
-	--function _getValueFromIni =
-	--(
-	--	print "------------\nControlExtends._getValueFromIni()"
-	--	print "HOTFIX"
-	--	ini_path = Parent_roll.ini
-	--	
-	--	if( ini_path != undefined ) then
-	--		value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
-	--	
-	--	value --return
-	--),
+	
 	/** _set dimensions
 	 */
 	function _setDimensions =
@@ -204,14 +170,7 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
-	--/** Set control type
-	-- */
-	--function setControlType =
-	--(
-	--	--format " classof this	= % \n" (classof this)
-	--	type = (filterString( classof this as string ) "(:")[2]
-	--	
-	--),
+
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
@@ -231,22 +190,20 @@
 		if( type == undefined ) then
 			type = toLower (( filterString( classof this as string ) "_*(:" )[2])
 	),
-	
-	on create do
-	(
-	
-		this._setType()
-		
-		this._checkConstctructProperties()
-		
-		this._setCaption()
-		
-		this.setId id
-		
-		--this._setValue()
-		
-		--this.Events.setDefaultEvents()
-	),
+
+	--/** Get value from ini
+	-- */
+	--function _getValueFromIni =
+	--(
+	--	print "------------\nControlExtends._getValueFromIni()"
+	--	print "HOTFIX"
+	--	ini_path = Parent_roll.ini
+	--	
+	--	if( ini_path != undefined ) then
+	--		value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
+	--	
+	--	value --return
+	--),	
 	--
 	--/** Get Name of value parameter by type of control E.G.: CKECBOX = #checked | EDITTEXT = #text | DEFAULT = #value
 	--  * 
@@ -259,4 +216,15 @@
 	--	if( hasProperty this "name_of_value_param" ) then name_of_value_param else name_of_value_param_extend --return
 	--),
 	
-	
+	--/** _set value
+	-- */
+	--function _setValue =
+	--(
+	--	if( value==undefined ) then
+	--		this._getValueFromIni()
+	--
+	--	if( value!=undefined and value!=""  ) then
+	--		this._setValueParameter value
+	--	----else
+	--		----this._getValueFromIni()
+	--),
