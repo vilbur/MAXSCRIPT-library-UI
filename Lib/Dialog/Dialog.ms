@@ -36,8 +36,8 @@ struct Dialog_v
 	size_init, -- size of dialog after creation
 
 
-	include "Library/_UI/Lib/Dialog/DialogRegister.ms"
-	--include "Library/_UI/Lib/Dialog/DialogDock.ms"
+	include "Library/UI/Lib/Dialog/DialogRegister.ms"
+	include "Library/UI/Lib/Dialog/DialogDock.ms"
 	
 	
 	/** Create Dialog
@@ -67,7 +67,6 @@ struct Dialog_v
 	function roll title id:  =
 	(
 		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
-		
 		_RolloutMain.subrollout title id:id --return
 	),
 		

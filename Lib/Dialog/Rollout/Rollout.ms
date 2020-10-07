@@ -1,9 +1,20 @@
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 
 /** Create Rollout
-  * 
-  * 
+  * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
+  *
+  * @property	string	title	Title of rollout
+  * @property	string	id	Id of rollout, if not defined then sanitized title is used E.G.: title="Foo Roll" >>> id="fooroll"
+  * @property	int	height	Height of rollout
+  *
+  *
+  * @property	string	ini	Path to ini where state of UI is saved, if false then ini state is not saved
+  *
+  --* @method	void	onOpen(  @param	string	callback[, @param	string	tooltip] )	
+  --* @method	void	onClose( @param	string	callback[, @param	string	tooltip] )	
+  *
   */
 struct Rollout_v
 (
@@ -22,7 +33,8 @@ struct Rollout_v
 	RolloutCreator,
 	
 	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
-	
+ 	Controls	= Controls_v    Parent_roll:this,
+
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
 
@@ -32,6 +44,8 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
+		this.Controls._addControlsToRollout()
+		
 		Subrollouts.createSubRollouts()
 		Subrollouts.setSubrolloutSlot()
 		
