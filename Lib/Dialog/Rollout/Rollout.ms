@@ -67,6 +67,13 @@ struct Rollout_v
 		new_subrollout --return 
 	),
 	
+	/** Add sub rollouts
+     */
+    function addSubRollouts =
+    (
+		Subrollouts.addSubRollouts id
+    ),
+	
 	private
 
 	/** Set id by title if not defined
