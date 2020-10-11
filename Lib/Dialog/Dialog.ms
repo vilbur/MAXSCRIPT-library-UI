@@ -51,7 +51,7 @@ struct Dialog_v
 	
 		CreateDialog ( Dialog )
 
-		_RolloutMain.addSubRollouts()
+		--_RolloutMain.addSubRollouts()
 	),
 	
 	/** Set rollout in Dialog

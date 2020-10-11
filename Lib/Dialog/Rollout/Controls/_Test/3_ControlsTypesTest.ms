@@ -19,5 +19,11 @@ controls_sub.button	"Button"
 controls_sub.checkbutton	"Checkbutton"
 controls_sub.checkbox	"Checkbox"
 
+
+--for i = 1 to 5 do
+	--controls_sub.add (Control_mock id:("Button_subrollout" + i as string ) caption:("Button subrollout " + i as string))
+
+
+
 /* CREATE ROLLOUT */
 _Rollout.dialogCreate()	-- create with default params

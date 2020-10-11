@@ -3,9 +3,12 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 /* ROLLOUT DEFINITION */
-struct Control_mock(type = #button, id="", caption="Test button")
+--struct Control_mock(type = #button, id="", caption="Test button")
 
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
+
+
+
 
 controls_1 = _Rollout.Controls.new "Groupbox 1"
 controls_1.button "Button before subrollout 1"
@@ -13,17 +16,21 @@ controls_1.button "Button before subrollout 1"
 
 
 _SubRollout  = _Rollout.subrollout "Subrollout 1"
-controls_sub = _SubRollout.Controls.new "_SubRollout Groupbox 1"
+--controls_sub = _SubRollout.Controls.new "_SubRollout Groupbox 1"
+--controls_sub.button "Button in subrollout"
 
-for i = 1 to 5 do
-	controls_sub.add (Control_mock id:("Button_subrollout" + i as string ) caption:("Button subrollout " + i as string))
 
+controls_2 = _Rollout.Controls.new "Groupbox 2"
+controls_2.button "Button after subrollout 2"
+
+
+_SubRollout_2  = _Rollout.subrollout "Subrollout 2"
 
 
 /* CREATE ROLLOUT */
-_Rollout.createRollout()	-- create with default parameters
+_Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
-_Rollout.addSubRollouts()
+execute add_subrollouts

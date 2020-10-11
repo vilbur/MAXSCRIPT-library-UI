@@ -6,22 +6,23 @@ filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" 
 --filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
 
 
-/** Section of controls, can be groupbox if "ControlBox_v.groupbox" is definded
+/** Section of controls, can be id if "ControlBox_v.id" is definded
   *
   * Control types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
   *
-  * @property	string	groupbox	Store name of [ groupbox ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
+  * @property	string	id	Store name of [ id ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
   *
   *
-  * Id of groupbox has suffix "_groupbox"
+  * Id of id has suffix "_groupbox"
  */
 struct ControlBox_v 
 (
 	/* required */
 	/* dependency */
 	/* reference */
+	Parent_roll,
 	/* properties */
-	groupbox,
+	id,
 	controls	= #(),
 	
 
@@ -48,7 +49,37 @@ struct ControlBox_v
 		_Control --return
 	),
 	
+
+	/** Add to rollout
+     */
+    function addToRollout =
+    (
+		--print ( "\n"+ toLower (( filterString( classof this as string ) "_*(:" )[2]) )
+		for Control in controls do
+				this._addControlToUi Control	
+    ),
 	
+	/** Add each control to rollout
+	  *
+	  * @param	[Control_v]	controls	Array of Control_v
+	 */
+	function _addControls controls =
+	(
+		--format "controls = % \n" controls
+		for Control in controls do
+				this._addControlToUi Control
+			--if( Control.type != #rolloutcontrol ) then 
+			--else
+				--this._addRollout Control
+	),
+	/** Add each control to rollout
+	 *
+	 * @param	[Control_v]	controls	Array of Control_v
+	 */
+	function _addControlToUi Control =
+	(
+		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
+	),
 	--Parent_roll,
 	--id,
 	--
@@ -57,22 +88,22 @@ struct ControlBox_v
 	--function new _parent_roll _groupbox =
 	--(
 	--	Parent_roll	= _parent_roll
-	--	groupbox	= _groupbox
+	--	id	= _groupbox
 	--	
 	--	this --return 
 	--),	
-	--/** Add groupbox
+	--/** Add id
 	-- */
 	--function addGroupBox =
 	--(
 	--	print "------------\nControlBox.addGroupBox()"
-	--	----print ( "ControlBox_v.addGroupBox() = " + groupbox as string )
-	--	--if( groupbox!=undefined ) then
+	--	----print ( "ControlBox_v.addGroupBox() = " + id as string )
+	--	--if( id!=undefined ) then
 	--	format " this._getGroupboxParams()	= % \n" (this._getGroupboxParams())
-	--		--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox paramStr:(this._getGroupboxParams())
-	--	--Parent_roll.roll.addControl #groupbox (this.getId()) groupbox
+	--		--Parent_roll.roll.addControl #id (this.getId()) id paramStr:(this._getGroupboxParams())
+	--	--Parent_roll.roll.addControl #id (this.getId()) id
 	--	
-	--	--format " groupbox	= % \n" groupbox
+	--	--format " id	= % \n" id
 	--),
 	--
 	--/** Get id
@@ -80,7 +111,7 @@ struct ControlBox_v
 	--function getId =
 	--(
 	--	groupbox_suffix = "_groupbox"
-	--	(( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower groupbox ) "_" ) + groupbox_suffix--return
+	--	(( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower id ) "_" ) + groupbox_suffix--return
 	--),
 	--/** Exists
 	-- */
@@ -91,7 +122,7 @@ struct ControlBox_v
 	--/*------------------------------------------------------------------------------
 	--	PRIVATE
 	----------------------------------------------------------------------------------*/
-	--/** _get groupbox params
+	--/** _get id params
 	-- */
 	--function _getGroupboxParams =
 	--(

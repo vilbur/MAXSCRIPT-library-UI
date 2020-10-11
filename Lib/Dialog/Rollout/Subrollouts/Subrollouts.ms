@@ -13,13 +13,13 @@ struct Subrollouts_v
 	
 	Rollouts	= #(),  -- store rollouts used as subrollouts
 	
-	/** Add
-	 */
-	function add _subrollout =
-	(
-		--format "_subrollout=%"_subrollout
-		append Rollouts _subrollout
-	),
+	--/** Add
+	-- */
+	--function add _subrollout =
+	--(
+	--	--format "_subrollout=%"_subrollout
+	--	append Rollouts _subrollout
+	--),
 	
 	/** Create Subrollouts and generate slot_string
 	 */

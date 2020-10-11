@@ -2,6 +2,9 @@ filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.m
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 
+global add_subrollouts = " "
+
+
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
   *
@@ -34,6 +37,8 @@ struct Rollout_v
 	
 	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
  	Controls	= Controls_v    Parent_roll:this,
+	
+	Controls_and_Rollouts	= #(),  -- store rollouts used as subrollouts
 
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
@@ -44,16 +49,52 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		this.Controls._addControlsToRollout()
+		print( "\nRollout.createRollout() "+id )
+		for Control_and_Rollout in Controls_and_Rollouts do
+				Control_and_Rollout.addToRollout()
+			--format "\nControl_and_Rollout=%	"Control_and_Rollout.id
+
+		--Subrollouts.createSubRollouts()
+		--Subrollouts.setSubrolloutSlot()
 		
-		Subrollouts.createSubRollouts()
-		Subrollouts.setSubrolloutSlot()
-		
-		RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
+		--RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
 	
 		RolloutCreator.endOfCreation()
 	),
 	
+	/** Add to rollout
+     */
+    function addToRollout =
+    (
+		print ( "\nRollout.addToRollout() 	 " + id )
+ 		this.createRollout()
+		this.setSubrolloutSlot()
+		this.addSubRollouts()
+
+    ),
+	
+	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
+	  *
+	  * This definitions is added to with "rolloutCreator.addText( getSubrolloutsDefinition() )"
+	  *
+	  * @example of returned snippet:
+	  * --------------------------------------------------------------------------------
+	  *		
+	  *	  subRollout subrollout_id_1 "Subrollouts"
+	  *	  subRollout subrollout_id_2 "Subrollouts"
+	  *		
+	  * --------------------------------------------------------------------------------
+	  *
+	  * @return	string|undefined If any subrollout is defined, otherwise undefined
+	 */
+	function setSubrolloutSlot =
+	(
+		slot_string = "subrollout "+id+" \""+id+"\" height:128"
+		print ("slot_string="+slot_string)
+
+		Parent_roll.RolloutCreator.addSubrolloutSlot( slot_string )
+	),
+
 	/** Add subrollout
 	  *
 	  * @return	object new instance of Rollout_v
@@ -62,7 +103,7 @@ struct Rollout_v
 	(
 		new_subrollout = Rollout_v title:title id:id Parent_roll:this
 		--format "new_subrollout=%"new_subrollout
-		Subrollouts.add new_subrollout
+		append Controls_and_Rollouts new_subrollout
 		
 		new_subrollout --return 
 	),
@@ -71,7 +112,9 @@ struct Rollout_v
      */
     function addSubRollouts =
     (
-		Subrollouts.addSubRollouts id
+		add_subrollouts += "\nAddSubRollout " + Parent_roll.id + "." + id + " " + id
+		print ("add_subrollouts="+add_subrollouts)
+		--execute (add_subrollouts)
     ),
 	
 	private
@@ -84,12 +127,11 @@ struct Rollout_v
 			return()
 			
 		title_no_whitespace = substituteString title " " "_" -- replace whitespace
-		print ( title_no_whitespace as String )
+		--print ( title_no_whitespace as String )
 		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
 		
 		id = "rollout_" + id_by_title
-		
-		print ( "------ID = "+id as String )	
+		--print ( "------ID = "+id as String )	
 	),
 
 	/** Declare rollout global variable

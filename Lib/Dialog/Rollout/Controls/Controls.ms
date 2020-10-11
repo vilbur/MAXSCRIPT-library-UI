@@ -21,7 +21,7 @@ struct Controls_v
 	/* reference */
 	Parent_roll,
 	/* properties */
-	ControlBoxes	= #(),
+	--ControlBoxes	= #(),
 	
 	/** Get new groupbox of controls
 	 *
@@ -29,45 +29,46 @@ struct Controls_v
 	 *
 	 * @return [Controls](/ControlsBox/ControlsBox)
 	 */
-	function new groupbox =
+	function new id =
 	(
-		ControlBox 	= ControlBox_v groupbox:groupbox
+		ControlBox 	= ControlBox_v Parent_roll:Parent_roll id:id
 
-		append ControlBoxes ControlBox
-		
+		--append ControlBoxes ControlBox
+		append Parent_roll.Controls_and_Rollouts ControlBox
+
 		ControlBox --return
 	),
-	
-	/** Add controls to rollout
-	 */ 
-	function _addControlsToRollout =
-	(
-		--format " ControlBoxes	= % \n" ControlBoxes
-		for ControlBox in ControlBoxes do
-			this._addControls ControlBox.controls
-			--format " ControlBox	= % \n" ControlBox
-	),
-	/** Add each control to rollout
-	  *
-	  * @param	[Control_v]	controls	Array of Control_v
-	 */
-	function _addControls controls =
-	(
-		--format "controls = % \n" controls
-		for Control in controls do
-			if( Control.type != #rolloutcontrol ) then 
-				this._addControlToUi Control
-			else
-				this._addRollout Control
-	),
-	/** Add each control to rollout
-	 *
-	 * @param	[Control_v]	controls	Array of Control_v
-	 */
-	function _addControlToUi Control =
-	(
-		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
-	),
+
+	--/** Add controls to rollout
+	-- */ 
+	--function _addControlsToRollout =
+	--(
+	--	--format " ControlBoxes	= % \n" ControlBoxes
+	--	for ControlBox in ControlBoxes do
+	--		this._addControls ControlBox.controls
+	--		--format " ControlBox	= % \n" ControlBox
+	--),
+	--/** Add each control to rollout
+	--  *
+	--  * @param	[Control_v]	controls	Array of Control_v
+	-- */
+	--function _addControls controls =
+	--(
+	--	--format "controls = % \n" controls
+	--	for Control in controls do
+	--			this._addControlToUi Control
+	--		--if( Control.type != #rolloutcontrol ) then 
+	--		--else
+	--			--this._addRollout Control
+	--),
+	--/** Add each control to rollout
+	-- *
+	-- * @param	[Control_v]	controls	Array of Control_v
+	-- */
+	--function _addControlToUi Control =
+	--(
+	--	Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
+	--),
 	--/** _add rollout
 	-- */
 	--function _addRollout _rollout =

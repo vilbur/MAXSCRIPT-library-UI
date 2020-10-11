@@ -9,7 +9,7 @@ function RolloutControl caption id: add:true =
  */
 function button caption id: add:true =
 (
-	print "------------\nControlBox.button()"
+	--print "------------\nControlBox.button()"
 	this._newControl (Button_v caption:caption ) id:id add:add
 ),
 /** Add Check button
