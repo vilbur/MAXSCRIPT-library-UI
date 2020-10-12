@@ -13,6 +13,21 @@ struct Subrollouts_v
 	
 	Rollouts	= #(),  -- store rollouts used as subrollouts
 	
+	/* reference */
+	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
+	
+	/** New	
+     */
+    function new title =
+    (
+        --print("Subrollouts.new() title"+title)
+		new_subrollout = Rollout_v title:title Parent_roll:this
+		--format "new_subrollout=%"new_subrollout
+		append Rollouts new_subrollout
+		
+		new_subrollout --return		
+    ),
+	
 	--/** Add
 	-- */
 	--function add _subrollout =
@@ -23,13 +38,16 @@ struct Subrollouts_v
 	
 	/** Create Subrollouts and generate slot_string
 	 */
-	function createSubRollouts =
+	function addToRollout =
 	(
-		if not ( this._anySubrolloutExists() ) then
-			return()
+		print ( "\nSubrollouts_v.addToRollout() slot="+slot  )
+		--if not ( this._anySubrolloutExists() ) then
+		--	return()
 			
-		for _rollout in Rollouts do
-			_rollout.createRollout()
+		for _Rollout in Rollouts do
+			_Rollout.createRollout()
+			
+		Parent_roll.RolloutCreator.addSubrolloutSlot( this._getSubrolloutSlot() )
 	),
 	
 	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -46,12 +64,13 @@ struct Subrollouts_v
 	  *
 	  * @return	string|undefined If any subrollout is defined, otherwise undefined
 	 */
-	function setSubrolloutSlot =
+	function _getSubrolloutSlot =
 	(
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
-		slot_string = "subrollout "+slot+" \"slot_name\" height:256"
+		--slot_string = "subrollout "+slot+" \"slot_name\" height:256"
+		"subrollout "+slot+" \"slot_name\" height:128" --return
 	),
 
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -66,16 +85,17 @@ struct Subrollouts_v
 	  *
 	  * @param	string	parrent_rollout_id
 	 */
-	function addSubRollouts parrent_rollout_id =
+	function addSubRollouts =
 	(
-		if not ( this._anySubrolloutExists() ) then
-			return()
+		print ( "Subrollouts_v.addSubRollouts()" )
+		--if not ( this._anySubrolloutExists() ) then
+		--	return()
 		
 		add_subrollouts = " "
-		
+		--
 		for subrollout in Rollouts do
-			add_subrollouts += "\n AddSubRollout " + parrent_rollout_id + "." + slot + " " + subrollout.id
-		
+			add_subrollouts += "\n AddSubRollout " + Parent_roll.id + "." + slot + " " + subrollout.id
+		--
 		execute (add_subrollouts)
 	),
 	

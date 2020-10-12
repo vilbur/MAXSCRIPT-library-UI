@@ -34,7 +34,7 @@ struct Controls_v
 		ControlBox 	= ControlBox_v Parent_roll:Parent_roll id:id
 
 		--append ControlBoxes ControlBox
-		append Parent_roll.Controls_and_Rollouts ControlBox
+		append Parent_roll.UI_Elements ControlBox
 
 		ControlBox --return
 	),

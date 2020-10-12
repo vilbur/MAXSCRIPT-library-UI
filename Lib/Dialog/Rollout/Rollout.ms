@@ -30,15 +30,15 @@ struct Rollout_v
 	id,
 
 	/* properties */
-	subrollouts_slot = "default_slot",
+	subrollouts_slot = 0,
 	
 	/* dependency */
 	RolloutCreator,
 	
-	Subrollouts	= Subrollouts_v slot:subrollouts_slot,
+	--Subrollouts	= Subrollouts_v slot:subrollouts_slot,
  	Controls	= Controls_v    Parent_roll:this,
 	
-	Controls_and_Rollouts	= #(),  -- store rollouts used as subrollouts
+	UI_Elements	= #(),  -- store rollouts used as subrollouts
 
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
@@ -50,71 +50,33 @@ struct Rollout_v
 	function createRollout =
 	(
 		print( "\nRollout.createRollout() "+id )
-		for Control_and_Rollout in Controls_and_Rollouts do
-				Control_and_Rollout.addToRollout()
-			--format "\nControl_and_Rollout=%	"Control_and_Rollout.id
-
-		--Subrollouts.createSubRollouts()
-		--Subrollouts.setSubrolloutSlot()
-		
-		--RolloutCreator.addSubrolloutSlot( Subrollouts.slot_string )
+		for UI_Element in UI_Elements do
+				UI_Element.addToRollout()
 	
 		RolloutCreator.endOfCreation()
-	),
-	
-	/** Add to rollout
-     */
-    function addToRollout =
-    (
-		print ( "\nRollout.addToRollout() 	 " + id )
- 		this.createRollout()
-		this.setSubrolloutSlot()
-		this.addSubRollouts()
-
-    ),
-	
-	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
-	  *
-	  * This definitions is added to with "rolloutCreator.addText( getSubrolloutsDefinition() )"
-	  *
-	  * @example of returned snippet:
-	  * --------------------------------------------------------------------------------
-	  *		
-	  *	  subRollout subrollout_id_1 "Subrollouts"
-	  *	  subRollout subrollout_id_2 "Subrollouts"
-	  *		
-	  * --------------------------------------------------------------------------------
-	  *
-	  * @return	string|undefined If any subrollout is defined, otherwise undefined
-	 */
-	function setSubrolloutSlot =
-	(
-		slot_string = "subrollout "+id+" \""+id+"\" height:128"
-		print ("slot_string="+slot_string)
-
-		Parent_roll.RolloutCreator.addSubrolloutSlot( slot_string )
 	),
 
 	/** Add subrollout
 	  *
 	  * @return	object new instance of Rollout_v
 	 */
-	function subrollout title id: =
+	function subrollouts =
 	(
-		new_subrollout = Rollout_v title:title id:id Parent_roll:this
-		--format "new_subrollout=%"new_subrollout
-		append Controls_and_Rollouts new_subrollout
+		--Subrollouts = Rollout_v title:title id:id Parent_roll:this
+		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (subrollouts_slot+=1) as string ) Parent_roll:this
+		--format "_Subrollouts=%"_Subrollouts
+		append UI_Elements _Subrollouts
 		
-		new_subrollout --return 
+		_Subrollouts --return 
 	),
 	
 	/** Add sub rollouts
      */
     function addSubRollouts =
     (
-		add_subrollouts += "\nAddSubRollout " + Parent_roll.id + "." + id + " " + id
-		print ("add_subrollouts="+add_subrollouts)
-		--execute (add_subrollouts)
+		for UI_Element in UI_Elements do
+			if ( ((filterString( classof UI_Element as string ) "_*(:" )[2]) == "Subrollouts" ) then
+				UI_Element.addSubRollouts()
     ),
 	
 	private

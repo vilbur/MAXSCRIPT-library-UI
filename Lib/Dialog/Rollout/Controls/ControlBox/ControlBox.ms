@@ -68,9 +68,6 @@ struct ControlBox_v
 		--format "controls = % \n" controls
 		for Control in controls do
 				this._addControlToUi Control
-			--if( Control.type != #rolloutcontrol ) then 
-			--else
-				--this._addRollout Control
 	),
 	/** Add each control to rollout
 	 *
@@ -80,18 +77,7 @@ struct ControlBox_v
 	(
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
 	),
-	--Parent_roll,
-	--id,
-	--
-	--/** Set parent roll
-	-- */
-	--function new _parent_roll _groupbox =
-	--(
-	--	Parent_roll	= _parent_roll
-	--	id	= _groupbox
-	--	
-	--	this --return 
-	--),	
+
 	--/** Add id
 	-- */
 	--function addGroupBox =
