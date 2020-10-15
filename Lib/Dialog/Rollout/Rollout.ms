@@ -38,7 +38,7 @@ struct Rollout_v
 	--Subrollouts	= Subrollouts_v slot:subrollouts_slot,
  	Controls	= Controls_v    Parent_roll:this,
 	
-	UI_Elements	= #(),  -- store rollouts used as subrollouts
+	UI_Elements	= #(),  -- store subrollouts and controlboxes
 
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
@@ -49,9 +49,9 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		print( "\nRollout.createRollout() "+id )
+		--print( "\nRollout.createRollout() "+id )
 		for UI_Element in UI_Elements do
-				UI_Element.addToRollout()
+			UI_Element._create()
 	
 		RolloutCreator.endOfCreation()
 	),

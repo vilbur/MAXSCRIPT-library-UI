@@ -3,20 +3,18 @@
   */
 struct Subrollouts_v
 (
-	__construct = #( #slot ),
-
 	/* required */
 	slot,
 
-	/* properties */
-	slot_string = " ", -- used in "rolloutCreator.addText( slot_string )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
-	
-	Rollouts	= #(),  -- store rollouts used as subrollouts
-	
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
 	
-	/** New	
+	/* properties */
+	Rollouts	= #(),  -- store rollouts used as subrollouts
+	
+	/** New	subrollout
+	  *
+	  * @return	object Rollout_v	
      */
     function new title =
     (
@@ -28,22 +26,10 @@ struct Subrollouts_v
 		new_subrollout --return		
     ),
 	
-	--/** Add
-	-- */
-	--function add _subrollout =
-	--(
-	--	--format "_subrollout=%"_subrollout
-	--	append Rollouts _subrollout
-	--),
-	
 	/** Create Subrollouts and generate slot_string
 	 */
-	function addToRollout =
+	function _create =
 	(
-		print ( "\nSubrollouts_v.addToRollout() slot="+slot  )
-		--if not ( this._anySubrolloutExists() ) then
-		--	return()
-			
 		for _Rollout in Rollouts do
 			_Rollout.createRollout()
 			
@@ -69,7 +55,6 @@ struct Subrollouts_v
 		if not ( this._anySubrolloutExists() ) then
 			return()
 			
-		--slot_string = "subrollout "+slot+" \"slot_name\" height:256"
 		"subrollout "+slot+" \"slot_name\" height:128" --return
 	),
 
@@ -87,16 +72,8 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts =
 	(
-		print ( "Subrollouts_v.addSubRollouts()" )
-		--if not ( this._anySubrolloutExists() ) then
-		--	return()
-		
-		add_subrollouts = " "
-		--
 		for subrollout in Rollouts do
-			add_subrollouts += "\n AddSubRollout " + Parent_roll.id + "." + slot + " " + subrollout.id
-		--
-		execute (add_subrollouts)
+			execute ( "\n AddSubRollout " + Parent_roll.id + "." + slot + " " + subrollout.id )
 	),
 	
 	/** Any subrollout exists
@@ -109,21 +86,11 @@ struct Subrollouts_v
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
-		
-	/** Check if required properties are defined when an instance of the struct is created.
-	 *
-	 * @example __construct = #( #property_name )
-	 */
-	function _checkConstctructProperties =
-	(
-		for prop in __construct where getProperty this prop == undefined do
-			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
-	),
-	
+
 	/**
 	 */
 	on create do
 	(
-		this._checkConstctructProperties()
+
 	)
 )

@@ -52,7 +52,7 @@ struct ControlBox_v
 
 	/** Add to rollout
      */
-    function addToRollout =
+    function _create =
     (
 		--print ( "\n"+ toLower (( filterString( classof this as string ) "_*(:" )[2]) )
 		for Control in controls do

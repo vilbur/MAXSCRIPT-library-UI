@@ -22,8 +22,8 @@ _SubRollout_B1_controls = _SubRollout_B1.Controls.new "SubRollout A1 controls"
 
 
 
-controls_1.button "Button before subrollout 1"
-controls_2.button "Button after subrollout 2"
+controls_1.button "Button before subrollouts A"
+controls_2.button "Button after subrollouts B"
 --_SubRollout_B1_controls.button "Button in subrollout 2"
 
 
@@ -33,7 +33,5 @@ _Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
-
---execute add_subrollouts
 
 _Rollout.addSubRollouts()

@@ -3,16 +3,26 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout/Rollout.ms" )
 
 
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
-Rollout_A    = _Rollout.subrollout "Subrollout A"
-Rollout_B    = _Rollout.subrollout "Subrollout B"
+/* ROLLOUT DEFINITION */
+_Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
+
+
+controls_1    = _Rollout.Controls.new "Groupbox 1"
+
+Subrollouts_A = _Rollout.subrollouts()
+
+_SubRollout_A1 = Subrollouts_A.new   "Subrollout A1"
+_SubRollout_A2 = Subrollouts_A.new   "Subrollout A2"
+
+
+Subrollouts_B = _Rollout.subrollouts()
+_SubRollout_B1 = Subrollouts_B.new   "Subrollout B1"
 
 /* CREATE ROLLOUT */
-_Rollout.createRollout()	-- create with default parameters
+_Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
-/* ADD SUBROILLOUTS */
 _Rollout.addSubRollouts()
