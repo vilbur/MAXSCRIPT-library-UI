@@ -3,11 +3,12 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../Dialog.ms" )
 
 
-Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
+_Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
+Rollouts = _Dialog._RolloutMain.subrollouts()
 
-rollout_A	= Dialog.roll "Subrollout A"
-rollout_B	= Dialog.roll "Subrollout B"
+rollout_A	= Rollouts.new "Rollout A"
+rollout_B	= Rollouts.new "Rollout B"
 
 /*------ CREATE FLOATER DIALOG ------*/
-Dialog.create()
+_Dialog.create()

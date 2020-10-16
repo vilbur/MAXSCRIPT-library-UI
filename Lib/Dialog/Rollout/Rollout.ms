@@ -62,25 +62,52 @@ struct Rollout_v
 	 */
 	function subrollouts =
 	(
-		--Subrollouts = Rollout_v title:title id:id Parent_roll:this
+		print "Rollout_v.subrollouts()"
+		
 		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (subrollouts_slot+=1) as string ) Parent_roll:this
-		--format "_Subrollouts=%"_Subrollouts
+		--print UI_Elements.count
+		--format "UI_Elements=%"UI_Elements
+		--format "\n_Subrollouts=%"_Subrollouts
 		append UI_Elements _Subrollouts
+		--print UI_Elements.count	
 		
 		_Subrollouts --return 
 	),
+	
+	/** New	subrollout
+	  *
+	  * @return	object Rollout_v	
+     */
+    function new title =
+    (
+        --print("Subrollouts.new() title"+title)
+		Rollout_v title:title
+    ),
 	
 	/** Add sub rollouts
      */
     function addSubRollouts =
     (
-		for UI_Element in UI_Elements do
-			if ( ((filterString( classof UI_Element as string ) "_*(:" )[2]) == "Subrollouts" ) then
-				UI_Element.addSubRollouts()
+		for Subrollouts in UI_Elements do
+			if ( this.isSubrollout Subrollouts ) then
+				Subrollouts.addSubRollouts()
     ),
 	
+	/** Test
+     */
+    function test =
+    (
+        messageBox "Yupiii" beep:false
+    ),
 	private
 
+	/** Is subrollout
+     */
+    function isSubrollout _struct =
+    (
+        ((filterString( classof _struct as string ) "_*(:" )[2]) == "Subrollouts" --return
+    ),
+	
 	/** Set id by title if not defined
 	 */
 	function _setId =

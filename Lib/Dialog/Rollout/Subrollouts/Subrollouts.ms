@@ -19,7 +19,7 @@ struct Subrollouts_v
     function new title =
     (
         --print("Subrollouts.new() title"+title)
-		new_subrollout = Rollout_v title:title Parent_roll:this
+		new_subrollout = Parent_roll.new title
 		--format "new_subrollout=%"new_subrollout
 		append Rollouts new_subrollout
 		
@@ -52,8 +52,8 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		if not ( this._anySubrolloutExists() ) then
-			return()
+		--if not ( this._anySubrolloutExists() ) then
+			--return()
 			
 		"subrollout "+slot+" \"slot_name\" height:128" --return
 	),
@@ -78,10 +78,10 @@ struct Subrollouts_v
 	
 	/** Any subrollout exists
 	 */
-	function _anySubrolloutExists =
-	(
-		Rollouts.count > 0 --return
-	),
+	--function _anySubrolloutExists =
+	--(
+	--	Rollouts.count > 0 --return
+	--),
 	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT

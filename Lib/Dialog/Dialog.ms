@@ -26,8 +26,9 @@ struct Dialog_v
 	/* dependency */
 	_RolloutMain,
 	
-	/* config */	
+	/*  properties */
 	id,
+	--Rollouts,
 	
 	/* options */	
 	
@@ -54,21 +55,28 @@ struct Dialog_v
 		_RolloutMain.addSubRollouts()
 	),
 	
-	/** Set rollout in Dialog
-	  * UPDATE OF THIS BLOCK IS NEEDED
-	  *
-	  * @param	string	title	Title of rollout
-	  * @param	string	id	Id of roullout, if empty then sanitized title is used
-	  * @return	[Rollout](../Rollouts/Rollout)
-	  *
-	  * @example roll "Roll Title" "rollout_id" 	// set rollout
-	  * @example roll "Roll Title" "" 	// set rollout, id will be sanitized title "roll_title"
-	  */
-	function roll title id:  =
-	(
-		--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
-		_RolloutMain.subrollout title id:id --return
-	),
+	/** rollouts
+     */
+    function rollouts =
+    (
+        _RolloutMain.subrollouts() --return
+    ),
+	
+	--/** Set rollout in Dialog
+	--  * UPDATE OF THIS BLOCK IS NEEDED
+	--  *
+	--  * @param	string	title	Title of rollout
+	--  * @param	string	id	Id of roullout, if empty then sanitized title is used
+	--  * @return	[Rollout](../Rollouts/Rollout)
+	--  *
+	--  * @example roll "Roll Title" "rollout_id" 	// set rollout
+	--  * @example roll "Roll Title" "" 	// set rollout, id will be sanitized title "roll_title"
+	--  */
+	--function roll title id:  =
+	--(
+	--	--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
+	--	Subrollouts.new title id:id --return
+	--),
 		
 	private
 	
