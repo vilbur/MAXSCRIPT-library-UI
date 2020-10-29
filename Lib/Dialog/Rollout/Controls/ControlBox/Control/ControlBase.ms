@@ -7,11 +7,13 @@
 	__construct = #( #type, #caption ),
 	
 	/* dependency */
-	ControlId	= ControlId_v	Parent_control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
-	--Props	= Props_v	Control:this,
+	--Props	    = Props_v	Control:this,
 
-	--Parent_roll,
+	/* reference */
+	Parent_roll,
+
+	/* properties */ 
 	name_of_value_param	= #value,
 	value,
 	
@@ -72,10 +74,11 @@
 		control_exists	= false 
 
 		--if( Parent_roll.exists() ) then
-		--	try(
-		--		control_exists = (execute ControlId.full) != undefined
-		--		
-		--	)catch()
+			try(
+				--control_exists = (execute ControlId.full) != undefined
+				
+				
+			)catch()
 		
 		control_exists --return
 	),

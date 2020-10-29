@@ -1,9 +1,9 @@
 
 --filein( getFilenamePath(getSourceFileName()) + "/Control/ControlId/ControlId.ms" )
 --filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEvents.ms" )
---filein( getFilenamePath(getSourceFileName()) + "/Control/Props/Props.ms" )
---
+
 filein( getFilenamePath(getSourceFileName()) + "/ControlBox/ControlBox.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/ControlBox/Control/Props/Props.ms" )
 
 
 /** Controls
@@ -38,56 +38,6 @@ struct Controls_v
 
 		ControlBox --return
 	),
-
-	--/** Add controls to rollout
-	-- */ 
-	--function _addControlsToRollout =
-	--(
-	--	--format " ControlBoxes	= % \n" ControlBoxes
-	--	for ControlBox in ControlBoxes do
-	--		this._addControls ControlBox.controls
-	--		--format " ControlBox	= % \n" ControlBox
-	--),
-	--/** Add each control to rollout
-	--  *
-	--  * @param	[Control_v]	controls	Array of Control_v
-	-- */
-	--function _addControls controls =
-	--(
-	--	--format "controls = % \n" controls
-	--	for Control in controls do
-	--			this._addControlToUi Control
-	--		--if( Control.type != #rolloutcontrol ) then 
-	--		--else
-	--			--this._addRollout Control
-	--),
-	--/** Add each control to rollout
-	-- *
-	-- * @param	[Control_v]	controls	Array of Control_v
-	-- */
-	--function _addControlToUi Control =
-	--(
-	--	Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
-	--),
-	--/** _add rollout
-	-- */
-	--function _addRollout _rollout =
-	--(
-	--	--print "------------\nControls._addRollout()"
-	--	Parent_roll.RolloutCreator.addText "subrollout subrollouts \"Subrollouts\""
-	--),
-	
-	--/** Get Controls for rollout
-	--  * @param	string	[groupbox]	Title of group box
-	--  * @return [Controls](../../Controls)
-	-- */
-	--function controls groupbox:undefined =
-	--(
-
-	--),
-	--groupbox, -- caption of groupbox
-	--ControlBox	= ControlBox_v(),
-	--Controls	= #(),
 
 	--/**  Add control of any type
 	-- *  @param	string	type	Type of control

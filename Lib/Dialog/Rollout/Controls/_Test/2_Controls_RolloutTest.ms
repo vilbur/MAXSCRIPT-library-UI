@@ -7,7 +7,7 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 
 
-controls_1    = _Rollout.Controls.new "Groupbox 1"
+Controls_1    = _Rollout.Controls.new "Groupbox 1"
 
 Subrollouts_A = _Rollout.subrollouts()
 
@@ -22,8 +22,8 @@ _SubRollout_B1_controls = _SubRollout_B1.Controls.new "SubRollout A1 controls"
 
 
 
-controls_1.button "Button before subrollouts A"
-controls_2.button "Button after subrollouts B"
+--Controls_1.button "Button before subrollouts A"
+--controls_2.button "Button after subrollouts B"
 --_SubRollout_B1_controls.button "Button in subrollout 2"
 
 

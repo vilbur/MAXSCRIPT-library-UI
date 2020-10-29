@@ -43,13 +43,14 @@ struct ControlBox_v
 	 */
 	function _newControl _Control add:true =
 	(
+		--_Control.Parent_roll = Parent_roll
+		
 		if( add ) then
 			this.add _Control
 		
 		_Control --return
 	),
 	
-
 	/** Add to rollout
      */
     function _create =
@@ -67,7 +68,7 @@ struct ControlBox_v
 	(
 		--format "controls = % \n" controls
 		for Control in controls do
-				this._addControlToUi Control
+			this._addControlToUi Control
 	),
 	/** Add each control to rollout
 	 *

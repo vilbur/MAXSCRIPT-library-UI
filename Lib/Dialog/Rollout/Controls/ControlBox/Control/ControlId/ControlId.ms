@@ -48,15 +48,16 @@ struct ControlId_v
 	(
 		id = Parent_control.caption + "_" + Parent_control.type as string
 	),
-
-	/** _set id full
+/** Set full id with rollout id
 	 */
 	function _setIdFull =
 	(
-		--print "HOTFIX ------------\nControlId._setIdFull()"
+		print "------------\nControlId._setIdFull()"
 		--full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
+		--print ("full="+full)
 		--full	= id -- hotfix
 	),
+	
 	/** Sanitize id
 	 */
 	function _sanitizeId =

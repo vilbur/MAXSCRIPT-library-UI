@@ -30,19 +30,48 @@ struct Rollout_v
 	id,
 
 	/* properties */
-	subrollouts_slot = 0,
+	slot_id = 0,
 	
 	/* dependency */
 	RolloutCreator,
 	
-	--Subrollouts	= Subrollouts_v slot:subrollouts_slot,
+	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls	= Controls_v    Parent_roll:this,
 	
 	UI_Elements	= #(),  -- store subrollouts and controlboxes
 
-	/* reference */
-	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
-
+	/* referenceosvcsocs.new() title"+title)
+		Rollout_v title:title Parent_roll:Parent_roll
+    ),	
+	
+	/** New	subrollout
+	  *
+	  * @return	object Rollout_v	
+     */
+    function new title =
+    (
+        --print("Subrollouts.new() title"+title)
+		Rollout_v title:title
+    ),
+	
+	/** Add subrollout
+	  *
+	  * @return	object new instance of Subrollouts_v
+	 */
+	function subrollouts =
+	(
+		--print "Rollout_v.subrollouts()"
+		--format "id = %"id
+		
+		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (slot_id+=1) as string ) Parent_roll:this
+		--print UI_Elements.count
+		--format "UI_Elements=%"UI_Elements
+		--format "\n_Subrollouts=%"_Subrollouts
+		append UI_Elements _Subrollouts
+		--print UI_Elements.count	
+		
+		_Subrollouts --return 
+	), 
 
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
 	  * Used for creation of rollout and subrollout subrollout
@@ -55,55 +84,23 @@ struct Rollout_v
 	
 		RolloutCreator.endOfCreation()
 	),
-
-	/** Add subrollout
-	  *
-	  * @return	object new instance of Rollout_v
-	 */
-	function subrollouts =
-	(
-		print "Rollout_v.subrollouts()"
-		
-		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (subrollouts_slot+=1) as string ) Parent_roll:this
-		--print UI_Elements.count
-		--format "UI_Elements=%"UI_Elements
-		--format "\n_Subrollouts=%"_Subrollouts
-		append UI_Elements _Subrollouts
-		--print UI_Elements.count	
-		
-		_Subrollouts --return 
-	),
-	
-	/** New	subrollout
-	  *
-	  * @return	object Rollout_v	
-     */
-    function new title =
-    (
-        --print("Subrollouts.new() title"+title)
-		Rollout_v title:title
-    ),
 	
 	/** Add sub rollouts
      */
     function addSubRollouts =
     (
+		--format "\nRollout.addSubRollouts() id = %"id
+		--print ("Rollout.addSubRollouts() id = "+id)
 		for Subrollouts in UI_Elements do
-			if ( this.isSubrollout Subrollouts ) then
+			if ( this.isSubrollouts Subrollouts ) then
 				Subrollouts.addSubRollouts()
     ),
-	
-	/** Test
-     */
-    function test =
-    (
-        messageBox "Yupiii" beep:false
-    ),
+
 	private
 
-	/** Is subrollout
+	/** Is subrollout class
      */
-    function isSubrollout _struct =
+    function isSubrollouts _struct =
     (
         ((filterString( classof _struct as string ) "_*(:" )[2]) == "Subrollouts" --return
     ),
