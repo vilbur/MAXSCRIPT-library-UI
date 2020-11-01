@@ -5,25 +5,22 @@ filein( getFilenamePath(getSourceFileName()) + "/../Dialog.ms" )
 
 _Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
-Rollouts = _Dialog.rollouts()
+/* DEFINE SLOTS FOR ROLLOUTS */ 
+Rollouts_1 = _Dialog.rollouts()
+Rollouts_2 = _Dialog.rollouts()
 
-rollout_A	= Rollouts.new "Rollout A"
---rollout_B	= Rollouts.new "Rollout B"
+
+/* DEFINE ROLLOUTS */ 
+Rollout_A	= Rollouts_1.new "Rollout A"
+Rollout_B	= Rollouts_1.new "Rollout B"
+Rollout_C	= Rollouts_2.new "Rollout C"
 
 
-Subrollouts_A = rollout_A.subrollouts()
+/* DEFINE SUBROLLOUTS */ 
+Subrollouts_A = Rollout_A.subrollouts()
 
 SubRollout_A1 = Subrollouts_A.new   "Subrollout A1"
---SubRollout_A2 = Subrollouts_A.new   "Subrollout A2"
---
---
---SubSubRollouts_A = SubRollout_A1.subrollouts()
---SubSubRollout_A1 = SubSubRollouts_A.new   "SubSubrollout A"
-
-
---Subrollouts_B = _Rollout.subrollouts()
---SubRollout_B1 = Subrollouts_B.new   "Subrollout B1"
-
+SubRollout_A2 = Subrollouts_A.new   "Subrollout A2"
 
 
 /*------ CREATE FLOATER DIALOG ------*/
