@@ -38,8 +38,8 @@ struct Rollout_v
 	RolloutCreator,
 	
 	--Subrollouts	= Subrollouts_v slot:slot_id,
- 	Controls	= Controls_v        Parent_roll:this,
-	Property	= RolloutProperty_v	Parent_roll:this,
+ 	Controls  = Controls_v        Parent_roll:this,
+	_Property = RolloutProperty_v	Parent_roll:this,
 
 	UI_Elements	= #(),  -- store subrollouts and controlboxes
 	
@@ -73,6 +73,14 @@ struct Rollout_v
 	(
 		execute ( id+".open = "+state as string )
 	),
+	
+	/** Property
+     */
+    function property name: title: =
+    (
+		--property_name_and_value = this.findSuppliedParameters #(#name, #title) #(name, title)
+		this._Property._setProperty #(#name, #title) #(name, title)
+    ),
 	
 	private
 	

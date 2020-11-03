@@ -1,8 +1,11 @@
-
-
 /** Rollout properties
   * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
-  *
+  * 
+  * @method	voidself	methodName( @par )	
+  * 
+  * 
+  * 
+  * 
  */
 struct RolloutProperty_v
 (
@@ -10,44 +13,62 @@ struct RolloutProperty_v
 	
 	/* reference */
 	Parent_roll,
-	
-	
-	/** Height
-	 */
-	function title value =
-	(
-		--print ( "!!! TEST !!!" as String )
-		this._setProperty #title value
-	),
-	
-	
-	--property_keys	=  #(#width, #height, #pos),
-	--include "Library/_UI/Lib/Property/PropertyMethods.ms"
-	
-	--private
-
-	--/** _call setters
-	-- */
-	--function _callProperty property value relative =
-	--(
-	--	--print ("------------\nDialogProperty._callProperty #" + property as string)
-	--	Parent_roll.setProp	property value relative 
-	--),
-	
-	--public
-
-	--private
 
 	/** Set property
 	  *
 	  * @property	name	key	of property E.G.: #height
 	  * @property	mixed	value	of property
 	 */
-	function _setProperty key value =
+	function _setProperty nanes values =
 	(
-		--print ("------------\nRolloutProperty._setProperty() " + key as string )
+	  param_name_and_value = this.findSuppliedParameters nanes values
+	  
+	  key   = param_name_and_value[1]
+	  value = param_name_and_value[2]
+
+		--print ("------------\nRolloutProperty.setProperty() " + key as string )
 		execute ( this._getPropertyString key + " = " + this._getValue key value )
+	),	
+	
+	/** Set name of rollout
+	 */
+	function name value =
+	(
+		--print ( "!!! TEST !!!" as String )
+		this.setProperty #name value
 	),
+		
+	/** Set title of rollout
+	 */
+	function title value =
+	(
+		--print ( "!!! TEST !!!" as String )
+		this.setProperty #title value
+	),
+	
+	
+	/** Find supplied parameters
+	  *
+	  * @param	array _parameters_names array of keys
+	  * @param	array _parameters_names array of values
+	  *
+	  * @return	array #( parameter_name, parameter_value )		
+	  *
+	  * @example
+	  *     function foo param_1: param_2: =
+	  *		(
+	  *			param_name_and_value = this.findSuppliedParameters #(#param_1, #param_2) #(unsupplied, "value_2") 
+	  *			-- return (#param_2, "value_2")
+	  * 	)
+     */
+    function findSuppliedParameters _parameters_names _parameters =
+    (
+		for i = 1 to _parameters.count  where not ( _parameters[i] == unsupplied ) do
+			return #( _parameters_names[i], _parameters[i] )
+    ),
+	--private
+
+
 	/** Get property string
 	  *
 	  * Return string element_id.property_name
