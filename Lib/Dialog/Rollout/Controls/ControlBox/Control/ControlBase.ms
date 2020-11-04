@@ -7,7 +7,7 @@
 	__construct = #( #type, #caption ),
 	
 	/* dependency */
-	ControlId	= ControlId_v	Parent_control:this,
+	Id      	= ControlId_v	Parent_control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
 	--Props	    = Props_v	Control:this,
 
@@ -19,7 +19,6 @@
 	value,
 	
 	/* options */
-	id,
 	_col 	= 4,
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 	
@@ -27,7 +26,14 @@
 	--pressed	 = Events.pressed,
 	--changed	 = Events.changed,
 	--rightclick = Events.rightclick,
-	
+
+	/** _set id
+	 */
+	function setId id =
+	(
+		this.Id.setId id
+	),
+		
 	/** Set parameters for control
 	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	 */
@@ -69,14 +75,14 @@
 	 */
 	function exists =
 	(
-		print "------------\nControlExtends.exists()"
-		print "HOTFIX"
-		--format " ControlId.full	= % \n" ControlId.full
-		control_exists	= false 
+		print "HOTFIX ------------\nControlBase.exists()"
+		--print "HOTFIX"
+		--format " Id.full	= % \n" Id.full
+		control_exists	= true 
 
 		--if( Parent_roll.exists() ) then
 			try(
-				--control_exists = (execute ControlId.full) != undefined
+				--control_exists = (execute Id.full) != undefined
 				
 				
 			)catch()
@@ -92,15 +98,6 @@
 		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
 
-	/** _set id
-	 */
-	function setId id =
-	(
-		ControlId.setId id
-		
-		this.id = ControlId.id
-	),
-	
 	--private
 	
 	/** Add quotes to parameter if value is string

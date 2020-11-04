@@ -1,7 +1,7 @@
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
 
 
@@ -107,7 +107,7 @@ struct Rollout_v
 	 */
 	function _destroy =
 	(
-		try( execute("cui.UnRegisterDialogBar " +i d) )catch()
+		try( execute("cui.UnRegisterDialogBar " + id) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
 	),
 

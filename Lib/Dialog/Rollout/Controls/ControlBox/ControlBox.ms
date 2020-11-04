@@ -25,15 +25,7 @@ struct ControlBox_v
 	id,
 	controls	= #(),
 	
-
-	/** Add control to rollout
-	 */
-	function add &Control =
-	(
-		append controls Control
-	),
-	
-	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlTypes.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
@@ -41,9 +33,10 @@ struct ControlBox_v
 	 * 
 	 *  @return	[Control](../../Control)
 	 */
-	function _newControl _Control add:true =
+	function _newControl _Control id: add:true =
 	(
-		--_Control.Parent_roll = Parent_roll
+		_Control.Parent_roll = Parent_roll
+		_Control.setId id
 		
 		if( add ) then
 			this.add _Control
@@ -51,13 +44,19 @@ struct ControlBox_v
 		_Control --return
 	),
 	
+	/** Add control to rollout
+	 */
+	function add &Control =
+	(
+		append controls Control
+	),
+	
 	/** Add to rollout
      */
     function _create =
     (
-		--print ( "\n"+ toLower (( filterString( classof this as string ) "_*(:" )[2]) )
 		for Control in controls do
-				this._addControlToUi Control	
+			this._addControlToUi Control	
     ),
 	
 	/** Add each control to rollout
@@ -76,8 +75,8 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		format "_addControlToUi() %" Control.id
-		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
+		--print("ControlBox_v._addControlToUi "+ Control.type as string +" "+  Control.id  as string +" "+  Control.caption as string )
+		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption
 	),
 
 	--/** Add id

@@ -1,15 +1,13 @@
-	on create do
-	(
+on create do
+(
+
+	this._setType()
 	
-		this._setType()
-		
-		this._checkConstctructProperties()
-		
-		this._setCaption()
-		
-		this.setId id
-		
-		--this._setValue()
-		
-		--this.Events.setDefaultEvents()
-	)
+	this._checkConstctructProperties()
+	
+	this._setCaption()
+			
+	--this._setValue()
+	
+	--this.Events.setDefaultEvents()
+)

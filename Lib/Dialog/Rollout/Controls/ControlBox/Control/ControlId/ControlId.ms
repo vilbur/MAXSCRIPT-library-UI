@@ -27,6 +27,7 @@ struct ControlId_v
 		
 		this._setIdFull()
 	),
+	
 	/** Get
 	 */
 	function get =
@@ -42,18 +43,20 @@ struct ControlId_v
 	(
 		( id == unsupplied or id == undefined ) == false  --return
 	),
+	
 	/** Use controls caption, if id is unsuplied
 	 */
 	function _setIdByConrolType =
 	(
 		id = Parent_control.caption + "_" + Parent_control.type as string
 	),
-/** Set full id with rollout id
+	
+	/** Set full id with rollout id
 	 */
 	function _setIdFull =
 	(
 		print "------------\nControlId._setIdFull()"
-		--full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
+		full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
 		--print ("full="+full)
 		--full	= id -- hotfix
 	),
