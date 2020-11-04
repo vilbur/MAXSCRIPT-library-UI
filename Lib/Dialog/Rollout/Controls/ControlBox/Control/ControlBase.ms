@@ -9,7 +9,7 @@
 	/* dependency */
 	Id      	= ControlId_v	Parent_control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
-	--Props	    = Props_v	Control:this,
+	Props	    = Props_v	Control:this,
 
 	/* reference */
 	Parent_roll,

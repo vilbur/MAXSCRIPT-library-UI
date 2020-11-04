@@ -1,4 +1,3 @@
-
 /** Control id
  */
 struct ControlId_v
@@ -55,10 +54,7 @@ struct ControlId_v
 	 */
 	function _setIdFull =
 	(
-		print "------------\nControlId._setIdFull()"
 		full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
-		--print ("full="+full)
-		--full	= id -- hotfix
 	),
 	
 	/** Sanitize id

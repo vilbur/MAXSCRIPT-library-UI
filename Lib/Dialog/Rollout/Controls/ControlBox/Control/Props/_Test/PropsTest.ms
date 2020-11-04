@@ -54,10 +54,5 @@ _Rollout.createRollout()
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
---_Rollout.addSubRollouts()
 
-
-
-
-
---addParameterToExistingControlsTest()
+addParameterToExistingControlsTest()

@@ -28,7 +28,7 @@ _SubRollout_B_controls = _SubRollout_B.Controls.new "SubRollout B controls"
 
 
 /* DEFINE CONTROLS */ 
-Controls_1.button "Button 1 before subrollouts A"
+Controls_1.button "Button 1 before subrollouts A" id:"optionable_id"
 Controls_1.button "Button 2 before subrollouts A"
 
 controls_2.button "Button before subrollouts B"

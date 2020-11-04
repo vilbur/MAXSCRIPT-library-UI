@@ -13,7 +13,7 @@ struct Props_v
 	function add param value force:true =
 	(
 		print "------------\nProps.add()"
-
+	
 		--if( force == true or this.get param == undefined ) then  
 		--	Props.setVal param value
 		--
@@ -50,10 +50,10 @@ struct Props_v
 	(
 		--print "------------\nProps.join()"
 		params = ""
-
+	
 		for k=1 to Props.keys.count do
 			params = params + " " + Props.keys[k] +":"+ Props.values[k] as string
-
+	
 		--format " params	= % \n" params
 		params --return
 	),
@@ -66,23 +66,24 @@ struct Props_v
 	 */
 	function applyProp prop_name _value =
 	(
-		print "------------\nProps.applyProp()"
+		print ("------------\nProps.applyProp " +prop_name as string +":"+_value as string )
 		if( classOf _value == String ) then 
 			_value = "\""+_value as string +"\""
 		
+		--print ((this.propPath prop_name) + "="+_value as string ) -- set value
 		execute ((this.propPath prop_name) + "="+_value as string ) -- set value
 		
 		this --return	
 	),
-
+	
 	/** Get prop path
 	 */
 	function propPath prop_name =
 	(
-		--print "------------\nProps.propPath()"
-		Control.id.full + "." + ( prop_name as string ) --return
+		--print "------------\nProps.propPath() return " + Control.id + "." + ( prop_name as string )
+		Control.Id.full + "." + ( prop_name as string ) --return
 	),
-
+	
 	/** Get prop
 	 */
 	function getProp prop_name =
@@ -100,11 +101,5 @@ struct Props_v
 	),
 	
 	__construct = this._construct()	
-	
-	--function test =
-	--(
-	--	messagebox "Props.test()"
-	--)
-	
 	
 )
