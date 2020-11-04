@@ -75,8 +75,7 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		--print("ControlBox_v._addControlToUi "+ Control.type as string +" "+  Control.id  as string +" "+  Control.caption as string )
-		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption
+		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
 	),
 
 	--/** Add id

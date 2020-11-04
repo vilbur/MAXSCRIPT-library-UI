@@ -34,40 +34,42 @@
 		this.Id.setId id
 	),
 		
-	/** Set parameters for control
-	  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
-	 */
-	function params params_string =
-	(
-		string_split	= filterString params_string ","
-
-		for key_value_string in string_split do
-		(
-			key_value	= filterString key_value_string ":"
-			Props.add key_value[1] key_value[2]
-		)
-		this --return  
-	),
+	--/** Set parameters for control
+	--  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
+	-- */
+	--function params =
+	--(
+	--	--string_split	= filterString params_string ","
+	--	--
+	--	--for key_value_string in string_split do
+	--	--(
+	--	--	key_value	= filterString key_value_string ":"
+	--	--	Props.add key_value[1] key_value[2]
+	--	--)
+	--	--this --return
+	--	
+	--	"" --return
+	--),
 	
-	/** Param
-	 */
-	function param key value =
-	(
-		Props.add ( key as string ) value
-
-		this --return
-	),
+	--/** Param
+	-- */
+	--function param key value =
+	--(
+	--	Props.add ( key as string ) value
+	--
+	--	this --return
+	--),
 	
-	/** Set width of control in columns 
-	  * @param	integer	columns	Number of columns
-	  * @return	self
-	 */
-	function col columns =
-	(
-		_col = columns
-
-		this --return
-	),
+	--/** Set width of control in columns 
+	--  * @param	integer	columns	Number of columns
+	--  * @return	self
+	-- */
+	--function col columns =
+	--(
+	--	_col = columns
+	--
+	--	this --return
+	--),
 	
 	/** Find if control is rendered in ui already
 	  *
@@ -75,21 +77,17 @@
 	 */
 	function exists =
 	(
-		print "HOTFIX ------------\nControlBase.exists()"
-		--print "HOTFIX"
-		--format " Id.full	= % \n" Id.full
-		control_exists	= true 
+		--print "------------\nControlBase.exists()"
 
-		--if( Parent_roll.exists() ) then
+		control_exists	= false 
+
+		if( Parent_roll.exists() ) then
 			try(
-				--control_exists = (execute Id.full) != undefined
-				
-				
+				control_exists = (execute Id.full) != undefined
 			)catch()
-		
+
 		control_exists --return
 	),
-	
 
 	/** _set caption
 	 */

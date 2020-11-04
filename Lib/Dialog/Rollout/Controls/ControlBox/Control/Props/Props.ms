@@ -1,6 +1,8 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../../List/List.ms" )
 
-/** Props
+/** Control Properties
+  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_3880D745_8496_4DFB_8B31_4DEAC152DBB3_htm
+  *
  */
 struct Props_v
 (
@@ -12,24 +14,20 @@ struct Props_v
 	 */
 	function add param value force:true =
 	(
-		print "------------\nProps.add()"
+		print ("------------\nProps.add param:"+param as string + " value:" + value as string)
 	
 		--if( force == true or this.get param == undefined ) then  
-		--	Props.setVal param value
-		--
+			Props.setVal param value
+		
 		if ( Control.exists() ) then
 			this.applyProp param value
 		
 		this --return
 	), 
-	/** Get value
+	/** Get value of parameter
 	 */
 	function get param =
 	(
-		--print "------------\nProps.get()"
-		--format " param	= % \n" param
-		--format " Control.exists()	= % \n" (Control.exists())
-		
 		if not ( Control.exists() ) then
 			Props.getVal param -- return
 			
@@ -80,7 +78,7 @@ struct Props_v
 	 */
 	function propPath prop_name =
 	(
-		--print "------------\nProps.propPath() return " + Control.id + "." + ( prop_name as string )
+		print ("------------\nProps.propPath() return " + Control.id.full + "." + ( prop_name as string ))
 		Control.Id.full + "." + ( prop_name as string ) --return
 	),
 	

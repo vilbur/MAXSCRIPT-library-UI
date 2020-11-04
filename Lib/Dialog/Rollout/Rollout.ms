@@ -76,6 +76,13 @@ struct Rollout_v
 		this._Property.propertySet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
     ),
 	
+	/** Find if rollout has been added to UI already
+	 */
+	function exists =
+	(
+		(execute id) != undefined --return
+	),
+	
 	private
 	
 	/** Set id by title if not defined
