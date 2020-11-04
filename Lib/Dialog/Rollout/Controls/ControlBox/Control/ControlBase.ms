@@ -7,6 +7,7 @@
 	__construct = #( #type, #caption ),
 	
 	/* dependency */
+	ControlId	= ControlId_v	Parent_control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
 	--Props	    = Props_v	Control:this,
 
@@ -83,6 +84,14 @@
 		control_exists --return
 	),
 	
+
+	/** _set caption
+	 */
+	function _setCaption =
+	(
+		caption	= trimLeft ( trimRight caption "_" )  "_"
+	),
+
 	/** _set id
 	 */
 	function setId id =
@@ -133,12 +142,6 @@
 		Props.add #height dimensions[3] force:true
 	),
 
-	/** _set caption
-	 */
-	function _setCaption =
-	(
-		caption	= trimLeft ( trimRight caption "_" )  "_"
-	),
 
 	/** Get parameters
 	 */

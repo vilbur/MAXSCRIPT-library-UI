@@ -54,6 +54,7 @@ struct RolloutProperty_v
     ),
 	
 	/** Execute property
+	  * E.G.: execute("rollout_rollout_a.height = 128")
      */
     function _executeProperty key value =
     (
@@ -119,12 +120,6 @@ struct RolloutProperty_v
 	),
 	on create do
 	(
-		--print "------------\nRolloutProperty.create()"
-		
-		--format "Parent_roll.getId()	= % \n" (Parent_roll.getId())
-		
 		this._checkConstctructProperties()
 	)
-	
-	
 )

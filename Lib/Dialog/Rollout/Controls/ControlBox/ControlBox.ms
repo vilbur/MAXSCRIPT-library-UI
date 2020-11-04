@@ -76,6 +76,7 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
+		format "_addControlToUi() %" Control.id
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id Control.caption
 	),
 

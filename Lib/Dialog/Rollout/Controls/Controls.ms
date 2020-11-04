@@ -1,10 +1,4 @@
-
---filein( getFilenamePath(getSourceFileName()) + "/Control/ControlId/ControlId.ms" )
---filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEvents.ms" )
-
 filein( getFilenamePath(getSourceFileName()) + "/ControlBox/ControlBox.ms" )
---filein( getFilenamePath(getSourceFileName()) + "/ControlBox/Control/Props/Props.ms" )
-
 
 /** Controls
   *
@@ -21,7 +15,6 @@ struct Controls_v
 	/* reference */
 	Parent_roll,
 	/* properties */
-	--ControlBoxes	= #(),
 	
 	/** Get new groupbox of controls
 	 *
@@ -33,8 +26,7 @@ struct Controls_v
 	(
 		ControlBox 	= ControlBox_v Parent_roll:Parent_roll id:id
 
-		--append ControlBoxes ControlBox
-		append Parent_roll.UI_Elements ControlBox
+		append Parent_roll.Controls_and_Rollouts ControlBox
 
 		ControlBox --return
 	),

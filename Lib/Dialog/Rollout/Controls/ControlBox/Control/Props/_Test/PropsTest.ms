@@ -1,13 +1,12 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Rollout/Rollout.ms" )
-
+filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 --dialog_name = (getFilenameFile(getSourceFileName()))
 --filein ( getFilenamePath(getSourceFileName()) + "/../../../Test/inlcudes/ControlsIncludeTest.ms" )
 
 
 _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
-Controls      = _Rollout.Controls.new "Groupbox 1"
+Controls      = _Rollout.Controls.new "Controls 1"
 global btn_prop = Controls.button "Props test"
 
 /*---------------------------------------
