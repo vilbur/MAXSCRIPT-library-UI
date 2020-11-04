@@ -7,7 +7,7 @@
 	(
 		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (slot_id+=1) as string ) Parent_roll:this
 
-		append UI_Elements _Subrollouts
+		append Controls_and_Rollouts _Subrollouts
 		
 		_Subrollouts --return 
 	), 
@@ -16,7 +16,7 @@
      */
     function addSubRollouts =
     (
-		for Subrollouts in UI_Elements do
+		for Subrollouts in Controls_and_Rollouts do
 			if ( this.isSubrollouts Subrollouts ) then
 				Subrollouts.addSubRollouts()
     ),

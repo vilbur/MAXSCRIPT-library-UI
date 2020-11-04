@@ -1,6 +1,7 @@
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
 
 
@@ -41,7 +42,7 @@ struct Rollout_v
  	Controls  = Controls_v        Parent_roll:this,
 	_Property = RolloutProperty_v	Parent_roll:this,
 
-	UI_Elements	= #(),  -- store subrollouts and controlboxes
+	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	
 	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
@@ -59,27 +60,20 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		for UI_Element in UI_Elements do
-			UI_Element._create()
+		for Controls_and_Rollout in Controls_and_Rollouts do
+			Controls_and_Rollout._create()
 	
 		RolloutCreator.endOfCreation()
 	),
-
-	/** Open close rollout
-	  *
-	  * @property	boolean	state	open\close state of rollout
-	 */
-	function open state =
-	(
-		execute ( id+".open = "+state as string )
-	),
 	
-	/** Property
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
      */
-    function property name: title: =
+    function property name: title: open: scrollPos: height: width: =
     (
-		--property_name_and_value = this.findSuppliedParameters #(#name, #title) #(name, title)
-		this._Property._setProperty #(#name, #title) #(name, title)
+		this._Property.propertySet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
     ),
 	
 	private
