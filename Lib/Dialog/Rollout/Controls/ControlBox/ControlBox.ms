@@ -7,7 +7,7 @@ filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" 
 
 
 /** Section of controls, can be id if "ControlBox_v.id" is definded
-  *
+  * [ GroupBox UI Control ] (http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
   * Control types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
   *
   * @property	string	id	Store name of [ id ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
@@ -23,6 +23,8 @@ struct ControlBox_v
 	Parent_roll,
 	/* properties */
 	id,
+	groupbox,
+	
 	controls	= #(),
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
@@ -55,6 +57,8 @@ struct ControlBox_v
      */
     function _create =
     (
+		this._addGroupBox()
+		
 		for Control in controls do
 			this._addControlToUi Control	
     ),
@@ -69,6 +73,26 @@ struct ControlBox_v
 		for Control in controls do
 			this._addControlToUi Control
 	),
+
+
+	/** Set group box
+     */
+    function _setGroupBox =
+    (
+		if not( groupbox == unsupplied ) then
+			groupbox = this._newControl (Control_v type:#groupbox caption:groupbox ) id:id add:false
+    ),
+
+	/** Add id
+	 */
+	function _addGroupBox =
+	(
+		if not( groupbox == unsupplied ) then
+		(
+			this._addControlToUi groupbox
+		)
+	),
+	
 	/** Add each control to rollout
 	 *
 	 * @param	[Control_v]	controls	Array of Control_v
@@ -78,20 +102,6 @@ struct ControlBox_v
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
 	),
 
-	--/** Add id
-	-- */
-	--function addGroupBox =
-	--(
-	--	print "------------\nControlBox.addGroupBox()"
-	--	----print ( "ControlBox_v.addGroupBox() = " + id as string )
-	--	--if( id!=undefined ) then
-	--	format " this._getGroupboxParams()	= % \n" (this._getGroupboxParams())
-	--		--Parent_roll.roll.addControl #id (this.getId()) id paramStr:(this._getGroupboxParams())
-	--	--Parent_roll.roll.addControl #id (this.getId()) id
-	--	
-	--	--format " id	= % \n" id
-	--),
-	--
 	--/** Get id
 	-- */
 	--function getId =
@@ -105,30 +115,51 @@ struct ControlBox_v
 	--(
 	--	false
 	--),
-	--/*------------------------------------------------------------------------------
-	--	PRIVATE
-	----------------------------------------------------------------------------------*/
-	--/** _get id params
-	-- */
+	/*------------------------------------------------------------------------------
+		PRIVATE
+	--------------------------------------------------------------------------------*/
+	/** _get id params
+	 */
 	--function _getGroupboxParams =
 	--(
-	--	--print "------------\nControlBox._getGroupboxParams()"
-	--	dimensions	= Parent_roll.Layout._getGroupboxDimensions()
-	--	--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
-	--	
-	--	--Props	= Props_v Control:this
-	--	--
-	--	--Props.add #pos	dimensions[1]
-	--	--Props.add #width	dimensions[2]
-	--	--Props.add #height dimensions[3]
-	--	--Props.add #height 48
-	--	
-	--	--Props.join() --return
-	--	""
+		--print "------------\nControlBox._getGroupboxParams()"
+		--dimensions	= Parent_roll.Layout._getGroupboxDimensions()
+		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
+		
+		--Props	= Props_v Control:this
+		--
+		--Props.add #pos	dimensions[1]
+		--Props.add #width	dimensions[2]
+		--Props.add #height dimensions[3]
+		--Props.add #height 48
+		
+		--Props.join() --return
+		--""
 	--),
 	
-	function test =
+
+	/*------------------------------------------------------------------------------
+		CONSTRUCT
+	--------------------------------------------------------------------------------*/
+	
+	--/** Check if required properties are defined when an instance of the struct is created.
+	-- *	
+	-- * @example __construct = #( #property_name ) 
+	-- */
+	--function _checkConstctructProperties =
+	--(
+	--	for prop in __construct where getProperty this prop == undefined do
+	--		messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	--),
+	/**  
+	 */
+	on create do
 	(
-		messagebox "Control_v.test()"
+		--this._checkConstctructProperties()
+		this._setGroupBox()
+		
+		
 	)
+	
+	
 )

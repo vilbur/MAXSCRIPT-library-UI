@@ -1,8 +1,5 @@
 clearListener()
-
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
---dialog_name = (getFilenameFile(getSourceFileName()))
---filein ( getFilenamePath(getSourceFileName()) + "/../../../Test/inlcudes/ControlsIncludeTest.ms" )
 
 
 global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
@@ -20,7 +17,7 @@ function setPropertiesBeforeCretion =
 (
 	btn_props.Props.add #width  128
 	btn_props.Props.add #height 64
-	--btn_props.Props.add #border false
+	btn_props.Props.add #border false
 )
 
 /** Add parameter to existing controls
