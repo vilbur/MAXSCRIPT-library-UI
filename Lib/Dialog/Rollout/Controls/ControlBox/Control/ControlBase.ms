@@ -59,18 +59,7 @@
 	--
 	--	this --return
 	--),
-	
-	--/** Set width of control in columns 
-	--  * @param	integer	columns	Number of columns
-	--  * @return	self
-	-- */
-	--function col columns =
-	--(
-	--	_col = columns
-	--
-	--	this --return
-	--),
-	
+
 	/** Find if control is rendered in ui already
 	  *
 	  * When rollout is rendered, then control is rendered immediately
@@ -103,7 +92,7 @@
 	 */
 	function _setValueParameter value =
 	(
-		--print "------------\nControlExtends._setValueParameter()"
+		--print "------------\nControlBase._setValueParameter()"
 		this.param name_of_value_param (this._formatDatatypeValue value)
 	),
 	/** Format datatype of value
@@ -125,13 +114,12 @@
 	
 	/** _set dimensions
 	 */
-	function _setDimensions =
+	function setLayoutCoordinates =
 	(
-		--print "------------\nControlExtends._setDimensions()"
+		--print "ControlBase.setLayoutCoordinates()"
 		dimensions = Parent_roll.Layout.setControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
-		--format " Props.get #width = % \n" (Props.get #width)
-		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
-
+		----format " Props.get #width = % \n" (Props.get #width)
+		
 		Props.add #pos    dimensions[1] force:true
 		Props.add #width  dimensions[2] force:true
 		Props.add #height dimensions[3] force:true
@@ -196,7 +184,7 @@
 	-- */
 	--function _getValueFromIni =
 	--(
-	--	print "------------\nControlExtends._getValueFromIni()"
+	--	print "------------\nControlBase._getValueFromIni()"
 	--	print "HOTFIX"
 	--	ini_path = Parent_roll.ini
 	--	

@@ -7,11 +7,11 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 
 /* DEFINE LAYOUT OF CONTROLS & ROLLOUTS */ 
-Controls_1    = _Rollout.Controls.new "Groupbox 1"
+Controls_1    = _Rollout.Controls.new groupbox:"Groupbox 1"
 
 Subrollouts_A = _Rollout.subrollouts()
 
-controls_2    = _Rollout.Controls.new "Groupbox 2"
+controls_2    = _Rollout.Controls.new groupbox:"Groupbox 2"
 
 Subrollouts_B = _Rollout.subrollouts()
 
@@ -24,7 +24,7 @@ _SubRollout_B = Subrollouts_B.new   "Subrollout B1"
 
 
 /* DEFINE SUBROLLOUT CONTROLS */ 
-_SubRollout_B_controls = _SubRollout_B.Controls.new "SubRollout B controls"
+_SubRollout_B_controls = _SubRollout_B.Controls.new groupbox:"SubRollout B controls"
 
 
 /* DEFINE CONTROLS */ 

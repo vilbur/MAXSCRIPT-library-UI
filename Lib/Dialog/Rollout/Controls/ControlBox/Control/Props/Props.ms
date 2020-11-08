@@ -8,52 +8,55 @@ struct Props_v
 (
 	Control,
 
-	Props	= List_v(),
+	Params	= List_v(),
 
 	/** Add value
 	 */
 	function add param value force:true =
 	(
-		print ("------------\nProps.add param:"+param as string + " value:" + value as string)
+		--print ("------------\nProps.add param:"+param as string + " value:" + value as string)
 	
 		--if( force == true or this.get param == undefined ) then  
-			Props.setVal param value
+			Params.setVal param value
 		
 		if ( Control.exists() ) then
 			this.applyProp param value
 		
 		this --return
-	), 
+	),
+ 
 	/** Get value of parameter
 	 */
 	function get param =
 	(
 		if not ( Control.exists() ) then
-			Props.getVal param -- return
+			Params.getVal param -- return
 			
 		else
 			this.getProp param 
 	),
+
 	/** Remove
 	 */
 	function remove param =
 	(
-		Props.delete param
+		Params.delete param
 		
 		this
 	),
+	
 	/** Join array
 	 */
 	function join =
 	(
 		--print "------------\nProps.join()"
-		params = ""
+		_params = ""
 	
-		for k=1 to Props.keys.count do
-			params = params + " " + Props.keys[k] +":"+ Props.values[k] as string
+		for k=1 to Params.keys.count do
+			_params = _params + " " + Params.keys[k] +":"+ Params.values[k] as string
 	
-		--format " params	= % \n" params
-		params --return
+		--format " _params	= % \n" _params
+		_params --return
 	),
 	
 	/*------------------------------------------------------------------------------

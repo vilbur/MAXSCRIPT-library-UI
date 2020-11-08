@@ -53,26 +53,26 @@ struct ControlBox_v
 		append controls Control
 	),
 	
-	/** Add to rollout
+	/** Create controls and add them to UI
      */
     function _create =
     (
-		this._addGroupBox()
+		this._addGroupBoxToUi()
 		
 		for Control in controls do
 			this._addControlToUi Control	
     ),
 	
-	/** Add each control to rollout
-	  *
-	  * @param	[Control_v]	controls	Array of Control_v
-	 */
-	function _addControls controls =
-	(
-		--format "controls = % \n" controls
-		for Control in controls do
-			this._addControlToUi Control
-	),
+	--/** Add each control to rollout
+	--  *
+	--  * @param	[Control_v]	controls	Array of Control_v
+	-- */
+	--function _addControls controls =
+	--(
+	--	--format "controls = % \n" controls
+	--	for Control in controls do
+	--		this._addControlToUi Control
+	--),
 
 
 	/** Set group box
@@ -85,12 +85,12 @@ struct ControlBox_v
 
 	/** Add id
 	 */
-	function _addGroupBox =
+	function _addGroupBoxToUi =
 	(
-		if not( groupbox == unsupplied ) then
-		(
-			this._addControlToUi groupbox
-		)
+		if ( groupbox == unsupplied ) then
+			return false
+			
+		this._addControlToUi groupbox
 	),
 	
 	/** Add each control to rollout
@@ -99,6 +99,11 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
+		print ("------------\nControlBox._addControlToUi "+(Control.Id.get()) as string )
+		
+		
+		Control.setLayoutCoordinates()
+		
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
 	),
 
@@ -157,9 +162,6 @@ struct ControlBox_v
 	(
 		--this._checkConstctructProperties()
 		this._setGroupBox()
-		
-		
 	)
-	
 	
 )

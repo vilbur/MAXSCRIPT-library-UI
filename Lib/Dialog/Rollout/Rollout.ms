@@ -3,7 +3,7 @@ filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
-
+filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
 global add_subrollouts = " "
 
@@ -40,7 +40,8 @@ struct Rollout_v
 	
 	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls  = Controls_v        Parent_roll:this,
-	_Property = RolloutProperty_v	Parent_roll:this,
+	Layout	  = Layout_v(),
+	_Property = RolloutProperty_v Parent_roll:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	

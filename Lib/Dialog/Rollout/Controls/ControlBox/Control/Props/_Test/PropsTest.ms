@@ -3,7 +3,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 
 
 global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
-global Controls     = _Rollout.Controls.new "Controls 1"
+global Controls     = _Rollout.Controls.new groupbox:"Controls 1"
 global btn_no_props = Controls.button "Button No Properties"
 global btn_props    = Controls.button "Button Properties"
 
