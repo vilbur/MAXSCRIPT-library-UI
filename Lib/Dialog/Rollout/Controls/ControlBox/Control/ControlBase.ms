@@ -117,12 +117,9 @@
 	function setLayoutCoordinates =
 	(
 		--print "ControlBase.setLayoutCoordinates()"
-		dimensions = Parent_roll.Layout.setControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
-		----format " Props.get #width = % \n" (Props.get #width)
+		dimensions = Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
 		
-		Props.add #pos    dimensions[1] force:true
-		Props.add #width  dimensions[2] force:true
-		Props.add #height dimensions[3] force:true
+		Props.setDimensions dimensions
 	),
 
 

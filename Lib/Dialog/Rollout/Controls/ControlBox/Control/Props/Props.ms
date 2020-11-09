@@ -25,6 +25,15 @@ struct Props_v
 		this --return
 	),
  
+	/** Set dimensions
+     */
+    function setDimensions dimensions =
+    (
+		this.add #pos    dimensions[1] force:true
+		this.add #width  dimensions[2] force:true
+		this.add #height dimensions[3] force:true
+    ),
+	
 	/** Get value of parameter
 	 */
 	function get param =

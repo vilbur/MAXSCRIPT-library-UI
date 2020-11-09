@@ -16,7 +16,7 @@ struct Layout_v
 	box_padding	= 16,
 
 	box_origin	= [ margin*2, 4 ],	-- store origin of controls box
-	pos_last,		        -- store origin of last added control 
+	pos_last,		                -- store origin of last added control 
 
 	
 	/** Set dimensions of control, add to Bounding box
@@ -24,7 +24,7 @@ struct Layout_v
 	  * @param	int	col	Width of control
 	  *
 	 */
-	function setControlDimensions col pos width height =
+	function getControlDimensions col pos width height =
 	(
 		print "Layout.setControlDimensions()"
 		--format " col	= % \n pos 	 = % \n width  = % \n height = % \n\n" col pos width height
@@ -33,8 +33,8 @@ struct Layout_v
 		--format " width_raw	= % \n" width_raw
 		this._trySetNewControlsRow width_raw
 		
-		position = if( pos    == undefined ) then [ pos_last[1] + padding, pos_last[2] ] else pos    as integer 
-		height   = if( height == undefined ) then column_width - padding * 2                    else height as integer 
+		position = if( pos    == undefined ) then [ pos_last[1] + padding, pos_last[2] ] else pos
+		height   = if( height == undefined ) then column_width - padding * 2             else height as integer 
 		width    =  width_raw - padding * 2
 		format " this	= % \n" this 
 		
@@ -55,12 +55,12 @@ struct Layout_v
 	function newControlsBox =
 	(
 		print "------------\nLayout.newControlsBox()"
-		--if( pos_last == undefined ) then -- first control box in rollout
-			pos_last = box_origin
+		if( pos_last != undefined ) then
+			box_origin = [ box_origin[1], pos_last[2] ]
+			--box_origin = [ box_origin[1], pos_last[2] ]
 		
-	--	else
-	--		pos_last = box_origin = [ box_origin[1], pos_last[2] ] -- any other control box in rollout
-	--
+		pos_last = box_origin
+		
 	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
 	--		pos_last[2] += box_padding
 	
@@ -91,11 +91,19 @@ struct Layout_v
 		--#(
 		--	[ box_origin[1] - margin, box_origin[2] - box_padding ],
 		--	( Bbox.width + margin ),
-
+		--
 		--	( Bbox.height + margin )
-		--	--( pos_last[2] - box_origin[2] + column_width + box_padding )		
+		--	( pos_last[2] - box_origin[2] + column_width + box_padding )		
 		--)
-		#()
+		#(
+			[box_origin[1],  -- pos X
+			 box_origin[2]], -- pos Y
+		  
+			Bbox.width,
+			Bbox.height
+		)
+
+		--#( [0,50], 256, 64 )
 	),
 
 	/** Try set new controls row

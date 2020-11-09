@@ -23,7 +23,7 @@ struct ControlBox_v
 	Parent_roll,
 	/* properties */
 	id,
-	groupbox,
+	Groupbox,
 	
 	controls	= #(),
 	
@@ -52,47 +52,58 @@ struct ControlBox_v
 	(
 		append controls Control
 	),
-	
-	/** Create controls and add them to UI
-     */
-    function _create =
-    (
-		this._addGroupBoxToUi()
-		
-		for Control in controls do
-			this._addControlToUi Control	
-    ),
-	
-	--/** Add each control to rollout
-	--  *
-	--  * @param	[Control_v]	controls	Array of Control_v
-	-- */
-	--function _addControls controls =
-	--(
-	--	--format "controls = % \n" controls
-	--	for Control in controls do
-	--		this._addControlToUi Control
-	--),
-
 
 	/** Set group box
      */
     function _setGroupBox =
     (
-		if not( groupbox == unsupplied ) then
-			groupbox = this._newControl (Control_v type:#groupbox caption:groupbox ) id:id add:false
+		if not( Groupbox == unsupplied ) then
+			Groupbox = this._newControl (Control_v type:#Groupbox caption:Groupbox ) id:id add:false
+    ),
+
+	/** Create controls and add them to UI
+     */
+    function _create =
+    (
+		Parent_roll.Layout.newControlsBox()	
+		
+		this._addControls()
+		
+		this._addGroupBoxToUi()
+    ),
+
+	/** Add each control to rollout
+	  *
+	  * @param	[Control_v]	controls	Array of Control_v
+	 */
+	function _addControls =
+	(
+		for Control in controls do
+			this._addControl Control
+	),
+	
+	/** _add control
+     */
+    function _addControl Control =
+    (
+		Control.setLayoutCoordinates()
+		
+		this._addControlToUi Control
     ),
 
 	/** Add id
 	 */
 	function _addGroupBoxToUi =
 	(
-		if ( groupbox == unsupplied ) then
+		--Groupbox.Props.setDimensions #( [0,50], 128, 64 )
+		Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
+
+		if ( Groupbox == unsupplied ) then
 			return false
 			
-		this._addControlToUi groupbox
+		this._addControlToUi Groupbox
 	),
-	
+
 	/** Add each control to rollout
 	 *
 	 * @param	[Control_v]	controls	Array of Control_v
@@ -100,10 +111,6 @@ struct ControlBox_v
 	function _addControlToUi Control =
 	(
 		print ("------------\nControlBox._addControlToUi "+(Control.Id.get()) as string )
-		
-		
-		Control.setLayoutCoordinates()
-		
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
 	),
 
