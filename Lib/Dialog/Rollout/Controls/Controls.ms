@@ -24,7 +24,7 @@ struct Controls_v
 	 */
 	function new groupbox: id: =
 	(
-		ControlBox 	= ControlBox_v Parent_roll:Parent_roll groupbox:groupbox id:id
+		ControlBox 	= ControlBox_v Parent_roll:Parent_roll caption:groupbox id:id
 
 		append Parent_roll.Controls_and_Rollouts ControlBox
 

@@ -5,7 +5,6 @@ filein( getFilenamePath(getSourceFileName()) + "/Bbox/Bbox.ms" )
 struct Layout_v
 (
 	Bbox,
-	--Bbox = Bbox_v(),
 		
 	columns	= 12, -- columns width of rollout
 	
@@ -85,16 +84,6 @@ struct Layout_v
 	function _getGroupboxDimensions =
 	(
 		print "------------\nLayout._getGroupboxDimensions()"
-		format " this	= % \n" this
-		format " box_origin	= % \n" box_origin
-		-- TADY JE BUG !!!!
-		--#(
-		--	[ box_origin[1] - margin, box_origin[2] - box_padding ],
-		--	( Bbox.width + margin ),
-		--
-		--	( Bbox.height + margin )
-		--	( pos_last[2] - box_origin[2] + column_width + box_padding )		
-		--)
 		#(
 			[box_origin[1],  -- pos X
 			 box_origin[2]], -- pos Y
@@ -102,7 +91,6 @@ struct Layout_v
 			Bbox.width,
 			Bbox.height
 		)
-
 		--#( [0,50], 256, 64 )
 	),
 
@@ -170,6 +158,6 @@ struct Layout_v
 	on create do
 	(
 		--messagebox "Layout_v.test()"
-		this.newControlsBox()
+		--this.newControlsBox()
 	)
 )

@@ -10,7 +10,7 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 /* DEFINE GROUPBOXES */ 
 --controls_1    = _Rollout.Controls.new()
-controls_2    = _Rollout.Controls.new groupbox:"Test" id:"Groupbox_Test"
+--controls_2    = _Rollout.Controls.new id:"Groupbox_Test"
 controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
 
 /* DEFINE CONTROLS */ 

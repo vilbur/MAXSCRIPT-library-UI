@@ -6,7 +6,7 @@ filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" 
 --filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
 
 
-/** Section of controls, can be id if "ControlBox_v.id" is definded
+/** Section of Controls, can be id if "ControlBox_v.id" is definded
   * [ GroupBox UI Control ] (http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
   * Control types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
   *
@@ -21,11 +21,13 @@ struct ControlBox_v
 	/* dependency */
 	/* reference */
 	Parent_roll,
-	/* properties */
+	/* properties of Groupbox */
 	id,
+	caption,
 	Groupbox,
+
 	
-	controls	= #(),
+	Controls	= #(),
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
@@ -50,31 +52,33 @@ struct ControlBox_v
 	 */
 	function add &Control =
 	(
-		append controls Control
+		append Controls Control
 	),
 
 	/** Set group box
      */
     function _setGroupBox =
     (
-		if not( Groupbox == unsupplied ) then
-			Groupbox = this._newControl (Control_v type:#Groupbox caption:Groupbox ) id:id add:false
+		if not( caption == unsupplied ) then
+			Groupbox = this._newControl (Control_v type:#Groupbox caption:caption ) id:id add:false
     ),
 
-	/** Create controls and add them to UI
+	/** Create Controls and add them to UI
      */
     function _create =
     (
-		Parent_roll.Layout.newControlsBox()	
+		Parent_roll.Layout.newControlsBox()
 		
 		this._addControls()
 		
+		Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
+
 		this._addGroupBoxToUi()
     ),
 
 	/** Add each control to rollout
 	  *
-	  * @param	[Control_v]	controls	Array of Control_v
+	  * @param	[Control_v]	Controls	Array of Control_v
 	 */
 	function _addControls =
 	(
@@ -95,8 +99,9 @@ struct ControlBox_v
 	 */
 	function _addGroupBoxToUi =
 	(
+		--Parent_roll.Layout.setGroupboxDimensions()
 		--Groupbox.Props.setDimensions #( [0,50], 128, 64 )
-		Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
+		--Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
 
 		if ( Groupbox == unsupplied ) then
 			return false
@@ -106,7 +111,7 @@ struct ControlBox_v
 
 	/** Add each control to rollout
 	 *
-	 * @param	[Control_v]	controls	Array of Control_v
+	 * @param	[Control_v]	Controls	Array of Control_v
 	 */
 	function _addControlToUi Control =
 	(
