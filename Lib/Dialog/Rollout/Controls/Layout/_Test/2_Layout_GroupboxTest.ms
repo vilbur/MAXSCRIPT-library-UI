@@ -24,12 +24,12 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 function addRolloutByCodeTest =
 (
 
-	for g = 1 to 3 do
+	for g = 1 to 1 do
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
 		for i = 1 to 4 do
-			Controls.button ("Button A "+g as string +i as string )
+			Controls.button ("Button A "+g as string +" "+i as string )
 	)
 	
 )

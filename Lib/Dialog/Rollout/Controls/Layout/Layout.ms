@@ -14,7 +14,6 @@ struct Layout_v
 	
 	box_padding	= 16,
 
-	--box_origin	= [ margin*2, 4 ],	-- store origin of controls box
 	pos_last,		                -- store origin of last added control 
 
 	
@@ -36,6 +35,9 @@ struct Layout_v
 		width    =  width_raw - padding * 2
 		--format " this	= % \n" this 
 		
+		position = this._setFirstControlPosition position
+
+		--Bbox.add #( position, width, height )
 		dimensions	= #( position, width, height )
 		--format " dimensions	= % \n" dimensions 
 
@@ -54,13 +56,12 @@ struct Layout_v
 		--format "\npos_last	= % " pos_last
 		--format "\nbox_origin	= % \n" box_origin
 
-		box_origin	= if( Bbox == undefined ) then 
+		box_origin	= if( Bbox == undefined )
+			then 
 				[ margin*2, 4 ]
 			else 
 				[ Bbox.origin.x, pos_last.y ]
 					
-			--box_origin = [ Bbox.origin.x, pos_last.y ]
-		
 		pos_last = box_origin
 		
 	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
@@ -80,6 +81,8 @@ struct Layout_v
 			--y += 8
 	
 		pos_last = [ Bbox.origin.x, y ]
+		
+		
 	),
 
 	/** Get params string of Controls box
@@ -137,6 +140,15 @@ struct Layout_v
 			width as integer --return
     ),
 	
+	/** Set first
+	 */
+	function _setFirstControlPosition position =
+	(
+		position.y += box_padding
+		
+		position --return
+	),
+
 	/** Set new control position
 	 */
 	function _setNewControlPosition with_current =
