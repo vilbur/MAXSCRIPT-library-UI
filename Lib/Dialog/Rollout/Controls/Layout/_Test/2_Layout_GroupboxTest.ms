@@ -10,8 +10,10 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 /* DEFINE GROUPBOXES */ 
 --controls_1    = _Rollout.Controls.new()
-controls_2    = _Rollout.Controls.new id:"Groupbox_Test"
-controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
+--controls_2    = _Rollout.Controls.new id:"Groupbox_Test"
+--controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
+--
+--GroupBoxes = #()
 
 /* DEFINE CONTROLS */ 
 --Controls_1.button "No Groupbox"
@@ -22,17 +24,14 @@ controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
 function addRolloutByCodeTest =
 (
 
+	for g = 1 to 3 do
+	(
+		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
+		
+		for i = 1 to 4 do
+			Controls.button ("Button A "+g as string +i as string )
+	)
 	
-	for i = 1 to 5 do
-		controls_3.button ("Button A "+i as string )
-	
-	--for i = 1 to 12 do
-	--(
-	--	_button = _controlsB.button ("Col "+i as string )
-	--	_button.col i
-	--)
-	--	
-	--_controlsB.button ("button by code B")
 )
 
 /*---------------------------------------

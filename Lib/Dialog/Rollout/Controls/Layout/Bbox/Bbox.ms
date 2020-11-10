@@ -4,8 +4,13 @@
  */
 struct Bbox_v
 (
+	/* required properties */
+	origin = [0,0],
+	__construct = #( #origin ),
+	
 	width	= 0,
 	height	= 0,
+	
 	
 	/** Add dimensions of control to boungingBox
 	  *
@@ -32,8 +37,23 @@ struct Bbox_v
 		--format "height = % \n" height
 	),
 	
-	function test =
+	/*------------------------------------------------------------------------------
+		CONSTRUCT
+	--------------------------------------------------------------------------------*/
+	
+	/** Check if required properties are defined when an instance of the struct is created.
+	 *	
+	 * @example __construct = #( #property_name ) 
+	 */
+	function _checkConstctructProperties =
 	(
-		messagebox "Bbox.test()"
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
+	/**  
+	 */
+	on create do
+	(
+		this._checkConstctructProperties()
 	)
 )

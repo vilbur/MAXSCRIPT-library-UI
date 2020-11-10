@@ -72,6 +72,8 @@ struct ControlBox_v
 		this._addControls()
 		
 		Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
+		
+		Parent_roll.Layout.nextControlsBox() 
 
 		this._addGroupBoxToUi()
     ),
