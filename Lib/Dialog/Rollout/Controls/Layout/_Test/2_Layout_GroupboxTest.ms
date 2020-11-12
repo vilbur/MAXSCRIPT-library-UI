@@ -28,7 +28,7 @@ function addRolloutByCodeTest =
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to 4 do
+		for i = 1 to 3 do
 			Controls.button ("Button A "+g as string +" "+i as string )
 	)
 	
@@ -46,6 +46,6 @@ addRolloutByCodeTest()
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:312
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:300
 
 _Rollout.addSubRollouts()

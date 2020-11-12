@@ -19,7 +19,7 @@
 	value,
 	
 	/* options */
-	_col 	= 4,
+	--_col 	= 4,
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 	
 	/*------ EXTENDED EVENTS ------*/
@@ -116,12 +116,10 @@
 	 */
 	function setLayoutCoordinates =
 	(
-		--print "ControlBase.setLayoutCoordinates()"
-		dimensions = Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height)
-		
-		Props.setDimensions dimensions
+		Props.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height) )
 	),
 
+	private
 
 	/** Get parameters
 	 */

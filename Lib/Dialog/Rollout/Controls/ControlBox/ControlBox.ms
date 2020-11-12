@@ -41,6 +41,7 @@ struct ControlBox_v
 	(
 		_Control.Parent_roll = Parent_roll
 		_Control.setId id
+		_Control.Props.add #columns 4
 		
 		if( add ) then
 			this.add _Control
@@ -67,15 +68,9 @@ struct ControlBox_v
      */
     function _create =
     (
-		Parent_roll.Layout.newControlsBox()
-		
 		this._addControls()
-		
-		Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
-		
-		Parent_roll.Layout.nextControlsBox() 
 
-		this._addGroupBoxToUi()
+		this._addGroupBox()
     ),
 
 	/** Add each control to rollout
@@ -92,19 +87,22 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
-		Control.setLayoutCoordinates()
+		--Control.Props.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height) )
+		Parent_roll.Layout.setControlDimensions Control
+		--Control.setLayoutCoordinates()
 		
 		this._addControlToUi Control
     ),
 
 	/** Add id
 	 */
-	function _addGroupBoxToUi =
+	function _addGroupBox =
 	(
-		--Parent_roll.Layout.setGroupboxDimensions()
+		Groupbox.Props.setDimensions (Parent_roll.Layout.getGroupboxDimensions())
 		--Groupbox.Props.setDimensions #( [0,50], 128, 64 )
-		--Groupbox.Props.setDimensions (Parent_roll.Layout._getGroupboxDimensions())
-
+		
+		--Parent_roll.Layout.nextControlsBox()
+		
 		if ( Groupbox == unsupplied ) then
 			return false
 			
@@ -176,6 +174,8 @@ struct ControlBox_v
 	(
 		--this._checkConstctructProperties()
 		this._setGroupBox()
+
+		Parent_roll.Layout.newControlsBox()
 	)
 	
 )
