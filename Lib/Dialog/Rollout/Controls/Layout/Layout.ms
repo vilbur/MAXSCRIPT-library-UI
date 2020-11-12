@@ -19,7 +19,7 @@ struct Layout_v
 	 */
 	function newControlsBox =
 	(
-		print "------------\nLayout.newControlsBox()"
+		format "------------\nLayout.newControlsBox()"
 	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
 			--pos_last.y += box_padding
 		--box_origin = pos_last
@@ -29,10 +29,9 @@ struct Layout_v
 			box_origin.x = Bbox.origin.x
 		
 		Bbox = Bbox_v origin:box_origin
-		format "Bbox.origin	= % \n" Bbox.origin
 		
 		this._setFirstControlPosition()
-		format "Bbox.origin	= % \n" Bbox.origin
+		--format "Bbox.origin	= % \n" Bbox.origin
 	),
 	
 	/** Set dimensions of control, add to Bounding box
@@ -43,20 +42,16 @@ struct Layout_v
 	function setControlDimensions &Control =
 	(
 		format "Layout.setControlDimensions() % \n" (Control.id.get())
-
 		Dimensions	= this._getControlDimensions Control
-		
-		format "Control.Dimensions	= % \n" Dimensions
-		
+
+		this._setNextControlPosition Dimensions.width
+
 		Control.Props.setDimensions Dimensions
 		
  		Bbox.add Dimensions
 
 		--pos_last = Dimensions.pos
 		
-		this._setNewControlPosition Dimensions.width
-
-		--this._trySetNewControlsRow Dimensions.width
 	),
 
 	/** Set next box position
@@ -76,8 +71,7 @@ struct Layout_v
 	 */
 	function setGroupboxDimensions &Groupbox =
 	(
-		print "------------\nLayout._getGroupboxDimensions()"
-		--format "Bbox.origin	= % \n" Bbox.origin
+		--format "------------\nLayout._getGroupboxDimensions()"
 		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
 		
 		Groupbox.Props.setDimensions Dimensions
@@ -93,18 +87,18 @@ struct Layout_v
 		pos     = Control.Props.get #pos
 		width   = Control.Props.get #width
 		height  = Control.Props.get #height
-		columns = Control.Props.get #columns
 
-		if( pos == undefined ) then
-			pos = [ pos_last.x, pos_last.y  ]
-			--pos = this._getLastControlPosition()
 		
 		if( width == undefined ) then
-			width = columns * column_size
+			width = (Control.Props.get #columns) * column_size
 		
 		if( height == undefined ) then
 			height = this._getControlHeight()
-
+			
+		if( pos == undefined ) then
+			--pos = [ pos_last.x, pos_last.y ]
+			pos = this._getControlPosition width
+		
 		Dimensions_v pos:pos width:width height:height
 	),
 
@@ -112,16 +106,19 @@ struct Layout_v
 	 */
 	function _setFirstControlPosition =
 	(
-		--print "------------\nLayout._setFirstControlPosition()"
+		--format "------------\nLayout._setFirstControlPosition()"
 		if( pos_last == Bbox.origin ) then
             pos_last.y += 16
 	),
 	
 	/** _get position of last control
 	 */
-	function _getLastControlPosition =
+	function _getControlPosition current_control_width =
 	(
-		[ pos_last.x + padding, pos_last.y ] --return
+		--format "------------\nLayout._getControlPosition()"
+		this._trySetNewControlsRow current_control_width
+
+		[ pos_last.x, pos_last.y ] --return
 	),
 	
 	/** Get height
@@ -134,7 +131,7 @@ struct Layout_v
 
 	/** Set new control position
 	 */
-	function _setNewControlPosition current_control_width =
+	function _setNextControlPosition current_control_width =
 	(
 		pos_last.x += current_control_width
 		--pos_last = [ pos_last.x + current_control_width, pos_last.y ]
@@ -144,21 +141,15 @@ struct Layout_v
 	 */
 	function _trySetNewControlsRow current_control_width =
 	(
-		--print "------------\nLayout._trySetNewControlsRow()"
-		format "current_control_width	= % \n" current_control_width
-
-		--if( this._controlIsOutOfRollout current_control_width ) then
-			--pos_last = [ Bbox.origin.x, Bbox.height ]
-			
-			--pos_last = [ Bbox.origin.x, Bbox.height + margin ]
-			------pos_last = [ Bbox.origin.x, pos_last.y + column_size ]
+		if not ( this._controlFitIntoRollout current_control_width ) then
+			pos_last = [ Bbox.origin.x, Bbox.height ]
 	),
 	
 	/** Control is out of rollout
      */
-    function _controlIsOutOfRollout current_control_width =
+    function _controlFitIntoRollout current_control_width =
     (
-        (pos_last.x + current_control_width) > this._getRollWidth() --return
+        (pos_last.x + current_control_width) < this._getRollWidth() --return
     ),
 	
 	/*---------------------------------------
@@ -168,9 +159,10 @@ struct Layout_v
 	 */
 	function _getRollWidth =
 	(
-		--print "------------\nLayout._getRollWidth()"
+		--format "------------\nLayout._getRollWidth()"
 		width = (columns * column_size) + margin*4 + 14
-		--format "width = % \n" width
+		--width = (columns * column_size)
+		--format " width = % \n" width
 		width --return
 	),
 

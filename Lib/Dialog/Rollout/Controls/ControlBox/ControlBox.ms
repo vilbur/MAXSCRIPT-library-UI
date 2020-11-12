@@ -21,12 +21,13 @@ struct ControlBox_v
 	/* dependency */
 	/* reference */
 	Parent_roll,
+	Layout,
 	/* properties of Groupbox */
 	id,
 	caption,
+	
 	Groupbox,
 
-	
 	Controls	= #(),
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
@@ -79,7 +80,7 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		Parent_roll.Layout.newControlsBox()
+		Layout.newControlsBox()
 
 		for Control in controls do
 			this._addControl Control
@@ -89,7 +90,7 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
-		Parent_roll.Layout.setControlDimensions Control
+		Layout.setControlDimensions Control
 		--Control.setLayoutCoordinates()
 		
 		this._addControlToUi Control
@@ -99,12 +100,12 @@ struct ControlBox_v
 	 */
 	function _addGroupBox =
 	(
-		--Parent_roll.Layout.nextControlsBox()
+		--Layout.nextControlsBox()
 		
 		if (Groupbox == unsupplied ) then
 			return false
 			
-		Parent_roll.Layout.setGroupboxDimensions Groupbox
+		Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox
 	),
@@ -115,60 +116,22 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		print ("------------\nControlBox._addControlToUi "+(Control.Id.get()) as string )
-		format "\nParent_roll.Layout.Bbox.origin	= %\n" Parent_roll.Layout.Bbox.origin
-
-		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
+		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
+		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Props.join())
 	),
-
-	--/** Exists
-	-- */
-	--function exists =
-	--(
-	--	false
-	--),
-	/*------------------------------------------------------------------------------
-		PRIVATE
-	--------------------------------------------------------------------------------*/
-	/** _get id params
-	 */
-	--function _getGroupboxParams =
-	--(
-		--print "------------\nControlBox._getGroupboxParams()"
-		--dimensions	= Parent_roll.Layout._getGroupboxDimensions()
-		--format " pos 	= % \n width	= % \n height	= % \n\n" dimensions[1] dimensions[2] dimensions[3]
-		
-		--Props	= Props_v Control:this
-		--
-		--Props.add #pos	dimensions[1]
-		--Props.add #width	dimensions[2]
-		--Props.add #height dimensions[3]
-		--Props.add #height 48
-		
-		--Props.join() --return
-		--""
-	--),
-	
 
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
-	
-	--/** Check if required properties are defined when an instance of the struct is created.
-	-- *	
-	-- * @example __construct = #( #property_name ) 
-	-- */
-	--function _checkConstctructProperties =
-	--(
-	--	for prop in __construct where getProperty this prop == undefined do
-	--		messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
-	--),
+
 	/**  
 	 */
 	on create do
 	(
 		--this._checkConstctructProperties()
 		this._setGroupBox()
+		
+		Layout = Parent_roll.Layout
 	)
 	
 )
