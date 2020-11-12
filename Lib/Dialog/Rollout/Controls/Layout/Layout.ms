@@ -6,16 +6,34 @@ struct Layout_v
 (
 	Bbox,
 		
-	columns	= 12, -- columns width of rollout
-	
+	columns     = 12, -- columns width of rollout
 	column_size = 24,
+	
 	padding	= 0,	-- padding between controls
 	margin	= 0,
 	
-	--box_padding	= 16,
+	pos_last = [0,0],    -- store origin of last added control 
 
-	pos_last,		                -- store origin of last added control 
-
+	/** Set init pos_last 
+	 */
+	function newControlsBox =
+	(
+		print "------------\nLayout.newControlsBox()"
+	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
+			--pos_last.y += box_padding
+		--box_origin = pos_last
+		box_origin = [0,0]
+		
+		if( Bbox != undefined ) then
+			box_origin.x = Bbox.origin.x
+		
+		Bbox = Bbox_v origin:box_origin
+		format "Bbox.origin	= % \n" Bbox.origin
+		
+		this._setFirstControlPosition()
+		format "Bbox.origin	= % \n" Bbox.origin
+	),
+	
 	/** Set dimensions of control, add to Bounding box
 	  * @param	Params	Params
 	  * @param	int	columns	Width of control
@@ -23,45 +41,27 @@ struct Layout_v
 	 */
 	function setControlDimensions &Control =
 	(
-		print "Layout.setControlDimensions()"
-		format "pos_last = % \n" pos_last
+		format "Layout.setControlDimensions() % \n" (Control.id.get())
+		--format "pos_last = % \n" pos_last
 
 		_dimensions	= this._getControlDimensions Control
-		format "_dimensions	= % \n" _dimensions
-
+		
+		format "Control._dimensions	= % \n" _dimensions
+		
 		Control.Props.setDimensions _dimensions
 		
  		Bbox.add _dimensions
-		
-		pos_last = _dimensions[1]
-		
-		this._setNewControlPosition _dimensions[2]
+		format "\nBbox.origin	= %" Bbox.origin
+		format "\nBbox.width	= %" Bbox.width
+		format "\nBbox.height	= %\n" Bbox.height
 
-		this._trySetNewControlsRow _dimensions[2]
+		--pos_last = _dimensions[1]
+		
+		--this._setNewControlPosition _dimensions[2]
+
+		--this._trySetNewControlsRow _dimensions[2]
 	),
 
-	/** Set init pos_last 
-	 */
-	function newControlsBox =
-	(
-		print "------------\nLayout.newControlsBox()"
-		print(Bbox == undefined)
-		--format "\npos_last = % " pos_last
-
-		box_origin = if( Bbox == undefined )
-			then 
-				--[ margin*2, 4 ]
-				pos_last = box_origin = [0,0]
-			else 
-				[ Bbox.origin.x, pos_last.y ]
-
-		format "box_origin	= % \n" box_origin
-	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
-			--pos_last.y += box_padding
-	
-		Bbox = Bbox_v origin:box_origin
-	),
-	
 	/** Set next box position
 	 */
 	function nextControlsBox extra_margin:false =
@@ -80,18 +80,33 @@ struct Layout_v
 	function getGroupboxDimensions =
 	(
 		print "------------\nLayout._getGroupboxDimensions()"
-		format "\nBbox.origin	= % \n" Bbox.origin
-
+		format "Bbox.origin	= % \n" Bbox.origin
+		_dimensions=
 		#(
-			[Bbox.origin.x,  -- pos X
-			 Bbox.origin.y], -- pos Y
+			Bbox.origin,
+			--[0,0],
 		  
 			Bbox.width  + margin,
 			Bbox.height + margin
 		)
-	),
+		
+		format "_dimensions	= % \n" _dimensions
+		_dimensions --return
+	),	
 
 	private
+	
+	--/** _get bbox origin
+	-- */
+	--function _getBboxOrigin =
+	--(
+	--	if( Bbox == undefined )
+	--	then 
+	--		--[ margin*2, 4 ]
+	--		pos_last
+	--	else 
+	--		[ Bbox.origin.x, pos_last.y ]
+	--),
 	
 	/** Get control dimensions defined by Layout, if not defined by user
 	 */
@@ -101,7 +116,7 @@ struct Layout_v
 		width   = Control.Props.get #width
 		height  = Control.Props.get #height
 		columns = Control.Props.get #columns
-		format "pos	= % \n" pos
+		--format "pos	= % \n" pos
 
 		if( pos == undefined ) then
 			pos = [ pos_last.x, pos_last.y  ]
@@ -113,21 +128,19 @@ struct Layout_v
 		if( height == undefined ) then
 			height = this._getControlHeight()
 
-		this._setFirstControlPosition pos
-
 		#( pos, width, height ) --return
 	),
 
 	/** Set first
 	 */
-	function _setFirstControlPosition &pos =
+	function _setFirstControlPosition =
 	(
 		print "------------\nLayout._setFirstControlPosition()"
-		print Bbox.origin
-		print pos_last
-		print (pos_last==Bbox.origin)
-		if( (pos_last==Bbox.origin) ) then
-            pos.y += 16
+		--print Bbox.origin
+		--print pos_last
+		--print (pos_last==Bbox.origin)
+		if( pos_last == Bbox.origin ) then
+            pos_last.y += 16
 	),
 	
 	/** _get position of last control
@@ -149,7 +162,8 @@ struct Layout_v
 	 */
 	function _setNewControlPosition current_control_width =
 	(
-		pos_last = [ pos_last.x + current_control_width, pos_last.y ]
+		pos_last.x += current_control_width
+		--pos_last = [ pos_last.x + current_control_width, pos_last.y ]
 	),
 
 	/** Try set new controls row
@@ -196,6 +210,5 @@ struct Layout_v
 	on create do
 	(
 		--messagebox "Layout_v.test()"
-		--this.newControlsBox()
 	)
 )
