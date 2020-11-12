@@ -27,11 +27,11 @@ struct Props_v
  
 	/** Set dimensions
      */
-    function setDimensions dimensions =
+    function setDimensions Dimensions =
     (
-		this.add #pos    dimensions[1] force:true
-		this.add #width  dimensions[2] force:true
-		this.add #height dimensions[3] force:true
+		this.add #pos    Dimensions.pos    force:true
+		this.add #width  Dimensions.width  force:true
+		this.add #height Dimensions.height force:true
     ),
 	
 	/** Get value of parameter

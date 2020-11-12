@@ -22,27 +22,21 @@ struct Bbox_v
 	  * @property	#( position, width, height )	dimensions
 	  *
 	  */
-	function add dimensions =
+	function add Dimensions =
 	(
-		format "Bbox.add() % " dimensions
-		--format "origin	= % " origin
+		format "Bbox.add() % " Dimensions
 
-		pos	= dimensions[1]
-		------_width	= Params.get #width
-		bbox_width	= pos.x + dimensions[2]
-		bbox_height	= pos.y + dimensions[3]
-		--format "bbox_height = % " bbox_height
+		pos	= Dimensions.pos
+
+		bbox_width	= pos.x + Dimensions.width
+		bbox_height	= pos.y + Dimensions.height
+
 		if( bbox_width > width ) then
 			width = bbox_width as integer
 			
 		if( bbox_height > height ) then
 			height = bbox_height as integer
-		
-		--width = 128
-		--height = 128
-
-		format "\norigin	= % " origin
-		--format "height = % \n" height
+		--format "\norigin = % " origin
 	),
 	
 	/*------------------------------------------------------------------------------

@@ -79,6 +79,8 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
+		Parent_roll.Layout.newControlsBox()
+
 		for Control in controls do
 			this._addControl Control
 	),
@@ -98,14 +100,12 @@ struct ControlBox_v
 	 */
 	function _addGroupBox =
 	(
-		--Groupbox.Props.setDimensions #( [0,50], 128, 64 )
-		
 		--Parent_roll.Layout.nextControlsBox()
 		
-		if ( Groupbox == unsupplied ) then
+		if (Groupbox == unsupplied ) then
 			return false
-			
-		Groupbox.Props.setDimensions (Parent_roll.Layout.getGroupboxDimensions())
+		
+		Groupbox.Props.setDimensions ( Parent_roll.Layout.getGroupboxDimensions() )
 
 		this._addControlToUi Groupbox
 	),
@@ -117,16 +117,11 @@ struct ControlBox_v
 	function _addControlToUi Control =
 	(
 		print ("------------\nControlBox._addControlToUi "+(Control.Id.get()) as string )
+		format "\nParent_roll.Layout.Bbox.origin	= %\n" Parent_roll.Layout.Bbox.origin
+
 		Parent_roll.RolloutCreator._rolloutCreator.addControl Control.type Control.id.id Control.caption paramStr:(Control.Props.join())
 	),
 
-	--/** Get id
-	-- */
-	--function getId =
-	--(
-	--	groupbox_suffix = "_groupbox"
-	--	(( dotNetObject "System.Text.RegularExpressions.Regex" @"[\s-]+" ).Replace ( toLower id ) "_" ) + groupbox_suffix--return
-	--),
 	--/** Exists
 	-- */
 	--function exists =
@@ -175,8 +170,6 @@ struct ControlBox_v
 	(
 		--this._checkConstctructProperties()
 		this._setGroupBox()
-
-		Parent_roll.Layout.newControlsBox()
 	)
 	
 )

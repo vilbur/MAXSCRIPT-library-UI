@@ -1,4 +1,5 @@
 filein( getFilenamePath(getSourceFileName()) + "/Bbox/Bbox.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Dimensions/Dimensions.ms" )
 
 /** Layout
  */
@@ -42,24 +43,23 @@ struct Layout_v
 	function setControlDimensions &Control =
 	(
 		format "Layout.setControlDimensions() % \n" (Control.id.get())
-		--format "pos_last = % \n" pos_last
 
-		_dimensions	= this._getControlDimensions Control
+		Dimensions	= this._getControlDimensions Control
 		
-		format "Control._dimensions	= % \n" _dimensions
+		format "Control.Dimensions	= % \n" Dimensions
 		
-		Control.Props.setDimensions _dimensions
+		Control.Props.setDimensions Dimensions
 		
- 		Bbox.add _dimensions
+ 		Bbox.add Dimensions
 		format "\nBbox.origin	= %" Bbox.origin
 		format "\nBbox.width	= %" Bbox.width
 		format "\nBbox.height	= %\n" Bbox.height
 
-		--pos_last = _dimensions[1]
+		--pos_last = Dimensions.pos
 		
-		--this._setNewControlPosition _dimensions[2]
+		this._setNewControlPosition Dimensions.width
 
-		--this._trySetNewControlsRow _dimensions[2]
+		--this._trySetNewControlsRow Dimensions.width
 	),
 
 	/** Set next box position
@@ -81,32 +81,10 @@ struct Layout_v
 	(
 		print "------------\nLayout._getGroupboxDimensions()"
 		format "Bbox.origin	= % \n" Bbox.origin
-		_dimensions=
-		#(
-			Bbox.origin,
-			--[0,0],
-		  
-			Bbox.width  + margin,
-			Bbox.height + margin
-		)
-		
-		format "_dimensions	= % \n" _dimensions
-		_dimensions --return
+		Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
 	),	
 
 	private
-	
-	--/** _get bbox origin
-	-- */
-	--function _getBboxOrigin =
-	--(
-	--	if( Bbox == undefined )
-	--	then 
-	--		--[ margin*2, 4 ]
-	--		pos_last
-	--	else 
-	--		[ Bbox.origin.x, pos_last.y ]
-	--),
 	
 	/** Get control dimensions defined by Layout, if not defined by user
 	 */
@@ -116,7 +94,6 @@ struct Layout_v
 		width   = Control.Props.get #width
 		height  = Control.Props.get #height
 		columns = Control.Props.get #columns
-		--format "pos	= % \n" pos
 
 		if( pos == undefined ) then
 			pos = [ pos_last.x, pos_last.y  ]
@@ -129,16 +106,15 @@ struct Layout_v
 			height = this._getControlHeight()
 
 		#( pos, width, height ) --return
+		
+		Dimensions_v pos:pos width:width height:height
 	),
 
 	/** Set first
 	 */
 	function _setFirstControlPosition =
 	(
-		print "------------\nLayout._setFirstControlPosition()"
-		--print Bbox.origin
-		--print pos_last
-		--print (pos_last==Bbox.origin)
+		--print "------------\nLayout._setFirstControlPosition()"
 		if( pos_last == Bbox.origin ) then
             pos_last.y += 16
 	),
