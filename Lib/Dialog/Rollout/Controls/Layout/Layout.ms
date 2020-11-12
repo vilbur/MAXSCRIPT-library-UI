@@ -24,51 +24,29 @@ struct Layout_v
 	function setControlDimensions &Control =
 	(
 		print "Layout.setControlDimensions()"
-		format "pos_last	= % \n" pos_last
+		format "pos_last = % \n" pos_last
 
 		_dimensions	= this._getControlDimensions Control
+		format "_dimensions	= % \n" _dimensions
 
 		Control.Props.setDimensions _dimensions
 		
  		Bbox.add _dimensions
 		
+		pos_last = _dimensions[1]
+		
 		this._setNewControlPosition _dimensions[2]
-		format "_dimensions	= % \n" _dimensions
 
-		--this._trySetNewControlsRow _dimensions[2]
+		this._trySetNewControlsRow _dimensions[2]
 	),
-	
-	/** Get control dimensions defined by Layout, if not defined by user
-	 */
-	function _getControlDimensions Control =
-	(
-		pos     = Control.Props.get #pos
-		width   = Control.Props.get #width
-		height  = Control.Props.get #height
-		columns = Control.Props.get #columns
 
-		--this._setFirstControlPosition pos
-		
-		if( pos == undefined ) then
-			pos = [ pos_last.x, pos_last.y ]
-			--pos = this._getLastControlPosition()
-		
-		if( width == undefined ) then
-			width = columns * column_size
-		
-		if( height == undefined ) then
-			height = this._getControlHeight()
-		
-		#( pos_last, width, height )
-	),
-	
 	/** Set init pos_last 
 	 */
 	function newControlsBox =
 	(
 		print "------------\nLayout.newControlsBox()"
 		print(Bbox == undefined)
-		--format "\npos_last	= % " pos_last
+		--format "\npos_last = % " pos_last
 
 		box_origin = if( Bbox == undefined )
 			then 
@@ -104,25 +82,53 @@ struct Layout_v
 		print "------------\nLayout._getGroupboxDimensions()"
 		format "\nBbox.origin	= % \n" Bbox.origin
 
-		--	[ pos_box[1] - margin, pos_box[2] - padding_box ],
-		--	( Bbox.width + margin ),
-		--	( Bbox.height + margin )
-		--	--( pos[2] - pos_box[2] + _grid + padding_box )		
-		
 		#(
-			--[0,  -- pos X
-			 --0], -- pos Y
 			[Bbox.origin.x,  -- pos X
 			 Bbox.origin.y], -- pos Y
 		  
 			Bbox.width  + margin,
 			Bbox.height + margin
 		)
-		--#( [0,50], 256, 64 )
 	),
 
 	private
+	
+	/** Get control dimensions defined by Layout, if not defined by user
+	 */
+	function _getControlDimensions Control =
+	(
+		pos     = Control.Props.get #pos
+		width   = Control.Props.get #width
+		height  = Control.Props.get #height
+		columns = Control.Props.get #columns
+		format "pos	= % \n" pos
 
+		if( pos == undefined ) then
+			pos = [ pos_last.x, pos_last.y  ]
+			--pos = this._getLastControlPosition()
+		
+		if( width == undefined ) then
+			width = columns * column_size
+		
+		if( height == undefined ) then
+			height = this._getControlHeight()
+
+		this._setFirstControlPosition pos
+
+		#( pos, width, height ) --return
+	),
+
+	/** Set first
+	 */
+	function _setFirstControlPosition &pos =
+	(
+		print "------------\nLayout._setFirstControlPosition()"
+		print Bbox.origin
+		print pos_last
+		print (pos_last==Bbox.origin)
+		if( (pos_last==Bbox.origin) ) then
+            pos.y += 16
+	),
 	
 	/** _get position of last control
 	 */
@@ -139,23 +145,11 @@ struct Layout_v
 	),
 	
 
-	/** Set first
-	 */
-	function _setFirstControlPosition position =
-	(
-		print "------------\nLayout._setFirstControlPosition()"
-		--print Bbox.origin
-		--print pos_last
-		--print (pos_last==Bbox.origin)
-		if( (pos_last==Bbox.origin) ) then
-            pos_last.y += 16
-	),
-
 	/** Set new control position
 	 */
 	function _setNewControlPosition current_control_width =
 	(
-		pos_last	= [ pos_last.x + current_control_width, pos_last.y ]
+		pos_last = [ pos_last.x + current_control_width, pos_last.y ]
 	),
 
 	/** Try set new controls row
@@ -163,8 +157,11 @@ struct Layout_v
 	function _trySetNewControlsRow current_control_width =
 	(
 		--print "------------\nLayout._trySetNewControlsRow()"
-		if( this._controlIsOutOfRollout current_control_width ) then
-			pos_last = [ Bbox.origin.x, Bbox.height ]
+		format "current_control_width	= % \n" current_control_width
+
+		--if( this._controlIsOutOfRollout current_control_width ) then
+			--pos_last = [ Bbox.origin.x, Bbox.height ]
+			
 			--pos_last = [ Bbox.origin.x, Bbox.height + margin ]
 			------pos_last = [ Bbox.origin.x, pos_last.y + column_size ]
 	),

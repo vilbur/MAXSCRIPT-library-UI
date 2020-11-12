@@ -28,7 +28,7 @@ function addRolloutByCodeTest =
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to 3 do
+		for i = 1 to 5 do
 			Controls.button ("Button A "+g as string +" "+i as string )
 	)
 	
