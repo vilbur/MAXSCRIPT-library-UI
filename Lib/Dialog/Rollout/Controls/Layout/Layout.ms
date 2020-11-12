@@ -51,9 +51,6 @@ struct Layout_v
 		Control.Props.setDimensions Dimensions
 		
  		Bbox.add Dimensions
-		format "\nBbox.origin	= %" Bbox.origin
-		format "\nBbox.width	= %" Bbox.width
-		format "\nBbox.height	= %\n" Bbox.height
 
 		--pos_last = Dimensions.pos
 		
@@ -77,16 +74,19 @@ struct Layout_v
 
 	/** Get params string of Controls box
 	 */
-	function getGroupboxDimensions =
+	function setGroupboxDimensions &Groupbox =
 	(
 		print "------------\nLayout._getGroupboxDimensions()"
-		format "Bbox.origin	= % \n" Bbox.origin
-		Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
+		--format "Bbox.origin	= % \n" Bbox.origin
+		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
+		
+		Groupbox.Props.setDimensions Dimensions
 	),	
 
 	private
 	
-	/** Get control dimensions defined by Layout, if not defined by user
+	/** Get control dimensions defined by user
+	  * If undefined then us Layout default values
 	 */
 	function _getControlDimensions Control =
 	(
@@ -105,8 +105,6 @@ struct Layout_v
 		if( height == undefined ) then
 			height = this._getControlHeight()
 
-		#( pos, width, height ) --return
-		
 		Dimensions_v pos:pos width:width height:height
 	),
 

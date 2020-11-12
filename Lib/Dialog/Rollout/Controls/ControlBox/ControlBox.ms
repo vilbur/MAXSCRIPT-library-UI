@@ -89,7 +89,6 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
-		--Control.Props.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height) )
 		Parent_roll.Layout.setControlDimensions Control
 		--Control.setLayoutCoordinates()
 		
@@ -104,8 +103,8 @@ struct ControlBox_v
 		
 		if (Groupbox == unsupplied ) then
 			return false
-		
-		Groupbox.Props.setDimensions ( Parent_roll.Layout.getGroupboxDimensions() )
+			
+		Parent_roll.Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox
 	),
