@@ -6,8 +6,11 @@ struct Bbox_v
 (
 	/* required properties */
 	origin = [0,0],
-	__construct = #( #origin ),
 	
+	_construct = #( #origin ),
+	
+	
+	/* properties */
 	width	= 0,
 	height	= 0,
 	
@@ -43,11 +46,11 @@ struct Bbox_v
 	
 	/** Check if required properties are defined when an instance of the struct is created.
 	 *	
-	 * @example __construct = #( #property_name ) 
+	 * @example _construct = #( #property_name ) 
 	 */
 	function _checkConstctructProperties =
 	(
-		for prop in __construct where getProperty this prop == undefined do
+		for prop in _construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 	/**  

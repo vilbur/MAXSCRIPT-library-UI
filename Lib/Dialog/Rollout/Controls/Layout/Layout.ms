@@ -8,44 +8,60 @@ struct Layout_v
 		
 	columns	= 12, -- columns width of rollout
 	
-	column_width = 24,
-	padding	= 2,	-- padding between controls
-	margin	= 8,
+	column_size = 24,
+	padding	= 0,	-- padding between controls
+	margin	= 0,
 	
 	box_padding	= 16,
 
 	pos_last,		                -- store origin of last added control 
 
-	
 	/** Set dimensions of control, add to Bounding box
 	  * @param	Params	Params
-	  * @param	int	col	Width of control
+	  * @param	int	columns	Width of control
 	  *
 	 */
-	function getControlDimensions col pos width height =
+	function getControlDimensions columns pos width height =
 	(
 		--print "Layout.setControlDimensions()"
+		if( pos == undefined ) then
+			pos = this._getLastControlPosition()
 		
-		width_raw	= this._getControlWidth col width
+		if( height == undefined ) then
+			height = this._getControlHeight()
+		
+		pos        = this._setFirstControlPosition pos
+		width      = this._getControlWidth columns width
+		dimensions	= #( pos, width, height )
 
-		this._trySetNewControlsRow width_raw
+ 		Bbox.add dimensions
 		
-		position = if( pos    == undefined ) then [ pos_last.x + padding, pos_last.y ] else pos
-		height   = if( height == undefined ) then column_width - padding * 2             else height as integer 
-		width    =  width_raw - padding * 2
-		--format " this	= % \n" this 
-		
-		position = this._setFirstControlPosition position
-
-		--Bbox.add #( position, width, height )
-		dimensions	= #( position, width, height )
-		--format " dimensions	= % \n" dimensions 
-
-		Bbox.add dimensions
-		
-		this._setNewControlPosition width_raw
+		this._setNewControlPosition width
 		 
+		this._trySetNewControlsRow width
+
 		dimensions --return
+	),
+	
+	/** _get control position
+	 */
+	function _getControlPosition =
+	(
+		
+	),
+	
+	/** _get position of last control
+	 */
+	function _getLastControlPosition =
+	(
+		[ pos_last.x + padding, pos_last.y ] --return
+	),
+	
+	/** Get height
+	 */
+	function _getControlHeight =
+	(
+		column_size - padding * 2 --return
 	),
 	
 	/** Set init pos_last 
@@ -56,7 +72,7 @@ struct Layout_v
 		--format "\npos_last	= % " pos_last
 		--format "\nbox_origin	= % \n" box_origin
 
-		box_origin	= if( Bbox == undefined )
+		box_origin = if( Bbox == undefined )
 			then 
 				[ margin*2, 4 ]
 			else 
@@ -74,7 +90,7 @@ struct Layout_v
 	 */
 	function nextControlsBox extra_margin:false =
 	( 
-		y = pos_last.y + column_width
+		y = pos_last.y + column_size
 		--y = pos_last.y + 16
 	
 		--if( extra_margin ) then -- Set offset of new box after groupbox
@@ -115,7 +131,7 @@ struct Layout_v
 		--format " Bbox	= % \n" Bbox 
 		if( this._controlIsOutOfRollout with_current ) then
 			pos_last = [ Bbox.origin.x, Bbox.height + margin ]
-			------pos_last = [ Bbox.origin.x, pos_last.y + column_width ]
+			------pos_last = [ Bbox.origin.x, pos_last.y + column_size ]
 	),
 	
 	/** Control is out of rollout
@@ -130,12 +146,12 @@ struct Layout_v
 	  * Number of columns * width of column = auto width of control
 	  *
      */
-    function _getControlWidth col width =
+    function _getControlWidth columns width =
     (
-		--format " col	= % \n" col
-		--format " column_width	= % \n" column_width
+		--format " columns	= % \n" columns
+		--format " column_size	= % \n" column_size
 		if( width == undefined ) then
-			col * column_width --return
+			columns * column_size --return
 		else
 			width as integer --return
     ),
@@ -164,7 +180,7 @@ struct Layout_v
 	function _getRollWidth =
 	(
 		--print "------------\nLayout._getRollWidth()"
-		width = (columns * column_width) + margin*4 + 14
+		width = (columns * column_size) + margin*4 + 14
 		--format "width = % \n" width
 		width --return
 	),
