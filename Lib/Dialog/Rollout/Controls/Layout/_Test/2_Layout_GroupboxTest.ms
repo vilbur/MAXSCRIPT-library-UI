@@ -23,13 +23,12 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
  */
 function addRolloutByCodeTest =
 (
-
-	for g = 1 to 1 do
+	for g = 1 to 3 do
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to 5 do
-			Controls.button ("Button A "+g as string +" "+i as string )
+		for i = 1 to 4 do
+			Controls.button ("Button "+g as string +"."+i as string )
 	)
 	
 )
@@ -46,6 +45,6 @@ addRolloutByCodeTest()
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:300
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:292
 
 _Rollout.addSubRollouts()

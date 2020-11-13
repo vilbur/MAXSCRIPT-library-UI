@@ -21,13 +21,12 @@ struct Layout_v
 	 */
 	function newControlsBox =
 	(
-		format "\n------------\nLayout.newControlsBox()"
-		box_origin = this._getBboxOrigin()
-		
-		Bbox = Bbox_v origin:box_origin
-		--format "\nBbox.height =%\n" Bbox.height
+		--format "\n------------\nLayout.newControlsBox()"
+		Bbox = Bbox_v origin:(this._getBboxOrigin())
 
-		this._setFirstControlPosition()
+		pos_last = copy Bbox.origin
+
+		this._addFirstControlPadding()
 	),
 	
 	/** Set dimensions of control, add to Bounding box
@@ -46,8 +45,19 @@ struct Layout_v
 		format "Dimensions.pos =%\n" Dimensions.pos
 		
  		Bbox.add Dimensions
-		--format "\nBbox.origin	= % \n" Bbox.origin
 	),
+
+	/** Get params string of Controls box
+	 */
+	function setGroupboxDimensions &Groupbox =
+	(
+		--format "------------\nLayout._getGroupboxDimensions()"
+		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
+		
+		Groupbox.Props.setDimensions Dimensions
+	),	
+
+	private
 	
 	/** _get bbox origin
 	 */
@@ -56,32 +66,14 @@ struct Layout_v
 		 --box_origin = pos_last = [Bbox.origin.x, pos_last.y+32] --return
 		box_origin = [0,0]
 		
-		if( Bbox != undefined ) then		 
-		(
-			pos_last.x  = 0
-			pos_last.y += 32
-			
-			box_origin.y = pos_last.y
-		)
-		 
+		if( Bbox != undefined ) then
+			box_origin.y = Bbox.getMax #y
+
 		 box_origin
 	),
 
-	/** Get params string of Controls box
-	 */
-	function setGroupboxDimensions &Groupbox =
-	(
-		format "------------\nLayout._getGroupboxDimensions()"
-		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
-		--format "Dimensions =%\n" Dimensions
-		
-		Groupbox.Props.setDimensions Dimensions
-	),	
-
-	private
-	
 	/** Get control dimensions defined by user
-	  * If undefined then us Layout default values
+	  * If undefined then us Layout default values0
 	 */
 	function _getControlDimensions Control =
 	(
@@ -97,7 +89,6 @@ struct Layout_v
 			height = this._getControlHeight()
 			
 		if( pos == undefined ) then
-			--pos = [ pos_last.x, pos_last.y ]
 			pos = this._getControlPosition width
 		
 		Dimensions_v pos:pos width:width height:height
@@ -105,9 +96,9 @@ struct Layout_v
 
 	/** Set first
 	 */
-	function _setFirstControlPosition =
+	function _addFirstControlPadding =
 	(
-		--format "------------\nLayout._setFirstControlPosition()"
+		--format "------------\nLayout._addFirstControlPadding()"
 		if( pos_last == Bbox.origin ) then
 		(
             pos_last.y  += _padding_groupbox
