@@ -61,10 +61,27 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		for Controls_and_Rollout in Controls_and_Rollouts do
-			Controls_and_Rollout._create()
+		format "\nid =%\n" id
+
+		for Control_or_Rollout in Controls_and_Rollouts do
+			Control_or_Rollout._create()
 	
 		RolloutCreator.endOfCreation()
+	),
+	
+	/** Fit subrollouts
+	 */
+	function fitSubrollouts =
+	(
+		print "fitSubrollouts"
+		print Controls_and_Rollouts.count
+		
+		--rollout_3_layout_subrolloutstestms.subrollouts_slot_1.height = 512
+		
+		this.property height:1024
+		
+		
+		
 	),
 	
 	/** Set any property for rollout 
@@ -74,8 +91,8 @@ struct Rollout_v
      */
     function property name: title: open: scrollPos: height: width: =
     (
-		this._Property.propertySet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
-    ),
+		this._Property.propertyGetSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+	),
 	
 	/** Find if rollout has been added to UI already
 	 */

@@ -16,21 +16,47 @@ struct RolloutProperty_v
 	  * @property	#(#name)	keys	of properties
 	  * @property	#("value")	values	of properties
 	 */
-	function propertySet keys values =
+	function propertyGetSet keys values =
 	(
-		params_keys_and_values = this._filterUnsuppliedParameters keys values
+		keys_values = this._filterUnsuppliedParameters keys values
+		format "keys_values = % \n" keys_values
 		
-		for i = 1 to params_keys_and_values[1].count do
-            this._executeProperty params_keys_and_values[1][i] params_keys_and_values[2][i]
+		if( Parent_roll == undefined ) then
+			return false
+		
+		for i=1 to keys_values.keys.count do
+			if( keys_values.values[i] == #get ) then 
+				keys_values.setVal (keys_values.keys[i]) (this.getProp keys_values.keys[i])
+			else
+				this._executeProperty keys_values.keys[i] keys_values.values[i]
+				
+		this._removeList keys_values --return
+	),
+
+	/** Get property
+	 */
+	function getProp key =
+	(
+		execute ( this._getPropertyString key ) --return
 	),
 	
 	private
 	
+	/** Return just value if list has only 1 member
+	 */
+	function _removeList list =
+	(
+		if( list.values.count == 1 ) then 
+			list.values[1] --return
+		else
+			list --return
+	),
+	
 	/** Filter unsupplied parameters
 	  * Return only supplied parameters
 	  *
-	  * @param	array _parameters_names array of keys
-	  * @param	array _parameters_names array of values
+	  * @param	array keys array of keys
+	  * @param	array keys array of values
 	  *
 	  * @return	matrix #( #(parameter_names), #(parameter_values ))		
 	  *
@@ -41,19 +67,18 @@ struct RolloutProperty_v
 	  *			-- return #( #(#param_2), #("value_2") )
 	  * 	)
      */
-    function _filterUnsuppliedParameters _parameters_names _parameters =
+    function _filterUnsuppliedParameters keys values =
     (
-		result = #(#(), #())
+		keys_values = List_v()
 		
-		for i = 1 to _parameters.count  where not ( _parameters[i] == unsupplied ) do
-		(
-			append result[1] _parameters_names[i]
-			append result[2] _parameters[i]
-		)
-		result --return
+		for i = 1 to values.count  where not ( values[i] == unsupplied ) do
+			keys_values.setVal keys[i] values[i]
+
+		keys_values --return
     ),
 	
 	/** Execute property
+	  *
 	  * E.G.: execute("rollout_rollout_a.height = 128")
      */
     function _executeProperty key value =
@@ -81,12 +106,6 @@ struct RolloutProperty_v
 			value = "\"" + value + "\""
 		
 		value as string --return
-	),
-	/** Get property
-	 */
-	function _getProperty key =
-	(
-		execute ( this._getPropertyString key ) --return
 	),
 	
 	/** Get\set value of property 
