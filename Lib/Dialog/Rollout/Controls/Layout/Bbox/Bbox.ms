@@ -24,20 +24,28 @@ struct Bbox_v
 	  */
 	function add Dimensions =
 	(
-		format "Bbox.add() % " Dimensions
+		control_max_x	= Dimensions.pos.x + Dimensions.width
+		control_max_y	= Dimensions.pos.y + Dimensions.height
 
-		pos	= Dimensions.pos
-
-		bbox_width	= pos.x + Dimensions.width
-		bbox_height	= pos.y + Dimensions.height
-
-		if( bbox_width > width ) then
-			width = bbox_width as integer
+		if( control_max_x > (this.getMax #x) ) then
+			width += Dimensions.width as integer
 			
-		if( bbox_height > height ) then
-			height = bbox_height as integer
-		--format "\norigin = % " origin
+		if( control_max_y > (this.getMax #y) ) then
+			height += Dimensions.height as integer
+		
+		--format "\nthis.height =%\n" this.height
 	),
+	
+	/** Max
+	 */
+	function getMax axis =
+	(
+		if( axis == #x ) then
+			origin.x + width --return
+		else
+			origin.y + height --return
+	),
+	
 	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
@@ -56,7 +64,7 @@ struct Bbox_v
 	 */
 	on create do
 	(
-		print "Bbox.create()"
+		print "\nBbox.create()\n"
 		this._checkConstctructProperties()
 	)
 )

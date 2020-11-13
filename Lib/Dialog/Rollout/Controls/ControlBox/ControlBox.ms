@@ -69,9 +69,12 @@ struct ControlBox_v
      */
     function _create =
     (
-		this._addControls()
+		Layout.newControlsBox()
 
-		this._addGroupBox()
+		this._addControls()
+		
+		if (Groupbox != unsupplied ) then
+			this._addGroupBox()
     ),
 
 	/** Add each control to rollout
@@ -80,8 +83,6 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		Layout.newControlsBox()
-
 		for Control in controls do
 			this._addControl Control
 	),
@@ -99,13 +100,10 @@ struct ControlBox_v
 	/** Add id
 	 */
 	function _addGroupBox =
-	(
-		--Layout.nextControlsBox()
-		
-		if (Groupbox == unsupplied ) then
-			return false
-			
+	(		
 		Layout.setGroupboxDimensions Groupbox
+
+		--Layout.nextControlsBox()
 
 		this._addControlToUi Groupbox
 	),
@@ -116,7 +114,7 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
+		--format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Props.join())
 	),
 

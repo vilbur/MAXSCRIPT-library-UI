@@ -15,23 +15,19 @@ struct Layout_v
 	
 	pos_last = [0,0],    -- store origin of last added control 
 
+	_padding_groupbox = 16,
+	
 	/** Set init pos_last 
 	 */
 	function newControlsBox =
 	(
-		format "------------\nLayout.newControlsBox()"
-	--	if( groupbox!=undefined ) then -- move controls in groupbox lower
-			--pos_last.y += box_padding
-		--box_origin = pos_last
-		box_origin = [0,0]
-		
-		if( Bbox != undefined ) then
-			box_origin.x = Bbox.origin.x
+		format "\n------------\nLayout.newControlsBox()"
+		box_origin = this._getBboxOrigin()
 		
 		Bbox = Bbox_v origin:box_origin
-		
+		--format "\nBbox.height =%\n" Bbox.height
+
 		this._setFirstControlPosition()
-		--format "Bbox.origin	= % \n" Bbox.origin
 	),
 	
 	/** Set dimensions of control, add to Bounding box
@@ -41,38 +37,43 @@ struct Layout_v
 	 */
 	function setControlDimensions &Control =
 	(
-		format "Layout.setControlDimensions() % \n" (Control.id.get())
+		format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
 		Dimensions	= this._getControlDimensions Control
 
 		this._setNextControlPosition Dimensions.width
 
 		Control.Props.setDimensions Dimensions
+		format "Dimensions.pos =%\n" Dimensions.pos
 		
  		Bbox.add Dimensions
-
-		--pos_last = Dimensions.pos
-		
+		--format "\nBbox.origin	= % \n" Bbox.origin
 	),
-
-	/** Set next box position
+	
+	/** _get bbox origin
 	 */
-	function nextControlsBox extra_margin:false =
-	( 
-		y = pos_last.y + column_size
-		--y = pos_last.y + 16
-	
-		--if( extra_margin ) then -- Set offset of new box after groupbox
-			--y += 8
-	
-		pos_last = [ Bbox.origin.x, y ]
+	function _getBboxOrigin =
+	(
+		 --box_origin = pos_last = [Bbox.origin.x, pos_last.y+32] --return
+		box_origin = [0,0]
+		
+		if( Bbox != undefined ) then		 
+		(
+			pos_last.x  = 0
+			pos_last.y += 32
+			
+			box_origin.y = pos_last.y
+		)
+		 
+		 box_origin
 	),
 
 	/** Get params string of Controls box
 	 */
 	function setGroupboxDimensions &Groupbox =
 	(
-		--format "------------\nLayout._getGroupboxDimensions()"
+		format "------------\nLayout._getGroupboxDimensions()"
 		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width  + margin) height:(Bbox.height + margin)
+		--format "Dimensions =%\n" Dimensions
 		
 		Groupbox.Props.setDimensions Dimensions
 	),	
@@ -108,7 +109,10 @@ struct Layout_v
 	(
 		--format "------------\nLayout._setFirstControlPosition()"
 		if( pos_last == Bbox.origin ) then
-            pos_last.y += 16
+		(
+            pos_last.y  += _padding_groupbox
+            Bbox.height += _padding_groupbox
+		)
 	),
 	
 	/** _get position of last control
@@ -142,7 +146,7 @@ struct Layout_v
 	function _trySetNewControlsRow current_control_width =
 	(
 		if not ( this._controlFitIntoRollout current_control_width ) then
-			pos_last = [ Bbox.origin.x, Bbox.height ]
+			pos_last = [ Bbox.origin.x, Bbox.getMax #y ]
 	),
 	
 	/** Control is out of rollout
@@ -166,12 +170,12 @@ struct Layout_v
 		width --return
 	),
 
-	/** _get roll height
-	 */
-	function _getRollHeight =
-	(
-		Bbox.height + 48
-	),
+	--/** _get roll height
+	-- */
+	--function _getRollHeight =
+	--(
+	--	Bbox.height + 48
+	--),
 
 	on create do
 	(
