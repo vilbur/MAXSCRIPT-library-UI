@@ -81,7 +81,8 @@ struct Layout_v
 		width   = Control.Props.get #width
 		height  = Control.Props.get #height
 
-		
+		format "width = % \n" width
+
 		if( width == undefined ) then
 			width = (Control.Props.get #columns) * column_size
 		
@@ -90,6 +91,8 @@ struct Layout_v
 			
 		if( pos == undefined ) then
 			pos = this._getControlPosition width
+		
+		format "width = % \n" width
 		
 		Dimensions_v pos:pos width:width height:height
 	),
@@ -128,6 +131,7 @@ struct Layout_v
 	 */
 	function _setNextControlPosition current_control_width =
 	(
+		format "current_control_width = % \n" current_control_width
 		pos_last.x += current_control_width
 		--pos_last = [ pos_last.x + current_control_width, pos_last.y ]
 	),

@@ -1,3 +1,4 @@
+filein( getFilenamePath(getSourceFileName()) + "/../../List/List.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
@@ -74,15 +75,53 @@ struct Rollout_v
 	function fitSubrollouts =
 	(
 		print "fitSubrollouts"
-		print Controls_and_Rollouts.count
 		
-		--rollout_3_layout_subrolloutstestms.subrollouts_slot_1.height = 512
+		_subrollouts = this._analyzeLayout()
 		
-		this.property height:1024
-		
-		print Controls_and_Rollouts[1] as string
-		
+		this._fitSubrollouts _subrollouts
 	),
+	
+	/** Analyze layout
+	 */
+	function _analyzeLayout =
+	(
+		_subrollouts = #()
+		_controls    = #()
+		
+		for Control_or_Rollout in Controls_and_Rollouts do
+			if( this.getType Control_or_Rollout == "subrollouts" ) then 
+				append _subrollouts Control_or_Rollout
+			else
+				append _controls Control_or_Rollout
+			--Control_or_Rollout._create()
+		format "_subrollouts.count = % \n" _subrollouts.count
+		
+		_subrollouts --return
+	),
+	
+	/** Get type
+	 */
+	function getType Object =
+	(
+		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
+	),
+	
+	/** If only single subrollouts
+	 */
+	function _fitSubrollouts _subrollouts =
+	(
+		dialog_height = (this.property height:#get) as integer
+		subrollouts_count = _subrollouts.count
+		
+		rollout_height = (dialog_height/subrollouts_count) as integer
+		--format "dialog_height = % \n" dialog_height
+		--format "rollout_height = % \n" rollout_height
+		offset = -rollout_height
+		
+		for _subrollout in _subrollouts do 
+			_subrollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
+	),
+	
 	
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm

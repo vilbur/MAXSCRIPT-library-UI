@@ -4,31 +4,19 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
 
 
 /* ROLLOUT DEFINITION */
-_Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
-
-/* DEFINE SLOTS FOR ROLLOUTS */ 
-Rollouts_1 = _Rollout.subrollouts()
---Rollouts_2 = _Rollout.subrollouts()
-
-
-/* DEFINE ROLLOUTS */ 
-Rollout_A	= Rollouts_1.new "Rollout A"
-Rollout_B	= Rollouts_1.new "Rollout B"
-
-
-/* DEFINE SUBROLLOUTS */ 
---Subrollouts_A = Rollout_A.subrollouts()
-
---SubRollout_A1 = Subrollouts_A.new   "Subrollout A1"
---SubRollout_A2 = Subrollouts_A.new   "Subrollout A2"
+global _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 
 /** Add extra rollout
  */
-function addRolloutByCodeTest Rollouts =
+function addRolloutByCodeTest =
 (
-	
-	for _Rollout in Rollouts do 
+	/* DEFINE SLOTS FOR ROLLOUTS */ 
+	Rollouts_1 = _Rollout.subrollouts()
+	Rollout_A	= Rollouts_1.new "Rollout A"
+	Rollout_B	= Rollouts_1.new "Rollout B"
+
+	for _Rollout in #(Rollout_A) do 
 		for g = 1 to 3 do
 		(
 			Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
@@ -39,7 +27,42 @@ function addRolloutByCodeTest Rollouts =
 		
 )
 
-addRolloutByCodeTest #(Rollout_A, Rollout_B)
+/** Add extra rollout
+ */
+function addRollouts =
+(
+	
+	/* DEFINE ROLLOUTS SLOTS */ 
+
+	for s = 1 to 2 do
+	(
+		SubRollouts = _Rollout.subrollouts()
+		
+		/* DEFINE SUBROLLOUTS */ 
+		for r = 1 to 3 do
+		(
+			_SubRollout	= SubRollouts.new ( s as string + r as string )
+			
+			/* DEFINE GROUPBOX */ 
+			for g = 1 to 3 do
+			(
+				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + g as string)
+				
+				/* DEFINE CONTROLS */ 
+				for c = 1 to 4 do
+					Controls.button ("Button " + s as string +"" + r as string +""+ g as string +"" + c as string )
+			)
+			
+		)
+	)
+
+		
+)
+
+
+
+--addRolloutByCodeTest()
+addRollouts()
 
 
 /* CREATE ROLLOUT */

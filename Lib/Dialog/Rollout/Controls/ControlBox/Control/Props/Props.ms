@@ -42,7 +42,9 @@ struct Props_v
 			Params.getVal param -- return
 			
 		else
-			this.getProp param 
+			this.getProp param
+		--format "this.getProp param = % \n" (this.getProp param)
+		--"Test"
 	),
 
 	/** Remove
@@ -98,9 +100,21 @@ struct Props_v
 	 */
 	function getProp prop_name =
 	(
-		--print "------------\nProps.getProp()"
-		--format " prop_name	= % \n" prop_name
+		print "------------\nProps.getProp()"
+		format " prop_name	= % \n" prop_name
+		--format " value	= % \n" (execute (this.propPath prop_name))
+		--try
+		--(
 		execute (this.propPath prop_name)
+		--	
+		--)
+		--catch
+		--(
+		--	format "\n************ EXCEPTION ************\n%\n***********************************\n" (getCurrentException())
+		--	format "\n**************** EXCEPTION File: % ****************\n\n%\n\n**************************************************************************************************************************************\n" filein_path (getCurrentException())
+		-- 0
+		--)
+		
 	),
 	
 	/** Construct
