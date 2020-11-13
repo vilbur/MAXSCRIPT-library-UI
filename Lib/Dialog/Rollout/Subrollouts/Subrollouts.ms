@@ -43,14 +43,10 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts =
 	(
-		for subrollout in Rollouts do
-		(
-			execute ( "\n AddSubRollout " + this.getId() + " " + subrollout.id )
-			--execute ( "\n AddSubRollout " + Parent_roll.id + "." + id + " " + subrollout.id )
-			subrollout.addSubRollouts()			
-		)
+		for Subrollout in Rollouts do
+			this._addSubRollout Subrollout
 	),
-	
+
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
@@ -65,7 +61,6 @@ struct Subrollouts_v
 	 */
 	function getId =
 	(
-		--format "Parent_roll.id = % \n" Parent_roll.id
 		Parent_roll.id + "." + id --return
 	),
 	
@@ -77,6 +72,15 @@ struct Subrollouts_v
 			_Rollout.createRollout()
 			
 		Parent_roll.RolloutCreator.addSubrolloutSlot( this._getSubrolloutSlot() )
+	),
+	
+	/** Add subrollout to UI
+	 */
+	function _addSubRollout Subrollout =
+	(
+		execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id )
+
+		Subrollout.addSubRollouts()					
 	),
 	
 	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
@@ -99,9 +103,8 @@ struct Subrollouts_v
 			--return()
 		format "id =%\n" ("subRollout "+id+" \""+id+"\" height:128")
 		
-		"subRollout "+id+" \"slot_name\" height:128" --return
-		--"subrollout "+id+" \"slot_name\" height:" + height as string
-		--"subrollout "+id+" \"slot_name\" height:" + (Parent_roll.property height:#get)  as string   --return
+		--"subRollout "+id+" \"slot_name\" height:128" --return
+		"subRollout "+id+" \"slot_name\"" --return
 	),
 
 	/** Any subrollout exists
