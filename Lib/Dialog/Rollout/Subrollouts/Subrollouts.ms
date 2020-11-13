@@ -4,14 +4,17 @@
 struct Subrollouts_v
 (
 	/* required */
-	slot,
+	id,
 
 	/* reference */
 	Parent_roll, -- Parent rollout if this is subrollout, undefined for RolloutMain
 	
 	/* properties */
 	Rollouts	= #(),  -- store rollouts used as subrollouts
-	
+
+	/* dependency */
+	RolloutProperty = RolloutProperty_v Parent_roll:this,
+
 	/** New	subrollout
 	  *
 	  * @return	object Rollout_v	
@@ -40,16 +43,32 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts =
 	(
-		--format "Subrollouts.addSubRollouts() slot = %"slot 
-		--print ("Subrollouts.addSubRollouts() slot = "+slot)
 		for subrollout in Rollouts do
 		(
-			execute ( "\n AddSubRollout " + Parent_roll.id + "." + slot + " " + subrollout.id )
+			execute ( "\n AddSubRollout " + this.getId() + " " + subrollout.id )
+			--execute ( "\n AddSubRollout " + Parent_roll.id + "." + id + " " + subrollout.id )
 			subrollout.addSubRollouts()			
 		)
-			
 	),
-		
+	
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
+     */
+    function property offset: open: pos: height: width: =
+    (
+		RolloutProperty.propertyGetSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
+	),
+	
+	/** Get id
+	 */
+	function getId =
+	(
+		--format "Parent_roll.id = % \n" Parent_roll.id
+		Parent_roll.id + "." + id --return
+	),
+	
 	/** Create Subrollouts and generate slot_string
 	 */
 	function _create =
@@ -78,7 +97,11 @@ struct Subrollouts_v
 	(
 		--if not ( this._anySubrolloutExists() ) then
 			--return()
-		"subrollout "+slot+" \"slot_name\" height:128" --return
+		format "id =%\n" ("subRollout "+id+" \""+id+"\" height:128")
+		
+		"subRollout "+id+" \"slot_name\" height:128" --return
+		--"subrollout "+id+" \"slot_name\" height:" + height as string
+		--"subrollout "+id+" \"slot_name\" height:" + (Parent_roll.property height:#get)  as string   --return
 	),
 
 	/** Any subrollout exists
@@ -96,6 +119,14 @@ struct Subrollouts_v
 	 */
 	on create do
 	(
-
+		print"-----------------"
+		format "Parent_roll.id = % \n" Parent_roll.id
+		format "this.id = % \n" this.id
+		format "this.getId() = % \n" (this.getId())
 	)
+		
+		
+		
+		
+		
 )

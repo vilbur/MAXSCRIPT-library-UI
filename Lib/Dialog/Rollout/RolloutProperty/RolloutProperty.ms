@@ -5,7 +5,7 @@
  */
 struct RolloutProperty_v
 (
-	__construct = #(),
+	__construct = #(#Parent_roll),
 	
 	/* reference */
 	Parent_roll,
@@ -19,7 +19,7 @@ struct RolloutProperty_v
 	function propertyGetSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		format "keys_values = % \n" keys_values
+		--format "keys_values = % \n" keys_values
 		
 		if( Parent_roll == undefined ) then
 			return false
@@ -92,8 +92,8 @@ struct RolloutProperty_v
 	 */
 	function _getPropertyString key =
 	(
-		--Parent_roll.getId() + "." + key as string  --return
-		Parent_roll.id + "." + key as string  --return
+		Parent_roll.getId() + "." + key as string  --return
+		--Parent_roll.id + "." + key as string  --return
 	),
 	/** Get value
 	 */
@@ -107,26 +107,6 @@ struct RolloutProperty_v
 		
 		value as string --return
 	),
-	
-	/** Get\set value of property 
-	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
-	  * @param	string|#get value	Value of property
-	  *
-	  * @return	string|self Value or self
-	  *
-	  * @example this._getSetProp "foo" "bar" -- SET "bar" to property "foo"
-	  * @example this._getSetProp #foo  #get  -- GET value of property "foo"
-	  */
-	--function _getSetProp key value =
-	--(
-	--	if( value != #get ) then
-	--	(
-	--		if( value != undefined ) then
-	--			setProperty  this ( key as string ) value
-	--		this --return
-	--	) else
-	--		getProperty this ( key as string ) --return
-	--),
 	
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 

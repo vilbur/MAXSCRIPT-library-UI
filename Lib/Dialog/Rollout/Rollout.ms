@@ -1,8 +1,8 @@
+filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
 global add_subrollouts = " "
@@ -39,9 +39,9 @@ struct Rollout_v
 	RolloutCreator,
 	
 	--Subrollouts	= Subrollouts_v slot:slot_id,
- 	Controls  = Controls_v        Parent_roll:this,
-	Layout	  = Layout_v(),
-	_Property = RolloutProperty_v Parent_roll:this,
+ 	Controls        = Controls_v        Parent_roll:this,
+	Layout          = Layout_v(),
+	RolloutProperty = RolloutProperty_v Parent_roll:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	
@@ -61,7 +61,7 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		format "\nid =%\n" id
+		--format "\nid =%\n" id
 
 		for Control_or_Rollout in Controls_and_Rollouts do
 			Control_or_Rollout._create()
@@ -80,7 +80,7 @@ struct Rollout_v
 		
 		this.property height:1024
 		
-		
+		print Controls_and_Rollouts[1] as string
 		
 	),
 	
@@ -91,7 +91,7 @@ struct Rollout_v
      */
     function property name: title: open: scrollPos: height: width: =
     (
-		this._Property.propertyGetSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+		RolloutProperty.propertyGetSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
 	),
 	
 	/** Find if rollout has been added to UI already
@@ -99,6 +99,13 @@ struct Rollout_v
 	function exists =
 	(
 		(execute id) != undefined --return
+	),
+	
+	/** Get id
+	 */
+	function getId =
+	(
+		id --return
 	),
 	
 	private

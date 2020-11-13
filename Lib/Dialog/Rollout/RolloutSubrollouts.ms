@@ -5,7 +5,7 @@
 	 */
 	function subrollouts =
 	(
-		_Subrollouts = Subrollouts_v slot:( "subrollouts_slot_" + (slot_id+=1) as string ) Parent_roll:this
+		_Subrollouts = Subrollouts_v id:( "subrollouts_slot_" + (slot_id+=1) as string ) Parent_roll:this
 
 		append Controls_and_Rollouts _Subrollouts
 		
