@@ -54,7 +54,7 @@ struct Subrollouts_v
      */
     function property offset: open: pos: height: width: =
     (
-		RolloutProperty.propertyGetSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
+		RolloutProperty.getOrSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
 	),
 	
 	/** Get id

@@ -18,7 +18,6 @@ filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" 
 struct ControlBox_v 
 (
 	/* required */
-	/* dependency */
 	/* reference */
 	Parent_roll,
 	Layout,
@@ -30,8 +29,43 @@ struct ControlBox_v
 
 	Controls	= #(),
 	
+	/* dependency */
+	_Property = RolloutProperty_v Parent_roll:this,
+
+	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
+     */
+    function property caption: pos: height: width: =
+    (
+		--format "ControlBox_v.property pos % \n" pos
+		_Property.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
+	),
+	
+	/** Offset Controls
+	 */
+	function offsetGroupbox offset =
+	(
+		this.property pos:offset
+		
+		offset.y += Parent_roll.Layout.padding_groupbox
+		
+		for Control in Controls do
+			Control.Props.add #pos offset  --!!! PREDELAT Cotrol.Props na Control.property()
+	),
+	
+	/** Get id
+	 */
+	function getId =
+	(
+		Parent_roll.getId() + "." + Groupbox.id.id --return
+	),
+
+	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
 	 *  @param	string	caption	Caption of control
@@ -83,7 +117,7 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		for Control in controls do
+		for Control in Controls do
 			this._addControl Control
 	),
 	

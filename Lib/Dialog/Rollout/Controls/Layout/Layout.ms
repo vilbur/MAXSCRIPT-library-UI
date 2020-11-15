@@ -1,6 +1,12 @@
 filein( getFilenamePath(getSourceFileName()) + "/Bbox/Bbox.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Dimensions/Dimensions.ms" )
 
+struct LayoutControls
+(
+	height_defined
+	
+)
+
 /** Layout
  */
 struct Layout_v
@@ -15,8 +21,10 @@ struct Layout_v
 	
 	pos_last = [0,0],    -- store origin of last added control 
 
-	_padding_groupbox = 16,
+	padding_groupbox = 16,
 	
+	Parent_roll,
+
 	/** Set init pos_last 
 	 */
 	function newControlsBox =
@@ -57,6 +65,61 @@ struct Layout_v
 		Groupbox.Props.setDimensions Dimensions
 	),	
 
+	
+	
+	/** Analyze layout
+	 */
+	function analyze &Controls_and_Rollouts =
+	(
+		_subrollouts = #()
+		_controls    = #()
+		
+		for Control_or_Rollout in Controls_and_Rollouts do
+			if( this._getType Control_or_Rollout == "subrollouts" ) then 
+				append _subrollouts Control_or_Rollout
+			else
+				append _controls Control_or_Rollout
+			--Control_or_Rollout._create()
+		format "_subrollouts.count = % \n" _subrollouts.count
+		format "_controls.count = % \n" _controls.count
+		_subrollouts --return
+		
+	),
+
+	/** If only single subrollouts
+	 */
+	function fitSubrollouts =
+	(
+		Controls_and_Rollouts = Parent_roll.Controls_and_Rollouts
+		
+		dialog_height = (Parent_roll.property height:#get) as integer
+		format "dialog_height = % \n" dialog_height
+		subrollouts_count = Controls_and_Rollouts.count
+		format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
+
+		rollout_height = (dialog_height/subrollouts_count) as integer
+		format "dialog_height = % \n" dialog_height
+		format "rollout_height = % \n" rollout_height
+		offset = - rollout_height
+		
+		for Control_or_Rollout in Controls_and_Rollouts do
+			if( this._getType Control_or_Rollout == "subrollouts" ) then 
+				Control_or_Rollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
+			else
+				--print(this._getType Control_or_Rollout)
+				Control_or_Rollout.offsetGroupbox [0,256]
+				--Control_or_Rollout.property pos:[0,(offset+=rollout_height)]
+
+	),
+	
+	/** Get type
+	 */
+	function _getType Object =
+	(
+		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
+	),
+	
+	
 	private
 	
 	/** _get bbox origin
@@ -104,8 +167,8 @@ struct Layout_v
 		--format "------------\nLayout._addFirstControlPadding()"
 		if( pos_last == Bbox.origin ) then
 		(
-            pos_last.y  += _padding_groupbox
-            Bbox.height += _padding_groupbox
+            pos_last.y  += padding_groupbox
+            Bbox.height += padding_groupbox
 		)
 	),
 	

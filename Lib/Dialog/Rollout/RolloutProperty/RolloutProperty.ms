@@ -16,7 +16,7 @@ struct RolloutProperty_v
 	  * @property	#(#name)	keys	of properties
 	  * @property	#("value")	values	of properties
 	 */
-	function propertyGetSet keys values =
+	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
 		--format "keys_values = % \n" keys_values
@@ -83,6 +83,7 @@ struct RolloutProperty_v
      */
     function _executeProperty key value =
     (
+		format "this._executeProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key + " = " + this._getValue key value )
     ),
 	

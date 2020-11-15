@@ -41,7 +41,7 @@ struct Rollout_v
 	
 	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls        = Controls_v        Parent_roll:this,
-	Layout          = Layout_v(),
+	Layout          = Layout_v          Parent_roll:this,
 	RolloutProperty = RolloutProperty_v Parent_roll:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
@@ -74,52 +74,18 @@ struct Rollout_v
 	 */
 	function fitSubrollouts =
 	(
-		print "fitSubrollouts"
+		print "*********** fitSubrollouts"
 		
-		_subrollouts = this._analyzeLayout()
+		--_subrollouts = Layout.analyze Controls_and_Rollouts
 		
-		this._fitSubrollouts _subrollouts
+		this.Layout.fitSubrollouts()
 	),
-	
-	/** Analyze layout
-	 */
-	function _analyzeLayout =
-	(
-		_subrollouts = #()
-		_controls    = #()
-		
-		for Control_or_Rollout in Controls_and_Rollouts do
-			if( this.getType Control_or_Rollout == "subrollouts" ) then 
-				append _subrollouts Control_or_Rollout
-			else
-				append _controls Control_or_Rollout
-			--Control_or_Rollout._create()
-		format "_subrollouts.count = % \n" _subrollouts.count
-		
-		_subrollouts --return
-	),
-	
+
 	/** Get type
 	 */
-	function getType Object =
+	function _getType Object =
 	(
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
-	),
-	
-	/** If only single subrollouts
-	 */
-	function _fitSubrollouts _subrollouts =
-	(
-		dialog_height = (this.property height:#get) as integer
-		subrollouts_count = _subrollouts.count
-		
-		rollout_height = (dialog_height/subrollouts_count) as integer
-		--format "dialog_height = % \n" dialog_height
-		--format "rollout_height = % \n" rollout_height
-		offset = -rollout_height
-		
-		for _subrollout in _subrollouts do 
-			_subrollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
 	),
 	
 	
@@ -130,7 +96,7 @@ struct Rollout_v
      */
     function property name: title: open: scrollPos: height: width: =
     (
-		RolloutProperty.propertyGetSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+		RolloutProperty.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
 	),
 	
 	/** Find if rollout has been added to UI already
