@@ -98,17 +98,16 @@ struct Layout_v
 		format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
 
 		rollout_height = (dialog_height/subrollouts_count) as integer
-		format "dialog_height = % \n" dialog_height
-		format "rollout_height = % \n" rollout_height
+		--format "dialog_height = % \n" dialog_height
+		--format "rollout_height = % \n" rollout_height
 		offset = - rollout_height
+		--format "offset = % \n" offset
 		
 		for Control_or_Rollout in Controls_and_Rollouts do
 			if( this._getType Control_or_Rollout == "subrollouts" ) then 
 				Control_or_Rollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
 			else
-				--print(this._getType Control_or_Rollout)
-				Control_or_Rollout.offsetGroupbox [0,256]
-				--Control_or_Rollout.property pos:[0,(offset+=rollout_height)]
+				Control_or_Rollout.offsetGroupbox [0, (offset+=rollout_height)] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
 
 	),
 	

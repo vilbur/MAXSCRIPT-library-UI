@@ -78,7 +78,7 @@ struct Props_v
 	 */
 	function applyProp prop_name _value =
 	(
-		print ("------------\nProps.applyProp " +prop_name as string +":"+_value as string )
+		--print ("------------\nProps.applyProp " +prop_name as string +":"+_value as string )
 		if( classOf _value == String ) then 
 			_value = "\""+_value as string +"\""
 		
@@ -92,7 +92,7 @@ struct Props_v
 	 */
 	function propPath prop_name =
 	(
-		print ("------------\nProps.propPath() return " + Control.id.full + "." + ( prop_name as string ))
+		--print ("------------\nProps.propPath() return " + Control.id.full + "." + ( prop_name as string ))
 		Control.Id.full + "." + ( prop_name as string ) --return
 	),
 	
@@ -100,8 +100,8 @@ struct Props_v
 	 */
 	function getProp prop_name =
 	(
-		print "------------\nProps.getProp()"
-		format " prop_name	= % \n" prop_name
+		--print "------------\nProps.getProp()"
+		--format " prop_name	= % \n" prop_name
 		--format " value	= % \n" (execute (this.propPath prop_name))
 		--try
 		--(

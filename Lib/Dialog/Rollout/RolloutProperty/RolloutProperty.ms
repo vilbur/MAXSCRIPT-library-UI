@@ -83,7 +83,7 @@ struct RolloutProperty_v
      */
     function _executeProperty key value =
     (
-		format "this._executeProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
+		--format "RolloutProperty_v._executeProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key + " = " + this._getValue key value )
     ),
 	
