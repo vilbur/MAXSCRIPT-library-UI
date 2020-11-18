@@ -42,7 +42,7 @@ struct Rollout_v
 	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls        = Controls_v        Parent_roll:this,
 	Layout          = Layout_v          Parent_roll:this,
-	RolloutProperty = RolloutProperty_v Parent_roll:this,
+	RolloutProperty = RolloutProperty_v Parent_Control:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	
@@ -62,8 +62,7 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		--format "\nid =%\n" id
-
+		format "Rollout_v.createRollout %\n" id
 		for Control_or_Rollout in Controls_and_Rollouts do
 			Control_or_Rollout._create()
 	
@@ -113,6 +112,7 @@ struct Rollout_v
 		id --return
 	),
 	
+
 	private
 	
 	/** Set id by title if not defined

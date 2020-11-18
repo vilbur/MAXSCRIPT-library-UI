@@ -46,11 +46,12 @@ struct Layout_v
 	(
 		format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
 		Dimensions	= this._getControlDimensions Control
+		format "Dimensions = %\n" Dimensions
 
 		this._setNextControlPosition Dimensions.width
 
-		Control.Props.setDimensions Dimensions
-		format "Dimensions.pos =%\n" Dimensions.pos
+		Control.setDimensions Dimensions
+		--format "Dimensions.pos =%\n" Dimensions.pos
 		
  		Bbox.add Dimensions
 	),
@@ -60,9 +61,12 @@ struct Layout_v
 	function setGroupboxDimensions &Groupbox =
 	(
 		--format "------------\nLayout._getGroupboxDimensions()"
-		Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
+		--Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
 		
-		Groupbox.Props.setDimensions Dimensions
+		--Groupbox.Props.setDimensions Dimensions
+
+		Groupbox.property pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
+
 	),	
 
 	
@@ -83,7 +87,6 @@ struct Layout_v
 		format "_subrollouts.count = % \n" _subrollouts.count
 		format "_controls.count = % \n" _controls.count
 		_subrollouts --return
-		
 	),
 
 	/** If only single subrollouts
@@ -108,7 +111,6 @@ struct Layout_v
 				Control_or_Rollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
 			else
 				Control_or_Rollout.offsetGroupbox [0, (offset+=rollout_height)] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
-
 	),
 	
 	/** Get type
@@ -136,25 +138,29 @@ struct Layout_v
 
 	/** Get control dimensions defined by user
 	  * If undefined then us Layout default values0
+	  
+	     TODO: REFRACT THIS METHOD
 	 */
 	function _getControlDimensions Control =
 	(
-		pos     = Control.Props.get #pos
-		width   = Control.Props.get #width
-		height  = Control.Props.get #height
-
-		format "width = % \n" width
-
+		print "Layout_v._getControlDimensions()"
+		pos     = Control.property pos:   #get
+		width   = Control.property width: #get
+		height  = Control.property height:#get
+		
+		format "column_size = % \n" column_size
+		
 		if( width == undefined ) then
-			width = (Control.Props.get #columns) * column_size
+			width = this._getControlWidth Control
 		
 		if( height == undefined ) then
 			height = this._getControlHeight()
 			
 		if( pos == undefined ) then
 			pos = this._getControlPosition width
-		
-		format "width = % \n" width
+		--format "pos    = % \n" pos
+		--format "width  = % \n" width
+		--format "height = % \n" height
 		
 		Dimensions_v pos:pos width:width height:height
 	),
@@ -173,13 +179,20 @@ struct Layout_v
 	
 	/** _get position of last control
 	 */
-	function _getControlPosition current_control_width =
+	function _getControlPosition width =
 	(
 		--format "------------\nLayout._getControlPosition()"
-		this._trySetNewControlsRow current_control_width
+		this._trySetNewControlsRow width
 
 		[ pos_last.x, pos_last.y ] --return
 	),
+	
+	/** Get height
+	 */
+	function _getControlWidth Control =
+	(
+		(Control.property columns:#get) * column_size --return
+	),	
 	
 	/** Get height
 	 */
@@ -187,14 +200,13 @@ struct Layout_v
 	(
 		column_size - padding * 2 --return
 	),
-	
 
 	/** Set new control position
 	 */
 	function _setNextControlPosition current_control_width =
 	(
 		format "current_control_width = % \n" current_control_width
-		pos_last.x += current_control_width
+		--pos_last.x += current_control_width
 		--pos_last = [ pos_last.x + current_control_width, pos_last.y ]
 	),
 

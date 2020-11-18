@@ -5,7 +5,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
 global Controls     = _Rollout.Controls.new groupbox:"Controls 1"
 global btn_no_props = Controls.button "Button No Properties"
-global btn_props    = Controls.button "Button Properties"
+--global btn_props    = Controls.button "Button Properties"
 
 /*---------------------------------------
 	ADD CONTROLS
@@ -24,15 +24,15 @@ function setPropertiesBeforeCretion =
  */
 function addParameterToExistingControlsTest =
 (
-	btn_props.Props.add    #enabled false
+	btn_props.property enabled:false
 	
-	btn_no_props.Props.add #visible false
+	--btn_no_props.Props.add #visible false
 )
 
 
 /** TEST 
  */
-setPropertiesBeforeCretion()
+--setPropertiesBeforeCretion()
 
 
 /* CREATE ROLLOUT */
@@ -44,4 +44,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
 /** TEST 
  */
-addParameterToExistingControlsTest()
+--addParameterToExistingControlsTest()

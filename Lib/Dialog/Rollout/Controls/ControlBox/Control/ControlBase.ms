@@ -7,9 +7,9 @@
 	__construct = #( #type, #caption ),
 	
 	/* dependency */
-	Id      	= ControlId_v	Parent_control:this,
+	Id      	= ControlId_v	Parent_Control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
-	Props	    = Props_v	Control:this,
+	Properties	    = RolloutProperty_v	Parent_Control:this,
 
 	/* reference */
 	Parent_roll,
@@ -33,7 +33,29 @@
 	(
 		this.Id.setId id
 	),
-		
+	/** Get id
+	 */
+	function getId =
+	(
+		Id.full --return
+	),
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
+     */
+    function property enabled: title: visible: pos: height: width: columns: =
+    (
+		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns) #(enabled, title, visible, pos, height, width, columns)
+	),
+	
+	/** Set dimensions
+     */
+    function setDimensions Dimensions =
+    (
+		this.property pos:Dimensions.pos width:Dimensions.width height:Dimensions.height
+    ),
+	
 	--/** Set parameters for control
 	--  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
 	-- */
@@ -44,7 +66,7 @@
 	--	--for key_value_string in string_split do
 	--	--(
 	--	--	key_value	= filterString key_value_string ":"
-	--	--	Props.add key_value[1] key_value[2]
+	--	--	Properties.add key_value[1] key_value[2]
 	--	--)
 	--	--this --return
 	--	
@@ -55,7 +77,7 @@
 	-- */
 	--function param key value =
 	--(
-	--	Props.add ( key as string ) value
+	--	Properties.add ( key as string ) value
 	--
 	--	this --return
 	--),
@@ -66,15 +88,15 @@
 	 */
 	function exists =
 	(
-		--print "------------\nControlBase.exists()"
-
 		control_exists	= false 
 
 		if( Parent_roll.exists() ) then
 			try(
 				control_exists = (execute Id.full) != undefined
 			)catch()
+			
 
+		format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
 		control_exists --return
 	),
 
@@ -116,7 +138,7 @@
 	 */
 	function setLayoutCoordinates =
 	(
-		Props.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Props.get #pos) (Props.get #width) (Props.get #height) )
+		Properties.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Properties.get #pos) (Properties.get #width) (Properties.get #height) )
 	),
 
 	private
@@ -127,7 +149,7 @@
 	(
 		--this._setDimensions()
 
-		Props.join() + this._getTooltip() --return
+		Properties.join() + this._getTooltip() --return
 		--this._getTooltip() --return
 	),
 

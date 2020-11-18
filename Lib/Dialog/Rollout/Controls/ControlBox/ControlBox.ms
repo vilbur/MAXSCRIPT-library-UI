@@ -30,10 +30,18 @@ struct ControlBox_v
 	Controls	= #(),
 	
 	/* dependency */
-	_Property = RolloutProperty_v Parent_roll:this,
+	Properties = RolloutProperty_v Parent_Control:this,
 
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
+
+		
+	/** Add control to rollout
+	 */
+	function add &Control =
+	(
+		append Controls Control
+	),
 
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -43,7 +51,7 @@ struct ControlBox_v
     function property caption: pos: height: width: =
     (
 		--format "ControlBox_v.property pos % \n" pos
-		_Property.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
+		Properties.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
 	),
 	
 	/** Offset Controls
@@ -55,7 +63,11 @@ struct ControlBox_v
 		offset.y += Parent_roll.Layout.padding_groupbox
 		
 		for Control in Controls do
-			Control.Props.add #pos offset  --!!! PREDELAT Cotrol.Props na Control.property()
+		(
+			--offset.x += Control.Properties.get #pos
+			--Control.Properties.add #pos offset  --!!! PREDELAT Cotrol.Properties na Control.property()
+			
+		)
 	),
 	
 	/** Get id
@@ -64,7 +76,6 @@ struct ControlBox_v
 	(
 		Parent_roll.getId() + "." + Groupbox.id.id --return
 	),
-
 	
 	/**  Add control of any type
 	 *  @param	string	type	Type of control
@@ -75,20 +86,15 @@ struct ControlBox_v
 	function _newControl _Control id: add:true =
 	(
 		_Control.Parent_roll = Parent_roll
+		
 		_Control.setId id
-		_Control.Props.add #columns 4
+		_Control.property columns:4
+		--format "ControlBox_v._newControl %\n" (_Control.getId() )
 		
 		if( add ) then
 			this.add _Control
 		
 		_Control --return
-	),
-	
-	/** Add control to rollout
-	 */
-	function add &Control =
-	(
-		append Controls Control
 	),
 
 	/** Set group box
@@ -125,6 +131,7 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
+		print "ControlBox._addControl()"
 		Layout.setControlDimensions Control
 		--Control.setLayoutCoordinates()
 		
@@ -149,7 +156,8 @@ struct ControlBox_v
 	function _addControlToUi Control =
 	(
 		--format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
-		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Props.join())
+		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Properties.join())
+		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption)
 	),
 
 	/*------------------------------------------------------------------------------

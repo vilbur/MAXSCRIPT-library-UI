@@ -5,52 +5,97 @@
  */
 struct RolloutProperty_v
 (
-	__construct = #(#Parent_roll),
+	__construct = #(#Parent_Control),
 	
 	/* reference */
-	Parent_roll,
+	
+	Parent_Control,
+	
+	Params	= List_v(),
 
 	/** Set any property to rollout
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
 	  * @property	#(#name)	keys	of properties
-	  * @property	#("value")	values	of properties
+	  * @property	#("value", #get)	values	of properties, to get values set value to #get
 	 */
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "keys_values = % \n" keys_values
-		
-		if( Parent_roll == undefined ) then
+		--format "RolloutProperty_v.getOrSet %\n" (Parent_Control.getId() + "." + keys_values.values[1] as string)
+
+		if( Parent_Control == undefined ) then
 			return false
 		
-		for i=1 to keys_values.keys.count do
-			if( keys_values.values[i] == #get ) then 
-				keys_values.setVal (keys_values.keys[i]) (this.getProp keys_values.keys[i])
-			else
-				this._executeProperty keys_values.keys[i] keys_values.values[i]
-				
-		this._removeList keys_values --return
+		for key in keys_values.keys do
+			this._replaceCurrentOrNewValue keys_values key
+		
+		keys_values.filter undefined test:false -- remove undefined items
+			
+		keys_values.getValues() -- return
 	),
-
-	/** Get property
+	
+	/** _replace current or new value
 	 */
-	function getProp key =
+	function _replaceCurrentOrNewValue &keys_values key =
 	(
-		execute ( this._getPropertyString key ) --return
+		value_curernt_or_new = this._getOrSetValue key (keys_values.getVal key)
+		
+		keys_values.setVal key value_curernt_or_new
+	),
+	
+	/** _get or set value
+	 */
+	function _getOrSetValue key value =
+	(
+		--print "RolloutProperty_v._getOrSetValue()"
+		if( value == #get ) then 
+			this._getValue	key       -- return
+		else
+			this._setValue	key value -- return
+	),	
+	
+	/** _get or set value
+	 */
+	function _getValue key =
+	(
+		format "RolloutProperty_v._getValue (%)\n" key
+		--Params.setVal key 256 -- return
+			
+		if ( Parent_Control.exists() ) then
+			this._getProperty key -- return
+		else
+			Params.getVal key   -- return
+	),
+	
+	/** _get or set value
+	 */
+	function _setValue key value =
+	(
+		format "RolloutProperty_v._setValue (%)\n" key
+		if ( Parent_Control.exists() ) then
+			this._setProperty key value -- return
+		else
+			Params.setVal key value -- return
+	),	
+
+	/** Join array
+	 */
+	function join =
+	(
+		print "------------\nRolloutProperty_v.join()"
+		_params = ""
+		
+		for k=1 to Params.keys.count do
+			_params = _params + " " + Params.keys[k] +":"+ Params.values[k] as string
+		
+		format " _params	= % \n" _params
+		--""
+		_params --return
 	),
 	
 	private
-	
-	/** Return just value if list has only 1 member
-	 */
-	function _removeList list =
-	(
-		if( list.values.count == 1 ) then 
-			list.values[1] --return
-		else
-			list --return
-	),
+
 	
 	/** Filter unsupplied parameters
 	  * Return only supplied parameters
@@ -77,28 +122,41 @@ struct RolloutProperty_v
 		keys_values --return
     ),
 	
-	/** Execute property
+	/** Get property
+	  *
+	  * E.G.: execute("rollout_rollout_a.height")
+     */
+    function _getProperty key =
+    (
+		format "RolloutProperty_v._getProperty (%)" key
+
+		--format "RolloutProperty_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
+		execute ( this._getPropertyString key )
+    ),
+	
+	/** Set property
 	  *
 	  * E.G.: execute("rollout_rollout_a.height = 128")
      */
-    function _executeProperty key value =
+    function _setProperty key value =
     (
-		--format "RolloutProperty_v._executeProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
-		execute ( this._getPropertyString key + " = " + this._getValue key value )
+		--format "RolloutProperty_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
+		execute ( this._getPropertyString key + " = " + this._getValueString key value )
     ),
-	
+
 	/** Get property string
 	  *
 	  * Return string element_id.property_name
 	 */
 	function _getPropertyString key =
 	(
-		Parent_roll.getId() + "." + key as string  --return
-		--Parent_roll.id + "." + key as string  --return
+		format "RolloutProperty_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
+		Parent_Control.getId() + "." + key as string  --return
+		--Parent_Control.id + "." + key as string  --return
 	),
 	/** Get value
 	 */
-	function _getValue key value relative:false =
+	function _getValueString key value relative:false =
 	(
 		if( relative ) then 
 			value += this._getProperty key

@@ -13,7 +13,7 @@ struct Subrollouts_v
 	Rollouts	= #(),  -- store rollouts used as subrollouts
 
 	/* dependency */
-	RolloutProperty = RolloutProperty_v Parent_roll:this,
+	RolloutProperty = RolloutProperty_v Parent_Control:this,
 
 	/** New	subrollout
 	  *

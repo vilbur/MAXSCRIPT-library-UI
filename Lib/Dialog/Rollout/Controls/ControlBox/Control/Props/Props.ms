@@ -82,7 +82,7 @@ struct Props_v
 		if( classOf _value == String ) then 
 			_value = "\""+_value as string +"\""
 		
-		--print ((this.propPath prop_name) + "="+_value as string ) -- set value
+		print ((this.propPath prop_name) + "="+_value as string ) -- set value
 		execute ((this.propPath prop_name) + "="+_value as string ) -- set value
 		
 		this --return	

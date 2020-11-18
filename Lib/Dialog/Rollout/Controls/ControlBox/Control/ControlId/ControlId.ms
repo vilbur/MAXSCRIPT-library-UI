@@ -2,11 +2,11 @@
  */
 struct ControlId_v
 (
-	__construct = #( #Parent_control ),
+	__construct = #( #Parent_Control ),
 	/* dependency */
 
 	/* properties */
-	Parent_control,
+	Parent_Control,
 	id,
 	full,
 	
@@ -47,14 +47,14 @@ struct ControlId_v
 	 */
 	function _setIdByConrolType =
 	(
-		id = Parent_control.caption + "_" + Parent_control.type as string
+		id = Parent_Control.caption + "_" + Parent_Control.type as string
 	),
 	
 	/** Set full id with rollout id
 	 */
 	function _setIdFull =
 	(
-		full	= Parent_control.Parent_roll.id +"."+id -- make without Parent_roll
+		full	= Parent_Control.Parent_roll.id +"."+id -- make without Parent_roll
 	),
 	
 	/** Sanitize id

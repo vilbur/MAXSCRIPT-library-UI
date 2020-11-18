@@ -33,19 +33,21 @@ function addControls =
 (
 	/* DEFINE SLOTS FOR ROLLOUTS */
 	Controls    = _Rollout.Controls.new groupbox:("Groupbox")
-		Controls.button ("Button A" )
+	
+	Controls.button ("Button A" )
+	
+	Controls.add #pos    Dimensions.pos    force:true
+
 	--Rollouts_1 = _Rollout.subrollouts()
 	--Rollout_A	= Rollouts_1.new "Rollout A"
 	--Rollout_B	= Rollouts_1.new "Rollout B"
-	--
-	----for _Rollout in #(Rollout_A) do 
-	--	for g = 1 to 3 do
-	--	(
-	--		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
-	--		
-	--		for i = 1 to 4 do
-	--			Controls.button ("Button "+g as string +"."+i as string )
-	--	)
+	
+	--for _Rollout in #(Rollout_A) do 
+	--for g = 1 to 3 do
+	--(
+	--	for i = 1 to 4 do
+	--		Controls.button ("Button C "+g as string + i as string )
+	--)
 		
 )
 
@@ -83,7 +85,7 @@ function addSubRollouts subrollouts:1 =
 
 
 
-addSubRollouts subrollouts:2
+--addSubRollouts subrollouts:
 addControls()
 
 
