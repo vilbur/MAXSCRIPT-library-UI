@@ -1,49 +1,33 @@
+clearListener()
+
 filein ( getFilenamePath(getSourceFileName()) + "/../List.ms" );
 
 
 
+/* create a list */ 
+List = List_v()
 
--- create a list
-	arr=List()
-	
 /* Add value */ 
-	--arr.setVal #name "dave"
-	arr.setVal "name" "dave"
-	print "Added val";
-	print ( (arr.getVal "name")=="dave" );
+List.setVal "first"  "Value A"
+List.setVal "second" "Value B"
+List.setVal "third"  undefined
+List.setVal "fourth" "D"
+List.setVal "fifth"  "E"
+format "List             = % \n\n" List
 
 /* Delete value */
-	print "Delete val";
-	arr.delete "name"
-	print ( (arr.getVal "name")==undefined );
-
-	
---	arr.setVal #height 10
-	
-
----- add a sub list
---	-- create the list
---		books=List()
---		books.setVal #shakespeare "much ado about nothing"
---		books.setVal #dickens "a christmas carol"
---	
---	-- add it to the original list
---		arr.setVal #books books
---		
---	-- retrieve the value
---		(arr.getVal #books).getVal #shakespeare
+List.delete "fifth"
+format "delete fifth     = % \n" List;
 
 
+/* Filter value */
+List.filter undefined test:false       -- Remove items which ARE NOT undefined
+format "filter undefined = % \n" List 
 
-/*
-		fn delete str=
-		(
-			local i=findItem names str
-			if i>0 then 
-			(
-				local namesArr=deleteItem names i
-				local valuesArr=deleteItem values i
-			)
-			return #(namesArr,valuesArr)
-		)
-*/
+List.filter "Value*"                   -- Filter only values matching "Value*"
+format "filter A         = % \n" List
+
+
+/* Get value */
+second = List.getVal "second"                   
+format "get second item  = % \n" second
