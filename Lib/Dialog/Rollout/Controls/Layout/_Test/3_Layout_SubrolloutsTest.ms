@@ -32,7 +32,7 @@ global _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 function addControls =
 (
 	/* DEFINE SLOTS FOR ROLLOUTS */
-	for g = 1 to 1 do
+	for g = 1 to 5 do
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
@@ -73,9 +73,9 @@ function addSubRollouts subrollouts:1 =
 
 
 
---addSubRollouts()
+addSubRollouts()
 addControls()
-addSubRollouts subrollouts:2
+--addSubRollouts subrollouts:2
 
 
 /* CREATE ROLLOUT */

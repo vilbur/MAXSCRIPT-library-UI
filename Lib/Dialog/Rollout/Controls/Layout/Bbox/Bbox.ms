@@ -64,7 +64,6 @@ struct Bbox_v
 	 */
 	on create do
 	(
-		print "\nBbox.create()\n"
 		this._checkConstctructProperties()
 	)
 )

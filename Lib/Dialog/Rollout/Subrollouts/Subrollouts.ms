@@ -109,7 +109,7 @@ struct Subrollouts_v
 	(
 		--if not ( this._anySubrolloutExists() ) then
 			--return()
-		format "id =%\n" ("subRollout "+id+" \""+id+"\" height:128")
+		--format "id =%\n" ("subRollout "+id+" \""+id+"\" height:128")
 		
 		--"subRollout "+id+" \"slot_name\" height:128" --return
 		"subRollout "+id+" \"slot_name\"" --return

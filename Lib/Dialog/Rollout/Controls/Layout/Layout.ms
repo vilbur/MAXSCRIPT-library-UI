@@ -66,20 +66,15 @@ struct Layout_v
 	
 	/** Analyze layout
 	 */
-	function analyze &Controls_and_Rollouts =
+	function _getFixedSizes Controls_and_Rollouts =
 	(
-		_subrollouts = #()
-		_controls    = #()
+		height_fixed = #()
 		
 		for Control_or_Rollout in Controls_and_Rollouts do
-			if( this._getType Control_or_Rollout == "subrollouts" ) then 
-				append _subrollouts Control_or_Rollout
-			else
-				append _controls Control_or_Rollout
-			--Control_or_Rollout._create()
-		--format "_subrollouts.count = % \n" _subrollouts.count
-		--format "_controls.count = % \n" _controls.count
-		_subrollouts --return
+			if ( (height = Control_or_Rollout.property height:#get) > 14 ) then 
+				append height_fixed height
+
+		height_fixed --return
 	),
 
 	/** If only single subrollouts
@@ -87,27 +82,58 @@ struct Layout_v
 	function fitSubrollouts =
 	(
 		Controls_and_Rollouts = Parent_roll.Controls_and_Rollouts
-		
+
 		dialog_height     = (Parent_roll.property height:#get) as integer
-		subrollouts_count = Controls_and_Rollouts.count
-		rollout_height    = (dialog_height/subrollouts_count) as integer
-		offset            = - rollout_height
-		format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
-		format "dialog_height = % \n" dialog_height
-		format "rollout_height = % \n" rollout_height
-		format "offset = % \n" offset
+		fixed_heights     = this._getFixedSizes Controls_and_Rollouts
+		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
+		empty_space       = dialog_height - fixed_height
+		subrollouts_count = Controls_and_Rollouts.count - fixed_heights.count
+		slot_height       = (empty_space/subrollouts_count) as integer
+		offset            = 0
+
+		format "Layout.fitSubrollouts() % \n" Controls_and_Rollouts.count
+
+		format "dialog_height       = % \n" dialog_height
+		format "fixed_heights       = % \n" fixed_heights
+		format "fixed_heights.count = % \n" fixed_heights.count
+		format "fixed_height        = % \n" fixed_height
+		format "empty_space         = % \n" empty_space
+		format "subrollouts_count   = % \n" subrollouts_count
+		format "slot_height         = % \n" slot_height
+		format "offset              = % \n" offset
 		
+		if( offset == undefined ) then
+			return false
+			
 		for Control_or_Rollout in Controls_and_Rollouts do
-			if( this._getType Control_or_Rollout == "subrollouts" ) then 
-				Control_or_Rollout.property height:(rollout_height - 4) pos:[0,(offset+=rollout_height)]
+			if( this._getType Control_or_Rollout == "subrollouts" ) then
+				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
 			else
-				Control_or_Rollout.offsetGroupbox [0, (offset+=rollout_height)] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
+				offset = this._offsetGroubox Control_or_Rollout offset
+	),
+		/** _offset subrollouts
+	 */
+	function _offsetSubrollouts Subrollouts slot_height offset =
+	(
+		Subrollouts.property height:(slot_height - 4) pos:[0,offset]
+		
+		offset += slot_height --return
+	),
+	
+	/** _offset groubox
+	 */
+	function _offsetGroubox Groupbox offset =
+	(
+		Groupbox.offsetGroupbox [0, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
+		
+		offset += (Groupbox.property height:#get)
 	),
 	
 	/** Get type
 	 */
 	function _getType Object =
 	(
+		--print (toLower (( filterString( classof Object as string ) "_*(:" )[2]))
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
 	),
 	
