@@ -17,6 +17,7 @@ List.setVal "fifth"  "E"
 
 format "List             = % \n\n" List
 
+
 /* Delete value */
 List.delete "fifth"
 format "delete fifth     = % \n" List;

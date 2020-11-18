@@ -3,7 +3,7 @@
   * @method	propertySet	Set any property to rollout
   * 
  */
-struct RolloutProperty_v
+struct Properties_v
 (
 	__construct = #(#Parent_Control),
 	
@@ -22,7 +22,7 @@ struct RolloutProperty_v
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "RolloutProperty_v.getOrSet %\n" (Parent_Control.getId() + "." + keys_values.values[1] as string)
+		--format "Properties_v.getOrSet %\n" (Parent_Control.getId() + "." + keys_values.values[1] as string)
 
 		if( Parent_Control == undefined ) then
 			return false
@@ -48,7 +48,7 @@ struct RolloutProperty_v
 	 */
 	function _getOrSetValue key value =
 	(
-		--print "RolloutProperty_v._getOrSetValue()"
+		--print "Properties_v._getOrSetValue()"
 		if( value == #get ) then 
 			this._getValue	key       -- return
 		else
@@ -59,7 +59,7 @@ struct RolloutProperty_v
 	 */
 	function _getValue key =
 	(
-		format "RolloutProperty_v._getValue (%)\n" key
+		format "Properties_v._getValue (%)\n" key
 		--Params.setVal key 256 -- return
 			
 		if ( Parent_Control.exists() ) then
@@ -72,7 +72,7 @@ struct RolloutProperty_v
 	 */
 	function _setValue key value =
 	(
-		format "RolloutProperty_v._setValue (%)\n" key
+		format "Properties_v._setValue (%)\n" key
 		if ( Parent_Control.exists() ) then
 			this._setProperty key value -- return
 		else
@@ -83,7 +83,7 @@ struct RolloutProperty_v
 	 */
 	function join =
 	(
-		print "------------\nRolloutProperty_v.join()"
+		print "------------\nProperties_v.join()"
 		_params = ""
 		
 		for k=1 to Params.keys.count do
@@ -128,9 +128,9 @@ struct RolloutProperty_v
      */
     function _getProperty key =
     (
-		format "RolloutProperty_v._getProperty (%)" key
+		format "Properties_v._getProperty (%)" key
 
-		--format "RolloutProperty_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
+		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key )
     ),
 	
@@ -140,7 +140,7 @@ struct RolloutProperty_v
      */
     function _setProperty key value =
     (
-		--format "RolloutProperty_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
+		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key + " = " + this._getValueString key value )
     ),
 
@@ -150,7 +150,7 @@ struct RolloutProperty_v
 	 */
 	function _getPropertyString key =
 	(
-		format "RolloutProperty_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
+		format "Properties_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
 		Parent_Control.getId() + "." + key as string  --return
 		--Parent_Control.id + "." + key as string  --return
 	),

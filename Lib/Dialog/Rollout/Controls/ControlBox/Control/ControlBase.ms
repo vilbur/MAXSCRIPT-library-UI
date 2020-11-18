@@ -9,7 +9,7 @@
 	/* dependency */
 	Id      	= ControlId_v	Parent_Control:this,
 	--Events	= ControlEvents_v	Parent_control:this,
-	Properties	    = RolloutProperty_v	Parent_Control:this,
+	Properties	    = Properties_v	Parent_Control:this,
 
 	/* reference */
 	Parent_roll,

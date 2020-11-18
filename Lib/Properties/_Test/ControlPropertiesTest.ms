@@ -1,5 +1,6 @@
 clearListener()
-filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Rollout/Rollout.ms" )
 
 
 global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))

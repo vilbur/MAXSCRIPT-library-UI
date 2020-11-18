@@ -30,7 +30,7 @@ struct ControlBox_v
 	Controls	= #(),
 	
 	/* dependency */
-	Properties = RolloutProperty_v Parent_Control:this,
+	Properties = Properties_v Parent_Control:this,
 
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"

@@ -1,13 +1,11 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../List/List.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/RolloutProperty/RolloutProperty.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Properties/Properties.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/Controls/ControlBox/Control/Props/Props.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
 global add_subrollouts = " "
-
 
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
@@ -42,7 +40,7 @@ struct Rollout_v
 	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls        = Controls_v        Parent_roll:this,
 	Layout          = Layout_v          Parent_roll:this,
-	RolloutProperty = RolloutProperty_v Parent_Control:this,
+	Properties = Properties_v Parent_Control:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	
@@ -95,7 +93,7 @@ struct Rollout_v
      */
     function property name: title: open: scrollPos: height: width: =
     (
-		RolloutProperty.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+		Properties.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
 	),
 	
 	/** Find if rollout has been added to UI already
