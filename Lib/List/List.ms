@@ -14,8 +14,6 @@ struct List_v
 			this._replaceValue   i key val 
 		else
 			this._appendNewValue i key val 
-
-		val --return
 	),
 
 	/**  Gt Value
@@ -26,6 +24,20 @@ struct List_v
 			values[i] --return
 		else
 			undefined --return
+	),
+	
+	/** Get values
+	  *
+	  * @return	array values if more then 1 values
+	  * @return	mixed values if only 1 value
+	  * @return	undefined    if values are empty
+	 */
+	function getValues =
+	(
+		if( this.count() > 1 ) then
+			values --return
+		else if( this.count() == 1 ) then 
+			values[1] --return
 	),
 	
 	/**  Delete Value
