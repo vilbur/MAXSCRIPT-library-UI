@@ -87,20 +87,21 @@ struct Layout_v
 		fixed_heights     = this._getFixedSizes Controls_and_Rollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
 		empty_space       = dialog_height - fixed_height
+		
 		subrollouts_count = Controls_and_Rollouts.count - fixed_heights.count
-		slot_height       = (empty_space/subrollouts_count) as integer
+		
+		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
-
-		format "Layout.fitSubrollouts() % \n" Controls_and_Rollouts.count
-
-		format "dialog_height       = % \n" dialog_height
-		format "fixed_heights       = % \n" fixed_heights
-		format "fixed_heights.count = % \n" fixed_heights.count
-		format "fixed_height        = % \n" fixed_height
-		format "empty_space         = % \n" empty_space
-		format "subrollouts_count   = % \n" subrollouts_count
-		format "slot_height         = % \n" slot_height
-		format "offset              = % \n" offset
+		
+		--format "Layout.fitSubrollouts() % \n" Controls_and_Rollouts.count
+		--format "dialog_height       = % \n" dialog_height
+		--format "fixed_heights       = % \n" fixed_heights
+		--format "fixed_heights.count = % \n" fixed_heights.count
+		--format "fixed_height        = % \n" fixed_height
+		--format "empty_space         = % \n" empty_space
+		--format "subrollouts_count   = % \n" subrollouts_count
+		--format "slot_height         = % \n" slot_height
+		--format "offset              = % \n" offset
 		
 		if( offset == undefined ) then
 			return false

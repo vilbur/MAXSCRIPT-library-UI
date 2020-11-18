@@ -64,16 +64,28 @@ struct ControlBox_v
 	
 	/** Offset Controls
 	 */
-	function offsetGroupbox offset =
+	function offsetGroupbox new_pos =
 	(
-		format "ControlBox_v.offsetGroupbox offset % \n" offset
-		
-		this.property pos:offset
+		--format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
+		pos_box_current = this.property pos:#get
 
-		offset.y += Parent_roll.Layout.padding_groupbox
-		
+		this.property pos:new_pos
+
 		for Control in Controls do
-			Control.property pos:offset  --!!! PREDELAT Cotrol.Properties na Control.property()
+		(
+			pos_current = Control.property pos:#get
+			
+			offset = pos_current - pos_box_current
+
+			pos_control = new_pos + offset
+			--format "\nnew_pos           = % \n" new_pos
+			--format "pos_box_current   = % \n" pos_box_current
+			--format "pos_current       = % \n" pos_current
+			--format "offset            = % \n" offset
+			--format "pos_control       = % \n" pos_control
+			
+			Control.property pos:pos_control  --!!! PREDELAT Cotrol.Properties na Control.property()
+		)
 	),
 	
 	/** Get id
