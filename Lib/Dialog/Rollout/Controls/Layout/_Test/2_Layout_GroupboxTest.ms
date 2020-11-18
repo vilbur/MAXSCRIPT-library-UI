@@ -6,40 +6,23 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 
-/* DEFINE LAYOUT OF CONTROLS & ROLLOUTS */ 
-
-/* DEFINE GROUPBOXES */ 
---controls_1    = _Rollout.Controls.new()
---controls_2    = _Rollout.Controls.new id:"Groupbox_Test"
---controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
---
---GroupBoxes = #()
-
-/* DEFINE CONTROLS */ 
---Controls_1.button "No Groupbox"
-
-
-/** Add extra rollout
+/** Add Groupboxes
  */
-function addRolloutByCodeTest =
+function addGroupboxes =
 (
-	for g = 1 to 2 do
+	for g = 1 to 6 do
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to 4 do
+		for i = 1 to g do
 			Controls.button ("Button "+g as string +"."+i as string )
 	)
-	
 )
 
 /*---------------------------------------
 	RUN TEST
 -----------------------------------------*/
-
-
-addRolloutByCodeTest()
-
+addGroupboxes()
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()

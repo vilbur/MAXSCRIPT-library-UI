@@ -44,9 +44,9 @@ struct Layout_v
 	 */
 	function setControlDimensions &Control =
 	(
-		format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
+		--format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
 		Dimensions	= this._getControlDimensions Control
-		format "Dimensions = %\n" Dimensions
+		--format "Dimensions = %\n" Dimensions
 
 		this._setNextControlPosition Dimensions.width
 
@@ -61,15 +61,8 @@ struct Layout_v
 	function setGroupboxDimensions &Groupbox =
 	(
 		--format "------------\nLayout._getGroupboxDimensions()"
-		--Dimensions = Dimensions_v pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
-		
-		--Groupbox.Props.setDimensions Dimensions
-
 		Groupbox.property pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
-
 	),	
-
-	
 	
 	/** Analyze layout
 	 */
@@ -95,16 +88,14 @@ struct Layout_v
 	(
 		Controls_and_Rollouts = Parent_roll.Controls_and_Rollouts
 		
-		dialog_height = (Parent_roll.property height:#get) as integer
-		--format "dialog_height = % \n" dialog_height
+		dialog_height     = (Parent_roll.property height:#get) as integer
 		subrollouts_count = Controls_and_Rollouts.count
-		--format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
-
-		rollout_height = (dialog_height/subrollouts_count) as integer
-		--format "dialog_height = % \n" dialog_height
-		--format "rollout_height = % \n" rollout_height
-		offset = - rollout_height
-		--format "offset = % \n" offset
+		rollout_height    = (dialog_height/subrollouts_count) as integer
+		offset            = - rollout_height
+		format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
+		format "dialog_height = % \n" dialog_height
+		format "rollout_height = % \n" rollout_height
+		format "offset = % \n" offset
 		
 		for Control_or_Rollout in Controls_and_Rollouts do
 			if( this._getType Control_or_Rollout == "subrollouts" ) then 
@@ -119,7 +110,6 @@ struct Layout_v
 	(
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
 	),
-	
 	
 	private
 	
@@ -143,12 +133,12 @@ struct Layout_v
 	 */
 	function _getControlDimensions Control =
 	(
-		print "Layout_v._getControlDimensions()"
+		--print "Layout_v._getControlDimensions()"
 		pos     = Control.property pos:   #get
 		width   = Control.property width: #get
 		height  = Control.property height:#get
 		
-		format "column_size = % \n" column_size
+		--format "column_size = % \n" column_size
 		
 		if( width == undefined ) then
 			width = this._getControlWidth Control
@@ -159,7 +149,7 @@ struct Layout_v
 		if( pos == undefined ) then
 			pos = this._getControlPosition width
 			
-		format "pos    = % \n" pos
+		--format "pos    = % \n" pos
 		--format "width  = % \n" width
 		--format "height = % \n" height
 		
@@ -206,7 +196,7 @@ struct Layout_v
 	 */
 	function _setNextControlPosition current_control_width =
 	(
-		format "Layout_v._setNextControlPosition %\n" current_control_width
+		--format "Layout_v._setNextControlPosition %\n" current_control_width
 		pos_last.x += current_control_width
 	),
 

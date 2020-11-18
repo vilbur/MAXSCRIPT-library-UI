@@ -54,20 +54,26 @@ struct ControlBox_v
 		Properties.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
 	),
 	
+	/** 
+	  *
+	 */
+	function exists =
+	(
+		Parent_roll.exists() --return
+	),
+	
 	/** Offset Controls
 	 */
 	function offsetGroupbox offset =
 	(
-		this.property pos:offset
+		format "ControlBox_v.offsetGroupbox offset % \n" offset
 		
+		this.property pos:offset
+
 		offset.y += Parent_roll.Layout.padding_groupbox
 		
 		for Control in Controls do
-		(
-			--offset.x += Control.Properties.get #pos
-			--Control.Properties.add #pos offset  --!!! PREDELAT Cotrol.Properties na Control.property()
-			
-		)
+			Control.property pos:offset  --!!! PREDELAT Cotrol.Properties na Control.property()
 	),
 	
 	/** Get id
@@ -154,7 +160,6 @@ struct ControlBox_v
 	(
 		--format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Properties.join())
-		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption)
 	),
 
 	/*------------------------------------------------------------------------------

@@ -72,7 +72,7 @@ struct Properties_v
 	 */
 	function _setValue key value =
 	(
-		--format "Properties_v._setValue (%)\n" key
+		--format "Properties_v._setValue (% %)\n" key value
 		if ( Parent_Control.exists() ) then
 			this._setProperty key value -- return
 		else
@@ -89,7 +89,7 @@ struct Properties_v
 		for k=1 to Params.keys.count do
 			_params = _params + " " + Params.keys[k] +":"+ Params.values[k] as string
 		
-		format " _params	= % \n" _params
+		--format " _params	= % \n" _params
 		--""
 		_params --return
 	),

@@ -66,26 +66,7 @@ struct Rollout_v
 	
 		RolloutCreator.endOfCreation()
 	),
-	
-	/** Fit subrollouts
-	 */
-	function fitSubrollouts =
-	(
-		print "*********** fitSubrollouts"
-		
-		--_subrollouts = Layout.analyze Controls_and_Rollouts
-		
-		this.Layout.fitSubrollouts()
-	),
 
-	/** Get type
-	 */
-	function _getType Object =
-	(
-		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
-	),
-	
-	
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
@@ -110,6 +91,25 @@ struct Rollout_v
 		id --return
 	),
 	
+	/** Fit subrollouts
+	 */
+	function fitSubrollouts =
+	(
+		print "*********** fitSubrollouts"
+		
+		--_subrollouts = Layout.analyze Controls_and_Rollouts
+		
+		this.Layout.fitSubrollouts()
+	),
+
+	/** Get type
+	 */
+	function _getType Object =
+	(
+		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
+	),
+	
+		
 
 	private
 	

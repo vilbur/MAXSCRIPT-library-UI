@@ -55,32 +55,6 @@
     (
 		this.property pos:Dimensions.pos width:Dimensions.width height:Dimensions.height
     ),
-	
-	--/** Set parameters for control
-	--  * @param	string	params_string	String of params E.G.: "enabled: false, border: false"
-	-- */
-	--function params =
-	--(
-	--	--string_split	= filterString params_string ","
-
-	--	--for key_value_string in string_split do
-	--	--(
-	--	--	key_value	= filterString key_value_string ":"
-	--	--	Properties.add key_value[1] key_value[2]
-	--	--)
-	--	--this --return
-	--	
-	--	"" --return
-	--),
-	
-	--/** Param
-	-- */
-	--function param key value =
-	--(
-	--	Properties.add ( key as string ) value
-	--
-	--	this --return
-	--),
 
 	/** Find if control is rendered in ui already
 	  *
@@ -98,13 +72,6 @@
 		--format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
 		control_exists --return
 	),
-	
-	--/** _set dimensions
-	-- */
-	--function setLayoutCoordinates =
-	--(
-	--	--Properties.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Properties.get #pos) (Properties.get #width) (Properties.get #height) )
-	--),
 
 	private
 
@@ -114,8 +81,6 @@
 	(
 		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
-
-	--private
 	
 	/** Add quotes to parameter if value is string
 	  * Add value to params
