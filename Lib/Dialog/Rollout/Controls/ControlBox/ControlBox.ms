@@ -133,7 +133,6 @@ struct ControlBox_v
     (
 		print "ControlBox._addControl()"
 		Layout.setControlDimensions Control
-		--Control.setLayoutCoordinates()
 		
 		this._addControlToUi Control
     ),
@@ -143,8 +142,6 @@ struct ControlBox_v
 	function _addGroupBox =
 	(		
 		Layout.setGroupboxDimensions Groupbox
-
-		--Layout.nextControlsBox()
 
 		this._addControlToUi Groupbox
 	),

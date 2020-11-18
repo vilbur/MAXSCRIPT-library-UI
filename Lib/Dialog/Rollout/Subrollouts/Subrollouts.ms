@@ -63,7 +63,15 @@ struct Subrollouts_v
 	(
 		Parent_roll.id + "." + id --return
 	),
-	
+
+	/** 
+	  *
+	 */
+	function exists =
+	(
+		Parent_roll.exists() --return
+	),
+
 	/** Create Subrollouts and generate slot_string
 	 */
 	function _create =

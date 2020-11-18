@@ -1,6 +1,6 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../Rollouts/Rollout/Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 
 struct Control_mock(type = #button, id="", caption="Test button")

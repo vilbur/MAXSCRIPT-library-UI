@@ -23,7 +23,7 @@ _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
  */
 function addRolloutByCodeTest =
 (
-	for g = 1 to 3 do
+	for g = 1 to 2 do
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		

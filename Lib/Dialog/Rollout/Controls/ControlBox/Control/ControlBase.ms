@@ -62,7 +62,7 @@
 	--function params =
 	--(
 	--	--string_split	= filterString params_string ","
-	--	--
+
 	--	--for key_value_string in string_split do
 	--	--(
 	--	--	key_value	= filterString key_value_string ":"
@@ -94,11 +94,19 @@
 			try(
 				control_exists = (execute Id.full) != undefined
 			)catch()
-			
 
-		format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
+		--format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
 		control_exists --return
 	),
+	
+	--/** _set dimensions
+	-- */
+	--function setLayoutCoordinates =
+	--(
+	--	--Properties.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Properties.get #pos) (Properties.get #width) (Properties.get #height) )
+	--),
+
+	private
 
 	/** _set caption
 	 */
@@ -133,15 +141,6 @@
 	(
 		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
-	
-	/** _set dimensions
-	 */
-	function setLayoutCoordinates =
-	(
-		Properties.setDimensions ( Parent_roll.Layout.getControlDimensions _col (Properties.get #pos) (Properties.get #width) (Properties.get #height) )
-	),
-
-	private
 
 	/** Get parameters
 	 */

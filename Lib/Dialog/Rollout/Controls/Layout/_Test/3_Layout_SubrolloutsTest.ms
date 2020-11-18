@@ -36,7 +36,7 @@ function addControls =
 	
 	Controls.button ("Button A" )
 	
-	Controls.add #pos    Dimensions.pos    force:true
+	--Controls.property pos:Dimensions.pos
 
 	--Rollouts_1 = _Rollout.subrollouts()
 	--Rollout_A	= Rollouts_1.new "Rollout A"

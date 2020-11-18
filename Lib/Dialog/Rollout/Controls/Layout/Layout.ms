@@ -84,8 +84,8 @@ struct Layout_v
 			else
 				append _controls Control_or_Rollout
 			--Control_or_Rollout._create()
-		format "_subrollouts.count = % \n" _subrollouts.count
-		format "_controls.count = % \n" _controls.count
+		--format "_subrollouts.count = % \n" _subrollouts.count
+		--format "_controls.count = % \n" _controls.count
 		_subrollouts --return
 	),
 
@@ -96,9 +96,9 @@ struct Layout_v
 		Controls_and_Rollouts = Parent_roll.Controls_and_Rollouts
 		
 		dialog_height = (Parent_roll.property height:#get) as integer
-		format "dialog_height = % \n" dialog_height
+		--format "dialog_height = % \n" dialog_height
 		subrollouts_count = Controls_and_Rollouts.count
-		format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
+		--format "Controls_and_Rollouts.count = % \n" Controls_and_Rollouts.count
 
 		rollout_height = (dialog_height/subrollouts_count) as integer
 		--format "dialog_height = % \n" dialog_height
@@ -158,7 +158,8 @@ struct Layout_v
 			
 		if( pos == undefined ) then
 			pos = this._getControlPosition width
-		--format "pos    = % \n" pos
+			
+		format "pos    = % \n" pos
 		--format "width  = % \n" width
 		--format "height = % \n" height
 		
@@ -205,9 +206,8 @@ struct Layout_v
 	 */
 	function _setNextControlPosition current_control_width =
 	(
-		format "current_control_width = % \n" current_control_width
-		--pos_last.x += current_control_width
-		--pos_last = [ pos_last.x + current_control_width, pos_last.y ]
+		format "Layout_v._setNextControlPosition %\n" current_control_width
+		pos_last.x += current_control_width
 	),
 
 	/** Try set new controls row

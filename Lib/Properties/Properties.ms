@@ -59,7 +59,7 @@ struct Properties_v
 	 */
 	function _getValue key =
 	(
-		format "Properties_v._getValue (%)\n" key
+		--format "Properties_v._getValue (%)\n" key
 		--Params.setVal key 256 -- return
 			
 		if ( Parent_Control.exists() ) then
@@ -72,7 +72,7 @@ struct Properties_v
 	 */
 	function _setValue key value =
 	(
-		format "Properties_v._setValue (%)\n" key
+		--format "Properties_v._setValue (%)\n" key
 		if ( Parent_Control.exists() ) then
 			this._setProperty key value -- return
 		else
@@ -83,7 +83,7 @@ struct Properties_v
 	 */
 	function join =
 	(
-		print "------------\nProperties_v.join()"
+		--print "------------\nProperties_v.join()"
 		_params = ""
 		
 		for k=1 to Params.keys.count do
@@ -128,8 +128,7 @@ struct Properties_v
      */
     function _getProperty key =
     (
-		format "Properties_v._getProperty (%)" key
-
+		--format "Properties_v._getProperty (%)" key
 		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key )
     ),
@@ -150,7 +149,7 @@ struct Properties_v
 	 */
 	function _getPropertyString key =
 	(
-		format "Properties_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
+		--format "Properties_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
 		Parent_Control.getId() + "." + key as string  --return
 		--Parent_Control.id + "." + key as string  --return
 	),

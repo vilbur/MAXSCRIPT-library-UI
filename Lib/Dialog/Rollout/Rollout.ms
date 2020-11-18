@@ -40,7 +40,7 @@ struct Rollout_v
 	--Subrollouts	= Subrollouts_v slot:slot_id,
  	Controls        = Controls_v        Parent_roll:this,
 	Layout          = Layout_v          Parent_roll:this,
-	Properties = Properties_v Parent_Control:this,
+	Properties      = Properties_v Parent_Control:this,
 
 	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
 	
