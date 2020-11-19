@@ -4,11 +4,13 @@ filein( getFilenamePath(getSourceFileName()) + "/Dimensions/Dimensions.ms" )
 struct LayoutControls
 (
 	height_defined
-	
 )
 
 /** Layout
- */
+  *
+  *
+  *
+  */
 struct Layout_v
 (
 	Bbox,
@@ -21,7 +23,7 @@ struct Layout_v
 	
 	pos_last = [0,0],    -- store origin of last added control 
 
-	padding_groupbox = 16,
+	padding_groupbox_top = 32,
 	
 	Parent_roll,
 
@@ -33,7 +35,7 @@ struct Layout_v
 		Bbox = Bbox_v origin:(this._getBboxOrigin())
 
 		pos_last = copy Bbox.origin
-
+		--pos_last.x += 32
 		this._addFirstControlPadding()
 	),
 	
@@ -45,15 +47,60 @@ struct Layout_v
 	function setControlDimensions &Control =
 	(
 		--format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
-		Dimensions	= this._getControlDimensions Control
+		--Dimensions	= this._getControlDimensions Control
 		--format "Dimensions = %\n" Dimensions
+		width  = This._getControlWidth  Control
+		height = This._getControlHeight Control
+		
+		this._trySetNewControlsRow width
 
+		pos    = This._getControlPos    Control width
+		
+		Dimensions = Dimensions_v pos:pos width:width height:height
+		--print Dimensions_v as string 
+		
 		this._setNextControlPosition Dimensions.width
 
 		Control.setDimensions Dimensions
-		--format "Dimensions.pos =%\n" Dimensions.pos
+		--format "Dimensions =%\n" Dimensions
 		
  		Bbox.add Dimensions
+	),
+
+	/** _get control width
+	 */
+	function _getControlWidth Control =
+	(
+		width   = Control.property width: #get
+		
+		if( width == undefined ) then
+			width = this._getControlWidthRaw Control
+		
+		width --return
+	),
+	
+	/** _get control height
+	 */
+	function _getControlHeight Control =
+	(
+		height  = Control.property height:#get
+		
+		if( height == undefined ) then
+			height = this._getControlHeightRaw()
+		
+		height --return
+	),
+	
+	/** _get control position;
+	 */
+	function _getControlPos Control width =
+	(
+		pos     = Control.property pos:   #get
+			
+		if( pos == undefined ) then
+			pos = this._getControlPositionRaw width
+		
+		pos --return
 	),
 
 	/** Get params string of Controls box
@@ -61,7 +108,9 @@ struct Layout_v
 	function setGroupboxDimensions &Groupbox =
 	(
 		--format "------------\nLayout._getGroupboxDimensions()"
-		Groupbox.property pos:Bbox.origin width:(Bbox.width + margin) height:(Bbox.height + margin)
+		
+		--Groupbox.property pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
+		Groupbox.property pos:Bbox.origin width:(Bbox.width) height:(Bbox.height)
 	),	
 	
 	/** Analyze layout
@@ -153,70 +202,45 @@ struct Layout_v
 		 box_origin
 	),
 
-	/** Get control dimensions defined by user
-	  * If undefined then us Layout default values0
-	  
-	     TODO: REFRACT THIS METHOD
-	 */
-	function _getControlDimensions Control =
-	(
-		--print "Layout_v._getControlDimensions()"
-		pos     = Control.property pos:   #get
-		width   = Control.property width: #get
-		height  = Control.property height:#get
-		
-		--format "column_size = % \n" column_size
-		
-		if( width == undefined ) then
-			width = this._getControlWidth Control
-		
-		if( height == undefined ) then
-			height = this._getControlHeight()
-			
-		if( pos == undefined ) then
-			pos = this._getControlPosition width
-			
-		--format "pos    = % \n" pos
-		--format "width  = % \n" width
-		--format "height = % \n" height
-		
-		Dimensions_v pos:pos width:width height:height
-	),
-
 	/** Set first
 	 */
 	function _addFirstControlPadding =
 	(
-		--format "------------\nLayout._addFirstControlPadding()"
+		--format "------------\nLayout._addFirstControlPadding()\n"
+		--format "pos_last    = % \n" pos_last
+		--format "Bbox.origin = % \n" Bbox.origin
 		if( pos_last == Bbox.origin ) then
 		(
-            pos_last.y  += padding_groupbox
-            Bbox.height += padding_groupbox
+            pos_last.y  += padding_groupbox_top
+            --Bbox.height += padding_groupbox_top
+			
+            --pos_last.y  += 32
+			
 		)
 	),
 	
 	/** _get position of last control
 	 */
-	function _getControlPosition width =
+	function _getControlPositionRaw width =
 	(
-		--format "------------\nLayout._getControlPosition()"
-		this._trySetNewControlsRow width
+		--format "***\nLayout._getControlPositionRaw()\n"
 
 		[ pos_last.x, pos_last.y ] --return
 	),
 	
 	/** Get height
 	 */
-	function _getControlWidth Control =
+	function _getControlWidthRaw Control =
 	(
 		(Control.property columns:#get) * column_size --return
 	),	
 	
 	/** Get height
 	 */
-	function _getControlHeight =
+	function _getControlHeightRaw =
 	(
-		column_size - padding * 2 --return
+		--column_size - padding * 2 --return
+		column_size --return
 	),
 
 	/** Set new control position
@@ -231,8 +255,13 @@ struct Layout_v
 	 */
 	function _trySetNewControlsRow current_control_width =
 	(
+		--format "Bbox.width  = % \n" Bbox.width 
+		--format "Bbox.height = % \n" Bbox.height
+
 		if not ( this._controlFitIntoRollout current_control_width ) then
+		(
 			pos_last = [ Bbox.origin.x, Bbox.getMax #y ]
+		)
 	),
 	
 	/** Control is out of rollout

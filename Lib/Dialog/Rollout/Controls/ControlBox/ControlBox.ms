@@ -149,7 +149,7 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
-		--print "ControlBox._addControl()"
+		format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
