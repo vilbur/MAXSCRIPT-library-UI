@@ -27,19 +27,22 @@ struct Bbox_v
 		control_max_x	= Dimensions.pos.x + Dimensions.width
 		control_max_y	= Dimensions.pos.y + Dimensions.height
 
-		format "control_max_x = % \n" control_max_x
-		format "control_max_y = % \n" control_max_y
+		--format "origin = % \n" origin	
+		--format "control_max_x = % \n" control_max_x
+		--format "control_max_y = % \n" control_max_y
 		
-		format "Bbox.getMax #x = % \n" (this.getMax #x)
-		format "Bbox.getMax #y = % \n" (this.getMax #y)
+		--format "Bbox.getMax #x = % \n" (this.getMax #x)
+		--format "Bbox.getMax #y = % \n" (this.getMax #y)
 
+		--format "height = % \n" height
+		
 		if( control_max_x > (this.getMax #x) ) then
-			width += Dimensions.width as integer
+			width = control_max_x - origin.x
 			
 		if( control_max_y > (this.getMax #y) ) then
-			height += Dimensions.height as integer
+			height = control_max_y - origin.y
 		
-		--format "\nthis.height =%\n" this.height
+		--format "height = % \n" height	
 	),
 	
 	/** Max

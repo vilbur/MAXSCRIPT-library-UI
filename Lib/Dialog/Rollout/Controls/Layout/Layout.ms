@@ -49,12 +49,13 @@ struct Layout_v
 		--format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
 		--Dimensions	= this._getControlDimensions Control
 		--format "Dimensions = %\n" Dimensions
-		width  = This._getControlWidth  Control
-		height = This._getControlHeight Control
+		width  = this._getControlWidth  Control
+		height = this._getControlHeight Control
 		
 		this._trySetNewControlsRow width
-
-		pos    = This._getControlPos    Control width
+		
+		pos    = this._getControlPos    Control width
+		--format "pos = % \n" pos
 		
 		Dimensions = Dimensions_v pos:pos width:width height:height
 		--print Dimensions_v as string 
@@ -96,7 +97,6 @@ struct Layout_v
 	function _getControlPos Control width =
 	(
 		pos     = Control.property pos:   #get
-			
 		if( pos == undefined ) then
 			pos = this._getControlPositionRaw width
 		
@@ -215,7 +215,6 @@ struct Layout_v
             --Bbox.height += padding_groupbox_top
 			
             --pos_last.y  += 32
-			
 		)
 	),
 	
@@ -261,6 +260,7 @@ struct Layout_v
 		if not ( this._controlFitIntoRollout current_control_width ) then
 		(
 			pos_last = [ Bbox.origin.x, Bbox.getMax #y ]
+			--format "Layout_v._trySetNewControlsRow %\n" pos_last as string
 		)
 	),
 	
