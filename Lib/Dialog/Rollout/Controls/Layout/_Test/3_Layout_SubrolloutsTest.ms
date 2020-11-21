@@ -6,26 +6,17 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
 /* ROLLOUT DEFINITION */
 global _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
---
---/** Add extra rollout
--- */
---function addRolloutByCodeTest =
---(
---	/* DEFINE SLOTS FOR ROLLOUTS */ 
---	Rollouts_1 = _Rollout.subrollouts()
---	Rollout_A	= Rollouts_1.new "Rollout A"
---	Rollout_B	= Rollouts_1.new "Rollout B"
---
---	for _Rollout in #(Rollout_A) do 
---		for g = 1 to 3 do
---		(
---			Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
---			
---			for i = 1 to 4 do
---				Controls.button ("Button "+g as string +"."+i as string )
---		)
---		
---)
+/** Layout setup
+ */
+function layoutSetup =
+(
+	_Rollout.Layout.columns  = 16
+	_Rollout.Layout.grid     = 48
+	
+	_Rollout.Layout.padding  = 16
+	_Rollout.Layout.margin.x = 8
+	_Rollout.Layout.margin.y = 16
+)
 
 /** Add extra rollout
  */
@@ -36,7 +27,7 @@ function addControls groupboxes:1 =
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to g+3 do
+		for i = 1 to g + 4 do
 			Controls.button ("Button "+g as string +"."+i as string )
 	)
 )
@@ -66,15 +57,20 @@ function addSubRollouts subrollouts:1 =
 				for c = 1 to 4 do
 					Controls.button ("Button " + s as string +"" + r as string +""+ g as string +"" + c as string )
 			)
-			
 		)
 	)
 )
 
 
 
-addSubRollouts()
+/*------------------------------------------------------------------------------
+	RUN TESTS
+--------------------------------------------------------------------------------*/
+
+--layoutSetup()
+
 addControls groupboxes:3
+--addSubRollouts()
 
 --addSubRollouts subrollouts:2
 
@@ -83,7 +79,7 @@ addControls groupboxes:3
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:512 height:512
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts

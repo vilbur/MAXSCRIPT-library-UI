@@ -7,35 +7,39 @@ struct LayoutControls
 )
 
 /** Layout
+  * @property	int	columns	width of groupbox
+  * @property	int	grid    size of column in pixels
   *
-  *
+  * @property	int	padding	of groupbox
+  * @property	Point2	margin	between controls
+  * @p
   *
   */
 struct Layout_v
 (
 	Bbox,
+	Parent_roll,
 		
-	columns     = 12, -- columns width of rollout
-	column_size = 24,
+	columns = 12, -- columns width of rollout
+	grid    = 24,
 	
-	padding	= 0,	-- padding between controls
-	margin	= [0,0],
+	padding	= 4,	-- padding between controls
+	margin	= [padding,padding],
 	
-	pos_last = [0,0],    -- store origin of last added control 
+	_pos_last = [0,0],    -- store origin of last added control 
 
 	_padding_corrention = 16,
 	
-	Parent_roll,
 
-	/** Set init pos_last 
+	/** Set init _pos_last 
 	 */
 	function newControlsBox =
 	(
 		--format "\n------------\nLayout.newControlsBox()"
 		Bbox = Bbox_v origin:(this._getBboxOrigin())
 
-		pos_last = copy Bbox.origin
-		--pos_last.x += 32
+		_pos_last = copy Bbox.origin
+		--_pos_last.x += 32
 		this._addFirstControlPadding()
 	),
 	
@@ -204,8 +208,8 @@ struct Layout_v
 	 */
 	function _addFirstControlPadding =
 	(
-		if( pos_last == Bbox.origin ) then
-            pos_last.y  += _padding_corrention + padding
+		if( _pos_last == Bbox.origin ) then
+            _pos_last.y  += _padding_corrention + padding
 	),
 	
 	/** _get position of last control
@@ -213,44 +217,46 @@ struct Layout_v
 	function _getControlPositionRaw width =
 	(
 		--format "***\nLayout._getControlPositionRaw()\n"
-		[ pos_last.x, pos_last.y ] --return
+		[ _pos_last.x, _pos_last.y ] --return
 	),
 	
 	/** Get height
 	 */
 	function _getControlWidthRaw Control =
 	(
-		(Control.property columns:#get) * column_size --return
+		(Control.property columns:#get) * grid --return
 	),	
 	
 	/** Get height
 	 */
 	function _getControlHeightRaw =
 	(
-		--column_size - padding * 2 --return
-		column_size --return
+		--grid - padding * 2 --return
+		grid --return
 	),
 
 	/** Set new control position
-	 */
+	  * Add margin between controls
+  	 */
 	function _setNextControlPosition current_control_width =
 	(
-		pos_last.x += current_control_width + margin.x
+		_pos_last.x += current_control_width + margin.x
 	),
 
-	/** Try set new controls row
+	/** Try set new row of controls
+	  * Add margin between controls
 	 */
 	function _trySetNewControlsRow current_control_width =
 	(
 		if not ( this._controlFitIntoRollout current_control_width ) then
-			pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
+			_pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
 	),
 	
 	/** Control is out of rollout
      */
     function _controlFitIntoRollout current_control_width =
     (
-        (pos_last.x + current_control_width) < this._getRollWidth() --return
+        (_pos_last.x + current_control_width) < this._getRollWidth() --return
     ),
 	
 	/*---------------------------------------
@@ -261,8 +267,8 @@ struct Layout_v
 	function _getRollWidth =
 	(
 		--format "------------\nLayout._getRollWidth()"
-		width = (columns * column_size) + margin.x*4 + 14
-		--width = (columns * column_size)
+		width = (columns * grid) + margin.x*4 + 14
+		--width = (columns * grid)
 		--format " width = % \n" width
 		width --return
 	),
