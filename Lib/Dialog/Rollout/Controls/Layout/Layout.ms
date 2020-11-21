@@ -23,7 +23,7 @@ struct Layout_v
 	
 	pos_last = [0,0],    -- store origin of last added control 
 
-	padding_groupbox_top = 32,
+	padding_corrention = 16,
 	
 	Parent_roll,
 
@@ -56,6 +56,7 @@ struct Layout_v
 		
 		pos    = this._getControlPos    Control width
 		--format "pos = % \n" pos
+		pos.x += padding -- add padding to left border of group box
 		
 		Dimensions = Dimensions_v pos:pos width:width height:height
 		--print Dimensions_v as string 
@@ -108,9 +109,7 @@ struct Layout_v
 	function setGroupboxDimensions &Groupbox =
 	(
 		--format "------------\nLayout._getGroupboxDimensions()"
-		
-		--Groupbox.property pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
-		Groupbox.property pos:Bbox.origin width:(Bbox.width) height:(Bbox.height)
+		Groupbox.property pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
 	),	
 	
 	/** Analyze layout
@@ -211,8 +210,8 @@ struct Layout_v
 		--format "Bbox.origin = % \n" Bbox.origin
 		if( pos_last == Bbox.origin ) then
 		(
-            pos_last.y  += padding_groupbox_top
-            --Bbox.height += padding_groupbox_top
+            pos_last.y  += padding_corrention
+            --Bbox.height += padding_corrention
 			
             --pos_last.y  += 32
 		)
@@ -248,6 +247,7 @@ struct Layout_v
 	(
 		--format "Layout_v._setNextControlPosition %\n" current_control_width
 		pos_last.x += current_control_width
+
 	),
 
 	/** Try set new controls row
