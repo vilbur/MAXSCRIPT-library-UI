@@ -19,11 +19,11 @@ struct Layout_v
 	column_size = 24,
 	
 	padding	= 0,	-- padding between controls
-	margin	= 0,
+	margin	= [0,0],
 	
 	pos_last = [0,0],    -- store origin of last added control 
 
-	padding_corrention = 16,
+	_padding_corrention = 16,
 	
 	Parent_roll,
 
@@ -192,7 +192,6 @@ struct Layout_v
 	 */
 	function _getBboxOrigin =
 	(
-		 --box_origin = pos_last = [Bbox.origin.x, pos_last.y+32] --return
 		box_origin = [0,0]
 		
 		if( Bbox != undefined ) then
@@ -205,16 +204,8 @@ struct Layout_v
 	 */
 	function _addFirstControlPadding =
 	(
-		--format "------------\nLayout._addFirstControlPadding()\n"
-		--format "pos_last    = % \n" pos_last
-		--format "Bbox.origin = % \n" Bbox.origin
 		if( pos_last == Bbox.origin ) then
-		(
-            pos_last.y  += padding_corrention
-            --Bbox.height += padding_corrention
-			
-            --pos_last.y  += 32
-		)
+            pos_last.y  += _padding_corrention + padding
 	),
 	
 	/** _get position of last control
@@ -222,7 +213,6 @@ struct Layout_v
 	function _getControlPositionRaw width =
 	(
 		--format "***\nLayout._getControlPositionRaw()\n"
-
 		[ pos_last.x, pos_last.y ] --return
 	),
 	
@@ -245,23 +235,15 @@ struct Layout_v
 	 */
 	function _setNextControlPosition current_control_width =
 	(
-		--format "Layout_v._setNextControlPosition %\n" current_control_width
-		pos_last.x += current_control_width
-
+		pos_last.x += current_control_width + margin.x
 	),
 
 	/** Try set new controls row
 	 */
 	function _trySetNewControlsRow current_control_width =
 	(
-		--format "Bbox.width  = % \n" Bbox.width 
-		--format "Bbox.height = % \n" Bbox.height
-
 		if not ( this._controlFitIntoRollout current_control_width ) then
-		(
-			pos_last = [ Bbox.origin.x, Bbox.getMax #y ]
-			--format "Layout_v._trySetNewControlsRow %\n" pos_last as string
-		)
+			pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
 	),
 	
 	/** Control is out of rollout
@@ -279,7 +261,7 @@ struct Layout_v
 	function _getRollWidth =
 	(
 		--format "------------\nLayout._getRollWidth()"
-		width = (columns * column_size) + margin*4 + 14
+		width = (columns * column_size) + margin.x*4 + 14
 		--width = (columns * column_size)
 		--format " width = % \n" width
 		width --return
