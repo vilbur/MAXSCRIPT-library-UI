@@ -7,7 +7,7 @@
 	(
 		_Subrollouts = Subrollouts_v id:( "subrollouts_slot_" + (slot_id+=1) as string ) Parent_roll:this
 
-		append Controls_and_Rollouts _Subrollouts
+		append Controlboxes_and_Subrollouts _Subrollouts
 		
 		_Subrollouts --return 
 	), 
@@ -16,7 +16,7 @@
      */
     function addSubRollouts =
     (
-		for Subrollouts in Controls_and_Rollouts do
+		for Subrollouts in Controlboxes_and_Subrollouts do
 			if ( this.isSubrollouts Subrollouts ) then
 				Subrollouts.addSubRollouts()
     ),

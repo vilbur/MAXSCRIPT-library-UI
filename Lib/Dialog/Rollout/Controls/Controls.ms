@@ -26,7 +26,7 @@ struct Controls_v
 	(
 		ControlBox 	= ControlBox_v Parent_roll:Parent_roll caption:groupbox id:id
 
-		append Parent_roll.Controls_and_Rollouts ControlBox
+		append Parent_roll.Controlboxes_and_Subrollouts ControlBox
 
 		ControlBox --return
 	),

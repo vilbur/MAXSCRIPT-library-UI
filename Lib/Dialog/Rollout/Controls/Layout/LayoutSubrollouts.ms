@@ -2,19 +2,19 @@
 	 */
 	function fitSubrollouts =
 	(
-		Controls_and_Rollouts = Parent_roll.Controls_and_Rollouts
+		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 
 		dialog_height     = (Parent_roll.property height:#get) as integer
-		fixed_heights     = this._getFixedSizes Controls_and_Rollouts
+		fixed_heights     = this._getFixedSizes Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
 		empty_space       = dialog_height - fixed_height
 		
-		subrollouts_count = Controls_and_Rollouts.count - fixed_heights.count
+		subrollouts_count = Controlboxes_and_Subrollouts.count - fixed_heights.count
 		
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
 		
-		--format "Layout.fitSubrollouts() % \n" Controls_and_Rollouts.count
+		--format "Layout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
 		--format "dialog_height       = % \n" dialog_height
 		--format "fixed_heights       = % \n" fixed_heights
 		--format "fixed_heights.count = % \n" fixed_heights.count
@@ -27,7 +27,7 @@
 		if( offset == undefined ) then
 			return false
 			
-		for Control_or_Rollout in Controls_and_Rollouts do
+		for Control_or_Rollout in Controlboxes_and_Subrollouts do
 			if( this._getType Control_or_Rollout == "subrollouts" ) then
 				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
 			else
@@ -53,11 +53,11 @@
 	
 	/** Analyze layout
 	 */
-	function _getFixedSizes Controls_and_Rollouts =
+	function _getFixedSizes Controlboxes_and_Subrollouts =
 	(
 		height_fixed = #()
 		
-		for Control_or_Rollout in Controls_and_Rollouts do
+		for Control_or_Rollout in Controlboxes_and_Subrollouts do
 			if ( (height = Control_or_Rollout.property height:#get) > 14 ) then 
 				append height_fixed height
 

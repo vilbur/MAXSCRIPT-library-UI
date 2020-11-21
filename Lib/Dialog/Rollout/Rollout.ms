@@ -38,11 +38,11 @@ struct Rollout_v
 	RolloutCreator,
 	
 	--Subrollouts	= Subrollouts_v slot:slot_id,
- 	Controls        = Controls_v        Parent_roll:this,
-	Layout          = Layout_v          Parent_roll:this,
-	Properties      = Properties_v Parent_Control:this,
+ 	Controls        = Controls_v        Parent_roll:   this,
+	Layout          = Layout_v          Parent_roll:   this,
+	Properties      = Properties_v      Parent_Control:this,
 
-	Controls_and_Rollouts	= #(),  -- store subrollouts and controlboxes
+	Controlboxes_and_Subrollouts	= #(),  -- store subrollouts and controlboxes
 	
 	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
@@ -61,8 +61,8 @@ struct Rollout_v
 	function createRollout =
 	(
 		format "Rollout_v.createRollout %\n" id
-		for Control_or_Rollout in Controls_and_Rollouts do
-			Control_or_Rollout._create()
+		for Controlbox_or_Subrollout in Controlboxes_and_Subrollouts do
+			Controlbox_or_Subrollout._create()
 	
 		RolloutCreator.endOfCreation()
 	),
@@ -97,7 +97,7 @@ struct Rollout_v
 	(
 		print "*********** fitSubrollouts"
 		
-		--_subrollouts = Layout.analyze Controls_and_Rollouts
+		--_subrollouts = Layout.analyze Controlboxes_and_Subrollouts
 		
 		this.Layout.fitSubrollouts()
 		
