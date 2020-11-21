@@ -1,10 +1,12 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
-
+--filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../../Dialog.ms" )
 
 /* ROLLOUT DEFINITION */
-global _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
+global _Rollout = Rollout_v title:(filenameFromPath(getSourceFileName()))
+
+
 
 /** Layout setup
  */
@@ -54,7 +56,7 @@ function addSubRollouts subrollouts:1 =
 				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + g as string)
 				
 				/* DEFINE CONTROLS */ 
-				for c = 1 to 4 do
+				for c = 1 to g + 1 do
 					Controls.button ("Button " + s as string +"" + r as string +""+ g as string +"" + c as string )
 			)
 		)
@@ -69,10 +71,9 @@ function addSubRollouts subrollouts:1 =
 
 --layoutSetup()
 
-addControls groupboxes:3
+addControls groupboxes:1
 --addSubRollouts()
-
---addSubRollouts subrollouts:2
+addSubRollouts subrollouts:2
 
 
 /* CREATE ROLLOUT */

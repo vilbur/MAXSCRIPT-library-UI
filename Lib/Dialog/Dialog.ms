@@ -44,15 +44,17 @@ struct Dialog_v
 	/** Create Dialog
 	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
 	 */
-	function create width: height: pos: =
+	function create width:1024 height:512 pos: =
 	(		
 		_RolloutMain.createRollout()
 		
 		Dialog = _RolloutMain.RolloutCreator.getDefinition()
 	
-		CreateDialog ( Dialog )
+		CreateDialog ( Dialog ) width:(_RolloutMain.Layout.getRolloutWidth()) height:height
 
 		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
+		
+		_RolloutMain.fitSubrollouts()
 	),
 	
 	/** rollouts

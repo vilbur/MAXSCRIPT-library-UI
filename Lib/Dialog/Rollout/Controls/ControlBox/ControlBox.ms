@@ -18,9 +18,11 @@ filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" 
 struct ControlBox_v 
 (
 	/* required */
-	/* reference */
 	Parent_roll,
-	Layout,
+
+	/* reference */
+	Layout,     -- Parent_Roll.Layout
+	
 	/* properties of Groupbox */
 	id,
 	caption,

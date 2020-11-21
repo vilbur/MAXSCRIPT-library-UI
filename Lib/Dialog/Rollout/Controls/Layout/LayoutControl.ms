@@ -47,7 +47,7 @@
 	
 	/** _get roll _width
 	 */
-	function _getRollWidth ByColumns=
+	function _getRollWidthByColumns=
 	(
 		(columns * grid) + margin.x*4 + 14 --return
 	),

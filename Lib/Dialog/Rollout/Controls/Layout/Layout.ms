@@ -22,7 +22,7 @@ struct Layout_v
 		
 	width = 1024, 	
 		
-	columns = 12, -- columns _width of rollout
+	columns = 16, -- columns _width of rollout
 	grid    = 24,
 	
 	padding	= 4,	-- padding between controls
