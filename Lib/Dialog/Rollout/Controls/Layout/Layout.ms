@@ -30,7 +30,7 @@ struct Layout_v
 	
 	_pos_last = [0,0],    -- store origin of last added control 
 
-	_padding_corrention = 16,
+	_padding_corrention = 12,
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/Layout/LayoutControl.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Controls/Layout/LayoutGroupbox.ms"

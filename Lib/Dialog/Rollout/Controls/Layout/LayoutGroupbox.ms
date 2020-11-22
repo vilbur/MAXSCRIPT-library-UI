@@ -2,10 +2,11 @@
 	 */
 	function newControlsBox =
 	(
-		--format "\n------------\nLayout.newControlsBox()"
+		format "\n------------\nLayout.newControlsBox()\n"
 		Bbox = Bbox_v origin:(this._getBboxOrigin())
 
 		_pos_last = copy Bbox.origin
+		format "% = % \n" Parent_roll.id Bbox.origin
 		--_pos_last.x += 32
 		this._addFirstControlPadding()
 	),
@@ -17,7 +18,32 @@
 		--format "------------\nLayout._getGroupboxDimensions()"
 		Groupbox.property pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
 	),
-	
+	/** _get bbox origin
+	 */
+	function _getBboxOrigin =
+	(
+		box_origin = [0,0]
+		
+		if( this._notFirstGroupBox == true ) then
+			box_origin.y = this._setNextGroupBoxOrigin box_origin
+
+		box_origin
+	),
+
+	/** Is not first group box in rollout
+	 */
+	function _notFirstGroupBox =
+	(
+		Bbox != undefined --return
+	),
+
+	/** _set next group box origin
+	 */
+	function _setNextGroupBoxOrigin &box_origin =
+	(
+		(Bbox.getMax #y) + padding --return
+	),
+
 	/** Set first
 	 */
 	function _addFirstControlPadding =
@@ -35,15 +61,3 @@
 		offset += (Groupbox.property height:#get)
 	),
 	
-	/** _get bbox origin
-	 */
-	function _getBboxOrigin =
-	(
-		box_origin = [0,0]
-		
-		if( Bbox != undefined ) then
-			box_origin.y = Bbox.getMax #y
-
-		 box_origin
-	),
-
