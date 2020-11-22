@@ -51,8 +51,31 @@ struct Subrollouts_v
 			
 		format "Subrollouts % widths = %\n\n" id (amax widths)
 		
+		this.resizeSubrollouts (amax widths)
+		
 		amax widths
 	),
+	
+	/** Resize subrollouts
+	 */
+	function resizeSubrollouts width =
+	(
+		this.property width:(width+16)
+		
+		for _Rollout in Rollouts do
+			this._resizeSubrollout _Rollout
+	),
+	
+	/** Remove and Add Rollout Again
+	  * Refresh rollout width
+	 */
+	function _resizeSubrollout _Rollout =
+	(
+		this.remove         _Rollout
+		this._addSubRollout _Rollout
+	),
+	
+	
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
 	  *
 	  * @example of executed snippet:
@@ -87,7 +110,12 @@ struct Subrollouts_v
 	(
 		Parent_roll.id + "." + id --return
 	),
-
+	/** Remove Subrollout
+	 */
+	function remove Subrollout =
+	(
+		execute ( "\n RemoveSubRollout " + this.getId() + " " + Subrollout.id )
+	),
 	/** 
 	  *
 	 */
