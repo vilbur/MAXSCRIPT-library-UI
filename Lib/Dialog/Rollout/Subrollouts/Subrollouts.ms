@@ -29,6 +29,30 @@ struct Subrollouts_v
 		new_subrollout --return		
     ),
 
+	/** Create Subrollouts and generate slot_string
+	 */
+	function create =
+	(
+		for _Rollout in Rollouts do
+			_Rollout.createRollout()
+			
+		Parent_roll.RolloutCreator.addSubrolloutSlot( this._getSubrolloutSlot() )
+	),
+	
+	/** Set rollouts width
+	 */
+	function setRolloutsWidth =
+	(
+		widths	= #()
+		
+		--format "Subrollouts_v.setRolloutsWidth() = % \n" id
+		for _Rollout in Rollouts do
+			append widths (_Rollout.setRolloutWidth())
+			
+		format "Subrollouts % widths = %\n\n" id (amax widths)
+		
+		amax widths
+	),
 	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
 	  *
 	  * @example of executed snippet:
@@ -72,16 +96,6 @@ struct Subrollouts_v
 		Parent_roll.exists() --return
 	),
 
-	/** Create Subrollouts and generate slot_string
-	 */
-	function _create =
-	(
-		for _Rollout in Rollouts do
-			_Rollout.createRollout()
-			
-		Parent_roll.RolloutCreator.addSubrolloutSlot( this._getSubrolloutSlot() )
-	),
-	
 	/** Add subrollout to UI
 	 */
 	function _addSubRollout Subrollout =

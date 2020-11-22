@@ -60,13 +60,35 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		format "Rollout_v.createRollout %\n" id
-		for Controlbox_or_Subrollout in Controlboxes_and_Subrollouts do
-			Controlbox_or_Subrollout._create()
+		--format "Rollout_v.createRollout %\n" id
+		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+			Controlbox_or_Subrollouts.create()
 	
 		RolloutCreator.endOfCreation()
 	),
+	
+	/** Set rollout width
+	 */
+	function setRolloutWidth =
+	(
+		--Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
+		--format "Rollout_v.setRolloutWidth() % \n" id
+		widths	= #()
 
+		
+		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+				append widths (Controlbox_or_Subrollouts.property width:#get)
+				--format "ControlsBox = % \n" (Controlbox_or_Subrollouts.getId())
+			else
+				--format "Rollout.getId() = % \n" (Controlbox_or_Subrollouts.getId())
+				append widths (Controlbox_or_Subrollouts.setRolloutsWidth())
+		
+		format "%.width = %\n" id (amax widths)
+
+		amax widths
+	),
+	
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
@@ -91,19 +113,6 @@ struct Rollout_v
 		id --return
 	),
 	
-	/** Fit subrollouts
-	 */
-	function fitSubrollouts =
-	(
-		print "*********** fitSubrollouts"
-		
-		--_subrollouts = Layout.analyze Controlboxes_and_Subrollouts
-		
-		this.Layout.fitSubrollouts()
-		
-		
-	),
-
 	/** Get type
 	 */
 	function _getType Object =
@@ -111,8 +120,6 @@ struct Rollout_v
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
 	),
 	
-		
-
 	private
 	
 	/** Set id by title if not defined

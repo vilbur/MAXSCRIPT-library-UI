@@ -127,7 +127,7 @@ struct ControlBox_v
 
 	/** Create Controls and add them to UI
      */
-    function _create =
+    function create =
     (
 		Layout.newControlsBox()
 
@@ -151,7 +151,7 @@ struct ControlBox_v
      */
     function _addControl Control =
     (
-		format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
+		--format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
