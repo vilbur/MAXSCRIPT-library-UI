@@ -51,25 +51,25 @@ struct Subrollouts_v
 			
 		format "Subrollouts % widths = %\n\n" id (amax widths)
 		
-		this.resizeSubrollouts (amax widths)
+		this.resize (amax widths)
 		
 		amax widths
 	),
 	
 	/** Resize subrollouts
 	 */
-	function resizeSubrollouts width =
+	function resize width =
 	(
 		this.property width:(width+16)
 		
 		for _Rollout in Rollouts do
-			this._resizeSubrollout _Rollout
+			this._resizeRollout _Rollout
 	),
 	
 	/** Remove and Add Rollout Again
 	  * Refresh rollout width
 	 */
-	function _resizeSubrollout _Rollout =
+	function _resizeRollout _Rollout =
 	(
 		this.remove         _Rollout
 		this._addSubRollout _Rollout

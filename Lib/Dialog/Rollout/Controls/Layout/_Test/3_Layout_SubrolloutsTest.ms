@@ -29,7 +29,7 @@ function addControls groupboxes:1 =
 	(
 		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
 		
-		for i = 1 to g + 4 do
+		for i = 1 to g + 1 do
 			Controls.button ("Button "+g as string +"."+i as string )
 	)
 )
@@ -51,7 +51,7 @@ function addSubRollouts subrollouts:1 =
 			_SubRollout	= SubRollouts.new ( s as string + r as string )
 			
 			/* DEFINE GROUPBOX */ 
-			for g = 1 to 3 do
+			for g = 1 to r do -- every rollout has 1 groupbox more then before
 			(
 				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + g as string)
 				
@@ -73,7 +73,7 @@ function addSubRollouts subrollouts:1 =
 
 addControls groupboxes:1
 --addSubRollouts()
-addSubRollouts subrollouts:2
+addSubRollouts subrollouts:1
 
 
 /* CREATE ROLLOUT */
@@ -85,4 +85,6 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
-_Rollout.fitSubrollouts()
+_Rollout.Layout.fitSubrollouts()
+
+_Rollout.setRolloutWidth()
