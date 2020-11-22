@@ -118,8 +118,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		print (  " Rollout_v.setDefaultEvents()" + ( ini ) as string )
-
+		--print (  " Rollout_v.setDefaultEvents()" + ( ini ) as string )
 		if( ini != undefined ) then 
 			RolloutEvent.setSaveToIniEvents()
 	),
@@ -169,7 +168,6 @@ struct Rollout_v
 	  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
 	  *
 	  * Declared as undefined, because of reset rollout when script is restarted
-	  *
 	  */
 	function _setGlobalVariable =
 	(
