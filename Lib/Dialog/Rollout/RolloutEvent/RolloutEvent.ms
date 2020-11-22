@@ -37,7 +37,7 @@ struct RolloutEvent_v
 		if( Parent_roll.ini == undefined ) then
 			return false --return
 		
-		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"open\" (val as string)"
+		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"rolledUp\" ((val==false) as string)"
 
 		this.Events.setDefaultEvent ( Event_v type:"onOpen"	code:save_to_ini_method )
 		this.Events.setDefaultEvent ( Event_v type:"onClose"	code:save_to_ini_method )

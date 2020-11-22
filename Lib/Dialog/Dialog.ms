@@ -1,4 +1,3 @@
-filein( getFilenamePath(getSourceFileName()) + "/../Ini/Ini.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
 /** Store dialog in global variable

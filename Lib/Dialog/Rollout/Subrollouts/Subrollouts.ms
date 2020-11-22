@@ -131,9 +131,24 @@ struct Subrollouts_v
 	 */
 	function _addSubRollout Subrollout =
 	(
-		execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id )
+		execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id + " rolledUp:" + this._getIniSetting Subrollout )
 
 		Subrollout.addSubRollouts()					
+	),
+	
+	/** Get ini setting
+	 */
+	function _getIniSetting Subrollout =
+	(
+		if( Subrollout.ini != undefined ) then
+		(
+			Ini = Ini_v()
+			Ini.path Subrollout.ini
+
+			(Ini.load Subrollout.id "rolledUp" default:true) as string --return
+		)
+		else
+			false as string  --return default
 	),
 	
 	/** [ Get slot_string of subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)

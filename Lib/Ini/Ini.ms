@@ -17,6 +17,7 @@ struct Ini_v
 		
 		this._getSetProp #_dir _path --return
 	),
+
 	/** Set filename of *.ini file
 	  * @property	string	filename	of *.ini file E.G.: "foo.ini" 
 	 */
@@ -25,6 +26,7 @@ struct Ini_v
 		--print ( "Ini_v.file() = " + filename as string )
 		this._getSetProp #_file filename --return
 	),
+
 	/** Get\set ini file path
 	  * @param	string|#get _path	Path to ini file, or #get
 	  *
@@ -40,6 +42,7 @@ struct Ini_v
 		
 		this._getSetProp #_path _path --return
 	),
+
 	/** Ini save control state
 	  * @property	string|name	section
 	  * @property	string|name	key
@@ -49,11 +52,12 @@ struct Ini_v
 	(
 		--setINISetting _path ( section as string ) ( key as string ) ( value as string )
 	),
+	
 	/** Ini save control state
 	 */
 	function load section key default:undefined =
-		(
-	--print "------------\nIni.load()"
+	(
+		format "------------\nIni.load()"
 		section	= section	as string
 		key	= key	as string
 		value	= default
@@ -69,7 +73,7 @@ struct Ini_v
 		--format " value	= % \n" value
 		value --return
 	),
-	
+
 	private
 	
 	/** Get\set value of property 
@@ -91,6 +95,7 @@ struct Ini_v
 		) else
 			getProperty this ( key as string ) --return
 	),
+
 	/** Combine path
 	 */
 	function _combinePath =
@@ -100,6 +105,7 @@ struct Ini_v
 			
 		--print ( "Ini._combinePath = " + _path as string )
 	),
+
 	/** Escape path
 	 */
 	function _normalizePath __path =
