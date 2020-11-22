@@ -1,12 +1,13 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Rollout/Rollout.ms" )
+
 
 /** CREATE ROLLOUTS 
  *	
  */
 --_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) -- test default id by title
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable_id"
+_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) id:"rollout_main"
 
 SubRollouts = _Rollout.subrollouts()
 
@@ -16,6 +17,11 @@ Rollout_A    = SubRollouts.new "Subrollout A"
 /* CONTROLS  */
 controls_A1 = Rollout_A.Controls.new groupbox:"test"
 Button_A1	  = controls_A1.button "Test 1" 
+
+print "TEST"
+Rollout_A.ini	= (getFilenamePath(getSourceFileName()) + getFilenameFile(getSourceFileName()) + ".ini")
+Rollout_A.setDefaultEvents()
+
 
 --/*
 --	CHANGE DEFAULT EVENTS

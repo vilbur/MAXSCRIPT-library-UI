@@ -21,8 +21,11 @@ struct Subrollouts_v
      */
     function new title =
     (
-        --print("Subrollouts.new() title"+title)
-		new_subrollout = Parent_roll.new title
+        print("Subrollouts.new() title"+title)
+		new_subrollout = Rollout_v title:title Parent_Subrollouts:this
+		
+		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
+		
 		--format "new_subrollout=%"new_subrollout
 		append Rollouts new_subrollout
 		

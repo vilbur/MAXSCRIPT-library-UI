@@ -1,4 +1,5 @@
-filein( getFilenamePath(getSourceFileName()) + "//Rollout/Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Ini/Ini.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
 /** Store dialog in global variable
   * 
@@ -25,10 +26,11 @@ struct Dialog_v
 
 	/* dependency */
 	_RolloutMain,
+	--Menu	= Menu_v(),
+	Ini	= Ini_v(),
 	
 	/*  properties */
 	id,
-	--Rollouts,
 	
 	/* options */	
 	
@@ -136,5 +138,8 @@ struct Dialog_v
 		this._setMainRollout()
 		
 		this._setDialogGlobal()
+		
+		this._setIniFile()
+
 	)
 )

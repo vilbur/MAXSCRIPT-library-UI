@@ -50,22 +50,10 @@ struct Rollout_v
 	Controlboxes_and_Subrollouts	= #(),  -- store subrollouts and controlboxes
 	
 	/* reference */
-	Parent_roll,
-	
-	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
+	Parent_Subrollouts,
+	ini, -- inherit by Dialog_v
 
-	/** New	subrollout
-	  *
-	  * @return	object Rollout_v	
-     */
-    function new title =
-    (
-		new_Rollout = Rollout_v title:title Parent_roll:this
-		
-		new_Rollout.Layout = (this.Layout.copySetup new_Rollout.Layout)
-		
-		new_Rollout --return 
-    ),
+	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
 	  * Used for creation of rollout and subrollout subrollout
@@ -76,10 +64,10 @@ struct Rollout_v
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 
-		RolloutEvent._addHandlers()
+			
+		if( this._isSubrollout() == true ) then 
+			RolloutEvent._addHandlers()
 		
-		this._addSaveIniFunction()
-
 		RolloutCreator.endOfCreation()
 	),
 	
@@ -89,7 +77,7 @@ struct Rollout_v
 	 */
 	function setRolloutWidth =
 	(
-		--Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
+		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
 		--format "Rollout_v.setRolloutWidth() % \n" id
 		max_width = this._getMaxWidthOfNestedElements()
 		
@@ -120,15 +108,17 @@ struct Rollout_v
 	 */
 	function getId =
 	(
-		id --return
+		if( this._isSubrollout() == true ) then 
+			(Parent_Subrollouts.getId()) + "." + id --return
+		else
+			id --return
 	),
 	
 	/** Add default events
 	 */
 	function setDefaultEvents =
 	(
-		--print (  " Rollout_v.setDefaultEvents()" + ( classof ini == undefined ) )
-		print (  " Rollout_v.setDefaultEvents()"  )
+		print (  " Rollout_v.setDefaultEvents()" + ( ini ) as string )
 
 		if( ini != undefined ) then 
 			RolloutEvent.setSaveToIniEvents()
@@ -197,21 +187,9 @@ struct Rollout_v
 	 */
 	function _isParentRoll =
 	(
-		Parent_roll == undefined --return
+		Parent_Subrollouts == undefined --return
 	),
-	
-	/** Add saveIni() function to rollout
-	  * saveIni() is fired on rollUp event
-	  * It is implemented in RolloutEvent_v.setSaveToIniEvents()
-	  *
-	  * This function is called before user callback
-	  */
-	function _addSaveIniFunction =
-	(
-		if( ini != undefined ) then
-			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
-	),
-	
+
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/

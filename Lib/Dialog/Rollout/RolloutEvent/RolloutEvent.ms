@@ -34,11 +34,11 @@ struct RolloutEvent_v
 	 */
 	function setSaveToIniEvents =
 	(
-		--print (Parent_roll.id + ".setDefaultEvents()")
-		--rollout_id_split	= filterString Parent_roll.id "."
-		save_to_ini_method	= Parent_roll.id + ".saveIni @"+rollout_id_split[1]+"@ @open@ ( val as string )"
+		if( Parent_roll.ini == undefined ) then
+			return false --return
 		
-		----print ( "RolloutEvent_v._bindDefaultEvents() save_to_ini_method = " + save_to_ini_method as string )
+		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"open\" (val as string)"
+
 		this.Events.setDefaultEvent ( Event_v type:"onOpen"	code:save_to_ini_method )
 		this.Events.setDefaultEvent ( Event_v type:"onClose"	code:save_to_ini_method )
 	),
@@ -47,7 +47,7 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
-		Parent_roll.RolloutCreator.addText ("on "+Parent_roll.id+" rolledUp val do (" + this._getCallback() + ")" )
+		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" rolledUp val do (" + this._getCallback() + ")" )
 	),
 	
 	/** Get callback on rollout open\close

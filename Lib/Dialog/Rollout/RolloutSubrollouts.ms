@@ -32,6 +32,6 @@
 	 */
 	function _isSubrollout =
 	(
-		Parent_roll != undefined --return
+		Parent_Subrollouts != undefined --return
 	),
 	
