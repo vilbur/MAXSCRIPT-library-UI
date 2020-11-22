@@ -174,6 +174,9 @@ struct ControlBox_v
 	(
 		--format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Properties.join())
+		
+		
+		
 	),
 
 	/*------------------------------------------------------------------------------

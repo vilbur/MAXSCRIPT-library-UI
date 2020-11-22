@@ -22,6 +22,15 @@ struct RolloutCreator_v
 		_rolloutCreator.addText( slot_string )
 	),
 	
+	/** Add text
+	 */
+	function addText text =
+	(
+		format "RolloutCreator_v.addText %\n" text
+		
+		_rolloutCreator.addText( text )
+	),
+	
 	/** 
 	 */
     function getDefinition =
@@ -36,7 +45,7 @@ struct RolloutCreator_v
 		_rolloutCreator.end()
 	),
 
-		
+	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/

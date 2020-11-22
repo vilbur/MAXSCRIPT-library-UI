@@ -2,12 +2,12 @@
 	 */
 	function newControlsBox =
 	(
-		format "\n------------\nLayout.newControlsBox()\n"
+		--format "\n------------\nLayout.newControlsBox()\n"
 		Bbox = Bbox_v origin:(this._getBboxOrigin())
 
 		_pos_last = copy Bbox.origin
-		format "% = % \n" Parent_roll.id Bbox.origin
-		--_pos_last.x += 32
+		--format "% = % \n" Parent_roll.id Bbox.origin
+
 		this._addFirstControlPadding()
 	),
 

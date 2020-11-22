@@ -5,6 +5,11 @@ filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
+
+filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Events/Events.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
+
 global add_subrollouts = " "
 
 /** Create Rollout
@@ -37,7 +42,7 @@ struct Rollout_v
 	/* dependency */
 	RolloutCreator,
 	
-	--Subrollouts	= Subrollouts_v slot:slot_id,
+	RolloutEvent	   = RolloutEvent_v    Parent_roll:   this,
  	Controls        = Controls_v        Parent_roll:   this,
 	Layout          = Layout_v          Parent_roll:   this,
 	Properties      = Properties_v      Parent_Control:this,
@@ -70,7 +75,11 @@ struct Rollout_v
 		--format "Rollout_v.createRollout %\n" id
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
-	
+
+		RolloutEvent._addHandlers()
+		
+		this._addSaveIniFunction()
+
 		RolloutCreator.endOfCreation()
 	),
 	
@@ -114,13 +123,27 @@ struct Rollout_v
 		id --return
 	),
 	
+	/** Add default events
+	 */
+	function setDefaultEvents =
+	(
+		--print (  " Rollout_v.setDefaultEvents()" + ( classof ini == undefined ) )
+		print (  " Rollout_v.setDefaultEvents()"  )
+
+		if( ini != undefined ) then 
+			RolloutEvent.setSaveToIniEvents()
+	),
+	
 	private
 
-	/** Get type
+	/** Get name given struct
+	  * @property	struct	_Struct
+	  *
+	  * @return	string lower case	name of given struc stripped of "_v" suffix E.G.: "FooStruct_v" returm "foostruct"
 	 */
-	function _getType Object =
+	function _getType _Struct =
 	(
-		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
+		toLower (( filterString( classof _Struct as string ) "_*(:" )[2])  --return
 	),
 	
 	/** Loop CotrolBoxes and Rollouts and find element with max width
@@ -176,6 +199,30 @@ struct Rollout_v
 	(
 		Parent_roll == undefined --return
 	),
+	
+
+	/*------------------------------------------------------------------------------
+		EVENTS
+	--------------------------------------------------------------------------------*/
+	--/** Bind events to rollout 
+	-- */
+	--function _addEventHandlers =
+	--(
+	--	RolloutEvent._addHandlers()
+	--),
+	
+	/** Add saveIni() function to rollout
+	  * saveIni() is fired on rollUp event
+	  * It is implemented in RolloutEvent_v.setSaveToIniEvents()
+	  *
+	  * This function is called before user callback
+	  */
+	function _addSaveIniFunction =
+	(
+		if( ini != undefined ) then
+			_rolloutCreator.addText( "function saveIni _section _key _value = ( ((Ini_v()).path @"+ini+"@).save _section _key _value )" )
+	),
+	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
@@ -200,6 +247,8 @@ struct Rollout_v
 		this._destroy()
 		
 		this._setGlobalVariable()
+
+		this.setDefaultEvents()
 				
 		RolloutCreator = RolloutCreator_v id:id title:title
 	)
