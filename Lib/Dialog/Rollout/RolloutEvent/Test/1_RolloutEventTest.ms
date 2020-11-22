@@ -20,9 +20,14 @@ Button_A1	  = controls_A1.button "Test 1"
 /*
 	CHANGE DEFAULT EVENTS
 */
-Rollout_A.RolloutEvent.Events.setDefaultEvent ( Event_v type:"onOpen"	code:	"messagebox \"Open\"" )
-Rollout_A.RolloutEvent.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messagebox \"Close\"" )
+Rollout_A.RolloutEvent.Events.setDefaultEvent ( Event_v type:"onOpen"	code:	"messagebox \"Default Event onOpen\"" )
+Rollout_A.RolloutEvent.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messagebox \"Default Event onClose\"" )
 
+/*
+	SET CUSTOM EVENTS
+*/
+Rollout_A.RolloutEvent.onOpen  "messagebox \"Custom Event onOpen\""
+Rollout_A.RolloutEvent.onClose "messagebox \"Custom Event onClose\""
 
 
 /* CREATE ROLLOUT */

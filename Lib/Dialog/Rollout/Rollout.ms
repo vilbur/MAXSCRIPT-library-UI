@@ -200,17 +200,6 @@ struct Rollout_v
 		Parent_roll == undefined --return
 	),
 	
-
-	/*------------------------------------------------------------------------------
-		EVENTS
-	--------------------------------------------------------------------------------*/
-	--/** Bind events to rollout 
-	-- */
-	--function _addEventHandlers =
-	--(
-	--	RolloutEvent._addHandlers()
-	--),
-	
 	/** Add saveIni() function to rollout
 	  * saveIni() is fired on rollUp event
 	  * It is implemented in RolloutEvent_v.setSaveToIniEvents()
