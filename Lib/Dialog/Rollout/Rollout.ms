@@ -55,7 +55,11 @@ struct Rollout_v
      */
     function new title =
     (
-		Rollout_v title:title Parent_roll:this
+		new_Rollout = Rollout_v title:title Parent_roll:this
+		
+		new_Rollout.Layout = (this.Layout.copySetup new_Rollout.Layout)
+		
+		new_Rollout --return 
     ),
 
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)

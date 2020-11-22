@@ -80,7 +80,19 @@ struct Layout_v
 	(
 		512
 	),
+	
+	/** Get setup from this
+	 */
+	function copySetup Layout =
+	(
+		Layout.columns = columns
+		Layout.grid    = grid
+		Layout.padding = padding
+		Layout.margin  = margin
 
+		Layout --return
+	),
+	
 	on create do
 	(
 		--messagebox "Layout_v.test()"
