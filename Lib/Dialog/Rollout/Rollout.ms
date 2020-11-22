@@ -44,6 +44,9 @@ struct Rollout_v
 
 	Controlboxes_and_Subrollouts	= #(),  -- store subrollouts and controlboxes
 	
+	/* reference */
+	Parent_roll,
+	
 	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
 	/** New	subrollout
@@ -52,7 +55,7 @@ struct Rollout_v
      */
     function new title =
     (
-		Rollout_v title:title
+		Rollout_v title:title Parent_roll:this
     ),
 
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
@@ -67,26 +70,20 @@ struct Rollout_v
 		RolloutCreator.endOfCreation()
 	),
 	
-	/** Set rollout width
+	/** Set rollout width if Rollout is Parent rollout 
+	  *
+	  * @return	int	width of widest element
 	 */
 	function setRolloutWidth =
 	(
 		--Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		--format "Rollout_v.setRolloutWidth() % \n" id
-		widths	= #()
-
+		max_width = this._getMaxWidthOfNestedElements()
 		
-		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
-				append widths (Controlbox_or_Subrollouts.property width:#get)
-				--format "ControlsBox = % \n" (Controlbox_or_Subrollouts.getId())
-			else
-				--format "Rollout.getId() = % \n" (Controlbox_or_Subrollouts.getId())
-				append widths (Controlbox_or_Subrollouts.setRolloutsWidth())
-		
-		format "%.width = %\n" id (amax widths)
+		if ( this._isParentRoll() == true ) then 
+			this.property width:(max_width + 18)
 
-		amax widths
+		max_width --return
 	),
 	
 	/** Set any property for rollout 
@@ -113,6 +110,8 @@ struct Rollout_v
 		id --return
 	),
 	
+	private
+
 	/** Get type
 	 */
 	function _getType Object =
@@ -120,7 +119,20 @@ struct Rollout_v
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
 	),
 	
-	private
+	/** Loop CotrolBoxes and Rollouts and find element with max width
+	 */
+	function _getMaxWidthOfNestedElements =
+	(
+		widths	= #()
+		
+		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+				append widths (Controlbox_or_Subrollouts.property width:#get)
+			else
+				append widths (Controlbox_or_Subrollouts.setRolloutsWidth())
+				
+		amax widths --return
+	),
 	
 	/** Set id by title if not defined
 	 */
@@ -154,7 +166,12 @@ struct Rollout_v
 		try( execute("cui.UnRegisterDialogBar " + id) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
 	),
-
+	/** Test if this rollout is subrollout
+	 */
+	function _isParentRoll =
+	(
+		Parent_roll == undefined --return
+	),
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
