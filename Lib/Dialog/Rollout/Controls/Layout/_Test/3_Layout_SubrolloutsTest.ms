@@ -16,7 +16,7 @@ function layoutSetup =
 	_Rollout.Layout.grid     = 48
 	
 	_Rollout.Layout.padding  = 16
-	_Rollout.Layout.margin.x = 8
+	_Rollout.Layout.margin.x = 32
 	_Rollout.Layout.margin.y = 16
 )
 
@@ -36,17 +36,16 @@ function addControls groupboxes:1 =
 
 /** Add extra rollout
  */
-function addSubRollouts subrollouts:1 =
+function addSubRollouts subrollouts:1 rollouts:1 =
 (
 	
 	/* DEFINE ROLLOUTS SLOTS */ 
-
 	for s = 1 to subrollouts do
 	(
 		SubRollouts = _Rollout.subrollouts()
 		
 		/* DEFINE SUBROLLOUTS */ 
-		for r = 1 to 2 do
+		for r = 1 to rollouts do
 		(
 			_SubRollout	= SubRollouts.new ( s as string + r as string )
 			
@@ -56,7 +55,7 @@ function addSubRollouts subrollouts:1 =
 				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + g as string)
 				
 				/* DEFINE CONTROLS */ 
-				for c = 1 to g + 1 do
+				for c = 1 to r+1 do
 					Controls.button ("Button " + s as string +"" + r as string +""+ g as string +"" + c as string )
 			)
 		)
@@ -73,7 +72,7 @@ function addSubRollouts subrollouts:1 =
 
 addControls groupboxes:1
 --addSubRollouts()
-addSubRollouts subrollouts:1
+addSubRollouts subrollouts:1 rollouts:4
 
 
 /* CREATE ROLLOUT */
