@@ -2,10 +2,13 @@ filein( getFilenamePath(getSourceFileName()) + "/Control/ControlId/ControlId.ms"
 
 filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEvents.ms" )
 
+filein( getFilenamePath(getSourceFileName()) + "/Control/Params/Params.ms" ) 
+
 filein( getFilenamePath(getSourceFileName()) + "/Control/Control.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Spinner/Spinner.ms" )
 
 
 /** Section of Controls, can be id if "ControlBox_v.id" is definded
@@ -35,7 +38,6 @@ struct ControlBox_v
 	
 	/* dependency */
 	Properties = Properties_v Parent_Control:this,
-
 	
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
@@ -98,26 +100,7 @@ struct ControlBox_v
 	(
 		Parent_roll.getId() + "." + Groupbox.id.id --return
 	),
-	
-	/**  Add control of any type
-	 *  @param	string	type	Type of control
-	 *  @param	string	caption	Caption of control
-	 * 
-	 *  @return	[Control](../../Control)
-	 */
-	function _newControl _Control id: add:true =
-	(
-		_Control.Parent_roll = Parent_roll
-		
-		_Control.setId id
-		_Control.property columns:4
-		--format "ControlBox_v._newControl %\n" (_Control.getId() )
-		
-		if( add ) then
-			this.add _Control
-		
-		_Control --return
-	),
+
 
 	/** Set group box
      */
@@ -178,8 +161,9 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		--format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string 
-		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control.Properties.join())
+		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
+		format "Control.Properties.join() = % \n" (Control.Properties.join())
+		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 
 	/*------------------------------------------------------------------------------

@@ -2,13 +2,14 @@
 	public
 	
 	/* required properties */
+	__construct = #( #type, #caption ),
 	type,
 	caption,
-	__construct = #( #type, #caption ),
 	
 	/* dependency */
 	Id         = ControlId_v	Parent_Control:this,
 	Events     = ControlEvents_v	Parent_Control:this,
+	_Parameters = Params_v(),
 	Properties = Properties_v	Parent_Control:this,
 
 	/* reference */
@@ -39,21 +40,29 @@
 	(
 		Id.full --return
 	),
+	
+	/** Params
+	 */
+	function params align: offset: across: pos: height: width: =
+    (
+		_Parameters.setParams #(#align, #offset, #across, #pos, #height, #width) #(align, offset, across, pos, height, width )
+	),
+	
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
 	  * @property	mixed	name|title|open|scrollPos|height|width
      */
-    function property enabled: title: visible: pos: height: width: columns: =
+    function property enabled: title: visible: pos: height: width: columns: border: range: scale: =
     (
-		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns) #(enabled, title, visible, pos, height, width, columns)
+		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
 	),
 	
 	/** Set dimensions
      */
     function setDimensions Dimensions =
     (
-		this.property pos:Dimensions.pos width:Dimensions.width height:Dimensions.height
+		this.params pos:Dimensions.pos width:Dimensions.width height:Dimensions.height
     ),
 
 	/** Find if control is rendered in ui already
@@ -64,7 +73,7 @@
 	(
 		control_exists	= false 
 
-		if( Parent_roll.exists() ) then
+		if( Parent_roll != undefined and Parent_roll.exists() ) then
 			try(
 				control_exists = (execute Id.full) != undefined
 			)catch()

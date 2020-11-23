@@ -1,4 +1,4 @@
-/** Button
+/** Button http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
  */
 struct Button_v 
 (
