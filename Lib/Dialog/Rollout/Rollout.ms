@@ -1,5 +1,10 @@
-filein( getFilenamePath(getSourceFileName()) + "/../../Ini/Ini.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../../List/List.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Events/Events.ms" )
+
+
+filein( getFilenamePath(getSourceFileName()) + "/../../Ini/Ini.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../../Properties/Properties.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
@@ -7,9 +12,8 @@ filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
 
-filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../../Events/Events.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
+
 
 global add_subrollouts = " "
 

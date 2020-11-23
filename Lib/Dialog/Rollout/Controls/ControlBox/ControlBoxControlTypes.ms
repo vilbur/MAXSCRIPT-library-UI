@@ -2,15 +2,6 @@
  *	
  */
 
-
-/** Add RolloutControl
- */
-function RolloutControl caption id: add:true =
-(
-	--print "------------\nControlBox.button()"
-	this._newControl (Button_RolloutControl_test caption:caption ) id:id add:add
-),
-
 /** Add Button
  */
 function button caption id: add:true =
@@ -32,6 +23,19 @@ function checkbox caption id: checked: add:true =
 (
 	this._newControl (Checkbox_v caption:caption ) id:id add:add
 ),
+
+/** Add Checkbox http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_411DB273_7B74_4FD7_89E9_B74B9CED102B_htm
+ */
+function spinner caption id: range: type: scale: add:true =
+(
+	--this._newControl (Checkbox_v caption:caption ) id:id add:add
+	this._newControl (Control_v type:#spinner caption:caption ) id:id add:add
+),
+
+
+
+
+
 
 /** Add Edit text control
  */

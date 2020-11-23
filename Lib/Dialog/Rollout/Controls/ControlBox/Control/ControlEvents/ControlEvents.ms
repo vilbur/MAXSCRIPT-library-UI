@@ -26,8 +26,11 @@ struct ControlEvents_v
 		format "ControlEvents_v.setEventTypes %\n" Parent_Control.type
 		event_types = List_v()
 		
-		event_types.setVal #button   #(#pressed, #rightclick)
-		event_types.setVal #checkbox #(#changed)
+		event_types.setVal #button      #( #rightclick, #pressed )
+		event_types.setVal #checkbox    #( #rightclick, #changed )
+		event_types.setVal #checkbutton #( #rightclick, #changed )
+		event_types.setVal #spinner     #(              #changed, #entered, #buttondown, #buttonup )
+		--event_types.setVal #spinner     #(#changed)
 		
 		Events.event_types = (event_types.getVal Parent_Control.type)
 	),
@@ -43,7 +46,7 @@ struct ControlEvents_v
 	 */
 	function pressed callback tooltip:"" =
 	(
-		this._setEvent #pressed callback tooltip
+		this.setEvent #pressed callback tooltip
 	),
 
 	/** Bind changed event
@@ -51,14 +54,26 @@ struct ControlEvents_v
 	  */
 	function changed callback tooltip:"" =
 	(
-		this._setEventWithValue #changed callback tooltip
+		this.setEvent #changed callback tooltip
 	),
 
 	/** Bind rightclick event
 	  */
 	function rightclick callback tooltip:"" =
 	(
-		this._setEvent #rightclick callback tooltip
+		this.setEvent #rightclick callback tooltip
+	),
+	
+	/** Set event
+	 */
+	function setEvent type callback tooltip params:"" =
+	(
+		if( (type == #changed or type == #buttonup  ) and params == "" ) then 
+			params = "val"
+		
+		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
+		
+		Parent_Control --return
 	),
 
 	/** Set default event, save to ini if ini is defined in rollout
@@ -78,13 +93,12 @@ struct ControlEvents_v
 		--format " Parent_Control.path	= % \n" Parent_Control.id.id
 		--section_key	= filterString Parent_Control.id.id "."
 		
+		dynamic_types = #(#changed)
 
-		--format "Events.event_types = % \n" Events.event_types
+		format "Events.event_types = % \n" Events.event_types
 		
-		--save_to_ini = rollout_id + ".saveIni @"+rollout_id+"@ @"+Parent_Control.id.id+"@ (val as string )"
-		--save_to_ini_method	= "setINISetting \""+Parent_Control.Parent_roll.ini+"\" \""+Parent_Control.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)"
-		--format "save_to_ini_method = % \n" save_to_ini_method
-		--this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
+		for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
+			this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.Parent_roll.ini+"\" \""+Parent_Control.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
 	),
 
 	/** _add handlers
@@ -100,25 +114,6 @@ struct ControlEvents_v
 	),
 	
 	private
-	
-	/** Set event
-	 */
-	function _setEvent type callback tooltip =
-	(
-		this.Events.add (Event_v type:type code:callback tooltip:tooltip)
-		
-		Parent_Control --return
-	),
-
-	/** Set event with parameter in callback, E.G.: for checkbox
-	  *	placeholder for variable of value is "val"
-	 */
-	function _setEventWithValue type callback tooltip =
-	(
-		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:"val")
-		
-		Parent_Control --return
-	),
 
 	on create do
 	(

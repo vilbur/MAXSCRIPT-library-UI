@@ -6,7 +6,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 
-global _Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable_id"
+global _Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
 _Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 
 
@@ -20,12 +20,19 @@ _Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
  */
 function cretateControlWithPropertiesTest =
 (
-	_controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
-	_btn_prop	= _controls_1.button   "Props test"
-	_checkbox 	= _controls_1.checkbox "Checkbox test"
+	global _controls_1  = _Rollout.controls.new groupbox:"Control types"
 	
-	_btn_prop.Events.pressed	"messagebox \"Pressed\""	tooltip:"Pressed tooltip"
-	_btn_prop.Events.rightclick 	"messagebox \"Rightclick\""	tooltip:"Rightclick tooltip"
+	control_types	= #( #button, #checkbutton, #checkbox, #spinner )
+	
+	for control_type in control_types do
+	(
+		execute("global _Control = (_controls_1."+control_type as string +" \"Props "+control_type+"\")")
+		--format "_Control.Events.Events.event_types = % \n" _Control.Events.Events.event_types
+		
+		for event_type in _Control.Events.Events.event_types do
+			_Control.Events.setEvent event_type ("print (\""+event_type+" \"+ val as string )") "tooltip"
+		
+	)
 )
 
 /** Set control properties
