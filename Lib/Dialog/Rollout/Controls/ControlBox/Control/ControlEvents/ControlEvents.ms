@@ -1,5 +1,4 @@
-filein( getFilenamePath(getSourceFileName()) + "/../../../Events/Events.ms" )
-
+filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events.ms" )
 /** Control
  *
  *	====================================================================
@@ -59,21 +58,19 @@ struct ControlEvents_v
 	 */
 	function setSaveToIniCallback =
 	(
-		--print "------------\nControlEvents.setSaveToIniCallback()"
+		print "------------\nControlEvents.setSaveToIniCallback()"
 		--format " Parent_control	= % \n" Parent_control
 		--format " Parent_control.path	= % \n" Parent_control.id.id
 		--section_key	= filterString Parent_control.id.id "."
 		
-		rollout_id	= Parent_control.Parent_roll.id
-		save_to_ini = rollout_id + ".saveIni @"+rollout_id+"@ @"+Parent_control.id.id+"@ (val as string )"
-		
+		--save_to_ini = rollout_id + ".saveIni @"+rollout_id+"@ @"+Parent_control.id.id+"@ (val as string )"
+		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_control.Parent_roll.id+"\" \""+Parent_control.id.id+"\" (val as string)"
+
 		this.Events.setDefaultEvent(Event_v type:"changed" code:save_to_ini params:"val")
 	),
 	
+	private
 	
-	/*---------------------------------------
-		PRIVATE 
-	-----------------------------------------*/
 	/** Set event
 	 */
 	function _setEvent type callback tooltip =
@@ -92,6 +89,7 @@ struct ControlEvents_v
 		Parent_control --return
 	),
 	/** _add handlers
+	  *http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
 	 */
 	function _addHandlers =
 	(
@@ -99,12 +97,11 @@ struct ControlEvents_v
 		_Events = this.Events.getEvents()
 		
 		for _Event in _Events do
-			Parent_control.parent_roll.roll.addhandler  Parent_control.id.id _Event.type codeStr:_Event.code  paramStr:_Event.params 
+			Parent_control.Parent_roll.RolloutCreator.addhandler Parent_control.id.id _Event
 	),
-	
 
-	function test =
+	on create do
 	(
-		messagebox "Control_v.test()"
+		
 	)
 )

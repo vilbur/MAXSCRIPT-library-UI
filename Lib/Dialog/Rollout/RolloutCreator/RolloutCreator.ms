@@ -26,9 +26,15 @@ struct RolloutCreator_v
 	 */
 	function addText text =
 	(
-		format "RolloutCreator_v.addText %\n" text
-		
+		--format "RolloutCreator_v.addText %\n" text
 		_rolloutCreator.addText( text )
+	),
+	
+	/** Add Event handlers
+	 */
+	function addhandler control_id Event =
+	(
+		_rolloutCreator.addhandler control_id Event.type codeStr:Event.code  paramStr:Event.params
 	),
 	
 	/** 

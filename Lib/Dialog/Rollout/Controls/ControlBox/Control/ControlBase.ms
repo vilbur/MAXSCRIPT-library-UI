@@ -7,9 +7,9 @@
 	__construct = #( #type, #caption ),
 	
 	/* dependency */
-	Id      	= ControlId_v	Parent_Control:this,
-	--Events	= ControlEvents_v	Parent_control:this,
-	Properties	    = Properties_v	Parent_Control:this,
+	Id         = ControlId_v	Parent_Control:this,
+	Events     = ControlEvents_v	Parent_control:this,
+	Properties = Properties_v	Parent_Control:this,
 
 	/* reference */
 	Parent_roll,

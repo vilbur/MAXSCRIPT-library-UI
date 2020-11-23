@@ -1,5 +1,7 @@
 filein( getFilenamePath(getSourceFileName()) + "/Control/ControlId/ControlId.ms" )
 
+filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEvents.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/Control/Control.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" )
@@ -155,6 +157,8 @@ struct ControlBox_v
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
+		
+		Control.Events._addHandlers()
     ),
 
 	/** Add id
