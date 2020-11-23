@@ -36,7 +36,8 @@ struct Events_v
 	function getEvents =
 	(
 		Events_merged	= #()
-		
+		format "Events_v.event_types = % \n" event_types
+		if(  event_types != undefined ) then
 		for event_type in event_types do
 			append Events_merged (this.getEvent event_type)
 		

@@ -5,7 +5,7 @@ filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEv
 filein( getFilenamePath(getSourceFileName()) + "/Control/Control.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" )
---filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
 
 
 /** Section of Controls, can be id if "ControlBox_v.id" is definded
@@ -158,7 +158,9 @@ struct ControlBox_v
 		
 		this._addControlToUi Control
 		
-		Control.Events._addHandlers()
+		Control.Events.setDefaultEvents()
+		
+		Control.Events.addHandlers()
     ),
 
 	/** Add id

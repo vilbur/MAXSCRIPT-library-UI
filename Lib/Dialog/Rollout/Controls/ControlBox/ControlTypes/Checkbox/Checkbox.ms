@@ -2,8 +2,8 @@
  */
 struct Checkbox_v
 (
-	include "Library/_UI/Lib/Controls/Control/ControlExtends.ms"
-
+	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"
+	
 	checked,
 
 	/** Toggle checkbox
@@ -56,12 +56,6 @@ struct Checkbox_v
 	--	name_of_value_param	= #checked
 	--),
 	
-	--__construct = this._construct()
-	/** Test
-	 */
-	function test =
-	(
-		
-	)
-	
+	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlOnCreate.ms"
+
 )

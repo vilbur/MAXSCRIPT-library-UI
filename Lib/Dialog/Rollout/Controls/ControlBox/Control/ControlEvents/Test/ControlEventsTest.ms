@@ -22,7 +22,7 @@ function cretateControlWithPropertiesTest =
 (
 	_controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 	_btn_prop	= _controls_1.button   "Props test"
-	--_checkbox 	= _controls_1.checkbox "Checkbox test"
+	_checkbox 	= _controls_1.checkbox "Checkbox test"
 	
 	_btn_prop.Events.pressed	"messagebox \"Pressed\""	tooltip:"Pressed tooltip"
 	_btn_prop.Events.rightclick 	"messagebox \"Rightclick\""	tooltip:"Rightclick tooltip"
@@ -51,4 +51,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
---SubRollouts.property height:256
+----SubRollouts.property height:256
