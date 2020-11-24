@@ -79,6 +79,6 @@ struct Params_v
 	on create do
 	(
 		--this._checkConstctructProperties()
-		format "Params_v.onCreate()"
+		--format "Params_v.onCreate()"
 	)
 )

@@ -38,14 +38,16 @@ struct ControlBox_v
 	
 	/* dependency */
 	Properties = Properties_v Parent_Control:this,
-	
+
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
 		
 	/** Add control to rollout
 	 */
-	function add &Control =
+	function add Control =
 	(
+		format "Control = % \n" Control
+		--Control.caption = "Test"
 		append Controls Control
 	),
 

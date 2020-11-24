@@ -2,18 +2,20 @@
 	public
 	
 	/* required properties */
-	__construct = #( #type, #caption ),
+	__construct = #( #type ),
 	type,
 	caption,
 	
 	/* dependency */
 	Id         = ControlId_v	Parent_Control:this,
 	Events     = ControlEvents_v	Parent_Control:this,
-	_Parameters = Params_v(),
 	Properties = Properties_v	Parent_Control:this,
+	--ControlTypes = ControlTypes_v	Parent_Control:this,
+	_Parameters = Params_v(),
 
 	/* reference */
 	Parent_roll,
+	ControlBox,
 
 	/* properties */ 
 	name_of_value_param	= #value,
@@ -23,10 +25,25 @@
 	--_col 	= 4,
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 	
-	/*------ EXTENDED EVENTS ------*/
-	--pressed	 = Events.pressed,
-	--changed	 = Events.changed,
-	--rightclick = Events.rightclick,
+	--newControl = ControlTypes.newControl,
+	
+	/** New control
+	 */
+	function newControl caption
+				  	 pos: height: width: align: offset: across:  -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
+					 images: border:                             -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
+					 toolTip: =
+	--function newControl control_type caption id: add:true  =
+	(
+		format "------------\nControlTypes_v.newControl \n"
+		format "type = % \n" type
+		--format "ControlTypes = % \n" ControlTypes
+		_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
+
+		this.caption = caption
+		
+		ControlBox.add this
+	),
 
 	/** _set id
 	 */

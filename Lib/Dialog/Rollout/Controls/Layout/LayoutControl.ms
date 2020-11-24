@@ -107,7 +107,9 @@
 	 */
 	function _getControlWidthRaw Control =
 	(
-		(Control.property columns:#get) * grid --return
+		format "HOTFIX LayoutControl.ms _getControlWidthRaw()"
+		--(Control.property columns:#get) * grid --return
+		96
 	),	
 	
 	/** Get height

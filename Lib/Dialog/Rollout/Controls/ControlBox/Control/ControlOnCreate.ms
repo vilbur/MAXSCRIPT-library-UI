@@ -24,13 +24,14 @@ function _setType =
  */
 on create do
 (
+	format "HOTFIX ControlOnCreate.ms on create()()"
 	this._setType()
 	
 	this.Events.setEventTypes()
 
 	this._checkConstctructProperties()
 	
-	this._setCaption()
+	--this._setCaption()
 			
 	--this._setValue()
 	
