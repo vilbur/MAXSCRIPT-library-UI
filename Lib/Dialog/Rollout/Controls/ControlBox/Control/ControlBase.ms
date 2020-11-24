@@ -41,15 +41,29 @@
 		Id.full --return
 	),
 	
-	/** Params
+	/** Set Controls Common Parameters
 	 */
-	function params align: offset: across: pos: height: width: =
+	function params pos: height: width: align: offset: across:  -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
+				 images: border:                             -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
+				 toolTip: =
     (
-		_Parameters.setParams #(#align, #offset, #across, #pos, #height, #width) #(align, offset, across, pos, height, width )
+		_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
 	),
 	
-	/** Set any property for rollout 
-	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	--/** Set Controls Common Parameters 
+	-- */
+	--function params pos: height: width: align: offset: across: -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
+	--			 images: border:                            -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
+	--             toolTip: =
+	--(
+	--	_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
+	--	
+	--	
+	--	
+	--),
+	/** Set Controls Common Properties
+	  * 
+	  * http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_3880D745_8496_4DFB_8B31_4DEAC152DBB3_htm
 	  *
 	  * @property	mixed	name|title|open|scrollPos|height|width
      */
@@ -116,15 +130,15 @@
 		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
 
-	/** Get parameters
-	 */
-	function _getParameters =
-	(
-		--this._setDimensions()
-
-		Properties.join() + this._getTooltip() --return
-		--this._getTooltip() --return
-	),
+	--/** Get parameters
+	-- */
+	--function _getParameters =
+	--(
+	--	--this._setDimensions()
+	--
+	--	Properties.join() + this._getTooltip() --return
+	--	--this._getTooltip() --return
+	--),
 
 	/** Get tooltip, if button then get tooltips from eventsz
 		Set prefixes "Leftclick:" & "\nRightclick:"

@@ -50,7 +50,7 @@ struct Rollout_v
 	RolloutEvent	   = RolloutEvent_v    Parent_roll:   this,
  	Controls        = Controls_v        Parent_roll:   this,
 	Layout          = Layout_v          Parent_roll:   this,
-	Properties      = Properties_v      Parent_Control:this,
+	Properties      = Properties_v      Parent_Control:this, -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 
 	Controlboxes_and_Subrollouts	= #(),  -- store subrollouts and controlboxes
 	

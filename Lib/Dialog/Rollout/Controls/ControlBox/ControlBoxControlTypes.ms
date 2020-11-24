@@ -21,10 +21,18 @@ function _newControl _Control id: add:true =
 
 /** Add Button
  */
-function button caption id: add:true =
+function button caption id: border:  add:true =
 (
 	--print "------------\nControlBox.button()"
-	this._newControl (Button_v caption:caption ) id:id add:add
+	--this._newControl (Button_v caption:caption ) id:id add:add
+	
+	new_Control = (Button_v caption:caption )
+	
+	new_Control.params border:border
+	
+	this._newControl new_Control id:id add:add
+	
+	
 ),
 
 /** Add Check button
@@ -48,7 +56,7 @@ function spinner caption id: range: type: scale: add:true =
 	--this._newControl (Checkbox_v caption:caption ) id:id add:add
 	new_Control = (Spinner_v type:#spinner caption:caption )
 	
-	new_Control.property scale:scale
+	new_Control.params scale:scale
 	
 	this._newControl new_Control id:id add:add
 ),

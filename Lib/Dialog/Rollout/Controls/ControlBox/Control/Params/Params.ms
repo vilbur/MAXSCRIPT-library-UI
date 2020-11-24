@@ -21,8 +21,11 @@ struct Params_v
 	 */
 	function setParams keys values =
 	(
-		List = this._filterUnsuppliedParameters keys values
-
+		--format "Params_v.setParams % \n" values
+		suplied_parameters = this._filterUnsuppliedParameters keys values
+		
+		List.keys   += suplied_parameters.keys
+		List.values += suplied_parameters.values
 	),
 	
 	/** Filter unsupplied parameters
@@ -54,14 +57,13 @@ struct Params_v
 	 */
 	function join =
 	(
-		print "------------\nProperties_v.join()"
+		--print "------------\nParams_v.join()"
 		_params = ""
 		
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
 		
 		--format " _params	= % \n" _params
-		--""
 		_params --return
 	),
 
@@ -77,5 +79,6 @@ struct Params_v
 	on create do
 	(
 		--this._checkConstctructProperties()
+		format "Params_v.onCreate()"
 	)
 )

@@ -16,7 +16,7 @@
 		
 		pos    = this._getControlPos    Control _width
 		--format "pos = % \n" pos
-		pos.x += padding -- add padding to left border of group box
+		pos.x += padding -- add padding to left side of group box
 		
 		Dimensions = Dimensions_v pos:pos width:_width height:height
 		--print Dimensions_v as string 
