@@ -38,6 +38,9 @@
 		format "------------\nControlTypes_v.newControl \n"
 		format "type = % \n" type
 		--format "ControlTypes = % \n" ControlTypes
+		if( columns == unsupplied ) then
+			columns = 4
+		
 		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
 
 		this.caption = caption

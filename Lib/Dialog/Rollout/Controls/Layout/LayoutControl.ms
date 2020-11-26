@@ -118,6 +118,6 @@
 	function _getControlHeightRaw =
 	(
 		--format "HOTFIX LayoutControl.ms _getControlHeightRaw()\n"
-		--grid --return
-		grid - padding * 2 --return
+		grid --return
+		--grid - padding * 2 --return
 	),

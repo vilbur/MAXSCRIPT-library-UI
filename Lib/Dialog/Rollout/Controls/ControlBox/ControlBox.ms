@@ -169,8 +169,8 @@ struct ControlBox_v
 	function _addControlToUi Control =
 	(
 		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
-		format "Control = % \n" Control
-		--format "Control._Parameters.join() = % \n" (Control._Parameters.join())
+		--format "Control = % \n" Control
+		format "Control._Parameters.join() = % \n" (Control._Parameters.join())
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 

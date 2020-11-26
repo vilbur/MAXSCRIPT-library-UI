@@ -13,7 +13,7 @@ controls_2    = _Rollout.Controls.new groupbox:"" id:"groupbox_id"
 controls_3    = _Rollout.Controls.new groupbox:"Groupbox Test"
 
 
-Controls_1.button "No Groupbox" columns:6
+Controls_1.button "No Groupbox"
 
 
 /* CREATE ROLLOUT */
