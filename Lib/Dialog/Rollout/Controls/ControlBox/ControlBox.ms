@@ -81,18 +81,13 @@ struct ControlBox_v
 
 		for Control in Controls do
 		(
-			pos_current = Control.property pos:#get
+			pos     = Control.property pos:#get 
 			
-			offset = pos_current - pos_box_current
+			offset  = pos - pos_box_current
+ 
+			pos_new = new_pos + offset
 
-			pos_control = new_pos + offset
-			--format "\nnew_pos           = % \n" new_pos
-			--format "pos_box_current   = % \n" pos_box_current
-			--format "pos_current       = % \n" pos_current
-			--format "offset            = % \n" offset
-			--format "pos_control       = % \n" pos_control
-			
-			Control.property pos:pos_control  --!!! PREDELAT Cotrol.Properties na Control.property()
+			Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
 		)
 	),
 	
@@ -100,7 +95,12 @@ struct ControlBox_v
 	 */
 	function getId =
 	(
-		Parent_roll.getId() + "." + Groupbox.id.id --return
+		id = Parent_roll.getId()
+	
+		if (Groupbox != undefined ) then
+			id += "." + Groupbox.id.id --return
+		
+		id --return
 	),
 
 
@@ -108,8 +108,12 @@ struct ControlBox_v
      */
     function _setGroupBox =
     (
+		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter"
 		if not( caption == unsupplied ) then
-			Groupbox = this._newControl (Control_v type:#Groupbox caption:caption ) id:id add:false
+			Groupbox = this.newGroupbox caption columns:6
+	
+		format "Groupbox = % \n" Groupbox
+			--Groupbox = this._newControl (Control_v type:#Groupbox caption:caption ) id:id add:false
     ),
 
 	/** Create Controls and add them to UI
@@ -117,10 +121,10 @@ struct ControlBox_v
     function create =
     (
 		Layout.newControlsBox()
-
+		
 		this._addControls()
 		
-		if (Groupbox != unsupplied ) then
+		if (Groupbox != undefined ) then
 			this._addGroupBox()
     ),
 
@@ -135,7 +139,8 @@ struct ControlBox_v
 	),
 	
 	/** _add control
-     */
+     *
+	 */
     function _addControl Control =
     (
 		--format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
@@ -164,7 +169,8 @@ struct ControlBox_v
 	function _addControlToUi Control =
 	(
 		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
-		format "Control.Properties.join() = % \n" (Control.Properties.join())
+		format "Control = % \n" Control
+		--format "Control._Parameters.join() = % \n" (Control._Parameters.join())
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 

@@ -107,15 +107,17 @@
 	 */
 	function _getControlWidthRaw Control =
 	(
-		format "HOTFIX LayoutControl.ms _getControlWidthRaw()"
-		--(Control.property columns:#get) * grid --return
-		96
+		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
+		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
+		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
+		(Control.params columns:#get) * grid --return
 	),	
 	
 	/** Get height
 	 */
 	function _getControlHeightRaw =
 	(
-		--grid - padding * 2 --return
-		grid --return
+		--format "HOTFIX LayoutControl.ms _getControlHeightRaw()\n"
+		--grid --return
+		grid - padding * 2 --return
 	),

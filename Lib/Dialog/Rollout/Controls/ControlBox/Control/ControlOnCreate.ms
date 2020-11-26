@@ -16,7 +16,7 @@ function _setType =
 (
 	if( type == undefined ) then
 		type = (toLower (( filterString( classof this as string ) "_*(:" )[2])) as name
-	format "ControlOnCreate._setType %\n" type
+	--format "ControlOnCreate._setType %\n" type
 ),
 
 
@@ -24,7 +24,7 @@ function _setType =
  */
 on create do
 (
-	format "HOTFIX ControlOnCreate.ms on create()()"
+	format "HOTFIX ControlOnCreate.ms on create()\n"
 	this._setType()
 	
 	this.Events.setEventTypes()

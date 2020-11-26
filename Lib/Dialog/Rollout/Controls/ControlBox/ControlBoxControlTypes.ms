@@ -1,29 +1,33 @@
 
-button = (Button_v Parent_roll:Parent_roll ControlBox:this).newControl,
+
+newGroupbox = (Control_v Parent_roll:Parent_roll ControlBox:this type:#Groupbox).newControl,
+
+button     = (Button_v Parent_roll:Parent_roll ControlBox:this).newControl,
 
 
-/**  Add control of any type http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm 
- * 
- *  @param	string	type	Type of control
- *  @param	string	caption	Caption of control
- * 
- *  @return	[Control](../../Control)
- */
-function _newControl _Control id: add: =
-(
-	format "HOTFIX ControlBoxControlTypes.ms _newControl() Adding of groupbox need this"
-	_Control.Parent_roll = Parent_roll
-	
-	_Control.setId id
-	_Control.property columns:4
-	--format "ControlBox_v._newControl %\n" (_Control.getId() )
-	
-	if( add ) then
-		this.add _Control
-	
-	_Control --return
-),
 
+--/**  Add control of any type http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm 
+-- * 
+-- *  @param	string	type	Type of control
+-- *  @param	string	caption	Caption of control
+-- * 
+-- *  @return	[Control](../../Control)
+-- */
+--function _newControl _Control id: add: =
+--(
+--	format "HOTFIX ControlBoxControlTypes.ms _newControl() Adding of groupbox need this\n"
+--	_Control.Parent_roll = Parent_roll
+--	
+--	_Control.setId id
+--	_Control.params columns:4
+--	--format "ControlBox_v._newControl %\n" (_Control.getId() )
+--	
+--	if( add ) then
+--		this.add _Control
+--	
+--	_Control --return
+--),
+--
 
 --
 --/** Add Button

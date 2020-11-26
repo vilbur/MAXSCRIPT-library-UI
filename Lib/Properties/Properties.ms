@@ -11,8 +11,11 @@ struct Properties_v
 	
 	Parent_Control,
 	
-	Params	= List_v(),
-
+	keys	= #(),
+	values	= #(),
+	
+	List	= List_v keys:keys values:values,
+	
 	/** Set any property to rollout
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
@@ -48,7 +51,6 @@ struct Properties_v
 	 */
 	function _getOrSetValue key value =
 	(
-		--print "Properties_v._getOrSetValue()"
 		if( value == #get ) then 
 			this._getValue	key       -- return
 		else
@@ -60,12 +62,12 @@ struct Properties_v
 	function _getValue key =
 	(
 		--format "Properties_v._getValue (%)\n" key
-		--Params.setVal key 256 -- return
+		--List.setVal key 256 -- return
 			
 		if ( Parent_Control.exists() ) then
 			this._getProperty key -- return
 		else
-			Params.getVal key   -- return
+			List.getVal key   -- return
 	),
 	
 	/** _get or set value
@@ -76,52 +78,25 @@ struct Properties_v
 		if ( Parent_Control.exists() ) then
 			this._setProperty key value -- return
 		else
-			Params.setVal key value -- return
+			List.setVal key value -- return
 	),	
 
 	/** Join array
 	 */
 	function join =
 	(
-		--print "------------\nProperties_v.join()"
+		print "Properties_v.join()"
 		_params = ""
 		
-		for k=1 to Params.keys.count do
-			_params = _params + " " + Params.keys[k] +":"+ Params.values[k] as string
+		for k=1 to List.keys.count do
+			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		--format " _params	= % \n" _params
-		--""
+		format " _params	= % \n" _params
 		_params --return
 	),
 	
 	private
 
-	
-	/** Filter unsupplied parameters
-	  * Return only supplied parameters
-	  *
-	  * @param	array keys array of keys
-	  * @param	array keys array of values
-	  *
-	  * @return	matrix #( #(parameter_names), #(parameter_values ))		
-	  *
-	  * @example
-	  *     function foo param_1: param_2: =
-	  *		(
-	  *			param_name_and_value = this._filterUnsuppliedParameters #(#param_1, #param_2) #(unsupplied, "value_2") 
-	  *			-- return #( #(#param_2), #("value_2") )
-	  * 	)
-     */
-    function _filterUnsuppliedParameters keys values =
-    (
-		keys_values = List_v()
-		
-		for i = 1 to values.count  where not ( values[i] == unsupplied ) do
-			keys_values.setVal keys[i] values[i]
-
-		keys_values --return
-    ),
-	
 	/** Get property
 	  *
 	  * E.G.: execute("rollout_rollout_a.height")
@@ -166,6 +141,28 @@ struct Properties_v
 		value as string --return
 	),
 	
+	/** Filter unsupplied parameters
+	  * Return only supplied parameters
+	  *
+	  * @param	array keys array of keys
+	  * @param	array keys array of values
+	  *
+	  * @return	matrix #( #(parameter_names), #(parameter_values ))		
+	  *
+	  * @example
+	  *		param_name_and_value = this._filterUnsuppliedParameters #(#param_1, #param_2) #(unsupplied, "value_2") 
+	  *		-- return #( #(#param_2), #("value_2") )
+     */
+    function _filterUnsuppliedParameters keys values =
+    (
+		keys_values = List_v()
+		
+		for i = 1 to values.count  where not ( values[i] == unsupplied ) do
+			keys_values.setVal keys[i] values[i]
+
+		keys_values --return
+    ),
+		
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct

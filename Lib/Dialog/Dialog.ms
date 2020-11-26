@@ -58,7 +58,7 @@ struct Dialog_v
 		
 		_RolloutMain.Layout.fitSubrollouts()
 		
-		--_RolloutMain.Layout.setRolloutWidth()
+		--_RolloutMain.setRolloutWidth()
 	),
 	
 	/** rollouts

@@ -28,21 +28,26 @@
 	--newControl = ControlTypes.newControl,
 	
 	/** New control
+	  *
+	  *
+	  *
+	  * @return	this Control itself	
 	 */
-	function newControl caption
-				  	 pos: height: width: align: offset: across:  -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
-					 images: border:                             -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
-					 toolTip: =
-	--function newControl control_type caption id: add:true  =
+	function newControl caption id: add:true include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
 	(
 		format "------------\nControlTypes_v.newControl \n"
 		format "type = % \n" type
 		--format "ControlTypes = % \n" ControlTypes
-		_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
+		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
 
 		this.caption = caption
 		
+		this.setId id
+		
+		if( type != #groupbox ) then 
 		ControlBox.add this
+		
+		this
 	),
 
 	/** _set id
@@ -60,11 +65,9 @@
 	
 	/** Set Controls Common Parameters
 	 */
-	function params pos: height: width: align: offset: across:  -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
-				 images: border:                             -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
-				 toolTip: =
+	function params include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
     (
-		_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
+		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
 	),
 	
 	--/** Set Controls Common Parameters 

@@ -8,10 +8,10 @@ struct Params_v
 	--__construct = #(#Parent_Control),
 	
 	/* reference */
+	keys	= #(),
+	values	= #(),
 	
-	--Parent_Control,
-	
-	List	= List_v(),
+	List	= List_v keys:keys values:values,
 
 	/** Set any property to rollout
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -19,13 +19,51 @@ struct Params_v
 	  * @property	#(#name)	keys	of properties
 	  * @property	#("value", #get)	values	of properties, to get values set value to #get
 	 */
-	function setParams keys values =
+	function getOrSet keys values =
 	(
-		--format "Params_v.setParams % \n" values
-		suplied_parameters = this._filterUnsuppliedParameters keys values
+		keys_values = this._filterUnsuppliedParameters keys values
+		--format "Params_v.getOrSet %\n" keys_values as string
+
+		for key in keys_values.keys do
+			this._replaceCurrentOrNewValue keys_values key
+		--format "keys_values = % \n" keys_values
+		keys_values.filter undefined test:false -- remove undefined items
+			
+		keys_values.getValues() -- return
+	),
+	
+	/** _replace current or new value
+	 */
+	function _replaceCurrentOrNewValue &keys_values key =
+	(
+		value_curernt_or_new = this._getOrSetValue key (keys_values.getVal key)
 		
-		List.keys   += suplied_parameters.keys
-		List.values += suplied_parameters.values
+		keys_values.setVal key value_curernt_or_new
+	),
+	
+	/** _get or set value
+	 */
+	function _getOrSetValue key value =
+	(
+		--print "Properties_v._getOrSetValue()"
+		if( value == #get ) then 
+			List.getVal key   -- return
+		else
+			List.setVal key value -- return
+	),	
+	
+	/** Join array
+	 */
+	function join =
+	(
+		print "Params_v.join()\n"
+		_params = ""
+		
+		for k=1 to List.keys.count do
+			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
+		
+		format "_params	= % \n" _params
+		_params --return
 	),
 	
 	/** Filter unsupplied parameters
@@ -37,11 +75,8 @@ struct Params_v
 	  * @return	matrix #( #(parameter_names), #(parameter_values ))		
 	  *
 	  * @example
-	  *     function foo param_1: param_2: =
-	  *		(
-	  *			param_name_and_value = this._filterUnsuppliedParameters #(#param_1, #param_2) #(unsupplied, "value_2") 
-	  *			-- return #( #(#param_2), #("value_2") )
-	  * 	)
+	  *		param_name_and_value = this._filterUnsuppliedParameters #(#param_1, #param_2) #(unsupplied, "value_2") 
+	  *		-- return #( #(#param_2), #("value_2") )
      */
     function _filterUnsuppliedParameters keys values =
     (
@@ -52,20 +87,7 @@ struct Params_v
 
 		keys_values --return
     ),
-	
-	/** Join array
-	 */
-	function join =
-	(
-		--print "------------\nParams_v.join()"
-		_params = ""
-		
-		for k=1 to List.keys.count do
-			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
-		
-		--format " _params	= % \n" _params
-		_params --return
-	),
+
 
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
