@@ -109,7 +109,7 @@ struct ControlBox_v
      */
     function create =
     (
-		Layout.newControlsBox()
+		--Layout.newControlsBox()
 		
 		this._addControls()
 		
@@ -121,9 +121,9 @@ struct ControlBox_v
      */
     function _setGroupBox =
     (
-		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter"
+		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter\n"
 		if not( caption == unsupplied ) then
-			Groupbox = this._newControl (Control_v type:#Groupbox caption:caption id:id)
+			Groupbox = Control_v type:#Groupbox caption:caption id:id ControlBox:this
 	
 		format "Groupbox = % \n" Groupbox
     ),
@@ -149,7 +149,7 @@ struct ControlBox_v
     function _addControl Control =
     (
 		format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
-		Layout.setControlDimensions Control
+		--Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
 		
@@ -162,7 +162,7 @@ struct ControlBox_v
 	 */
 	function _addGroupBox =
 	(		
-		Layout.setGroupboxDimensions Groupbox
+		--Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox
 	),
@@ -192,7 +192,7 @@ struct ControlBox_v
 		
 		this._setControlTypeMethods()
 		
-		Layout = Parent_roll.Layout
+		--Layout = Parent_roll.Layout
 	)
 	
 )

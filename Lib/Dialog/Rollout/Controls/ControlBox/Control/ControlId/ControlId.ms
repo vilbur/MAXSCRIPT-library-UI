@@ -27,7 +27,7 @@ struct ControlId_v
 
 		this._sanitizeId()
 		
-		format "id = % \n" this.id
+		--format "id = % \n" this.id
 		this._setIdFull()
 	),
 	
@@ -44,7 +44,7 @@ struct ControlId_v
 	 */
 	function _isIdValid =
 	(
-		print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
+		--print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
 		( id == unsupplied or id == undefined ) == false  --return
 	),
 	
@@ -52,8 +52,7 @@ struct ControlId_v
 	 */
 	function _getIdByConrolType =
 	(
-		print("ControlId._getIdByConrolType()")
-		format "Parent_Control.caption = % \n" Parent_Control.caption
+		--print("ControlId._getIdByConrolType()")
 		Parent_Control.caption + "_" + Parent_Control.type as string
 	),
 	

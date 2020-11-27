@@ -48,6 +48,7 @@ on create do
 	
 	--this.Events.setDefaultEvents()
 	
-	this._addToControls()
+	if( type != #groupbox ) then 
+		this._addToControls()
 	
 )

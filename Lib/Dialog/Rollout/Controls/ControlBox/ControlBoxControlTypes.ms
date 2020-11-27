@@ -1,6 +1,7 @@
 
 
 button,
+checkbox,
 
 /** _set control type methods
  */
@@ -20,7 +21,13 @@ function _setControlTypeMethods =
 	params_array          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_replaced ) ":") --return 
 
 	--this.button = execute ("fn button caption "+params_array+" = ( groupbox_current.add (Button_v caption:caption ControlBox:groupbox_current) )")
-	this.button = execute ("fn button caption "+params_array+" = ( Button_v caption:caption ControlBox:groupbox_current )")
+	--this.button = execute ("fn button caption "+params_array+" = ( Button_v caption:caption ControlBox:groupbox_current )")
+	--this.button = execute ("fn button caption "+params_array+" = ( "+control_types[1] as string +"_v caption:caption ControlBox:groupbox_current )")
+	
+	for control_type in control_types do 
+	execute ("groupbox_current."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_current )")
+	
+	
 ),
 
 
