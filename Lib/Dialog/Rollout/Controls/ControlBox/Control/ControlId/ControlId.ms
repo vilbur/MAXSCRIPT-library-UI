@@ -17,17 +17,17 @@ struct ControlId_v
 	(
 		print ("ControlId.setId " + id as string )
 		
-		this.id	= if ( this._isIdValid() ) then
-		    id
+		if ( this._isIdValid() ) then
+		    this.id	= id
 		else
-			this._getIdByConrolType()
+			this.id	= this._getIdByConrolType()
 			
 
 		this._removeWhitespace()
 
 		this._sanitizeId()
 		
-		format "id = % \n" id
+		format "id = % \n" this.id
 		this._setIdFull()
 	),
 	
@@ -61,7 +61,7 @@ struct ControlId_v
 	 */
 	function _setIdFull =
 	(
-		full	= Parent_Control.Parent_roll.id +"."+id -- make without Parent_roll
+		full	= Parent_Control.ControlBox.Parent_roll.id +"."+id -- make without Parent_roll
 	),
 	
 	/** Sanitize id
@@ -91,5 +91,7 @@ struct ControlId_v
 	on create do
 	(
 		this._checkConstctructProperties()
+		
+		this.setId id 
 	)
 )

@@ -47,7 +47,7 @@ struct ControlBox_v
 	function add _Control =
 	(
 		--print ("ControlBox_v.add ")
-		print ("\nControlBox_v.add " + _Control.id.id as string )
+		--print ("\nControlBox_v.add " + _Control.id.id as string )
 		format "\nControlBox_v.add %\n" _Control
 		append Controls _Control
 	),
@@ -134,10 +134,13 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
+		print ("ControlBox_v._addControls()")
+
 		format "\n***Controls = % \n" Controls
-		for _Control in Controls do
-			format "_Control = % \n" _Control.id.id
-			--this._addControl Control
+		for Control in Controls do
+			--format "_Control = % \n" (_Control._Parameters)
+			--format "_Control = % \n" (_Control.getId())
+			this._addControl Control
 	),
 	
 	/** _add control
@@ -145,7 +148,7 @@ struct ControlBox_v
 	 */
     function _addControl Control =
     (
-		--format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
+		format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
@@ -173,7 +176,7 @@ struct ControlBox_v
 		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
 		--format "Control = % \n" Control
 		format "Control._Parameters.join() = % \n" (Control._Parameters.join())
-		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
+		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 
 	/*------------------------------------------------------------------------------

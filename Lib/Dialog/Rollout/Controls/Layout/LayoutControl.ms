@@ -64,7 +64,7 @@
 	 */
 	function _getControlWidth Control =
 	(
-		_width   = Control.property width: #get
+		_width   = Control.params width:#get
 		
 		if( _width == undefined ) then
 			_width = this._getControlWidthRaw Control
@@ -76,7 +76,7 @@
 	 */
 	function _getControlHeight Control =
 	(
-		height  = Control.property height:#get
+		height  = Control.params height:#get
 		
 		if( height == undefined ) then
 			height = this._getControlHeightRaw()
@@ -88,7 +88,7 @@
 	 */
 	function _getControlPos Control _width =
 	(
-		pos     = Control.property pos:   #get
+		pos     = Control.params pos:#get
 		if( pos == undefined ) then
 			pos = this._getControlPositionRaw _width
 		

@@ -7,14 +7,15 @@
 	caption,
 	
 	/* dependency */
-	Id         = ControlId_v	Parent_Control:this,
+	--Id         = ControlId_v	Parent_Control:this,
+	Id,
 	Events     = ControlEvents_v	Parent_Control:this,
 	Properties = Properties_v	Parent_Control:this,
 	--ControlTypes = ControlTypes_v	Parent_Control:this,
 	_Parameters = Params_v(),
 
 	/* reference */
-	Parent_roll,
+	--Parent_Control,
 	ControlBox,
 
 	/* properties */ 
@@ -120,7 +121,7 @@
 	(
 		control_exists	= false 
 
-		if( Parent_roll != undefined and Parent_roll.exists() ) then
+		if( Parent_Control.ControlBox != undefined and Parent_Control.ControlBox.exists() ) then
 			try(
 				control_exists = (execute Id.full) != undefined
 			)catch()
@@ -204,10 +205,10 @@
 	--(
 	--	print "------------\nControlBase._getValueFromIni()"
 	--	print "HOTFIX"
-	--	ini_path = Parent_roll.ini
+	--	ini_path = Parent_Control.ControlBox.ini
 	--	
 	--	if( ini_path != undefined ) then
-	--		value = ((Ini_v()).path ini_path ).load Parent_roll.id id --return
+	--		value = ((Ini_v()).path ini_path ).load Parent_Control.ControlBox.id id --return
 	--	
 	--	value --return
 	--),	

@@ -80,7 +80,7 @@ struct ControlEvents_v
 	 */
 	function setDefaultEvents =
 	(
-		if( Parent_Control.Parent_roll.ini != undefined ) then
+		if( Parent_Control.ControlBox.Parent_roll.ini != undefined ) then
 			this.setSaveToIniCallback()
 	),
 	
@@ -98,7 +98,7 @@ struct ControlEvents_v
 		format "Events.event_types = % \n" Events.event_types
 		
 		for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
-			this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.Parent_roll.ini+"\" \""+Parent_Control.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
+			this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.ControlBox.Parent_roll.ini+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
 	),
 
 	/** _add handlers
@@ -110,7 +110,7 @@ struct ControlEvents_v
 		_Events = this.Events.getEvents()
 		
 		for _Event in _Events do
-			Parent_Control.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
+			Parent_Control.ControlBox.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
 	),
 	
 	private

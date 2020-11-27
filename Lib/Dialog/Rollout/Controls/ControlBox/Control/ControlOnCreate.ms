@@ -19,6 +19,14 @@ function _setType =
 	--format "ControlOnCreate._setType %\n" type
 ),
 
+/** _add to controls
+ */
+function _addToControls =
+(
+	print ("ControlBox_v._addToControls()")
+
+	ControlBox.add this
+),
 
 /**  
  */
@@ -32,8 +40,14 @@ on create do
 	this._checkConstctructProperties()
 	
 	this._setCaption()
-	
+
+	Id = ControlId_v	Parent_Control:this id:id
+
+	this.params columns:4
 	--this._setValue()
 	
 	--this.Events.setDefaultEvents()
+	
+	this._addToControls()
+	
 )

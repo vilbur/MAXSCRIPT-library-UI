@@ -10,13 +10,17 @@ function _setControlTypeMethods =
 	
 	global groupbox_current = this
 	
+	control_types	= #( #button, #checkbox )
+	
+	
 	param_all          = #(#columns,#pos,#height,#width,#align,#offset,#across,#images,#toolTip,#border )  
 	
 	params_array_replaced = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( param_all as string ) "") --return 
 
 	params_array          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_replaced ) ":") --return 
 
-	this.button = execute ("fn button caption "+params_array+" = ( groupbox_current.add (Button_v caption:caption) )")
+	--this.button = execute ("fn button caption "+params_array+" = ( groupbox_current.add (Button_v caption:caption ControlBox:groupbox_current) )")
+	this.button = execute ("fn button caption "+params_array+" = ( Button_v caption:caption ControlBox:groupbox_current )")
 ),
 
 
