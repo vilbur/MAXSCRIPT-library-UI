@@ -168,8 +168,6 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
-		
 		Control.addToUi Parent_roll.RolloutCreator._rolloutCreator
 	),
 

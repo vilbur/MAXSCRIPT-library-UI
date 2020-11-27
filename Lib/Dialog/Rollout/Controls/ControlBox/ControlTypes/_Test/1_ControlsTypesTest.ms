@@ -30,7 +30,8 @@ _Rollout.Layout.margin.y = 0
 
 /* CONTROL TYPES */
 _controls_1.button	"Button"
-_controls_1.spinner	"Spinner"
+_controls_1.spinner	"Spinner" 
+--_controls_1.spinner	"Spinner with long label" columns:12 
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
 --_controls_1.checkbox	"Checkbox"

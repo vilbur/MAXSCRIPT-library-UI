@@ -26,7 +26,7 @@ struct Controls_v
 	(
 		ControlBox 	= ControlBox_v Parent_roll:Parent_roll caption:groupbox id:id groupbox_global_id:((groupbox_global.count+1) as string)
 	
-		append groupbox_global                          ControlBox
+		append groupbox_global ControlBox
 		
 		ControlBox._setControlTypeMethods()
 

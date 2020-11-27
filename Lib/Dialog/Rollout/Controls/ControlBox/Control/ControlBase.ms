@@ -43,7 +43,6 @@
 	function addToUi RolloutCreator =
 	(
 		RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
-
 	),
 	
 --	/** Set Controls Common Parameters
@@ -108,7 +107,7 @@
 	 */
 	function _init = 
 	(
-		format "HOTFIX ControlOnCreate.ms on create()\n"
+		--format "HOTFIX ControlOnCreate.ms on create()\n"
 		this._setType()
 		
 		this.Events.setEventTypes()
@@ -118,7 +117,7 @@
 		this._setCaption()
 	
 		Id = ControlId_v	Parent_Control:this id:id
-		format "parameters_create = % \n" parameters_create
+		--format "parameters_create = % \n" parameters_create
 		--this.params columns:4
 		--this._setValue()
 		_Parameters.getOrSet parameters_create[1] parameters_create[2]

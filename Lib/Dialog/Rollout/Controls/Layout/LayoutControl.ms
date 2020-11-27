@@ -22,16 +22,10 @@
 		--print Dimensions_v as string 
 		
 		this._setNextControlPosition Dimensions.width
-		--format "Dimensions =%\n" Dimensions	
+		format "Dimensions =%\n" Dimensions	
 
 		Control.setDimensions Dimensions
 
-		if( Control.type == #spinner ) then
-		(
-			Control._Parameters.setVal #width 32
-			
-		)
-		
  		Bbox.add Dimensions
 	),
 
@@ -122,17 +116,10 @@
 		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
 		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
 		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
-		columns_count = Control._Parameters.getVal #columns
-		--format "columns_count = % \n" columns_count
-		
 		if( columns_count == undefined ) then 
 			columns_count = 4 -- set default columns width 
 			
 		width_raw = columns_count * grid --return
-		
-		if( Control.type == #spinner ) then 
-			width_raw -= 32
-		
 		
 		width_raw --return
 	),	
