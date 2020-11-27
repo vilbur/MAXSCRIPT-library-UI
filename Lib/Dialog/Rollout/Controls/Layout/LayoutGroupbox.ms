@@ -15,9 +15,8 @@
 	 */
 	function setGroupboxDimensions &Groupbox =
 	(
-		--print "Layout.setGroupboxDimensions()"
-		--format "Bbox.origin = % \n" Bbox.origin
-		Groupbox.params pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
+		--Groupbox.params pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
+		Groupbox._Parameters.getOrSet #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height + padding) )
 	),
 	/** _get bbox origin
 	 */

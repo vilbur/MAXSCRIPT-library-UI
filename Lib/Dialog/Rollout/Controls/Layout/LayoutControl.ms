@@ -22,9 +22,15 @@
 		--print Dimensions_v as string 
 		
 		this._setNextControlPosition Dimensions.width
+		--format "Dimensions =%\n" Dimensions	
 
 		Control.setDimensions Dimensions
-		--format "Dimensions =%\n" Dimensions	
+
+		if( Control.type == #spinner ) then
+		(
+			Control._Parameters.setVal #width 32
+			
+		)
 		
  		Bbox.add Dimensions
 	),
@@ -64,7 +70,7 @@
 	 */
 	function _getControlWidth Control =
 	(
-		_width   = Control.params width:#get
+		_width = Control._Parameters.getVal #width
 		
 		if( _width == undefined ) then
 			_width = this._getControlWidthRaw Control
@@ -76,8 +82,8 @@
 	 */
 	function _getControlHeight Control =
 	(
-		height  = Control.params height:#get
-		
+		height = Control._Parameters.getVal #height
+
 		if( height == undefined ) then
 			height = this._getControlHeightRaw()
 		
@@ -88,19 +94,25 @@
 	 */
 	function _getControlPos Control _width =
 	(
-		pos     = Control.params pos:#get
+		--format "HOTFIX LayoutControl.ms._getControlPos()\n"
+		pos = Control._Parameters.getVal #pos
+		
 		if( pos == undefined ) then
-			pos = this._getControlPositionRaw _width
+			pos = this._getControlPositionRaw _width (Control._Parameters.getVal #offset)
 		
 		pos --return
 	),
 
 	/** _get position of last control
 	 */
-	function _getControlPositionRaw _width =
+	function _getControlPositionRaw _width offset =
 	(
+		if( offset == undefined ) then
+			offset = [0,0]
+		
 		--format "***\nLayout._getControlPositionRaw()\n"
-		[ _pos_last.x, _pos_last.y ] --return
+		--control_pos = [ _pos_last.x, _pos_last.y ] --return
+		[ _pos_last.x, _pos_last.y ] + offset --return
 	),
 	
 	/** Get height
@@ -110,7 +122,19 @@
 		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
 		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
 		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
-		(Control.params columns:#get) * grid --return
+		columns_count = Control._Parameters.getVal #columns
+		--format "columns_count = % \n" columns_count
+		
+		if( columns_count == undefined ) then 
+			columns_count = 4 -- set default columns width 
+			
+		width_raw = columns_count * grid --return
+		
+		if( Control.type == #spinner ) then 
+			width_raw -= 32
+		
+		
+		width_raw --return
 	),	
 	
 	/** Get height

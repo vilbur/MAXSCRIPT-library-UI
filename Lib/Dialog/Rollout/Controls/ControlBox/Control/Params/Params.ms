@@ -22,7 +22,7 @@ struct Params_v
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "Params_v.getOrSet %\n" keys_values as string
+		format "Params_v.getOrSet %\n" keys_values as string
 
 		for key in keys_values.keys do
 			this._replaceCurrentOrNewValue keys_values key
@@ -50,19 +50,33 @@ struct Params_v
 			List.getVal key   -- return
 		else
 			List.setVal key value -- return
-	),	
+	),
+		
+	/** Set val
+	 */
+	function setVal key value =
+	(
+		List.setVal key value -- return
+	),
+	
+	/** Get val
+	 */
+	function getVal key =
+	(
+		List.getVal key   -- return
+	),
 	
 	/** Join array
 	 */
 	function join =
 	(
-		--print "Params_v.join()"
+		--print "HOTFIX Params_v.join()"
 		_params = ""
 		
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		--format "Params_v.join %\n" _params
+		format "Params_v.join %\n" _params
 		_params --return
 	),
 	

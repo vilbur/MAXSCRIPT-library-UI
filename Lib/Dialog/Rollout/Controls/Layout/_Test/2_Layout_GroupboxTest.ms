@@ -28,6 +28,6 @@ addGroupboxes()
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:292
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:512
 
 _Rollout.addSubRollouts()

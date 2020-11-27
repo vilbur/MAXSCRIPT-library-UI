@@ -92,7 +92,8 @@ struct ControlBox_v
 
 		for Control in Controls do
 		(
-			pos     = Control.property pos:#get 
+			--pos     = Control.property pos:#get 
+			pos     Control._Parameters.getVal #pos
 			
 			offset  = pos - pos_box_current
  
@@ -167,9 +168,9 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		--format "\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
-		--format "Control = % \n" Control
-		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
+		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
+		
+		Control.addToUi Parent_roll.RolloutCreator._rolloutCreator
 	),
 
 	/*------------------------------------------------------------------------------

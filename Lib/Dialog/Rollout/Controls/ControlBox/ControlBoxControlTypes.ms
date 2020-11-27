@@ -1,6 +1,7 @@
 
 
 button,
+spinner,
 checkbox,
 
 /** _set control type methods
@@ -8,20 +9,38 @@ checkbox,
 function _setControlTypeMethods =
 (
 	--print ("------------\n ControlBox._setControlTypeMethods()" + Groupbox.id.id as string )
+	control_types	= #( #button, #spinner, #checkbox)
 	
-	control_types	= #( #button, #checkbox )
+	param_custom = #( #columns )  
+	param_common = #( #pos,#height,#width,#align,#offset,#across )  -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
+	param_shared = #( #toolTip )  
 	
+	params_by_type	= #(#( #images, #border ) -- button
+		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
+		   ,#( #checked, #triState )) -- checkbox
+
+	param_all = param_custom + param_common + param_shared
 	
-	param_all          = #(#columns,#pos,#height,#width,#align,#offset,#across,#images,#toolTip,#border )  
-	
-	params_array_replaced = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( param_all as string ) "") --return 
-	
-	params_array          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_replaced ) ":") --return 
-	
-	for control_type in control_types do 
-		execute ("groupbox_global["+groupbox_global_id+"]."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"];  )")
-		--print ("groupbox_global["+groupbox_global_id+"]."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"];  )")
+	for i = 1 to control_types.count do
+	(
+		params_keys = param_all + params_by_type[i]
+		
+		params_values = "#" + (( dotNetObject "System.Text.RegularExpressions.Regex" @"#" ).Replace ( params_keys as string ) "") -- strip array to string:       "columns, pos, height, width, ..."
+		format "params_keys   = % \n" params_keys
+		format "params_values = % \n" params_values
+		params_array_stripped = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( params_keys as string ) "") -- strip array to string:       "columns, pos, height, width, ..." 
+		params_passed          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_stripped ) ":")        -- add colon ":" to parameters: "columns: pos: height: width: ..." 
+		
+		params_matrix = "#(" +params_keys as string + ", " + params_values + ")" 
+		
+		--execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" = fn button caption "+params_passed+" = ( "+control_types[i] as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"];  )")
+		execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" = fn button caption "+params_passed+" = ( "+control_types[i] as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] parameters_create:"+params_matrix + ";
+				  format \"CONTROL: %\" "+params_values+" )")
+	)
 ),
+
+
+
 
 --
 --/**  Add control of any type http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm 

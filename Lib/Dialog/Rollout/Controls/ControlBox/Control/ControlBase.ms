@@ -12,6 +12,7 @@
 	Events     = ControlEvents_v	Parent_Control:this,
 	Properties = Properties_v	Parent_Control:this,
 	_Parameters = Params_v(),
+	parameters_create,
 
 	/* reference */
 	ControlBox,
@@ -37,12 +38,23 @@
 		Id.full --return
 	),
 	
-	/** Set Controls Common Parameters
+	/** Add to ui
 	 */
-	function params include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
-    (
-		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
+	function addToUi RolloutCreator =
+	(
+		RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
+
 	),
+	
+--	/** Set Controls Common Parameters
+--	 */
+--	function params include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
+--    (
+--		format "HOTFIX ControlBase.ms.params() %\n" id.id
+--		format "#( columns, pos, height, width, align, offset, across, images, toolTip, border ) = % \n\n" #( columns, pos, height, width, align, offset, across, images, toolTip, border)
+--
+--		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
+--	),
 	
 	--/** Set Controls Common Parameters 
 	-- */
@@ -70,7 +82,8 @@
      */
     function setDimensions Dimensions =
     (
-		this.params pos:Dimensions.pos width:Dimensions.width height:Dimensions.height
+		--format "HOTFIX ControlBase.ms.setDimensions() %\n" Dimensions
+		_Parameters.getOrSet #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, Dimensions.height )
     ),
 
 	/** Find if control is rendered in ui already
@@ -91,6 +104,29 @@
 	),
 
 	private
+	/**  
+	 */
+	function _init = 
+	(
+		format "HOTFIX ControlOnCreate.ms on create()\n"
+		this._setType()
+		
+		this.Events.setEventTypes()
+	
+		this._checkConstctructProperties()
+		
+		this._setCaption()
+	
+		Id = ControlId_v	Parent_Control:this id:id
+		format "parameters_create = % \n" parameters_create
+		--this.params columns:4
+		--this._setValue()
+		_Parameters.getOrSet parameters_create[1] parameters_create[2]
+		--this.Events.setDefaultEvents()
+		
+		this._addToControls()
+		
+	),
 	
 	/** Add itself to Controls
 	 */
@@ -176,7 +212,7 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
-	
+
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct

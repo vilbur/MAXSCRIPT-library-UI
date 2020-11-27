@@ -3,15 +3,20 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 
 global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
+
+_Rollout.Layout.padding = 0
+_Rollout.Layout.margin = [0,0]
+
 global Controls     = _Rollout.Controls.new()
 --global Controls     = _Rollout.Controls.new groupbox:"Controls 1"
 global btn_props    = Controls.button "Button Properties"
 --global btn_props    = Controls.checkbox "Checkbox Properties"
-global btn_props_2    = Controls.button "Button Properties 2"
---global btn_props    = Controls.button "Button Properties" height:32 border:false
+global btn_props_2    = Controls.button "Button Properties 2" 
 --global btn_props    = Controls.button "Button Properties" columns:6 height:32 border:false
 --global btn_props    = Controls.button "Button Properties" border:false
---global _spinner     = Controls.spinner "Spinner" scale:10
+global _spinner     = Controls.spinner "Spinner" scale:10 columns:6 pos:[132,16]
+global btn_props_3    = Controls.button "Button Properties 3" 
+--global _spinner     = Controls.spinner "Spinner" scale:10 columns:6
 
 --btn_props.params  border:false
 format "btn_props = % \n" btn_props
@@ -24,7 +29,7 @@ format "btn_props = % \n" btn_props
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:512 height:512
 
 _Rollout.setRolloutWidth()
 

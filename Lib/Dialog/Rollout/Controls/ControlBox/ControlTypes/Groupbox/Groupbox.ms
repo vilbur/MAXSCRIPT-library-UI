@@ -14,7 +14,7 @@ struct Groupbox_v
 	
 		Id = ControlId_v	Parent_Control:this id:id
 	
-		this.params columns:4
+		--this.params columns:4
 		
 	)	
 )
