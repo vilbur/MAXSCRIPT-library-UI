@@ -15,15 +15,19 @@ struct ControlId_v
 	 */
 	function setId id =
 	(
-		this.id	= id
+		print ("ControlId.setId " + id as string )
 		
-		if not( this._isIdValid() ) then
-			this._setIdByConrolType()
+		this.id	= if ( this._isIdValid() ) then
+		    id
+		else
+			this._getIdByConrolType()
+			
 
 		this._removeWhitespace()
 
 		this._sanitizeId()
 		
+		format "id = % \n" id
 		this._setIdFull()
 	),
 	
@@ -40,14 +44,17 @@ struct ControlId_v
 	 */
 	function _isIdValid =
 	(
+		print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
 		( id == unsupplied or id == undefined ) == false  --return
 	),
 	
 	/** Use controls caption, if id is unsuplied
 	 */
-	function _setIdByConrolType =
+	function _getIdByConrolType =
 	(
-		id = Parent_Control.caption + "_" + Parent_Control.type as string
+		print("ControlId._getIdByConrolType()")
+		format "Parent_Control.caption = % \n" Parent_Control.caption
+		Parent_Control.caption + "_" + Parent_Control.type as string
 	),
 	
 	/** Set full id with rollout id

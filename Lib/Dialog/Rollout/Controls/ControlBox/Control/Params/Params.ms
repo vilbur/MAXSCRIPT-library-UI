@@ -56,7 +56,7 @@ struct Params_v
 	 */
 	function join =
 	(
-		print "Params_v.join()\n"
+		print "Params_v.join()"
 		_params = ""
 		
 		for k=1 to List.keys.count do

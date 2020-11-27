@@ -44,11 +44,12 @@ struct ControlBox_v
 		
 	/** Add control to rollout
 	 */
-	function add Control =
+	function add _Control =
 	(
-		format "Control = % \n" Control
-		--Control.caption = "Test"
-		append Controls Control
+		--print ("ControlBox_v.add ")
+		print ("\nControlBox_v.add " + _Control.id.id as string )
+		format "\nControlBox_v.add %\n" _Control
+		append Controls _Control
 	),
 
 	/** Set any property for rollout 
@@ -104,18 +105,6 @@ struct ControlBox_v
 	),
 
 
-	/** Set group box
-     */
-    function _setGroupBox =
-    (
-		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter"
-		if not( caption == unsupplied ) then
-			Groupbox = this.newGroupbox caption columns:6
-	
-		format "Groupbox = % \n" Groupbox
-			--Groupbox = this._newControl (Control_v type:#Groupbox caption:caption ) id:id add:false
-    ),
-
 	/** Create Controls and add them to UI
      */
     function create =
@@ -128,14 +117,27 @@ struct ControlBox_v
 			this._addGroupBox()
     ),
 
+	/** Set group box
+     */
+    function _setGroupBox =
+    (
+		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter"
+		if not( caption == unsupplied ) then
+			Groupbox = this._newControl (Control_v type:#Groupbox caption:caption id:id)
+	
+		format "Groupbox = % \n" Groupbox
+    ),
+
 	/** Add each control to rollout
 	  *
 	  * @param	[Control_v]	Controls	Array of Control_v
 	 */
 	function _addControls =
 	(
-		for Control in Controls do
-			this._addControl Control
+		format "\n***Controls = % \n" Controls
+		for _Control in Controls do
+			format "_Control = % \n" _Control.id.id
+			--this._addControl Control
 	),
 	
 	/** _add control
@@ -171,7 +173,7 @@ struct ControlBox_v
 		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
 		--format "Control = % \n" Control
 		format "Control._Parameters.join() = % \n" (Control._Parameters.join())
-		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
+		--Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 
 	/*------------------------------------------------------------------------------
@@ -184,6 +186,8 @@ struct ControlBox_v
 	(
 		--this._checkConstctructProperties()
 		this._setGroupBox()
+		
+		this._setControlTypeMethods()
 		
 		Layout = Parent_roll.Layout
 	)

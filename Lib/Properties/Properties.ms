@@ -8,7 +8,6 @@ struct Properties_v
 	__construct = #(#Parent_Control),
 	
 	/* reference */
-	
 	Parent_Control,
 	
 	keys	= #(),
@@ -86,13 +85,13 @@ struct Properties_v
 	function join =
 	(
 		print "Properties_v.join()"
-		_params = ""
+		_props = ""
 		
 		for k=1 to List.keys.count do
-			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
+			_props = _props + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		format " _params	= % \n" _params
-		_params --return
+		format " _props	= % \n" _props
+		_props --return
 	),
 	
 	private

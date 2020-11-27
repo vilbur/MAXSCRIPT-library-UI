@@ -31,8 +31,8 @@ on create do
 
 	this._checkConstctructProperties()
 	
-	--this._setCaption()
-			
+	this._setCaption()
+	
 	--this._setValue()
 	
 	--this.Events.setDefaultEvents()
