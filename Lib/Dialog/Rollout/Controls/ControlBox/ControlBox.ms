@@ -6,10 +6,7 @@ filein( getFilenamePath(getSourceFileName()) + "/Control/Params/Params.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/Control/Control.ms" )
 
-filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Button/Button.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Checkbox/Checkbox.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/Spinner/Spinner.ms" )
-
+filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/includes.ms" )
 
 /** Section of Controls, can be id if "ControlBox_v.id" is definded
   * [ GroupBox UI Control ] (http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_A8C801C7_BA79_448C_A1EE_28C40B16287C_htm)
@@ -123,7 +120,7 @@ struct ControlBox_v
     (
 		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter\n"
 		if not( caption == unsupplied ) then
-			Groupbox = Control_v type:#Groupbox caption:caption id:id ControlBox:this
+			Groupbox = Groupbox_v type:#Groupbox caption:caption id:id ControlBox:this
 	
 		format "Groupbox = % \n" Groupbox
     ),

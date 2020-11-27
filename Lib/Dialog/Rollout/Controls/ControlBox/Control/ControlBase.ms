@@ -11,11 +11,9 @@
 	Id,
 	Events     = ControlEvents_v	Parent_Control:this,
 	Properties = Properties_v	Parent_Control:this,
-	--ControlTypes = ControlTypes_v	Parent_Control:this,
 	_Parameters = Params_v(),
 
 	/* reference */
-	--Parent_Control,
 	ControlBox,
 
 	/* properties */ 
@@ -24,45 +22,7 @@
 	
 	/* options */
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
-	
-	--newControl = ControlTypes.newControl,
-	
-	--/** New control
-	--  *
-	--  *
-	--  *
-	--  * @return	this Control itself	
-	-- */
-	--function newControl caption id: add:true include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
-	--(
-	--	format "\n------------\nControlBase.ms.newControl()\n"
-	--	format "type    = % \n" type
-	--	format "id      = % \n" id
-	--	format "caption = % \n" caption
-	--	--format "ControlTypes = % \n" ControlTypes
-	--	if( columns == unsupplied ) then
-	--		columns = 4
-	--	
-	--	_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
-	--
-	--	this.caption = caption
-	--	
-	--	--this.setId id
-	--	this.id.id = id
-	--	
-	--	format "this.getId() = % \n" (this.getId())
-	--	
-	--	if( type != #groupbox ) then
-	--		appendIfUnique ControlBox.Controls this
-	--	--ControlBox.add this
-	--	format "ControlBox.Controls.count = % \n" ControlBox.Controls.count
-	--	format "ControlBox.Controls = % \n" ControlBox.Controls
-	--	
-	--	for _Control in ControlBox.Controls do
-	--		format "_Control = % \n" _Control.id.id
-	--	
-	--	--this
-	--),
+
 
 	/** _set id
 	 */
@@ -131,6 +91,25 @@
 	),
 
 	private
+	
+	/** Add itself to Controls
+	 */
+	function _addToControls =
+	(
+		--print ("ControlBox_v._addToControls()")
+		ControlBox.add this
+	),
+
+	/** Set type of control by class name of control
+	  *
+	  * Get 1st part of struct name until underscore "_" E.G.: Get #button from "struct button_optionable_namespace()"
+	 */
+	function _setType =
+	(
+		if( type == undefined ) then
+			type = (toLower (( filterString( classof this as string ) "_*(:" )[2])) as name
+		--format "ControlOnCreate._setType %\n" type
+	),
 
 	/** _set caption
 	 */
@@ -197,7 +176,16 @@
 		
 		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
 	),
-
+	
+	/** Check if required properties are defined
+	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
+	  * @param	construct_properties this.properties required for initialization of struct
+	 */
+	function _checkConstctructProperties =
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
 
 	--/** Get value from ini
 	-- */
