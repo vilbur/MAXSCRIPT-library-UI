@@ -24,8 +24,13 @@ struct Controls_v
 	 */
 	function new groupbox: id: =
 	(
-		ControlBox 	= ControlBox_v Parent_roll:Parent_roll caption:groupbox id:id
+		ControlBox 	= ControlBox_v Parent_roll:Parent_roll caption:groupbox id:id groupbox_global_id:((groupbox_global.count+1) as string)
+	
+		append groupbox_global                          ControlBox
+		
+		ControlBox._setControlTypeMethods()
 
+	
 		append Parent_roll.Controlboxes_and_Subrollouts ControlBox
 
 		ControlBox --return

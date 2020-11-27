@@ -24,6 +24,8 @@ struct Bbox_v
 	  */
 	function add Dimensions =
 	(
+		--print ("Bbox_v.add ")
+
 		control_max_x	= Dimensions.pos.x + Dimensions.width
 		control_max_y	= Dimensions.pos.y + Dimensions.height
 
@@ -42,7 +44,9 @@ struct Bbox_v
 		if( control_max_y > (this.getMax #y) ) then
 			height = control_max_y - origin.y
 		
-		--format "height = % \n" height	
+		--format "origin = %\n" origin as string
+		--format "height = %\n" height	
+		--format "width  = %\n" width 	
 	),
 	
 	/** Max

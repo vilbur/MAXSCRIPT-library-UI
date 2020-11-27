@@ -30,6 +30,7 @@ struct ControlBox_v
 	caption,
 	
 	Groupbox,
+	groupbox_global_id,
 
 	Controls	= #(),
 	
@@ -45,9 +46,21 @@ struct ControlBox_v
 	(
 		--print ("ControlBox_v.add ")
 		--print ("\nControlBox_v.add " + _Control.id.id as string )
-		format "\nControlBox_v.add %\n" _Control
+		--format "\nControlBox_v.add %\n" _Control
 		append Controls _Control
 	),
+
+	/** Create Controls and add them to UI
+     */
+    function create =
+    (
+		Layout.newControlsBox()
+		
+		this._addControls()
+		
+		if (Groupbox != undefined ) then
+			this._addGroupBox()
+    ),
 
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -101,28 +114,14 @@ struct ControlBox_v
 		id --return
 	),
 
-
-	/** Create Controls and add them to UI
-     */
-    function create =
-    (
-		--Layout.newControlsBox()
-		
-		this._addControls()
-		
-		if (Groupbox != undefined ) then
-			this._addGroupBox()
-    ),
-
 	/** Set group box
      */
     function _setGroupBox =
     (
-		format "HOTFIX ControlBox.ms _setGroupBox() columns parameter\n"
 		if not( caption == unsupplied ) then
 			Groupbox = Groupbox_v type:#Groupbox caption:caption id:id ControlBox:this
 	
-		format "Groupbox = % \n" Groupbox
+		--format "Groupbox = % \n" Groupbox
     ),
 
 	/** Add each control to rollout
@@ -131,12 +130,10 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		print ("ControlBox_v._addControls()")
+		print ("\n------------\nControlBox_v._addControls() " + Groupbox.id.id )
 
-		format "\n***Controls = % \n" Controls
+		format "Controls.count = % \n" Controls.count
 		for Control in Controls do
-			--format "_Control = % \n" (_Control._Parameters)
-			--format "_Control = % \n" (_Control.getId())
 			this._addControl Control
 	),
 	
@@ -145,8 +142,8 @@ struct ControlBox_v
 	 */
     function _addControl Control =
     (
-		format "------------\nControlBox._addControl %\n" (Control.Id.get()) as string 
-		--Layout.setControlDimensions Control
+		--format "ControlBox._addControl %\n" (Control.Id.get()) as string 
+		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
 		
@@ -159,7 +156,7 @@ struct ControlBox_v
 	 */
 	function _addGroupBox =
 	(		
-		--Layout.setGroupboxDimensions Groupbox
+		Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox
 	),
@@ -170,9 +167,8 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		format "\n------------\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
+		format "\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
 		--format "Control = % \n" Control
-		format "Control._Parameters.join() = % \n" (Control._Parameters.join())
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),
 
@@ -187,9 +183,9 @@ struct ControlBox_v
 		--this._checkConstctructProperties()
 		this._setGroupBox()
 		
-		this._setControlTypeMethods()
+		--this._setControlTypeMethods()
 		
-		--Layout = Parent_roll.Layout
+		Layout = Parent_roll.Layout
 	)
 	
 )

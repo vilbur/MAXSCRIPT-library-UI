@@ -56,13 +56,13 @@ struct Params_v
 	 */
 	function join =
 	(
-		print "Params_v.join()"
+		--print "Params_v.join()"
 		_params = ""
 		
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		format "_params	= % \n" _params
+		format "Params_v.join %\n" _params
 		_params --return
 	),
 	

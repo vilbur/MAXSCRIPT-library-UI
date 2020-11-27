@@ -1,3 +1,8 @@
+
+global add_subrollouts = " "
+global groupbox_global = #()
+
+
 filein( getFilenamePath(getSourceFileName()) + "/../../List/List.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
@@ -14,8 +19,6 @@ filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
 
-
-global add_subrollouts = " "
 
 /** Create Rollout
   * Rollout has generated global variable by id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
@@ -68,9 +71,6 @@ struct Rollout_v
 		--format "Rollout_v.createRollout %\n" id
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
-		
-		
-		
 		
 		if( this._isSubrollout() == true ) then 
 			RolloutEvent._addHandlers()
@@ -178,7 +178,7 @@ struct Rollout_v
 	  */
 	function _setGlobalVariable =
 	(
-		execute ( "global "+ id +" = undefined")
+		--execute ( "global "+ id +" = undefined")
 	),
 
 	/** Try destroy dialog by global variable before variable will be overwritten
@@ -218,7 +218,7 @@ struct Rollout_v
 		
 		this._destroy()
 		
-		this._setGlobalVariable()
+		--this._setGlobalVariable()
 
 		this.setDefaultEvents()
 				

@@ -7,9 +7,7 @@ checkbox,
  */
 function _setControlTypeMethods =
 (
-	print "------------\n ControlBox._setControlTypeMethods()"
-	
-	global groupbox_current = this
+	print ("------------\n ControlBox._setControlTypeMethods()" + Groupbox.id.id as string )
 	
 	control_types	= #( #button, #checkbox )
 	
@@ -17,34 +15,29 @@ function _setControlTypeMethods =
 	param_all          = #(#columns,#pos,#height,#width,#align,#offset,#across,#images,#toolTip,#border )  
 	
 	params_array_replaced = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( param_all as string ) "") --return 
-
+	
 	params_array          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_replaced ) ":") --return 
-
-	--this.button = execute ("fn button caption "+params_array+" = ( groupbox_current.add (Button_v caption:caption ControlBox:groupbox_current) )")
-	--this.button = execute ("fn button caption "+params_array+" = ( Button_v caption:caption ControlBox:groupbox_current )")
-	--this.button = execute ("fn button caption "+params_array+" = ( "+control_types[1] as string +"_v caption:caption ControlBox:groupbox_current )")
 	
 	for control_type in control_types do 
-	execute ("groupbox_current."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_current )")
-	
-	
+		execute ("groupbox_global["+groupbox_global_id+"]."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"];  )")
+		--print ("groupbox_global["+groupbox_global_id+"]."+control_type as string +" = fn button caption "+params_array+" = ( "+control_type as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"];  )")
 ),
 
-
-/**  Add control of any type http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm 
- * 
- *  @param	string	type	Type of control
- *  @param	string	caption	Caption of control
- * 
- *  @return	[Control](../../Control)
- */
-function _newControl _Control =
-(
-	print "------------\nControlBox._newControl()"
-
-),
-
-
+--
+--/**  Add control of any type http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm 
+-- * 
+-- *  @param	string	type	Type of control
+-- *  @param	string	caption	Caption of control
+-- * 
+-- *  @return	[Control](../../Control)
+-- */
+--function _newControl _Control =
+--(
+--	print "------------\nControlBox._newControl()"
+--
+--),
+--
+--
 
 --/** Add Button
 -- */
