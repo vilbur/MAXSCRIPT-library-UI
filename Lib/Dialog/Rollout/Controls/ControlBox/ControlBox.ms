@@ -130,9 +130,9 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		print ("\n------------\nControlBox_v._addControls() " + Groupbox.id.id )
+		--print ("\n------------\nControlBox_v._addControls() " + Groupbox.id.id )
 
-		format "Controls.count = % \n" Controls.count
+		--format "Controls.count = % \n" Controls.count
 		for Control in Controls do
 			this._addControl Control
 	),
@@ -167,7 +167,7 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		format "\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
+		--format "\nControlBox._addControlToUi %\n" (Control.Id.get()) as string
 		--format "Control = % \n" Control
 		Parent_roll.RolloutCreator._rolloutCreator.addControl (Control.type) (Control.id.id) (Control.caption) paramStr:(Control._Parameters.join())
 	),

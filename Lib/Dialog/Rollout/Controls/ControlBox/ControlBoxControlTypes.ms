@@ -7,7 +7,7 @@ checkbox,
  */
 function _setControlTypeMethods =
 (
-	print ("------------\n ControlBox._setControlTypeMethods()" + Groupbox.id.id as string )
+	--print ("------------\n ControlBox._setControlTypeMethods()" + Groupbox.id.id as string )
 	
 	control_types	= #( #button, #checkbox )
 	

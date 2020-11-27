@@ -25,7 +25,6 @@ struct Bbox_v
 	function add Dimensions =
 	(
 		--print ("Bbox_v.add ")
-
 		control_max_x	= Dimensions.pos.x + Dimensions.width
 		control_max_y	= Dimensions.pos.y + Dimensions.height
 

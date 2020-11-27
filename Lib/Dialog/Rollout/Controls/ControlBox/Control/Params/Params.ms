@@ -62,7 +62,7 @@ struct Params_v
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		format "Params_v.join %\n" _params
+		--format "Params_v.join %\n" _params
 		_params --return
 	),
 	

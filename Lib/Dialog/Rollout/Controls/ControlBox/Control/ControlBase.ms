@@ -96,7 +96,7 @@
 	 */
 	function _addToControls =
 	(
-		print ("ControlBox_v._addToControls() " + ControlBox.Groupbox.id.id as string )
+		--print ("ControlBase.ms._addToControls() " + ControlBox.Groupbox.id.id as string )
 		ControlBox.add this
 	),
 

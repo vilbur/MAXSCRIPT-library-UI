@@ -26,7 +26,7 @@
 		--print "Layout._getBboxOrigin()"
 		box_origin = [0,0]
 		
-		if( this._notFirstGroupBox == true ) then
+		if( this._notFirstGroupBox() == true ) then
 			box_origin.y = this._setNextGroupBoxOrigin box_origin
 		--format "box_origin = % \n" box_origin
 		box_origin
