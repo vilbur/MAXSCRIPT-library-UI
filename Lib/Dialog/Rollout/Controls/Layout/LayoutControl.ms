@@ -116,9 +116,11 @@
 		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
 		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
 		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
+		columns_count = Control._Parameters.getVal #columns
+
 		if( columns_count == undefined ) then 
 			columns_count = 4 -- set default columns width 
-			
+
 		width_raw = columns_count * grid --return
 		
 		width_raw --return

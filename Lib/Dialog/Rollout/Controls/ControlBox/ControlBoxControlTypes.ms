@@ -2,6 +2,7 @@
 
 button,
 spinner,
+edittext,
 checkbox,
 
 /** _set control type methods
@@ -9,15 +10,16 @@ checkbox,
 function _setControlTypeMethods =
 (
 	--print ("------------\n ControlBox._setControlTypeMethods()" + Groupbox.id.id as string )
-	control_types	= #( #button, #spinner, #checkbox)
+	control_types	= #( #button, #spinner, #edittext, #checkbox)
 	
 	param_custom = #( #columns )  
-	param_common = #( #pos,#height,#width,#align,#offset,#across )  -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
+	param_common = #( #pos, #height, #width, #align, #offset, #across )  -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
 	param_shared = #( #toolTip )  
 	
-	params_by_type	= #(#( #images, #border ) -- button
+	params_by_type	= #(#( #images, #border )                                                                 -- button
 		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
-		   ,#( #checked, #triState )) -- checkbox
+		   ,#( #text, #fieldwidth, #bold, #labelOnTop, #readOnly )                                -- edittext
+		   ,#( #checked, #triState ))                                                             -- checkbox
 
 	param_all = param_custom + param_common + param_shared
 	
@@ -26,8 +28,8 @@ function _setControlTypeMethods =
 		params_keys = param_all + params_by_type[i]
 		
 		params_values = "#" + (( dotNetObject "System.Text.RegularExpressions.Regex" @"#" ).Replace ( params_keys as string ) "") -- strip array to string:       "columns, pos, height, width, ..."
-		format "params_keys   = % \n" params_keys
-		format "params_values = % \n" params_values
+		--format "params_keys   = % \n" params_keys
+		--format "params_values = % \n" params_values
 		params_array_stripped = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( params_keys as string ) "") -- strip array to string:       "columns, pos, height, width, ..." 
 		params_passed          = (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace ( params_array_stripped ) ":")        -- add colon ":" to parameters: "columns: pos: height: width: ..." 
 		

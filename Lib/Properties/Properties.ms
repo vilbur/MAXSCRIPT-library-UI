@@ -94,7 +94,7 @@ struct Properties_v
 		_props --return
 	),
 	
-	private
+	--private
 
 	/** Get property
 	  *
@@ -113,8 +113,8 @@ struct Properties_v
      */
     function _setProperty key value =
     (
-		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
-		execute ( this._getPropertyString key + " = " + this._getValueString key value )
+		format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " +  this._getValueString key value )
+		execute ( (this._getPropertyString key )+ " = " + (this._getValueString key value) )
     ),
 
 	/** Get property string

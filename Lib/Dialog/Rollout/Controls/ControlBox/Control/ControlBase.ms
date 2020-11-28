@@ -45,27 +45,6 @@
 		RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
 	),
 	
---	/** Set Controls Common Parameters
---	 */
---	function params include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParams.ms" =
---    (
---		format "HOTFIX ControlBase.ms.params() %\n" id.id
---		format "#( columns, pos, height, width, align, offset, across, images, toolTip, border ) = % \n\n" #( columns, pos, height, width, align, offset, across, images, toolTip, border)
---
---		_Parameters.getOrSet include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/Includes/ControlParamsArray.ms"
---	),
-	
-	--/** Set Controls Common Parameters 
-	-- */
-	--function params pos: height: width: align: offset: across: -- [Common] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm)
-	--			 images: border:                            -- [Button] (http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm)
-	--             toolTip: =
-	--(
-	--	_Parameters.setParams #( #pos, #height, #width, #align, #offset, #acros, #images ,#toolTip ,#border ) #( pos, height, width, align, offset, across, images, toolTip, border )
-	--	
-	--	
-	--	
-	--),
 	/** Set Controls Common Properties
 	  * 
 	  * http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_3880D745_8496_4DFB_8B31_4DEAC152DBB3_htm
@@ -93,16 +72,17 @@
 	(
 		control_exists	= false 
 
-		if( Parent_Control.ControlBox != undefined and Parent_Control.ControlBox.exists() ) then
-			try(
-				control_exists = (execute Id.full) != undefined
-			)catch()
+		--if( ControlBox.Parent_roll != undefined and ControlBox.Parent_roll.exists() ) then
+		try(
+			control_exists = (execute Id.full) != undefined
+		)catch()
 
-		--format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
+		format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
 		control_exists --return
 	),
 
 	private
+
 	/**  
 	 */
 	function _init = 
@@ -124,7 +104,6 @@
 		--this.Events.setDefaultEvents()
 		
 		this._addToControls()
-		
 	),
 	
 	/** Add itself to Controls
@@ -161,6 +140,7 @@
 		--print "------------\nControlBase._setValueParameter()"
 		this.param name_of_value_param (this._formatDatatypeValue value)
 	),
+	
 	/** Format datatype of value
 	  * Put quotes around string value
 	 */
@@ -171,6 +151,7 @@
 		else
 			value --return 
 	),
+	
 	/** Is value boolean string E.G.: "true" OR "false"
 	 */
 	function _isValueBooleanString value =
@@ -228,10 +209,10 @@
 	--(
 	--	print "------------\nControlBase._getValueFromIni()"
 	--	print "HOTFIX"
-	--	ini_path = Parent_Control.ControlBox.ini
+	--	ini_path = ControlBox.Parent_roll.ini
 	--	
 	--	if( ini_path != undefined ) then
-	--		value = ((Ini_v()).path ini_path ).load Parent_Control.ControlBox.id id --return
+	--		value = ((Ini_v()).path ini_path ).load ControlBox.Parent_roll.id id --return
 	--	
 	--	value --return
 	--),	

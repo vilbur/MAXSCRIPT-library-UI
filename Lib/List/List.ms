@@ -20,6 +20,9 @@ struct List_v
 	 */
 	function getVal key =
 	(
+		--format "List_v.getVal % %\n" (key as string) (findItem keys key)
+		--format "values = % \n" values
+
 		if (i = findItem keys key ) > 0 then
 			values[i] --return
 		else

@@ -36,8 +36,11 @@ struct Params_v
 	 */
 	function _replaceCurrentOrNewValue &keys_values key =
 	(
+		--format "Params_v._replaceCurrentOrNewValue %\n" key as string
+		--format "keys_values.getVal key = % \n" (keys_values.getVal key)
 		value_curernt_or_new = this._getOrSetValue key (keys_values.getVal key)
-		
+		--value_curernt_or_new = keys_values.getVal key
+		--format "value_curernt_or_new = % \n" value_curernt_or_new
 		keys_values.setVal key value_curernt_or_new
 	),
 	
@@ -45,7 +48,7 @@ struct Params_v
 	 */
 	function _getOrSetValue key value =
 	(
-		--print "Properties_v._getOrSetValue()"
+		format "Params_v._getOrSetValue % %\n" (key as string) (value)
 		if( value == #get ) then 
 			List.getVal key   -- return
 		else
@@ -57,13 +60,22 @@ struct Params_v
 	function setVal key value =
 	(
 		List.setVal key value -- return
+		--format "Params_v.setVal values = % \n" values as string
 	),
 	
 	/** Get val
 	 */
 	function getVal key =
 	(
+		--format "Params_v.getVal key = % \n" (List.getVal key)
 		List.getVal key   -- return
+	),
+	
+	/** Delete
+	 */
+	function delete key =
+	(
+		List.delete key   -- return
 	),
 	
 	/** Join array
@@ -74,10 +86,22 @@ struct Params_v
 		_params = ""
 		
 		for k=1 to List.keys.count do
-			_params = _params + " " + List.keys[k] +":"+ List.values[k] as string
+			_params = _params + " " + List.keys[k] +":"+ this._getFormat List.values[k]
 		
 		format "Params_v.join %\n" _params
 		_params --return
+	),
+	
+	/** Get format of value to string
+	  *
+	  * Add "#" prefix to name
+	 */
+	function _getFormat value =
+	(
+		if( classOf value == name ) then
+			value = "#" + value as string --return
+		
+		value as string --return
 	),
 	
 	/** Filter unsupplied parameters

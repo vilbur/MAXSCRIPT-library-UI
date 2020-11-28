@@ -29,16 +29,20 @@ _Rollout.Layout.margin.y = 0
 
 
 /* CONTROL TYPES */
-_controls_1.button	"Button"
-_controls_1.spinner	"Spinner" 
---_controls_1.spinner	"Spinner with long label" columns:12 
+--_controls_1.button	"Button"
+--_controls_1.spinner	"Spinner" 
+--_controls_1.edittext	"Edit Text" 
+--_controls_1.edittext	"Edit Text Auto Field Width" 
+--_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+--_controls_1.spinner	"Spinner with long label" columns:12 this.
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
 --_controls_1.checkbox	"Checkbox"
 
-for i = 1 to 5 do
-	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
-	
+--for i = 1 to 5 do
+--	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
+--	
 
 
 
@@ -50,4 +54,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
---SubRollouts.property height:256
+--SubRollouts.property height:256this.
