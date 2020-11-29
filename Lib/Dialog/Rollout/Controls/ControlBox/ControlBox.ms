@@ -169,7 +169,7 @@ struct ControlBox_v
 	 */
 	function _addControlToUi Control =
 	(
-		Control.addToUi Parent_roll.RolloutCreator._rolloutCreator
+		Control.addToUi()
 	),
 
 	/*------------------------------------------------------------------------------

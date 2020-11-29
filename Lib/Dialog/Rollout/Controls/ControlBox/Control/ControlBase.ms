@@ -37,14 +37,7 @@
 	(
 		Id.full --return
 	),
-	
-	/** Add to ui
-	 */
-	function addToUi RolloutCreator =
-	(
-		RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
-	),
-	
+
 	/** Set Controls Common Properties
 	  * 
 	  * http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_3880D745_8496_4DFB_8B31_4DEAC152DBB3_htm

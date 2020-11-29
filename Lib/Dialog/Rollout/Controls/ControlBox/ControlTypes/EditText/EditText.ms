@@ -44,11 +44,11 @@ struct EditText_v
 	public 
 	/** Add to ui
 	*/
-	function addToUi RolloutCreator =
+	function addToUi =
 	(
 		this._setFiledWidth()
 		
-		RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
+		ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
 		
 		--this.property pos:[64,0]
 		--this.Properties._setProperty #pos [64,128]

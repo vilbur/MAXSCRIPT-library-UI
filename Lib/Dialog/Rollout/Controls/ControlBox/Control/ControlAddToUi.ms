@@ -2,7 +2,7 @@ public
 
 /** Add to ui
 */
-function addToUi RolloutCreator =
+function addToUi =
 (
-   RolloutCreator.addControl type id.id caption paramStr:(_Parameters.join())
+   ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
 ),

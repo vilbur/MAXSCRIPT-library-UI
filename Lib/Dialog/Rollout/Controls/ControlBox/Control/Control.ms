@@ -1,6 +1,3 @@
---filein( getFilenamePath(getSourceFileName()) + "/ControlEvents/ControlEvents.ms" )
---filein( getFilenamePath(getSourceFileName()) + "/Props/Props.ms" )
-
 /** Control
  */
 struct Control_v 

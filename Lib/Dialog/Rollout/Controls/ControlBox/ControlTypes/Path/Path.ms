@@ -26,18 +26,33 @@ struct BrowsePath_v
 			
 		format "_Parameters.getVal #fieldwidth = % \n" (_Parameters.getVal #fieldwidth)
 	),
-	
 	public 
+
+	/** _add text field
+	 */
+	function _addTextField =
+	(
+		ControlBox.Parent_roll.RolloutCreator.addControl #edittext id.id "" (_Parameters.join())
+	),
+	
+	/** _add browse button
+	 */
+	function _addBrowseButton =
+	(
+		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button" "caption" ""
+		--paramStr:" "
+	),
+	
 	/** Add to ui
 	*/
-	function addToUi RolloutCreator =
+	function addToUi =
 	(
 		--this._setFiledWidth()
 		-- https://forums.cgsociety.org/t/browse-directory-button/1176877/2
 		
-		RolloutCreator.addControl #edittext id.id "" paramStr:(_Parameters.join())
 
-		RolloutCreator.addControl #button "browe_button" caption paramStr:""
+		this._addBrowseButton()
+		this._addTextField()
 		
 		
 		--this.property pos:[64,0]

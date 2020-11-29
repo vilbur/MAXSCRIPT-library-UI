@@ -22,6 +22,13 @@ struct RolloutCreator_v
 		_rolloutCreator.addText( slot_string )
 	),
 	
+	/** Add control
+	 */
+	function addControl type id caption paramStr =
+	(
+		_rolloutCreator.addControl type id caption paramStr:paramStr
+	),
+	
 	/** Add text
 	 */
 	function addText text =
