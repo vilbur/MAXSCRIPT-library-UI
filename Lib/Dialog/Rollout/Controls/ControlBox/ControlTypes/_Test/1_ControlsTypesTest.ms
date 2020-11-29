@@ -34,7 +34,8 @@ _Rollout.Layout.margin.y = 0
 --_controls_1.edittext	"Edit Text" 
 --_controls_1.edittext	"Edit Text Auto Field Width" 
 --_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
-_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+--_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+_controls_1.browsePath	"Browse" 
 --_controls_1.spinner	"Spinner with long label" columns:12 this.
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
