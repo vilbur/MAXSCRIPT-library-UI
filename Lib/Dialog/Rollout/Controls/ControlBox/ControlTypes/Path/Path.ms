@@ -8,7 +8,25 @@ struct BrowsePath_v
 	public 
 	
 	button_width = 64,
-	
+
+	/** Add to ui
+	*/
+	function addToUi =
+	(
+		--this._setFiledWidth()
+		-- https://forums.cgsociety.org/t/browse-directory-button/1176877/2
+		
+
+		this._addBrowseButton()
+		this._addTextField()
+		
+		
+		--this.property pos:[64,0]
+		--this.Properties._setProperty #pos [64,128]
+		--this.Properties._setProperty #height 64
+		--format "this.property width:#get = % \n" (this.property width:#get)
+	),
+
 	/** _set filed width
 	 */
 	function _setFiledWidth =
@@ -21,7 +39,20 @@ struct BrowsePath_v
 			
 		format "_Parameters.getVal #fieldwidth = % \n" (_Parameters.getVal #fieldwidth)
 	),
-
+	
+	/** _add browse button
+	 */
+	function _addBrowseButton =
+	(
+		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button_id" caption (this._getButtonParameters())
+		
+		Event = Event_v code:"getSavePath caption:\"Test path...\""
+		
+		--if (dir != undefined) do ( edt_test.text = dir )
+		
+		ControlBox.Parent_roll.RolloutCreator.addhandler "browse_button_id" Event
+	),
+	 
 	/** _add text field
 	 */
 	function _addTextField =
@@ -52,13 +83,7 @@ struct BrowsePath_v
 		
 		pos as string --return
 	),	
-	
-	/** _add browse button
-	 */
-	function _addBrowseButton =
-	(
-		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button" caption (this._getButtonParameters())
-	),
+
 	
 	/** Get edit text parameters
 	 */
@@ -69,24 +94,6 @@ struct BrowsePath_v
 
 		width + " " + params --return 
 	),	
-
-	/** Add to ui
-	*/
-	function addToUi =
-	(
-		--this._setFiledWidth()
-		-- https://forums.cgsociety.org/t/browse-directory-button/1176877/2
-		
-
-		this._addBrowseButton()
-		this._addTextField()
-		
-		
-		--this.property pos:[64,0]
-		--this.Properties._setProperty #pos [64,128]
-		--this.Properties._setProperty #height 64
-		--format "this.property width:#get = % \n" (this.property width:#get)
-	),
 
 	/**  
 	 */
