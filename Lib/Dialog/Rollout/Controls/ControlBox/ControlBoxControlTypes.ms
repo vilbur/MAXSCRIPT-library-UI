@@ -8,10 +8,17 @@ browsePath,
 checkbox,
 
 /** Generate methods for control types above
- *
+ * 
  * Control Types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
+ * 
+ * @return	object generated method returns new Control
  *
- * Execute string like this: groupbox_global[1].button = fn button width:64 ( Button_v caption:capion ControlBox:groupbox_global[1] parameters_create: #(#(#width), #(64)) )
+ * Generate method like this:
+ *		groupbox_global[1].button =
+ *			function button width:64
+ *			(
+ *				Button_v caption:caption ControlBox:groupbox_global[1] parameters_create: #(#(#width), #(64)) -- return
+ *			)
  *
  */
 function _setControlTypeMethods =
@@ -26,7 +33,7 @@ function _setControlTypeMethods =
 	params_by_type	= #(#( #images, #border )                                                                 -- button
 		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
 		   ,#( #text, #fieldwidth, #bold, #labelOnTop, #readOnly )                                -- edittext
-		   ,#()                                                                                   -- path
+		   ,#( #fieldwidth )                                                                      -- path
 		   ,#( #checked, #triState ))                                                             -- checkbox
 
 	param_all = param_custom + param_common + param_shared
@@ -46,8 +53,8 @@ function _setControlTypeMethods =
 		execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" =
 					function button caption "+params_passed+" =
 					( "+
+						--"format \"CONTROL: %\n\""+params_values+
 						control_types[i] as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] parameters_create:"+params_matrix + 
-						"format \"CONTROL: %\" "+params_values+
 					")"
 				)
 	)
