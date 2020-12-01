@@ -8,12 +8,14 @@ struct BrowsePath_v
 	public
 	
 	button_default_width = 64,
+	initial_dir          = "C:",
 	
 	/** Add to ui
 	*/
 	function addToUi =
 	(
 		this._setDefaultFiledWidth()
+		this._setInitialdir()
 
 		this._addBrowseButton()
 		this._addTextField()
@@ -30,15 +32,26 @@ struct BrowsePath_v
 			_Parameters.setVal #fieldwidth (_Parameters.getVal #width - button_default_width)
 	),
 	
+	/** _set initialdir
+	 */
+	function _setInitialdir =
+	(
+		initial_dir_param = _Parameters.getVal #initialDir
+		
+		_Parameters.delete #initialDir
+		
+		if( initial_dir_param != undefined ) then
+			initial_dir = initial_dir_param
+	),
+	
 	/** _add browse button
 	 */
 	function _addBrowseButton =
 	(
 		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button_id" caption (this._getButtonParameters())
-		
-		Event = Event_v code:"getSavePath caption:\"Test path...\""
-		
-		--if (dir != undefined) do ( edt_test.text = dir )
+		format "id.id = % \n" id.id
+		Event = Event_v code:("local dir = getSavePath caption:\"Test path...\" initialDir:\""+initial_dir+"\\\"
+							  	;if (dir != undefined) do ( "+id.full+".text = dir )")
 		
 		ControlBox.Parent_roll.RolloutCreator.addhandler "browse_button_id" Event
 	),
