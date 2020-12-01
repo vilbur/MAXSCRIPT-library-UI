@@ -43,8 +43,13 @@ function _setControlTypeMethods =
 		
 		params_matrix = "#(" +params_keys as string + ", " + params_values + ")" 
 		
-		execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" = fn button caption "+params_passed+" = ( "+control_types[i] as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] parameters_create:"+params_matrix + ";
-				  format \"CONTROL: %\" "+params_values+" )")
+		execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" =
+					function button caption "+params_passed+" =
+					( "+
+						control_types[i] as string +"_v caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] parameters_create:"+params_matrix + 
+						"format \"CONTROL: %\" "+params_values+
+					")"
+				)
 	)
 ),
 
