@@ -54,10 +54,7 @@ struct Dialog_v
 		Dialog = _RolloutMain.RolloutCreator.getDefinition()
 	
 		--CreateDialog ( Dialog ) width:(_RolloutMain.Layout.getRolloutWidth()) height:height
-		
-		format "Menu.create = % \n" (Menu.create "MainMenu")
-		
-		CreateDialog ( Dialog ) width:width height:height menu:(Menu.create "MainMenu")
+		CreateDialog Dialog width:width height:height menu:(Menu.create "MainMenu")
 
 		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
@@ -72,22 +69,6 @@ struct Dialog_v
     (
         _RolloutMain.subrollouts() --return
     ),
-	
-	--/** Set rollout in Dialog
-	--  * UPDATE OF THIS BLOCK IS NEEDED
-	--  *
-	--  * @param	string	title	Title of rollout
-	--  * @param	string	id	Id of roullout, if empty then sanitized title is used
-	--  * @return	[Rollout](../Rollouts/Rollout)
-	--  *
-	--  * @example roll "Roll Title" "rollout_id" 	// set rollout
-	--  * @example roll "Roll Title" "" 	// set rollout, id will be sanitized title "roll_title"
-	--  */
-	--function roll title id:  =
-	--(
-	--	--_rollout	= Rollout_v ini:(Ini.path #get) title:title id:id
-	--	Subrollouts.new title id:id --return
-	--),
 		
 	private
 	

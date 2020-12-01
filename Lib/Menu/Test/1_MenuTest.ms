@@ -25,8 +25,8 @@ function menuTest =
 	/* define rollout for menu */
 	rollout roll_main "Menu Test"
 	(
-		
 	)
+
 	CreateDialog roll_main menu:(Menu.create "MainMenu")
 )
 

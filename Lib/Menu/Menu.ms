@@ -48,9 +48,9 @@ struct Menu_v
 		definition 	= this._menuDefinition() + "\n(\n" + subitems + commands + "\n)"
 		
 		if( type=="RCmenu" ) then
-			return (execute definition)
+			(execute definition) -- return 
 		else
-			return definition
+			definition -- return 
 	),
 	/** Set name
 	 */
@@ -70,9 +70,9 @@ struct Menu_v
 	function _menuDefinition =
 	(
 		if( type=="submenu" ) then
-			return "\nsubMenu \"" + name + "\""
+			"\nsubMenu \"" + name + "\"" -- return
 		else
-			return "RcMenu " + name
+			"RcMenu " + name -- return
 	),
 	
 	/** Get definitions of items
@@ -84,7 +84,7 @@ struct Menu_v
 		for item in items do
 			definition += item.create ""
 			
-		return definition
+		definition -- return
 	),
 	/** Get all commands definitions in RcMenu
 	 */
@@ -95,7 +95,7 @@ struct Menu_v
 		if( type!="submenu" ) then
 			commands	= this._getCommandDefinition()
 		
-		return commands
+		commands -- return
 	),
 	/** Get commands definition of items in menu
 	 */
