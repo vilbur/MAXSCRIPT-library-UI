@@ -1,22 +1,29 @@
 
-/** Button
+/** EditText http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
  */
 struct EditText_v 
 (
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"
+	
+	public 
+	/** Add to ui
+	*/
+	function addToUi =
+	(
+		this._setFiledWidth()
+		
+		ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
+	),
 
+	private
+	
 	/** Value as tooltip
 	 */
-	function valueAsTooltip toggle =
+	function _valueAsTooltip toggle =
 	(
 		print "------------\nEditText.valueAsTooltip()"
-		if( toggle != true ) then
-			return ()
-		
-		
-		--format " Events	= % \n" Events
-		format " Events	= % \n" Events.Events.getEvent #changed
-		
+		--if( toggle != true ) then
+			--return ()
 	),
 
 	
@@ -28,32 +35,7 @@ struct EditText_v
 		format "fieldwidth = % \n" fieldwidth
 		
 		if( fieldwidth != undefined ) then
-		(
-			--fieldwidth = _Parameters.getVal #fieldwidth
 			_Parameters.delete #width 
-
-		)
-			--_Parameters.setVal #fieldwidth 128
-
-			
-		--_Parameters.setVal #fieldwidth 32
-			
-		format "_Parameters.getVal #fieldwidth = % \n" (_Parameters.getVal #fieldwidth)
-	),
-	
-	public 
-	/** Add to ui
-	*/
-	function addToUi =
-	(
-		this._setFiledWidth()
-		
-		ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
-		
-		--this.property pos:[64,0]
-		--this.Properties._setProperty #pos [64,128]
-		--this.Properties._setProperty #height 64
-		--format "this.property width:#get = % \n" (this.property width:#get)
 	),
 
 	/**  

@@ -19,6 +19,7 @@ struct BrowsePath_v
 
 		this._addBrowseButton()
 		this._addTextField()
+		this._addBrowseButtonEvent()
 	),
 
 	/** _set filed width
@@ -49,19 +50,22 @@ struct BrowsePath_v
 	function _addBrowseButton =
 	(
 		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button_id" caption (this._getButtonParameters())
-		format "id.id = % \n" id.id
+	),
+	 
+	 /** _add browse button event
+	  */
+	 function _addBrowseButtonEvent =
+	 (
 		Event = Event_v code:("local dir = getSavePath caption:\"Test path...\" initialDir:\""+initial_dir+"\\\"
 							  	;if (dir != undefined) do ( "+id.full+".text = dir )")
 		
 		ControlBox.Parent_roll.RolloutCreator.addhandler "browse_button_id" Event
-	),
+	 ),
 	 
-	/** _add text field
+	/** Add Edit text field http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
 	 */
 	function _addTextField =
 	(
-		--ControlBox.Parent_roll.RolloutCreator.addControl #edittext id.id "" (_Parameters.join())
-		format "this._getEditTextParameters() = % \n" (this._getEditTextParameters())
 		ControlBox.Parent_roll.RolloutCreator.addControl #edittext id.id "" (this._getEditTextParameters())
 	),
 	
@@ -82,7 +86,7 @@ struct BrowsePath_v
 	(
 		pos = _Parameters.getVal #pos
 
-		pos.x += this._getButtonWidth()/2
+		pos.x += this._getButtonWidth()
 		
 		pos --return
 	),	
@@ -115,5 +119,4 @@ struct BrowsePath_v
 		
 		this._init()
 	)	
-	
 )

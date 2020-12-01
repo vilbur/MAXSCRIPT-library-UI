@@ -22,7 +22,7 @@
 		--print Dimensions_v as string 
 		
 		this._setNextControlPosition Dimensions.width
-		format "Dimensions =%\n" Dimensions	
+		--format "Dimensions =%\n" Dimensions	
 
 		Control.setDimensions Dimensions
 

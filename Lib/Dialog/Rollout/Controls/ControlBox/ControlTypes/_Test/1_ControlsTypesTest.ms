@@ -31,21 +31,21 @@ _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 /* CONTROL TYPES */
 --_controls_1.button	"Button"
 --_controls_1.spinner	"Spinner" 
---_controls_1.edittext	"Edit Text" 
+_controls_1.edittext	"Edit Text" 
 --_controls_1.edittext	"Edit Text Auto Field Width" 
 --_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
---_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
-BrowsePath = _controls_1.BrowsePath	"Browse" width:256
+----_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+--BrowsePath = _controls_1.BrowsePath	"Browse"
+--BrowsePath = _controls_1.BrowsePath	"Browse" width:256
+BrowsePath = _controls_1.BrowsePath	"Browse" width:256  fieldwidth:192  initialDir:(getDir #maxroot)
 --_controls_1.spinner	"Spinner with long label" columns:12 this.
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
 --_controls_1.checkbox	"Checkbox"
 
---for i = 1 to 5 do
---	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
---	
---format "BrowsePath = % \n" BrowsePath
---BrowsePath.button_width = 128
+for i = 1 to 5 do
+	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
+	
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
@@ -56,3 +56,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 --SubRollouts.property height:256this.
+

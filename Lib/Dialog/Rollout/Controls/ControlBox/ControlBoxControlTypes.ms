@@ -32,8 +32,8 @@ function _setControlTypeMethods =
 	
 	params_by_type	= #(#( #images, #border )                                                                 -- button
 		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
-		   ,#( #text, #fieldwidth, #bold, #labelOnTop, #readOnly )                                -- edittext
-		   ,#( #fieldwidth )                                                                      -- path
+		   ,#( #fieldwidth, #text, #bold, #labelOnTop, #readOnly )                                -- edittext
+		   ,#( #fieldwidth, #initialDir )                                                                      -- path
 		   ,#( #checked, #triState ))                                                             -- checkbox
 
 	param_all = param_custom + param_common + param_shared
