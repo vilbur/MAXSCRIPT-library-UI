@@ -1,4 +1,5 @@
-
+/**  
+ */
 global add_subrollouts = " "
 global groupbox_global = #()
 
@@ -15,7 +16,6 @@ filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.m
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
-
 
 filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
 

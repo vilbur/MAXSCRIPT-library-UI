@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../Menu/Menu.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
 /** Store dialog in global variable
@@ -25,7 +27,7 @@ struct Dialog_v
 
 	/* dependency */
 	_RolloutMain,
-	--Menu	= Menu_v(),
+	Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
 	/*  properties */
@@ -52,7 +54,10 @@ struct Dialog_v
 		Dialog = _RolloutMain.RolloutCreator.getDefinition()
 	
 		--CreateDialog ( Dialog ) width:(_RolloutMain.Layout.getRolloutWidth()) height:height
-		CreateDialog ( Dialog ) width:width height:height
+		
+		format "Menu.create = % \n" (Menu.create "MainMenu")
+		
+		CreateDialog ( Dialog ) width:width height:height menu:(Menu.create "MainMenu")
 
 		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
@@ -108,6 +113,7 @@ struct Dialog_v
 	 */
 	function _setIniFile =
 	(
+		format "id = % \n" id
 		if( Ini.dir #get == undefined ) then
 			Ini.dir (( pathConfig.GetDir #temp ) + "\ini-files")
 		
@@ -118,7 +124,20 @@ struct Dialog_v
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
-	
+	/** Set id by title if not defined
+	 */
+	function _setId =
+	(
+		if not ( id == undefined or id == unsupplied ) then
+			return()
+			
+		title_no_whitespace = substituteString title " " "_" -- replace whitespace
+		--print ( title_no_whitespace as String )
+		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
+		
+		id = "rollout_" + id_by_title
+	),
+
 	/** Check if required properties are defined
 	  * Names of required props are defined in __construct array
 	 */
@@ -132,6 +151,8 @@ struct Dialog_v
 	(
 		this._checkConstctructProperties()
 		
+		this._setId()
+
 		this._unregisterOldDialog()
 		
 		this._setMainRollout()
