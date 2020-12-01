@@ -1,5 +1,7 @@
-
 /** Path
+  *
+  * TODO: add other dialog tyes http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_D4B43A33_8342_4BC9_80AB_91460861D37C_htm
+  *
  */
 struct BrowsePath_v 
 (

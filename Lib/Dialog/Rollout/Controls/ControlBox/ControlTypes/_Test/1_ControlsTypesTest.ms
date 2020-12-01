@@ -3,9 +3,6 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../../../Rollout.ms" )
 
 
-struct Control_mock(type = #button, id="", caption="Test button")
-
-
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 _Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
@@ -23,17 +20,12 @@ _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 --_Rollout.Layout.margin.y = 0
 
 
-
---_SubRollout = _Rollout.subrollout "Rollout 1"
---_controls_1 = _SubRollout.Controls.box groupbox:"_SubRollout Groupbox 1"
-
-
 /* CONTROL TYPES */
---_controls_1.button	"Button"
---_controls_1.spinner	"Spinner" 
+_controls_1.button	"Button"
+_controls_1.spinner	"Spinner" 
 _controls_1.edittext	"Edit Text" 
---_controls_1.edittext	"Edit Text Auto Field Width" 
---_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+_controls_1.edittext	"Edit Text Auto Field Width" 
+_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 ----_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 --BrowsePath = _controls_1.BrowsePath	"Browse"
 --BrowsePath = _controls_1.BrowsePath	"Browse" width:256
@@ -43,6 +35,9 @@ BrowsePath = _controls_1.BrowsePath	"Browse" width:256  fieldwidth:192  initialD
 --_controls_1.checkbutton	"Checkbutton"
 --_controls_1.checkbox	"Checkbox"
 
+/** Grid of buttons 
+ *	
+ */
 for i = 1 to 5 do
 	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 	
@@ -54,6 +49,3 @@ _Rollout.createRollout()
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
-
---SubRollouts.property height:256this.
-
