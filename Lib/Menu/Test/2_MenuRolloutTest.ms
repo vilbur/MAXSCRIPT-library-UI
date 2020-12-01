@@ -15,7 +15,7 @@ _rollout.createRollout()	-- create with default parameters
  */
 Menu = Menu_v() 
 
-_menu	= Menu.menu "Menu"
+Menu.menu "Menu"
 
 /* CREATE DIALOG */
 CreateDialog ( _rollout.RolloutCreator.getDefinition() ) menu:(Menu.create "MainMenu")

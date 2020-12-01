@@ -6,11 +6,11 @@ filein ( getFilenamePath(getSourceFileName()) + "/../Menu.ms" );
  */
 
 /* DEFINE MAIN MENU */
-MenuMain = Menu_v() 
+Menu = Menu_v() 
 
 /* DEFINE MENU */
-items	= MenuMain.menu "Item"
-items_2	= MenuMain.menu "Item 2"
+items	= Menu.menu "Item"
+items_2	= Menu.menu "Item 2"
 
 
 /** MENU ITEMS 
@@ -31,11 +31,11 @@ items_2.item "Menu Item 3" "messagebox \"Item 3\""
 
 
 /* define rollout for menu */
-rollout roll_main "MenuMain Test"
+rollout roll_main "Menu Test"
 (
 )
 
 /** CREATE ROLLOUT 
  *	
  */
-CreateDialog roll_main menu:(MenuMain.create "MainMenu")
+CreateDialog roll_main menu:(Menu.create "MainMenu")

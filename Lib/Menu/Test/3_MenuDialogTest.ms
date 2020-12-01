@@ -10,11 +10,7 @@ Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
  */
 Menu = Dialog.Menu 
 
-_menu	= Menu.menu "Menu"
-
+Menu.menu "Menu"
 
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog.create()
-
-/* CREATE DIALOG */
---CreateDialog ( _rollout.RolloutCreator.getDefinition() ) menu:(Menu.create "MainMenu")

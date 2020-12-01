@@ -45,7 +45,7 @@ struct Menu_v
 	 */
 	function create _name =
 	(
-		format "Menu_v.create()\n"
+		--format "Menu_v.create()\n"
 		this.setName _name as string
 		
 		menu_def	= this._getMenuDefinition()
@@ -54,7 +54,6 @@ struct Menu_v
 		
 		definition = menu_def + "\n(\n" + subitems + commands + "\n)"
 		
-		format "definition = % \n" definition
 		if( type == "RCmenu" ) then
 			(execute definition) -- return if menu
 		else
