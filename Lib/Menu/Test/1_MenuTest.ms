@@ -4,34 +4,38 @@ filein ( getFilenamePath(getSourceFileName()) + "/../Menu.ms" );
 
 /** CREATE MENU 
  */
-function menuTest =
-(
-	/* DEFINE MAIN MENU */
-	Menu = Menu_v() 
-	
-	/* DEFINE MENU */
-	_menu	= Menu.menu "Menu"
-	_menu_2	= Menu.menu "Menu 2"
-	
-	_menu.item "Test Item 1" "messagebox \"Item 1\"" id:"test_item1"
-	_menu.separator()
-	_menu.item "Test Item 2" "messagebox \"Item 2\""
-	_menu.separator()
-	
-	/* DEFINE SUBMENU */
-	submenu = _menu.menu "Submenu"
-	submenu.item "Submenu Item 1"  "messagebox \"Submenu Item 1\""
-	
-	/* define rollout for menu */
-	rollout roll_main "Menu Test"
-	(
-	)
 
-	CreateDialog roll_main menu:(Menu.create "MainMenu")
+/* DEFINE MAIN MENU */
+MenuMain = Menu_v() 
+
+/* DEFINE MENU */
+items	= MenuMain.menu "Item"
+items_2	= MenuMain.menu "Item 2"
+
+
+/** MENU ITEMS 
+ */
+items.item "Menu Item 1" "messagebox \"Item 1\"" id:"test_item1"
+
+
+/* DEFINE SUBMENU */
+submenu = items.menu "Submenu"
+submenu.item "Submenu Item 1"  "messagebox \"Submenu Item 1\""
+
+
+/** MENU ITEMS 2
+ */
+items_2.item "Menu Item 2" "messagebox \"Item 2\""
+items_2.separator()
+items_2.item "Menu Item 3" "messagebox \"Item 3\""
+
+
+/* define rollout for menu */
+rollout roll_main "MenuMain Test"
+(
 )
 
-
-/*---------------------------------------
-	RUN TEST
------------------------------------------*/
-menuTest()
+/** CREATE ROLLOUT 
+ *	
+ */
+CreateDialog roll_main menu:(MenuMain.create "MainMenu")
