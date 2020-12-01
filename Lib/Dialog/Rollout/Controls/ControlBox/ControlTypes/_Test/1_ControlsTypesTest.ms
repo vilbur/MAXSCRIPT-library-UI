@@ -18,9 +18,9 @@ _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 --_Rollout.Layout.columns  = 16
 --_Rollout.Layout.grid     = 48
 
-_Rollout.Layout.padding  = 0
-_Rollout.Layout.margin.x = 0
-_Rollout.Layout.margin.y = 0
+--_Rollout.Layout.padding  = 0
+--_Rollout.Layout.margin.x = 0
+--_Rollout.Layout.margin.y = 0
 
 
 
@@ -35,7 +35,7 @@ _Rollout.Layout.margin.y = 0
 --_controls_1.edittext	"Edit Text Auto Field Width" 
 --_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 --_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
-_controls_1.browsePath	"Browse" 
+BrowsePath = _controls_1.BrowsePath	"Browse" width:256
 --_controls_1.spinner	"Spinner with long label" columns:12 this.
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
@@ -44,8 +44,8 @@ _controls_1.browsePath	"Browse"
 --for i = 1 to 5 do
 --	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 --	
-
-
+--format "BrowsePath = % \n" BrowsePath
+--BrowsePath.button_width = 128
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
