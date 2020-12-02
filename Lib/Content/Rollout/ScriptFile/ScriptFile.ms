@@ -33,17 +33,49 @@ struct ScriptFile_Content_v
 		)
 		this --return
 	),
+
+	/** Insert to ui
+	 */
+	function addControls _rollout =
+	(
+		print ( "HOTFIX ScriptFile_Content._addControls()" )
+
+		--_name	= if( _name==undefined )then "" else "";
+		--
+		if( this.isMacrosriptFile() ) then
+		(
+			format " _rollout	= % \n" _rollout
+			format "this._getGroupboxName() = % \n" (this._getGroupboxName())
+			_controls	= _rollout.controls.new groupbox:(this._getGroupboxName())
+		--	format " _controls = % \n" _controls
+
+			for m = 1 to MacroScripts.count do
+				MacroScripts[m]._addControls _controls
+		)
+		--else
+		--	this._runScriptFile()
+	),
+	
+	--/** Add groupbox
+	-- */
+	--function addGroupbox _rollout =
+	--(
+	--	_rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
+	--),
+
 	/** Is maxscript file
 	 */
 	function isMaxscriptFile =
 	(
 		 getFilenameType file == ".ms" --return
 	),
+
 	/** Is maxscript file
 	 */
 	function isMacrosriptFile =
 	(
 		 getFilenameType file == ".mcr" --return
+	
 	),
 	/** Has macro scripts
 	 */
@@ -51,32 +83,8 @@ struct ScriptFile_Content_v
 	(
 		MacroScripts.count > 0 --return
 	),
-	/** Insert to ui
-	 */
-	function addControls _rollout =
-	(
-		--print ( "ScriptFile_Content._addControls() =" + file as string )
 
-		_name	= if( _name==undefined )then "" else "";
 
-		if( this.isMacrosriptFile() ) then
-		(
-			format " _rollout	= % \n" _rollout
-			_controls	= this.addGroupbox _rollout
-			format " _controls	= % \n" _controls
-			for m = 1 to MacroScripts.count do
-			format " MacroScripts[m]	= % \n" MacroScripts[m]
-			--MacroScripts[m]._addControls _controls
-		)
-		--else
-		--	this._runScriptFile()
-	),
-	/** Add groupbox
-	 */
-	function addGroupbox _rollout =
-	(
-		_rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
-	),
 	/** Get name of groupbox by file name
 	  * 
 	  * @return	string	Name of groupbox, If filename starts with underscore "_", then return undefined and controls are placed to new controls box without groupbox
@@ -88,6 +96,7 @@ struct ScriptFile_Content_v
 		else
 			undefined
 	),
+
 	/** If filename starts with underscore "_"
 	  * @return	boolean	
 	 */
@@ -103,6 +112,7 @@ struct ScriptFile_Content_v
 		--print ("FILEIN:\""+file+"\"")
 		filein file
 	),
+
 	/** Parse MacroScripts in file
 	 */
 	function _parseMacrosInFile lines =
@@ -130,6 +140,7 @@ struct ScriptFile_Content_v
 		if( _MacroScript!=undefined) then
 			append MacroScripts _MacroScript
 	),
+
 	/** Get file content
 	 */
 	function _getFileContent _path =

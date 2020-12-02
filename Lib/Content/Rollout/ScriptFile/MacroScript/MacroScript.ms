@@ -25,6 +25,7 @@ struct MacroScript_Content_v
 		
 		this --return
 	),
+	
 	/** Set property
 	 */
 	function setProp props =
@@ -47,41 +48,48 @@ struct MacroScript_Content_v
 	 */
 	function _addControls _Controls =
 	(
-		--print "------------\nMacroScript._addControls()"
-		--format " _macroScript	= % \n" _macroScript
+		print "------------\nHOTFIX MacroScript._addControls()"
+		----format " _macroScript	= % \n" _macroScript
 		control_id	=  this.getControlId()
-		--format " control_id	= % \n" control_id
-		_button	= _Controls.button ( buttontext as string ) id:control_id add:false
-		--format " _button	= % \n" _button
-		_button_exists	= _Controls.get ( _button.id )
-		
-		if( _button_exists==false ) then
-		(
+		format " control_id	= % \n" control_id
+		_button	= _Controls.button ( buttontext as string ) id:control_id
+		----format " _button	= % \n" _button
+		--_button_exists	= _Controls.get ( _button.id )
+		--
+		--if( _button_exists==false ) then
+		--(
 			_button = this._setOnClickEvent #left _button 
-			_controls.add _button
-		)
-		else
-			_button = this._setOnClickEvent #right _button_exists 
+		--	_controls.add _button
+		--)
+		--else
+		--	_button = this._setOnClickEvent #right _button_exists 
 	),
+	
 	/** Get control id
 	 */
 	function getControlId =
 	(
-		category as string + "_"+ buttontext as string --return
+		category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "") --return
 	),
+	
 	/** Set leftClick
 	 */
 	function _setOnClickEvent _mbutton Control =
 	(
-		callback = "macros.run @"+category+"@ @"+name+"@"
+		print "------------\nHOTFIX MacroScript._setOnClickEvent()"
+		--callback = "macros.run @"+category+"@ @"+name+"@"
+		callback = "macros.run \""+category+"\" \""+name+"\""
+		format "callback = % \n" callback
+		--Control.Events.setEvent #pressed ("print (\"Pressed\")") "tooltip"
+		Control.Events.setEvent #pressed callback "tooltip"
 		
-		if( _mbutton==#left ) then
-			Control.pressed callback tooltip:tooltip
-		
-		else
-			Control.rightclick callback tooltip:tooltip
-		
-		Control --return
+		--if( _mbutton==#left ) then
+		--	Control.pressed callback tooltip:tooltip
+		--
+		--else
+		--	Control.rightclick callback tooltip:tooltip
+		--
+		--Control --return
 	),
 
 	on create do

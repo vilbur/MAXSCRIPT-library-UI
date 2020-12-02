@@ -51,8 +51,8 @@ struct Rollout_Content_v
 		if( name==undefined ) then
 			name = filenameFromPath dir
 
-		name	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace name ""            -- remove unwanted characters but "A-Za-z0-9-_"
-		name	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace name " " -- replace "_" with whitespace e.g.: "This_is_test" >>> "This is test"
+		name	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace name ""            -- remove unwanted characters but "A-Za-z0-9-_"
+		name	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace name " " -- replace "_" with whitespace e.g.: "This_is_test" >>> "This is test"
 	),
 
 	/** Set content controls

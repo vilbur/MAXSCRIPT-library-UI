@@ -149,9 +149,9 @@ struct ControlBox_v
 		this._addControlToUi Control
 		format "HOTFIX ControlBox.ms._addControl() EVENTS TURNED OFF"
 
-		--Control.Events.setDefaultEvents()
+		Control.Events.setDefaultEvents()
 		
-		--Control.Events.addHandlers()
+		Control.Events.addHandlers()
     ),
 
 	/** Add id

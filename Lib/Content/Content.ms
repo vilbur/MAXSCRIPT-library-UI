@@ -58,11 +58,11 @@ struct Content_v
 		format " Rollouts	= % \n" Rollouts
 		
 		
-		Rollouts = Dialog.rollouts()
+		_Rollouts = Dialog.rollouts()
 
 		
 		for r=1 to Rollouts.count do
-			Rollouts[r].insertRollout Rollouts Rollouts[r].name
+			Rollouts[r].insertRollout _Rollouts Rollouts[r].name
 	),
 	
 	
