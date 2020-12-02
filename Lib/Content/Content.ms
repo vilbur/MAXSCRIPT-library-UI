@@ -56,8 +56,13 @@ struct Content_v
 	(
 		--print "Content.setControlsToUI()"
 		format " Rollouts	= % \n" Rollouts
+		
+		
+		Rollouts = Dialog.rollouts()
+
+		
 		for r=1 to Rollouts.count do
-			Rollouts[r].insertRollout Dialog Rollouts[r].name
+			Rollouts[r].insertRollout Rollouts Rollouts[r].name
 	),
 	
 	
@@ -118,7 +123,7 @@ struct Content_v
 	function _loadDirectoryAsRollout dir_as_rollout =
 	(
 		format "dir_as_rollout = %\n" dir_as_rollout as string
-		Rollout_Content = Rollout_Content_v name:(this._getRolloutName dir_as_rollout)
+		Rollout_Content = Rollout_Content_v()
 		--format "Rollout_Content = % \n" Rollout_Content
 		append Rollouts ( Rollout_Content.load dir_as_rollout )
 	),
@@ -143,17 +148,7 @@ struct Content_v
 	(		
 		rx.isMatch (this._dirName _dir) match rx_options.IgnoreCase --return
 	),
-	
-	/** If directory name match to regext
-	 */
-	function _getRolloutName _dir =
-	(
-		match_dirname	= rx.Match (this._dirName _dir) match rx_options.IgnoreCase 
-		matches	= for i = 1 to (match_dirname.Groups.count - 1) collect (match_dirname.groups.item[i].value )
-		--print ( "_dir=" + _dir as string )
-		--print ( "matches=" + matches as string )
-		matches[1] --return
-	),
+
 	
 	/** _dir name
 	 */

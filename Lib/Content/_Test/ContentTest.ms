@@ -16,7 +16,7 @@ function loadContentTest =
 	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
 	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 	
-	--Content.setControlsToUI Dialog
+	Content.setControlsToUI Dialog
 	--Content_nested.setControlsToUI Dialog
 )
 

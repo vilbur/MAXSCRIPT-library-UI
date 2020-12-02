@@ -19,17 +19,17 @@ struct ScriptFile_Content_v
 
 	/** File
 	 */
-	function load file_path =
+	function load =
 	(
-		--print "------------\nScriptFile.load()"
-		file	= file_path
+		print ("------------\nScriptFile.load file="+file)
+		--file	= file_path
 		--format " file	= % \n" file
 		--print ("ScriptFile_Content.load\""+file+"\"")
 		if( this.isMacrosriptFile() ) then
 		(
 			filein file
 
-			this._parseMacrosInFile (this._getFileContent file_path)
+			this._parseMacrosInFile (this._getFileContent file)
 		)
 		this --return
 	),
@@ -107,6 +107,8 @@ struct ScriptFile_Content_v
 	 */
 	function _parseMacrosInFile lines =
 	(
+		format ( "ScriptFile_Content._parseMacrosInFile()\n" )
+
 		for _line in lines do
 		(
 			rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
@@ -124,7 +126,7 @@ struct ScriptFile_Content_v
 				_MacroScript.setProp (filterString _line ":") 
 		)
 
-
+		format "_MacroScript = %\n" _MacroScript
 		if( _MacroScript!=undefined) then
 			append MacroScripts _MacroScript
 	),
@@ -151,6 +153,6 @@ struct ScriptFile_Content_v
 
 	on create do
 	(
-
+		this.load()
 	)
 )
