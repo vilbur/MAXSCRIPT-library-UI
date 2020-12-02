@@ -76,13 +76,14 @@
 
 	private
 
-	/**  
+	/**  Init Control struct
+	  * Shared with all control types
 	 */
 	function _init = 
 	(
-		--format "HOTFIX ControlOnCreate.ms on create()\n"
+		format "ControlOnCreate.ms on init()\n"
 		this._setType()
-		
+		format "id = % \n" id
 		this.Events.setEventTypes()
 	
 		this._checkConstctructProperties()

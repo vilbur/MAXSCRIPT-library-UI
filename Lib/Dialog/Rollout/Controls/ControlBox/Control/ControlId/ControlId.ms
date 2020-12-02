@@ -15,7 +15,7 @@ struct ControlId_v
 	 */
 	function setId id =
 	(
-		--print ("ControlId.setId " + id as string )
+		print ("ControlId.setId " + id as string )
 		if ( this._isIdValid() ) then
 		    this.id	= id
 		else
@@ -88,8 +88,9 @@ struct ControlId_v
 	
 	on create do
 	(
+		print ("ControlId.onCreate " + id as string )
 		this._checkConstctructProperties()
 		
-		this.setId id 
+		this.setId this.id 
 	)
 )

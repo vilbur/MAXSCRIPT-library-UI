@@ -44,7 +44,6 @@ struct ControlBox_v
 	 */
 	function add _Control =
 	(
-		--print ("ControlBox_v.add ")
 		--print ("\nControlBox_v.add " + _Control.id.id as string )
 		--format "\nControlBox_v.add %\n" _Control
 		append Controls _Control
@@ -71,6 +70,24 @@ struct ControlBox_v
     (
 		--format "ControlBox_v.property pos % \n" pos
 		Properties.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
+	),
+	
+	/** Get existing control
+	  * @return	false|Control_v
+	 */
+	function get id =
+	(
+		--print ("ControlBox_v.get()")
+		control_exists = false
+		
+		for Control in Controls do
+		--(
+			--format "Control.id.id = % \n" Control.id.id
+			--format "id = % \n" id
+			if( Control.id.id == id ) then 
+				control_exists = Control
+		--)
+		control_exists --return
 	),
 	
 	/** 

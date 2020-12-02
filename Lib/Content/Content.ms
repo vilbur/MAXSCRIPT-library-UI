@@ -56,10 +56,7 @@ struct Content_v
 	(
 		--print "Content.setControlsToUI()"
 		format " Rollouts	= % \n" Rollouts
-		
-		
 		_Rollouts = Dialog.rollouts()
-
 		
 		for r=1 to Rollouts.count do
 			Rollouts[r].insertRollout _Rollouts Rollouts[r].name

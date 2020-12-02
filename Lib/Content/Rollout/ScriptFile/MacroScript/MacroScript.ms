@@ -48,21 +48,21 @@ struct MacroScript_Content_v
 	 */
 	function _addControls _Controls =
 	(
-		print "------------\nHOTFIX MacroScript._addControls()"
+		print "\n\n------------\nHOTFIX MacroScript._addControls()"
 		----format " _macroScript	= % \n" _macroScript
 		control_id	=  this.getControlId()
-		format " control_id	= % \n" control_id
-		_button	= _Controls.button ( buttontext as string ) id:control_id
+		--format " control_id	= % \n" control_id
+		_button_exists	= _Controls.get ( control_id )
+		--format "_button_exists = % \n" _button_exists
 		----format " _button	= % \n" _button
-		--_button_exists	= _Controls.get ( _button.id )
-		--
-		--if( _button_exists==false ) then
-		--(
+		if( _button_exists == false ) then
+		(
+			_button	= _Controls.button ( buttontext as string ) id:control_id
 			_button = this._setOnClickEvent #left _button 
 		--	_controls.add _button
-		--)
-		--else
-		--	_button = this._setOnClickEvent #right _button_exists 
+		)
+		else
+			_button = this._setOnClickEvent #right _button_exists 
 	),
 	
 	/** Get control id
@@ -81,15 +81,15 @@ struct MacroScript_Content_v
 		callback = "macros.run \""+category+"\" \""+name+"\""
 		format "callback = % \n" callback
 		--Control.Events.setEvent #pressed ("print (\"Pressed\")") "tooltip"
-		Control.Events.setEvent #pressed callback "tooltip"
+		--Control.Events.setEvent #pressed callback "tooltip"
 		
-		--if( _mbutton==#left ) then
-		--	Control.pressed callback tooltip:tooltip
-		--
-		--else
-		--	Control.rightclick callback tooltip:tooltip
-		--
-		--Control --return
+		if( _mbutton==#left ) then
+			Control.Events.setEvent #pressed callback "tooltip"
+		else
+		
+			Control.Events.setEvent #rightclick  callback "tooltip"
+		
+		Control --return
 	),
 
 	on create do
