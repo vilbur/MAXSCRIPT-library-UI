@@ -33,7 +33,14 @@ struct ScriptFile_Content_v
 		)
 		this --return
 	),
-
+	
+	/** Add to ui
+	 */
+	function addToUi Rollouts =
+	(
+		print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
+	),
+	
 	/** Insert to ui
 	 */
 	function addControls _rollout =
@@ -164,6 +171,7 @@ struct ScriptFile_Content_v
 
 	on create do
 	(
+		print "ScriptFile_Content_v.onCreate()"
 		this.load()
 	)
 )

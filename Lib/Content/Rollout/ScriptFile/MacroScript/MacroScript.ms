@@ -94,6 +94,7 @@ struct MacroScript_Content_v
 
 	on create do
 	(
+		print "MacroScript_Content_v.onCreate()"
 
 	)
 )

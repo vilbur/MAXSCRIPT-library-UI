@@ -34,26 +34,41 @@ struct Rollout_Content_v
 		this --return
 	),
 	
+	/** Add to ui
+	 */
+	function addToUi _Rollout =
+	(
+		print ("Rollout_Content_v.addToUi() " + name)
+		
+		format "_Rollout = % \n" _Rollout
+		Rollouts = _Rollout.rollouts()
+
+		_Rollout	= _Rollout.new name
+
+		
+		for Controls_or_Rollout in Controls_and_Rollouts do 
+			Controls_or_Rollout.addToUi _Rollout
+			--format "Controls_or_Rollout = % \n" Controls_or_Rollout
+	),
+	
 	/** _get controls and rollouts
 	 */
 	function _getControlsAndRollouts dir_contents =
 	(
 		for dir_content in dir_contents do
-			if( this._isMacrosriptFile dir_content == true  ) then
-				append Controls_and_Rollouts ( ScriptFile_Content_v file:dir_content )
-				--format "Macroscript = % \n" dir_content
-			else
+			if( this._isRollout dir_content == true  ) then
+				
 				append Controls_and_Rollouts ( Rollout_Content_v dir:dir_content )
-				--format "Rollout = % \n" dir_content
+			else
+				append Controls_and_Rollouts ( ScriptFile_Content_v file:dir_content )
 		
 	),
 
 	/** Is maxscript file
 	 */
-	function _isMacrosriptFile file =
+	function _isRollout file =
 	(
-		 getFilenameType file == ".mcr" --return
-	
+		 getFilenameType file == "" --return
 	),
 	
 	--/** Set content controls

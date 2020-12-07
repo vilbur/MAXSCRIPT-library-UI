@@ -35,7 +35,7 @@ struct Content_v
 	match	= ".*",
 	
 	--Rollouts	= #(),
-	content_dirs	= #(),
+	RolloutContent	= #(),
 	
 	rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions",
 	rx	= dotNetClass "System.Text.RegularExpressions.Regex",
@@ -46,9 +46,9 @@ struct Content_v
 	(
 		print "Content.load()"
 
-		content_dirs =  Rollout_Content_v dir:dir
+		RolloutContent =  Rollout_Content_v dir:dir
 		
-		format "content_dirs = % \n" content_dirs
+		format "RolloutContent = % \n" RolloutContent
 		
 		this --return
 	),
@@ -58,60 +58,64 @@ struct Content_v
 	 */
 	function setControlsToUI Dialog =
 	(
-		print "Content.setControlsToUI()"
+		--print "Content.setControlsToUI()"
+	
+
+		RolloutContent.addToUi Dialog
+		
 		--format " Rollouts	= % \n" Rollouts
-		--format "content_dirs = % \n" content_dirs
+		--format "RolloutContent = % \n" RolloutContent
 		--Subrollouts = Dialog.rollouts()
 
-		--this._createSubrollouts content_dirs
+		--this._createSubrollouts RolloutContent
 		
 	),
 
-	/** Get rollout directories
-	 */
-	function _getRolloutDirectories _dir =
-	(
-		match_dirs	= #()
-		dirs	= getDirectories (_dir + "/*")
-		
-		for dir in dirs where this._isDirNameMatch dir == true do
-			append match_dirs dir
-		
-		match_dirs --return
-	),
-
-	/** If directory name match to regext
-	 */
-	function _isDirNameMatch _dir =
-	(		
-		rx.isMatch (this._dirName _dir) match rx_options.IgnoreCase --return
-	),
-	
-	/** _dir name
-	 */
-	function _dirName _dir =
-	(
-		filenameFromPath (trimRight _dir "\\") --return
-	),
-			
-	/** _load directories as rollouts
-	 */
-	function _loadDirectoriesAsRollouts main_dir =
-	(
-		for dir_as_rollout in main_dir do
-			format "dir_as_rollout = % \n" dir_as_rollout
-			--this._loadDirectoryAsRollout dir_as_rollout
-	),
-	
-	/** _load directories as rollouts
-t "Rollout_Content = % \n" Rollout_Content
-		appen	 */
-	function _loadDirectoryAsRollout dir_as_rollout =
-	(
-		format "dir_as_rollout = %\n" dir_as_rollout as string
-		Rollout_Content = Rollout_Content_v()
-		--formad Rollouts ( Rollout_Content.load dir_as_rollout )
-	),
+--	/** Get rollout directories
+--	 */
+--	function _getRolloutDirectories _dir =
+--	(
+--		match_dirs	= #()
+--		dirs	= getDirectories (_dir + "/*")
+--		
+--		for dir in dirs where this._isDirNameMatch dir == true do
+--			append match_dirs dir
+--		
+--		match_dirs --return
+--	),
+--
+--	/** If directory name match to regext
+--	 */
+--	function _isDirNameMatch _dir =
+--	(		
+--		rx.isMatch (this._dirName _dir) match rx_options.IgnoreCase --return
+--	),
+--	
+--	/** _dir name
+--	 */
+--	function _dirName _dir =
+--	(
+--		filenameFromPath (trimRight _dir "\\") --return
+--	),
+--			
+--	/** _load directories as rollouts
+--	 */
+--	function _loadDirectoriesAsRollouts main_dir =
+--	(
+--		for dir_as_rollout in main_dir do
+--			format "dir_as_rollout = % \n" dir_as_rollout
+--			--this._loadDirectoryAsRollout dir_as_rollout
+--	),
+--	
+--	/** _load directories as rollouts
+--t "Rollout_Content = % \n" Rollout_Content
+--		appen	 */
+--	function _loadDirectoryAsRollout dir_as_rollout =
+--	(
+--		format "dir_as_rollout = %\n" dir_as_rollout as string
+--		Rollout_Content = Rollout_Content_v()
+--		--formad Rollouts ( Rollout_Content.load dir_as_rollout )
+--	),
 	
 	on create do
 	(
