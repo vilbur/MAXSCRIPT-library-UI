@@ -34,7 +34,8 @@ struct Content_v
 	dir	= getFilenamePath(getSourceFileName()) + "/../../../Content",
 	match	= ".*",
 	
-	Rollouts	= #(),
+	--Rollouts	= #(),
+	content_dirs	= #(),
 	
 	rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions",
 	rx	= dotNetClass "System.Text.RegularExpressions.Regex",
@@ -44,7 +45,10 @@ struct Content_v
 	function load =
 	(
 		print "Content.load()"
-		this._loadRolloutsFromFiles()
+
+		content_dirs =  Rollout_Content_v dir:dir
+		
+		format "content_dirs = % \n" content_dirs
 		
 		this --return
 	),
@@ -54,78 +58,15 @@ struct Content_v
 	 */
 	function setControlsToUI Dialog =
 	(
-		--print "Content.setControlsToUI()"
-		format " Rollouts	= % \n" Rollouts
-		_Rollouts = Dialog.rollouts()
-		
-		for r=1 to Rollouts.count do
-			Rollouts[r].insertRollout _Rollouts Rollouts[r].name
-	),
-	
-	
-	/** Load rollouts from files
-	 */
-	function _loadRolloutsFromFiles =
-	(
-		content_dirs =  this._getContentDirectories()
+		print "Content.setControlsToUI()"
+		--format " Rollouts	= % \n" Rollouts
 		--format "content_dirs = % \n" content_dirs
-		for main_dir in content_dirs do
-			this._loadDirectoriesAsRollouts main_dir
-	),
-	
-	/** Get directories which contain rollout directories
-	  *
-	  * @example 1) -- return #( "ContentDir" )
-	  *     ContentDir\  
-	  *         rollout-A\
-	  *         rollout-B\
-	  * 
-	  * 
-	  * @example 2) -- return #( "ContentDir\Subdir-1", "ContentDir\Subdir-2" )
-	  *        ContentDir\
-	  *        Subdir-1\
-	  *            rollout-A\
-	  *            rollout-B\
-	  *        Subdir-2\
-	  *            rollout-C\
-	  *
-	  * @return	array	of directories in dir
-	 */
-	function _getContentDirectories =
-	(
-		if ((dotnetObject "System.Text.RegularExpressions.Regex" "").IsMatch dir @"\*$") then
-		(
-			content_dirs	= getDirectories dir
-			sub_dirs	= #()
-			
-			for _dir in content_dirs do
-				append sub_dirs (this._getRolloutDirectories _dir)
+		--Subrollouts = Dialog.rollouts()
 
-			sub_dirs --return
-		)
-		else
-			#( this._getRolloutDirectories dir ) --return
-	),
-	
-	/** _load directories as rollouts
-	 */
-	function _loadDirectoriesAsRollouts main_dir =
-	(
-		for dir_as_rollout in main_dir do
-			this._loadDirectoryAsRollout dir_as_rollout
-	),
-	
-	/** _load directories as rollouts
-	 */
-	function _loadDirectoryAsRollout dir_as_rollout =
-	(
-		format "dir_as_rollout = %\n" dir_as_rollout as string
-		Rollout_Content = Rollout_Content_v()
-		--format "Rollout_Content = % \n" Rollout_Content
-		append Rollouts ( Rollout_Content.load dir_as_rollout )
+		--this._createSubrollouts content_dirs
+		
 	),
 
-	
 	/** Get rollout directories
 	 */
 	function _getRolloutDirectories _dir =
@@ -138,20 +79,38 @@ struct Content_v
 		
 		match_dirs --return
 	),
-	
+
 	/** If directory name match to regext
 	 */
 	function _isDirNameMatch _dir =
 	(		
 		rx.isMatch (this._dirName _dir) match rx_options.IgnoreCase --return
 	),
-
 	
 	/** _dir name
 	 */
 	function _dirName _dir =
 	(
 		filenameFromPath (trimRight _dir "\\") --return
+	),
+			
+	/** _load directories as rollouts
+	 */
+	function _loadDirectoriesAsRollouts main_dir =
+	(
+		for dir_as_rollout in main_dir do
+			format "dir_as_rollout = % \n" dir_as_rollout
+			--this._loadDirectoryAsRollout dir_as_rollout
+	),
+	
+	/** _load directories as rollouts
+t "Rollout_Content = % \n" Rollout_Content
+		appen	 */
+	function _loadDirectoryAsRollout dir_as_rollout =
+	(
+		format "dir_as_rollout = %\n" dir_as_rollout as string
+		Rollout_Content = Rollout_Content_v()
+		--formad Rollouts ( Rollout_Content.load dir_as_rollout )
 	),
 	
 	on create do

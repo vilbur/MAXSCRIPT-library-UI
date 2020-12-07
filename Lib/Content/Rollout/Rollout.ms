@@ -9,22 +9,66 @@ struct Rollout_Content_v
 	dir,
 	name,
 	
-	ScriptFiles	= #(),
+	--Rollouts	= #(),
+	--ScriptFiles	= #(),
 	--_macros	= #(),
+	
+	Controls_and_Rollouts = #(),
+	
 	
 	/** Load
 	 */
-	function load dir =
+	function load =
 	(
 		print ( "Rollout_Content_v.load " + dir as string )
 		this.dir	= dir
 
 		this._setName()
 
-		this._loadMacroFiles()
+		--this._loadMacroFiles()
+		this._getControlsAndRollouts (this._getDirContent())
 		--format "Rollout_Content_v.name = % \n" this.name
+		
+		format "Controls_and_Rollouts = % \n" Controls_and_Rollouts
+	
 		this --return
 	),
+	
+	/** _get controls and rollouts
+	 */
+	function _getControlsAndRollouts dir_contents =
+	(
+		for dir_content in dir_contents do
+			if( this._isMacrosriptFile dir_content == true  ) then
+				append Controls_and_Rollouts ( ScriptFile_Content_v file:dir_content )
+				--format "Macroscript = % \n" dir_content
+			else
+				append Controls_and_Rollouts ( Rollout_Content_v dir:dir_content )
+				--format "Rollout = % \n" dir_content
+		
+	),
+
+	/** Is maxscript file
+	 */
+	function _isMacrosriptFile file =
+	(
+		 getFilenameType file == ".mcr" --return
+	
+	),
+	
+	--/** Set content controls
+	-- */
+	--function _loadMacroFiles =
+	--(
+	--	macro_files = this._getMacroFiles()
+	--	format "macro_files = % \n" macro_files
+	--	
+	--	if( macro_files.count > 0 ) then
+	--		for macro_file in macro_files do
+	--			append ScriptFiles ( ScriptFile_Content_v file:macro_file )
+	--
+	--	this --return
+	--),
 	
 	/** Insert rollout
 	 */
@@ -55,23 +99,30 @@ struct Rollout_Content_v
 		name	= ( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace name " " -- replace "_" with whitespace e.g.: "This_is_test" >>> "This is test"
 	),
 
-	/** Set content controls
+	/** _get dir content
 	 */
-	function _loadMacroFiles =
+	function _getDirContent =
 	(
-		macro_files = sort ( join (getFiles (dir + "/*.mcr")) (getFiles (dir + "/*.ms")) )
-		--format "macro_files = % \n" macro_files
-		
-		if( macro_files.count > 0 ) then
-			for macro_file in macro_files do
-				append ScriptFiles ( ScriptFile_Content_v file:macro_file )
-	
-		this --return
+		sort ( join (this._getSubDirs()) (this._getMacroFiles()) ) --return
 	),
 	
+	/** _get sub directories
+	 */
+	function _getSubDirs =
+	(
+		getDirectories (dir + "/*") --return
+	),
+	/** _get macro files
+	 */
+	function _getMacroFiles =
+	(
+		sort ( join (getFiles (dir + "/*.mcr")) (getFiles (dir + "/*.ms")) ) --return
+	),
+
 	on create do
 	(
 		print "Rollout_Content_v.onCreate()"
+		this.load()
 	)
 )
 

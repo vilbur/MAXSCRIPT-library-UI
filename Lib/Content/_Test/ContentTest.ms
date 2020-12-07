@@ -13,11 +13,12 @@ function loadContentTest =
 (
 	current_dir	= getFilenamePath(getSourceFileName())
 	----Content	= (Content_v dir:(current_dir+"/Rollout-tooltip-test")	match:"rollout-(.*)$"	).load()
-	Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
-	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs/*")	match:"rollout-(test-.*)"	).load()
 	
-	Content.setControlsToUI Dialog
-	--Content_nested.setControlsToUI Dialog
+	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
+	--Content.setControlsToUI Dialog
+
+	Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
+	Content_nested.setControlsToUI Dialog
 )
 
 /** Add extra rollout
