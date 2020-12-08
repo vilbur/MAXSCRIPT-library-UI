@@ -56,19 +56,21 @@ struct Content_v
 	/** Set controls to
 	  * @param	__[Dialog](../Dialog)__
 	 */
-	function setControlsToUI Dialog =
+	function setControlsToUI =
 	(
 		--print "Content.setControlsToUI()"
-	
+		Dialog	= Dialog_v title:RolloutContent.name
 
-		RolloutContent.addToUi Dialog
+		Rollouts = Dialog.rollouts()
+
+		RolloutContent.addToUi Rollouts add:false
 		
 		--format " Rollouts	= % \n" Rollouts
 		--format "RolloutContent = % \n" RolloutContent
 		--Subrollouts = Dialog.rollouts()
 
 		--this._createSubrollouts RolloutContent
-		
+		Dialog.create()
 	),
 
 --	/** Get rollout directories

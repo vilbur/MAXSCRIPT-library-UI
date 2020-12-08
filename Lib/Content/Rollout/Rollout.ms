@@ -9,6 +9,7 @@ struct Rollout_Content_v
 	dir,
 	name,
 	
+	_Rollout,
 	--Rollouts	= #(),
 	--ScriptFiles	= #(),
 	--_macros	= #(),
@@ -21,9 +22,8 @@ struct Rollout_Content_v
 	function load =
 	(
 		print ( "Rollout_Content_v.load " + dir as string )
-		this.dir	= dir
+		--this.dir	= dir
 
-		this._setName()
 
 		--this._loadMacroFiles()
 		this._getControlsAndRollouts (this._getDirContent())
@@ -36,18 +36,31 @@ struct Rollout_Content_v
 	
 	/** Add to ui
 	 */
-	function addToUi _Rollout =
+	function addToUi _SubRollouts add:true =
 	(
 		print ("Rollout_Content_v.addToUi() " + name)
 		
-		format "_Rollout = % \n" _Rollout
-		Rollouts = _Rollout.rollouts()
+		format "\n_SubRollouts = %\n\n" _SubRollouts
+		--Rollouts = _SubRollouts.rollouts()
 
-		_Rollout	= _Rollout.new name
+		if( add == true ) then
+		(
+			_Rollout	= _SubRollouts.new name
+			
+		)
 
 		
-		for Controls_or_Rollout in Controls_and_Rollouts do 
-			Controls_or_Rollout.addToUi _Rollout
+		for Controls_or_Rollout in Controls_and_Rollouts do
+		(
+		
+			if(  _Rollout != undefined ) then
+				_SubRollouts = _Rollout.subrollouts()
+			
+			Controls_or_Rollout.addToUi _SubRollouts  
+			
+		)
+			--Controls_or_Rollout.addToUi (_Rollout.subrollouts())
+			--Controls_or_Rollout.addToUi (_SubRollouts.subrollouts())
 			--format "Controls_or_Rollout = % \n" Controls_or_Rollout
 	),
 	
@@ -137,7 +150,14 @@ struct Rollout_Content_v
 	on create do
 	(
 		print "Rollout_Content_v.onCreate()"
+		
+		this._setName()
+
+		
 		this.load()
+		
+		--_Rollout = 
+		
 	)
 )
 
