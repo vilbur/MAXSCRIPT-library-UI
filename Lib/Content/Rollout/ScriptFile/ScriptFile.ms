@@ -34,40 +34,40 @@ struct ScriptFile_Content_v
 		this --return
 	),
 	
-	/** Add to ui
-	 */
-	function addToUi Rollouts =
-	(
-		print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
-	),
+	--/** Add to ui
+	-- */
+	--function addToUi _Rollout =
+	--(
+	--	print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
+	--),
 	
 	/** Insert to ui
 	 */
-	function addControls _rollout =
+	function addToUi _Rollout =
 	(
-		print ( "HOTFIX ScriptFile_Content._addControls()" )
+		print ( "HOTFIX ScriptFile_Content.addToUi()" )
 
 		--_name	= if( _name==undefined )then "" else "";
-		--
+		
 		if( this.isMacrosriptFile() ) then
 		(
-			format " _rollout	= % \n" _rollout
-			format "this._getGroupboxName() = % \n" (this._getGroupboxName())
-			_controls	= _rollout.controls.new groupbox:(this._getGroupboxName())
-		--	format " _controls = % \n" _controls
-
+			format " _Rollout	= % \n" _Rollout
+			--format "this._getGroupboxName() = % \n" (this._getGroupboxName())
+			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+			--format " _controls = % \n" _controls
+		
 			for m = 1 to MacroScripts.count do
 				MacroScripts[m]._addControls _controls
 		)
-		--else
-		--	this._runScriptFile()
+		else
+			this._runScriptFile()
 	),
 	
 	--/** Add groupbox
 	-- */
-	--function addGroupbox _rollout =
+	--function addGroupbox _Rollout =
 	--(
-	--	_rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
+	--	_Rollout.controls groupbox:( this._getGroupboxName() ) -- get new container for controls
 	--),
 
 	/** Is maxscript file

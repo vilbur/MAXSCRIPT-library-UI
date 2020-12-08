@@ -36,7 +36,7 @@ struct Rollout_Content_v
 	
 	/** Add to ui
 	 */
-	function addToUi _SubRollouts add:true =
+	function addToUi _SubRollouts add:true = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
 	(
 		print ("Rollout_Content_v.addToUi() " + name)
 		
@@ -45,18 +45,34 @@ struct Rollout_Content_v
 
 		if( add == true ) then
 		(
-			_Rollout	= _SubRollouts.new name
-			
+			_Rollout	= _SubRollouts.new name 
 		)
 
 		
 		for Controls_or_Rollout in Controls_and_Rollouts do
 		(
-		
-			if(  _Rollout != undefined ) then
-				_SubRollouts = _Rollout.subrollouts()
 			
-			Controls_or_Rollout.addToUi _SubRollouts  
+			
+			if( hasProperty Controls_or_Rollout "Controls_and_Rollouts" == true ) then
+			(
+				if(  _Rollout != undefined and hasProperty Controls_or_Rollout "Controls_and_Rollouts" == true ) then
+				(
+					_SubRollouts = _Rollout.subrollouts()
+					
+					
+				)
+				Controls_or_Rollout.addToUi _SubRollouts  
+				
+			)
+			else
+			(
+				if( _Rollout != undefined ) then
+					
+				Controls_or_Rollout.addToUi _Rollout 
+			)
+			
+		
+			
 			
 		)
 			--Controls_or_Rollout.addToUi (_Rollout.subrollouts())
