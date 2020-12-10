@@ -34,6 +34,10 @@ struct Rollout_Content_v
 		this --return
 	),
 	
+	
+	
+	
+	
 	/** Add to ui
 	 */
 	function addToUi _SubRollouts add:true = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
@@ -45,26 +49,45 @@ struct Rollout_Content_v
 			_Rollout	= _SubRollouts.new name 
 
 		
-		for ScriptFile_and_RolloutContent in ScriptFile_and_RolloutContent do
-		(
-			format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
+		for ScriptFile_or_RolloutContent in ScriptFile_and_RolloutContent do
 			
-			if( hasProperty ScriptFile_and_RolloutContent "ScriptFile_and_RolloutContent" == true ) then
-			(
-				
-				--if(  _Rollout != undefined and hasProperty ScriptFile_and_RolloutContent "ScriptFile_and_RolloutContent" == true ) then
-				if(  _Rollout != undefined ) then
-					_SubRollouts = _Rollout.subrollouts()
-				
-				ScriptFile_and_RolloutContent.addToUi _SubRollouts  
-			)
+			if( (this._isRolloutContent ScriptFile_or_RolloutContent ) == true ) then
+				this._addRolloutToUi _SubRollouts ScriptFile_or_RolloutContent
 			else
-			(
-				if( _Rollout != undefined ) then
-					ScriptFile_and_RolloutContent.addToUi _Rollout 
-			)
-		)
+				this._addGroupBoxToUi ScriptFile_or_RolloutContent
 	),
+	
+		
+	/** _is rollout contet
+	 */
+	function _isRolloutContent ScriptFile_or_RolloutContent =
+	(
+		hasProperty ScriptFile_or_RolloutContent "ScriptFile_and_RolloutContent" == true --return
+	),
+	
+	/** _add rollout to ui
+	 */
+	function _addRolloutToUi _SubRollouts ScriptFile_or_RolloutContent =
+	(
+		if(  _Rollout != undefined ) then
+			_SubRollouts = _Rollout.subrollouts()
+
+		
+		ScriptFile_or_RolloutContent.addToUi _SubRollouts  
+	),
+	
+	/** _add group box to ui
+	 */
+	function _addGroupBoxToUi ScriptFile_or_RolloutContent =
+	(
+		if( _Rollout != undefined ) then
+			ScriptFile_or_RolloutContent.addToUi _Rollout 
+	),
+	
+	
+	
+	
+	
 	
 	/** _get controls and rollouts
 	 */
