@@ -21,7 +21,7 @@ struct ScriptFile_Content_v
 	 */
 	function load =
 	(
-		print ("------------\nScriptFile.load file="+file)
+		--print ("------------\nScriptFile.load file="+file)
 		--file	= file_path
 		--format " file	= % \n" file
 		--print ("ScriptFile_Content.load\""+file+"\"")
@@ -38,20 +38,20 @@ struct ScriptFile_Content_v
 	-- */
 	--function addToUi _Rollout =
 	--(
-	--	print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
+	--	--print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
 	--),
 	
 	/** Insert to ui
 	 */
 	function addToUi _Rollout =
 	(
-		print ( "HOTFIX ScriptFile_Content.addToUi()" )
+		--print ( "HOTFIX ScriptFile_Content.addToUi()" )
 
 		--_name	= if( _name==undefined )then "" else "";
 		
 		if( this.isMacrosriptFile() ) then
 		(
-			format " _Rollout	= % \n" _Rollout
+			--format " _Rollout	= % \n" _Rollout
 			--format "this._getGroupboxName() = % \n" (this._getGroupboxName())
 			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
 			--format " _controls = % \n" _controls
@@ -124,7 +124,7 @@ struct ScriptFile_Content_v
 	 */
 	function _parseMacrosInFile lines =
 	(
-		format ( "ScriptFile_Content._parseMacrosInFile()\n" )
+		--format ( "ScriptFile_Content._parseMacrosInFile()\n" )
 
 		for _line in lines do
 		(
@@ -143,7 +143,7 @@ struct ScriptFile_Content_v
 				_MacroScript.setProp (filterString _line ":") 
 		)
 
-		format "_MacroScript = %\n" _MacroScript
+		--format "_MacroScript = %\n" _MacroScript
 		if( _MacroScript!=undefined) then
 			append MacroScripts _MacroScript
 	),
@@ -171,7 +171,7 @@ struct ScriptFile_Content_v
 
 	on create do
 	(
-		print "ScriptFile_Content_v.onCreate()"
+		--print "ScriptFile_Content_v.onCreate()"
 		this.load()
 	)
 )

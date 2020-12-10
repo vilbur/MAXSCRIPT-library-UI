@@ -44,11 +44,10 @@ struct Content_v
 	 */
 	function load =
 	(
-		print "Content.load()"
+		--print "Content.load()"
 
 		RolloutContent =  Rollout_Content_v dir:dir
-		
-		format "RolloutContent = % \n" RolloutContent
+		--format "RolloutContent = % \n" RolloutContent
 		
 		this --return
 	),
@@ -61,9 +60,9 @@ struct Content_v
 		--print "Content.setControlsToUI()"
 		Dialog	= Dialog_v title:RolloutContent.name
 
-		Rollouts = Dialog.rollouts()
+		--Rollouts = Dialog.rollouts()
 
-		RolloutContent.addToUi Rollouts add:false
+		RolloutContent.addToUi Rollouts:Rollouts Dialog:Dialog
 		
 		Dialog.create()
 	),

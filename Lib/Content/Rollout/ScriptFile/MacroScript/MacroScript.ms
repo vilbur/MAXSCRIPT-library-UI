@@ -77,11 +77,11 @@ struct MacroScript_Content_v
 	 */
 	function _setOnClickEvent _mbutton Control =
 	(
-		format "\n"
-		print "HOTFIX MacroScript._setOnClickEvent()"
+		--format "\n"
+		--print "HOTFIX MacroScript._setOnClickEvent()"
 		--callback = "macros.run @"+category+"@ @"+name+"@"
 		callback = "macros.run \""+category+"\" \""+name+"\""
-		format "callback = % \n" callback
+		--format "callback = % \n" callback
 		--Control.Events.setEvent #pressed ("print (\"Pressed\")") "tooltip"
 		--Control.Events.setEvent #pressed callback "tooltip"
 		
@@ -96,7 +96,7 @@ struct MacroScript_Content_v
 
 	on create do
 	(
-		print "MacroScript_Content_v.onCreate()"
+		--print "MacroScript_Content_v.onCreate()"
 
 	)
 )

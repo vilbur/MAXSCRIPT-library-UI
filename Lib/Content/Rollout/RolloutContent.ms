@@ -21,38 +21,33 @@ struct Rollout_Content_v
 	 */
 	function load =
 	(
-		print ( "Rollout_Content_v.load " + dir as string )
-		--this.dir	= dir
-
-
-		--this._loadMacroFiles()
+		--print ( "Rollout_Content_v.load " + dir as string )
 		this._getControlsAndRollouts (this._getDirContent())
 		--format "Rollout_Content_v.name = % \n" this.name
-		
-		format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
+		--format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
 	
 		this --return
 	),
 	
-	
-	
-	
-	
 	/** Add to ui
 	 */
-	function addToUi _SubRollouts add:true = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
+	function addToUi Rollouts: Dialog: = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
 	(
 		print ("Rollout_Content_v.addToUi() " + name)
-		--format "\n_SubRollouts = %\n\n" _SubRollouts
-
-		if( add == true ) then
-			_Rollout	= _SubRollouts.new name 
-
+		--format "\n_SubRollouts = %\n\n" Rollouts
+		
+		if( Dialog == unsupplied ) then
+			_Rollout	= Rollouts.new name
+			--print "Rollout"
+		else
+			_Rollout = Dialog._RolloutMain
+		
 		
 		for ScriptFile_or_RolloutContent in ScriptFile_and_RolloutContent do
-			
 			if( (this._isRolloutContent ScriptFile_or_RolloutContent ) == true ) then
-				this._addRolloutToUi _SubRollouts ScriptFile_or_RolloutContent
+			
+				this._addRolloutToUi Rollouts ScriptFile_or_RolloutContent
+				--print "Rollout"
 			else
 				this._addGroupBoxToUi ScriptFile_or_RolloutContent
 	),
@@ -67,25 +62,25 @@ struct Rollout_Content_v
 	
 	/** _add rollout to ui
 	 */
-	function _addRolloutToUi _SubRollouts ScriptFile_or_RolloutContent =
+	function _addRolloutToUi Rollouts ScriptFile_or_RolloutContent =
 	(
 		if(  _Rollout != undefined ) then
-			_SubRollouts = _Rollout.subrollouts()
+			Rollouts = _Rollout.subrollouts()
 
 		
-		ScriptFile_or_RolloutContent.addToUi _SubRollouts  
+		ScriptFile_or_RolloutContent.addToUi Rollouts:Rollouts  
 	),
 	
 	/** _add group box to ui
 	 */
-	function _addGroupBoxToUi ScriptFile_or_RolloutContent =
+	function _addGroupBoxToUi ScriptFile =
 	(
+		print ("Rollout_Content_v._addGroupBoxToUi() ")
+		format "ScriptFile = % \n" ScriptFile
+		
 		if( _Rollout != undefined ) then
-			ScriptFile_or_RolloutContent.addToUi _Rollout 
+			ScriptFile.addToUi _Rollout 
 	),
-	
-	
-	
 	
 	
 	
@@ -174,7 +169,7 @@ struct Rollout_Content_v
 
 	on create do
 	(
-		print "Rollout_Content_v.onCreate()"
+		--print "Rollout_Content_v.onCreate()"
 		
 		this._setName()
 
