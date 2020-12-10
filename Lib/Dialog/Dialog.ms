@@ -2,7 +2,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../Menu/Menu.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
-filein( getFilenamePath(getSourceFileName()) + "/../Content/Content.ms" ) 
+filein( getFilenamePath(getSourceFileName()) + "/../Content/Content.ms" )
 
 /** Store dialog in global variable
   * 
@@ -60,7 +60,7 @@ struct Dialog_v
 
 		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
-		_RolloutMain.Layout.fitSubrollouts()
+		_RolloutMain.fitSubrollouts()
 		
 		--_RolloutMain.setRolloutWidth()
 	),

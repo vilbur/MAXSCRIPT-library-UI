@@ -39,4 +39,3 @@ function addRolloutByCodeTest name =
 loadContentTest()
 --addRolloutByCodeTest "Rollout by code 2"
 
-Dialog.create()
