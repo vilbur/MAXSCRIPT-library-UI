@@ -1,6 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/ScriptFile/MacroScript/MacroScript.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/ScriptFile/ScriptFile.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Rollout/RolloutContent.ms" )
 
 
 /** Load content to UI by file tree
@@ -65,11 +65,6 @@ struct Content_v
 
 		RolloutContent.addToUi Rollouts add:false
 		
-		--format " Rollouts	= % \n" Rollouts
-		--format "RolloutContent = % \n" RolloutContent
-		--Subrollouts = Dialog.rollouts()
-
-		--this._createSubrollouts RolloutContent
 		Dialog.create()
 	),
 

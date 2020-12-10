@@ -14,7 +14,7 @@ struct Rollout_Content_v
 	--ScriptFiles	= #(),
 	--_macros	= #(),
 	
-	Controls_and_Rollouts = #(),
+	ScriptFile_and_RolloutContent = #(),
 	
 	
 	/** Load
@@ -29,7 +29,7 @@ struct Rollout_Content_v
 		this._getControlsAndRollouts (this._getDirContent())
 		--format "Rollout_Content_v.name = % \n" this.name
 		
-		format "Controls_and_Rollouts = % \n" Controls_and_Rollouts
+		format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
 	
 		this --return
 	),
@@ -39,45 +39,31 @@ struct Rollout_Content_v
 	function addToUi _SubRollouts add:true = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
 	(
 		print ("Rollout_Content_v.addToUi() " + name)
-		
-		format "\n_SubRollouts = %\n\n" _SubRollouts
-		--Rollouts = _SubRollouts.rollouts()
+		--format "\n_SubRollouts = %\n\n" _SubRollouts
 
 		if( add == true ) then
-		(
 			_Rollout	= _SubRollouts.new name 
-		)
 
 		
-		for Controls_or_Rollout in Controls_and_Rollouts do
+		for ScriptFile_and_RolloutContent in ScriptFile_and_RolloutContent do
 		(
+			format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
 			
-			
-			if( hasProperty Controls_or_Rollout "Controls_and_Rollouts" == true ) then
+			if( hasProperty ScriptFile_and_RolloutContent "ScriptFile_and_RolloutContent" == true ) then
 			(
-				if(  _Rollout != undefined and hasProperty Controls_or_Rollout "Controls_and_Rollouts" == true ) then
-				(
-					_SubRollouts = _Rollout.subrollouts()
-					
-					
-				)
-				Controls_or_Rollout.addToUi _SubRollouts  
 				
+				--if(  _Rollout != undefined and hasProperty ScriptFile_and_RolloutContent "ScriptFile_and_RolloutContent" == true ) then
+				if(  _Rollout != undefined ) then
+					_SubRollouts = _Rollout.subrollouts()
+				
+				ScriptFile_and_RolloutContent.addToUi _SubRollouts  
 			)
 			else
 			(
 				if( _Rollout != undefined ) then
-					
-				Controls_or_Rollout.addToUi _Rollout 
+					ScriptFile_and_RolloutContent.addToUi _Rollout 
 			)
-			
-		
-			
-			
 		)
-			--Controls_or_Rollout.addToUi (_Rollout.subrollouts())
-			--Controls_or_Rollout.addToUi (_SubRollouts.subrollouts())
-			--format "Controls_or_Rollout = % \n" Controls_or_Rollout
 	),
 	
 	/** _get controls and rollouts
@@ -87,9 +73,9 @@ struct Rollout_Content_v
 		for dir_content in dir_contents do
 			if( this._isRollout dir_content == true  ) then
 				
-				append Controls_and_Rollouts ( Rollout_Content_v dir:dir_content )
+				append ScriptFile_and_RolloutContent ( Rollout_Content_v dir:dir_content )
 			else
-				append Controls_and_Rollouts ( ScriptFile_Content_v file:dir_content )
+				append ScriptFile_and_RolloutContent ( ScriptFile_Content_v file:dir_content )
 		
 	),
 

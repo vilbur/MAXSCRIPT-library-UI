@@ -48,7 +48,8 @@ struct MacroScript_Content_v
 	 */
 	function _addControls _Controls =
 	(
-		print "\n\n------------\nHOTFIX MacroScript._addControls()"
+		format "\n"
+		print "HOTFIX MacroScript._addControls()"
 		----format " _macroScript	= % \n" _macroScript
 		control_id	=  this.getControlId()
 		--format " control_id	= % \n" control_id
@@ -76,7 +77,8 @@ struct MacroScript_Content_v
 	 */
 	function _setOnClickEvent _mbutton Control =
 	(
-		print "------------\nHOTFIX MacroScript._setOnClickEvent()"
+		format "\n"
+		print "HOTFIX MacroScript._setOnClickEvent()"
 		--callback = "macros.run @"+category+"@ @"+name+"@"
 		callback = "macros.run \""+category+"\" \""+name+"\""
 		format "callback = % \n" callback
