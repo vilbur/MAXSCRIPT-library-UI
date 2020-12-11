@@ -78,6 +78,13 @@ struct Rollout_v
 		RolloutCreator.endOfCreation()
 	),
 	
+	/** New subrollout
+	 */
+	function newSubrollout title =
+	(
+		Rollout_v title:title --return
+	),
+	
 	/** Set rollout width if Rollout is Parent rollout 
 	  *
 	  * @return	int	width of widest element
@@ -161,11 +168,13 @@ struct Rollout_v
 	 */
 	function _setId =
 	(
+		--print "Rollout_v._setId()"
+
 		if not ( id == undefined or id == unsupplied ) then
 			return()
 			
 		title_no_whitespace = substituteString title " " "_" -- replace whitespace
-		--print ( title_no_whitespace as String )
+
 		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
 		
 		id = "rollout_" + id_by_title

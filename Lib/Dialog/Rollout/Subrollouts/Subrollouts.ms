@@ -21,8 +21,10 @@ struct Subrollouts_v
      */
     function new title =
     (
-        print("Subrollouts.new() title"+title)
-		new_subrollout = Rollout_v title:title Parent_Subrollouts:this
+        print("Subrollouts.new() title " +title)
+		new_subrollout = Parent_roll.newSubrollout title
+		
+		new_subrollout.Parent_Subrollouts = this
 		
 		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
 		
@@ -52,11 +54,21 @@ struct Subrollouts_v
 		for _Rollout in Rollouts do
 			append widths (_Rollout.setRolloutWidth())
 			
-		format "Subrollouts % widths = %\n\n" id (amax widths)
+		--format "Subrollouts % widths = %\n\n" id (amax widths)
 		
 		this.resize (amax widths)
 		
 		amax widths
+	),
+	
+	/** Fit subrollouts
+	 */
+	function fitSubrollouts =
+	(
+		print "Subrollouts_v.fitSubrollouts()"
+		--format "Rollouts = % \n" Rollouts.count
+		for _Rollout in Rollouts do
+			_Rollout.fitSubrollouts()
 	),
 	
 	/** Resize subrollouts
@@ -167,12 +179,8 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		--if not ( this._anySubrolloutExists() ) then
-			--return()
-		--format "id =%\n" ("subRollout "+id+" \""+id+"\" height:128")
-		
-		--"subRollout "+id+" \"slot_name\" height:128" --return
-		"subRollout "+id+" \"slot_name\"" --return
+		"subRollout "+id+" \"slot_name\" height:96" -- HOTFIX set mininum height
+		--"subRollout "+id+" \"slot_name\"" --return
 	),
 
 	/** Any subrollout exists
