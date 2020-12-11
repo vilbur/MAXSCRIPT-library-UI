@@ -55,12 +55,9 @@ struct Content_v
 	/** Set controls to
 	  * @param	__[Dialog](../Dialog)__
 	 */
-	function setControlsToUI =
+	function setControlsToUI Dialog =
 	(
 		--print "Content.setControlsToUI()"
-		Dialog	= Dialog_v title:RolloutContent.name
-
-		--Rollouts = Dialog.rollouts()
 
 		RolloutContent.addToUi Rollouts:Rollouts Dialog:Dialog
 		

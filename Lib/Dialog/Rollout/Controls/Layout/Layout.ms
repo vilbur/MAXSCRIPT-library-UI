@@ -41,7 +41,7 @@ struct Layout_v
 	function fitSubrollouts =
 	(
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
-
+		
 		dialog_height     = (Parent_roll.property height:#get) as integer
 		fixed_heights     = this._getFixedSizes Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
@@ -51,34 +51,33 @@ struct Layout_v
 		
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
+
 		
-		
-		
-		--format "Layout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
-		--format "dialog_height       = % \n" dialog_height
-		--format "fixed_heights       = % \n" fixed_heights
-		--format "fixed_heights.count = % \n" fixed_heights.count
-		--format "fixed_height        = % \n" fixed_height
-		--format "empty_space         = % \n" empty_space
-		--format "subrollouts_count   = % \n" subrollouts_count
-		--format "slot_height         = % \n" slot_height
-		--format "offset              = % \n" offset
-		
-		if( offset == undefined ) then
-			return false
-			
-		for Control_or_Rollout in Controlboxes_and_Subrollouts do
-			if( this._getType Control_or_Rollout == "subrollouts" ) then
-				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
-			else
-				offset = this._offsetGroubox Control_or_Rollout offset
+		format "Layout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
+		format "dialog_height       = % \n" dialog_height
+		format "fixed_heights       = % \n" fixed_heights
+		format "fixed_heights.count = % \n" fixed_heights.count
+		format "fixed_height        = % \n" fixed_height
+		format "empty_space         = % \n" empty_space
+		format "subrollouts_count   = % \n" subrollouts_count
+		format "slot_height         = % \n" slot_height
+		format "offset              = % \n" offset
+		--
+		--if( offset == undefined ) then
+		--	return false
+		--	
+		--for Control_or_Rollout in Controlboxes_and_Subrollouts do
+		--	if( this._getType Control_or_Rollout == "subrollouts" ) then
+		--		offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
+		--	else
+		--		offset = this._offsetGroubox Control_or_Rollout offset
 	),
 
 	/** Get rollout width
 	 */
 	function getRolloutWidth =
 	(
-		512
+		512 -- HOTFIX
 	),
 	
 	/** Get setup from this

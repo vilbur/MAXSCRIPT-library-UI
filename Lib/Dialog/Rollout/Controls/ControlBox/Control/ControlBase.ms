@@ -70,7 +70,7 @@
 			control_exists = (execute Id.full) != undefined
 		)catch()
 
-		format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
+		--format "ControlBase.exists() % exists = %\n" (this.getId()) control_exists
 		control_exists --return
 	),
 
@@ -81,9 +81,9 @@
 	 */
 	function _init = 
 	(
-		format "ControlOnCreate.ms on init()\n"
+		--format "ControlOnCreate.ms on init()\n"
 		this._setType()
-		format "id = % \n" id
+		--format "id = % \n" id
 		this.Events.setEventTypes()
 	
 		this._checkConstctructProperties()

@@ -22,7 +22,7 @@ struct Params_v
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		format "Params_v.getOrSet %\n" keys_values as string
+		--format "Params_v.getOrSet %\n" keys_values as string
 
 		for key in keys_values.keys do
 			this._replaceCurrentOrNewValue keys_values key
@@ -48,7 +48,7 @@ struct Params_v
 	 */
 	function _getOrSetValue key value =
 	(
-		format "Params_v._getOrSetValue % %\n" (key as string) (value)
+		--format "Params_v._getOrSetValue % %\n" (key as string) (value)
 		if( value == #get ) then 
 			List.getVal key   -- return
 		else
@@ -88,7 +88,7 @@ struct Params_v
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ this._getFormat List.values[k]
 		
-		format "Params_v.join %\n" _params
+		--format "Params_v.join %\n" _params
 		_params --return
 	),
 	

@@ -33,21 +33,22 @@ struct Rollout_Content_v
 	 */
 	function addToUi Rollouts: Dialog: = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
 	(
-		print ("Rollout_Content_v.addToUi() " + name)
-		--format "\n_SubRollouts = %\n\n" Rollouts
-		
+		--print ("Rollout_Content_v.addToUi() " + name)
 		if( Dialog == unsupplied ) then
+			
 			_Rollout	= Rollouts.new name
-			--print "Rollout"
 		else
 			_Rollout = Dialog._RolloutMain
+		
+		
+		_Rollout	= if( Dialog == unsupplied ) then Rollouts.new name else Dialog._RolloutMain 
+		
 		
 		
 		for ScriptFile_or_RolloutContent in ScriptFile_and_RolloutContent do
 			if( (this._isRolloutContent ScriptFile_or_RolloutContent ) == true ) then
 			
 				this._addRolloutToUi Rollouts ScriptFile_or_RolloutContent
-				--print "Rollout"
 			else
 				this._addGroupBoxToUi ScriptFile_or_RolloutContent
 	),
@@ -66,7 +67,6 @@ struct Rollout_Content_v
 	(
 		if(  _Rollout != undefined ) then
 			Rollouts = _Rollout.subrollouts()
-
 		
 		ScriptFile_or_RolloutContent.addToUi Rollouts:Rollouts  
 	),
@@ -76,7 +76,7 @@ struct Rollout_Content_v
 	function _addGroupBoxToUi ScriptFile =
 	(
 		print ("Rollout_Content_v._addGroupBoxToUi() ")
-		format "ScriptFile = % \n" ScriptFile
+		--format "ScriptFile = % \n" ScriptFile
 		
 		if( _Rollout != undefined ) then
 			ScriptFile.addToUi _Rollout 
