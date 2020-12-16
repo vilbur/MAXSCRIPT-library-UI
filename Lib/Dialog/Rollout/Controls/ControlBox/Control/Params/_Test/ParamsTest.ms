@@ -9,56 +9,24 @@ _Rollout.Layout.margin = [0,0]
 
 global Controls     = _Rollout.Controls.new()
 --global Controls     = _Rollout.Controls.new groupbox:"Controls 1"
-global btn_props    = Controls.button "Button Properties"
---global btn_props    = Controls.checkbox "Checkbox Properties"
-global btn_props_2    = Controls.button "Button Properties 2" 
---global btn_props    = Controls.button "Button Properties" columns:6 height:32 border:false
---global btn_props    = Controls.button "Button Properties" border:false
+
+--global btn_props    = Controls.button "Button Params"
+--global btn_props    = Controls.button "Button Params" columns:6 height:32 border:false
+global btn_props    = Controls.button "Button Params" border:false
+
+global btn_props_2    = Controls.button "Button Params 2" 
+
+global btn_props_3    = Controls.button "Button Params 3" 
+
 global _spinner     = Controls.spinner "Spinner" scale:10 columns:6 pos:[132,16]
-global btn_props_3    = Controls.button "Button Properties 3" 
+
 --global _spinner     = Controls.spinner "Spinner" scale:10 columns:6
 
---btn_props.params  border:false
-format "btn_props = % \n" btn_props
---format "btn_props.caption = % \n" btn_props.caption
---format "btn_props_2.caption = % \n" btn_props_2.caption
 
---format "Controls.Controls = % \n" Controls.Controls
+format "btn_props = % \n" btn_props
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:512 height:512
-
-_Rollout.setRolloutWidth()
-
-
-
---
---/** Test
--- */
---struct Test
---(
---	method,
---	
---	
---	/** Init
---	 */
---	function init =
---	(
---		this.method = fn test = (messageBox "Yupiii" beep:false)
---	)
---	
---	
---	on create do
---	(
---		this.init()
---	)
---	
---)
---
---
---_Test = Test()
---
-----_Test.method()

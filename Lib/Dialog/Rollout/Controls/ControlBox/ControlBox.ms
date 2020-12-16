@@ -53,12 +53,14 @@ struct ControlBox_v
      */
     function create =
     (
+		print ("ControlBox_v.create()")
 		Layout.newControlsBox()
 		
 		this._addControls()
 		
 		if (Groupbox != undefined ) then
 			this._addGroupBox()
+		--print ("ControlBox_v.create() END")
     ),
 
 	/** Set any property for rollout 
@@ -102,21 +104,21 @@ struct ControlBox_v
 	 */
 	function offsetGroupbox new_pos =
 	(
-		--format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
+		format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
 		pos_box_current = this.property pos:#get
-
+		format "pos_box_current = % \n" pos_box_current
 		this.property pos:new_pos
-
+		
 		for Control in Controls do
 		(
-			--pos     = Control.property pos:#get 
-			pos     Control._Parameters.getVal #pos
-			
-			offset  = pos - pos_box_current
- 
-			pos_new = new_pos + offset
-
-			Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
+			format "Control = % \n" Control._Parameters
+			--pos     Control._Parameters.getVal #pos
+			--format "pos = % \n" pos
+			--offset  = pos - pos_box_current
+		
+			--pos_new = new_pos + offset
+		
+		--	Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
 		)
 	),
 	
@@ -148,7 +150,7 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		--print ("\n------------\nControlBox_v._addControls() " + Groupbox.id.id )
+		print ("------------\nControlBox_v._addControls()" )
 
 		--format "Controls.count = % \n" Controls.count
 		for Control in Controls do
@@ -160,11 +162,11 @@ struct ControlBox_v
 	 */
     function _addControl Control =
     (
-		--format "ControlBox._addControl %\n" (Control.Id.get()) as string 
+		format "ControlBox._addControl %\n" (Control.Id.get()) as string 
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
-		format "HOTFIX ControlBox.ms._addControl() EVENTS TURNED OFF\n"
+		--format "HOTFIX ControlBox.ms._addControl() EVENTS TURNED OFF\n"
 
 		Control.Events.setDefaultEvents()
 		
@@ -202,7 +204,7 @@ struct ControlBox_v
 		
 		--this._setControlTypeMethods()
 		
-		Layout = Parent_roll.Layout
+		--Layout = Parent_roll.Layout
 	)
 	
 )

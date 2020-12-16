@@ -25,7 +25,7 @@ struct Subrollouts_v
 		new_subrollout = Parent_roll.newSubrollout title
 		
 		new_subrollout.Parent_Subrollouts = this
-		
+
 		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
 		
 		--format "new_subrollout=%"new_subrollout

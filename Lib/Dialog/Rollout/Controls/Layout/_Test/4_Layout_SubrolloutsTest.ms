@@ -7,6 +7,10 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../Dialog.ms" )
 global _Rollout = Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 
+global counter_subrollouts = 0
+global counter_rollouts    = 0
+global counter_groupboxes  = 0
+global counter_controls    = 0
 
 /** Layout setup
  */
@@ -27,10 +31,10 @@ function addControls groupboxes:1 =
 	/* DEFINE SLOTS FOR ROLLOUTS */
 	for g = 1 to groupboxes do
 	(
-		Controls    = _Rollout.Controls.new groupbox:("Groupbox " + g as string)
+		Controls = _Rollout.Controls.new groupbox:("Groupbox " + (counter_groupboxes += 1) as string)
 		
-		for i = 1 to g + 1 do
-			Controls.button ("Button "+g as string +"."+i as string )
+		for i = 1 to g do
+			Controls.button ("Button "+counter_groupboxes as string +"."+i as string )
 	)
 )
 
@@ -47,16 +51,16 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 		/* DEFINE SUBROLLOUTS */ 
 		for r = 1 to rollouts do
 		(
-			_SubRollout	= SubRollouts.new ( s as string + r as string )
+			_SubRollout	= SubRollouts.new ( s as string + (counter_subrollouts += 1) as string )
 			
 			/* DEFINE GROUPBOX */ 
 			for g = 1 to r do -- every rollout has 1 groupbox more then before
 			(
-				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + g as string)
+				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + (counter_groupboxes += 1) as string)
 				
 				/* DEFINE CONTROLS */ 
-				for c = 1 to r+1 do
-					Controls.button ("Button " + s as string +"" + r as string +""+ g as string +"" + c as string )
+				for c = 1 to r do
+					Controls.button ("Button " + s as string +"" + r as string +""+ counter_groupboxes as string +"" + c as string )
 			)
 		)
 	)
@@ -70,9 +74,13 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 
 --layoutSetup()
 
-addControls groupboxes:1
 --addSubRollouts()
-addSubRollouts subrollouts:1 rollouts:4
+--addControls groupboxes:1
+--addSubRollouts subrollouts:1 rollouts:1
+--addSubRollouts subrollouts:2 rollouts:3
+addControls groupboxes:1
+--addSubRollouts subrollouts:3 rollouts:2
+--addControls groupboxes:3
 
 
 /* CREATE ROLLOUT */
@@ -86,4 +94,4 @@ _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 _Rollout.Layout.fitSubrollouts()
 
-_Rollout.setRolloutWidth()
+--_Rollout.setRolloutWidth()

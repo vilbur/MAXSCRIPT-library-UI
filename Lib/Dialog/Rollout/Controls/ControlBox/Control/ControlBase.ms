@@ -5,14 +5,14 @@
 	__construct = #( #type ),
 	type,
 	caption,
+	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width ), #( 64 ) )
 	
 	/* dependency */
-	--Id         = ControlId_v	Parent_Control:this,
 	Id,
 	Events     = ControlEvents_v	Parent_Control:this,
-	Properties = Properties_v	Parent_Control:this,
 	_Parameters = Params_v(),
-	parameters_create,
+	--Properties = Properties_v	Parent_Control:this,
+	
 
 	/* reference */
 	ControlBox,
@@ -91,10 +91,10 @@
 		this._setCaption()
 	
 		Id = ControlId_v	Parent_Control:this id:id
-		--format "parameters_create = % \n" parameters_create
+		--format "init_parameters = % \n" init_parameters
 		--this.params columns:4
 		--this._setValue()
-		_Parameters.getOrSet parameters_create[1] parameters_create[2]
+		--_Parameters.getOrSet init_parameters[1] init_parameters[2]
 		--this.Events.setDefaultEvents()
 		
 		this._addToControls()

@@ -67,7 +67,7 @@ struct Params_v
 	 */
 	function getVal key =
 	(
-		--format "Params_v.getVal key = % \n" (List.getVal key)
+		format "Params_v.getVal key = % \n" (List.getVal key)
 		List.getVal key   -- return
 	),
 	

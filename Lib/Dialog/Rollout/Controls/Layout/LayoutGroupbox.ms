@@ -15,6 +15,7 @@
 	 */
 	function setGroupboxDimensions &Groupbox =
 	(
+		print "Layout.setGroupboxDimensions()"
 		--Groupbox.params pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
 		Groupbox._Parameters.getOrSet #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height + padding) )
 	),
@@ -55,10 +56,14 @@
 	
 	/** _offset groubox
 	 */
-	function _offsetGroubox Groupbox offset =
+	function _offsetGroubox ControlBox offset =
 	(
-		Groupbox.offsetGroupbox [0, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
+		print("LayoutGroupbox.ms _offsetGroubox()")
+		--format "ControlBox = % \n" ControlBox
+		ControlBox.offsetGroupbox [0, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
 		
-		offset += (Groupbox.property height:#get)
+		--offset += (ControlBox.property height:#get)
+		
+		offset --return
 	),
 	

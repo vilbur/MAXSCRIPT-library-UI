@@ -6,7 +6,7 @@
 	 */
 	function setControlDimensions &Control =
 	(
-		--format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
+		format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
 		--Dimensions	= this._getControlDimensions Control
 		--format "Dimensions = %\n" Dimensions
 		_width  = this._getControlWidth  Control

@@ -12,7 +12,6 @@ struct LayoutControls
   *
   * @property	int	padding	of groupbox
   * @property	Point2	margin	between controls
-  * @p
   *
   */
 struct Layout_v
@@ -62,15 +61,15 @@ struct Layout_v
 		format "subrollouts_count   = % \n" subrollouts_count
 		format "slot_height         = % \n" slot_height
 		format "offset              = % \n" offset
-		--
-		--if( offset == undefined ) then
-		--	return false
-		--	
-		--for Control_or_Rollout in Controlboxes_and_Subrollouts do
-		--	if( this._getType Control_or_Rollout == "subrollouts" ) then
-		--		offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
-		--	else
-		--		offset = this._offsetGroubox Control_or_Rollout offset
+		
+		if( offset == undefined ) then
+			return false
+			
+		for Control_or_Rollout in Controlboxes_and_Subrollouts do
+			if( this._getType Control_or_Rollout == "subrollouts" ) then
+				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
+			else
+				offset = this._offsetGroubox Control_or_Rollout offset
 	),
 
 	/** Get rollout width
