@@ -111,14 +111,14 @@ struct ControlBox_v
 		
 		for Control in Controls do
 		(
-			format "Control = % \n" Control._Parameters
-			--pos     Control._Parameters.getVal #pos
+			--format "Control = % \n" Control._Parameters
+			pos    = Control._Parameters.getVal #pos
 			--format "pos = % \n" pos
-			--offset  = pos - pos_box_current
+			offset  = pos - pos_box_current
 		
-			--pos_new = new_pos + offset
+			pos_new = new_pos + offset
 		
-		--	Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
+			Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
 		)
 	),
 	
@@ -150,7 +150,7 @@ struct ControlBox_v
 	 */
 	function _addControls =
 	(
-		print ("------------\nControlBox_v._addControls()" )
+		--print ("------------\nControlBox_v._addControls()" )
 
 		--format "Controls.count = % \n" Controls.count
 		for Control in Controls do
@@ -162,7 +162,7 @@ struct ControlBox_v
 	 */
     function _addControl Control =
     (
-		format "ControlBox._addControl %\n" (Control.Id.get()) as string 
+		--format "ControlBox._addControl %\n" (Control.Id.get()) as string 
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control

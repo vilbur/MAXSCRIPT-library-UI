@@ -6,9 +6,8 @@
 	 */
 	function setControlDimensions &Control =
 	(
-		format "------------\nLayout.setControlDimensions %\n" (Control.id.get())
-		--Dimensions	= this._getControlDimensions Control
-		--format "Dimensions = %\n" Dimensions
+		format "------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
+		
 		_width  = this._getControlWidth  Control
 		height = this._getControlHeight Control
 		
@@ -64,6 +63,7 @@
 	 */
 	function _getControlWidth Control =
 	(
+		--print "LayoutControl.ms _getControlWidth()"
 		_width = Control._Parameters.getVal #width
 		
 		if( _width == undefined ) then
@@ -76,6 +76,7 @@
 	 */
 	function _getControlHeight Control =
 	(
+		--print "LayoutControl.ms _getControlHeight()"
 		height = Control._Parameters.getVal #height
 
 		if( height == undefined ) then
@@ -88,7 +89,7 @@
 	 */
 	function _getControlPos Control _width =
 	(
-		--format "HOTFIX LayoutControl.ms._getControlPos()\n"
+		--print "HOTFIX LayoutControl.ms _getControlPos()"
 		pos = Control._Parameters.getVal #pos
 		
 		if( pos == undefined ) then

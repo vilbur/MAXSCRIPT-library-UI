@@ -5,22 +5,22 @@
 	__construct = #( #type ),
 	type,
 	caption,
+
+	/* properties */ 
+	name_of_value_param	= #value,
 	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width ), #( 64 ) )
+	--value,
 	
 	/* dependency */
 	Id,
 	Events     = ControlEvents_v	Parent_Control:this,
 	_Parameters = Params_v(),
-	--Properties = Properties_v	Parent_Control:this,
+	Properties = Properties_v	Parent_Control:this,
 	
 
 	/* reference */
 	ControlBox,
 
-	/* properties */ 
-	name_of_value_param	= #value,
-	value,
-	
 	/* options */
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 
@@ -76,12 +76,12 @@
 
 	private
 
-	/**  Init Control struct
+	/** Init Control struct
 	  * Shared with all control types
 	 */
 	function _init = 
 	(
-		--format "ControlOnCreate.ms on init()\n"
+		--print "ControlOnCreate.ms _init()"
 		this._setType()
 		--format "id = % \n" id
 		this.Events.setEventTypes()
@@ -94,8 +94,10 @@
 		--format "init_parameters = % \n" init_parameters
 		--this.params columns:4
 		--this._setValue()
-		--_Parameters.getOrSet init_parameters[1] init_parameters[2]
-		--this.Events.setDefaultEvents()
+		
+		_Parameters.getOrSet init_parameters[1] init_parameters[2]
+		
+		this.Events.setDefaultEvents()
 		
 		this._addToControls()
 	),

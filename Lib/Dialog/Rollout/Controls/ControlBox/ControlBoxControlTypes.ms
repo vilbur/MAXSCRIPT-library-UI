@@ -51,7 +51,7 @@ function _setControlTypeMethods =
 		execute ("groupbox_global["+groupbox_global_id+"]."+control_types[i] as string +" =
 					function button caption id: "+params_passed+" =
 					( "+
-						control_types[i] as string +"_v id:id caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] init_parameters:"+params_matrix + 
+						control_types[i] as string +"_v id:id caption:caption ControlBox:groupbox_global["+groupbox_global_id+"] init_parameters:" + params_matrix + 
 					")"
 				)
 	)

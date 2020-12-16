@@ -21,25 +21,25 @@
 				Controlbox_or_Subrollouts.addSubRollouts()
 	),
 	
-	/** Fit subrollouts
-	 */
-	function fitSubrollouts =
-	(
-		format "\n" 
-		print ("RolloutSubrollouts.ms.fitSubrollouts() " + id as string )
-		--format "Controlboxes_and_Subrollouts = % \n" Controlboxes_and_Subrollouts
-	
-		Layout.fitSubrollouts()
-		
-		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-			if ( this.isSubrollouts Controlbox_or_Subrollouts ) then
-				Controlbox_or_Subrollouts.fitSubrollouts()
-			else
-			(
-				--format "Controlbox_or_Subrollouts = % \n" Controlbox_or_Subrollouts
-				--print ("Groupbox " + Controlbox_or_Subrollouts.id as string )
-			)
-	),
+	--/** Fit subrollouts
+	-- */
+	--function fitSubrollouts =
+	--(
+	--	format "\n" 
+	--	print ("RolloutSubrollouts.ms.fitSubrollouts() " + id as string )
+	--	--format "Controlboxes_and_Subrollouts = % \n" Controlboxes_and_Subrollouts
+	--
+	--	Layout.fitSubrollouts()
+	--	
+	--	for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+	--		if ( this.isSubrollouts Controlbox_or_Subrollouts ) then
+	--			Controlbox_or_Subrollouts.fitSubrollouts()
+	--		else
+	--		(
+	--			--format "Controlbox_or_Subrollouts = % \n" Controlbox_or_Subrollouts
+	--			--print ("Groupbox " + Controlbox_or_Subrollouts.id as string )
+	--		)
+	--),
 	
 	/** Is subrollout class
 	 */

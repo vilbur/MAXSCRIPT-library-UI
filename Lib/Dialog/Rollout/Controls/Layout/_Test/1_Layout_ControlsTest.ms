@@ -12,7 +12,7 @@ controls_1    = _Rollout.Controls.new()
  */
 function addRolloutByCodeTest =
 (
-	for i = 1 to 10 do
+	for i = 1 to 3 do
 		controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 )
 

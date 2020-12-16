@@ -39,6 +39,8 @@ struct Layout_v
 	 */
 	function fitSubrollouts =
 	(
+		print "Layout.fitSubrollouts()"
+
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
 		dialog_height     = (Parent_roll.property height:#get) as integer
@@ -52,7 +54,7 @@ struct Layout_v
 		offset            = 0
 
 		
-		format "Layout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
+		format "Controlboxes_and_Subrollouts.count = % \n" Controlboxes_and_Subrollouts.count
 		format "dialog_height       = % \n" dialog_height
 		format "fixed_heights       = % \n" fixed_heights
 		format "fixed_heights.count = % \n" fixed_heights.count
@@ -71,7 +73,20 @@ struct Layout_v
 			else
 				offset = this._offsetGroubox Control_or_Rollout offset
 	),
+	
+	/** Analyze layout
+	 */
+	function _getFixedSizes Controlboxes_and_Subrollouts =
+	(
+		height_fixed = #()
+		
+		for Control_or_Rollout in Controlboxes_and_Subrollouts do
+			if ( (height = Control_or_Rollout.property height:#get) > 0 ) then 
+				append height_fixed height
 
+		height_fixed --return
+	),
+	
 	/** Get rollout width
 	 */
 	function getRolloutWidth =

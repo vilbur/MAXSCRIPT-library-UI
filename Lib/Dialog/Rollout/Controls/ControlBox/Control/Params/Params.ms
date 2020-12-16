@@ -1,6 +1,6 @@
 /** Control Params http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
   * 
-  * @method	propertySet	Set any property to rollout
+  * Params_v is for store, get and set parameters
   * 
  */
 struct Params_v
@@ -8,8 +8,8 @@ struct Params_v
 	--__construct = #(#Parent_Control),
 	
 	/* reference */
-	keys	= #(),
-	values	= #(),
+	keys	= #(), -- array used in List_v
+	values	= #(), -- array used in List_v
 	
 	List	= List_v keys:keys values:values,
 
@@ -67,7 +67,9 @@ struct Params_v
 	 */
 	function getVal key =
 	(
-		format "Params_v.getVal key = % \n" (List.getVal key)
+		--format "Params_v.getVal key = % \n" key as string
+		--format "values = % \n" values
+		--format "Params_v.getVal key = % \n" (List.getVal key)
 		List.getVal key   -- return
 	),
 	
@@ -89,6 +91,8 @@ struct Params_v
 			_params = _params + " " + List.keys[k] +":"+ this._getFormat List.values[k]
 		
 		--format "Params_v.join %\n" _params
+		--format "keys   = % \n" keys
+		--format "values = % \n" values
 		_params --return
 	),
 	
