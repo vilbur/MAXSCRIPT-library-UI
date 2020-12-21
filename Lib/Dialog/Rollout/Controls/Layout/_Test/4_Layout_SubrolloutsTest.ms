@@ -1,7 +1,6 @@
 clearListener()
 
---filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../../../../Dialog.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
 
 /* ROLLOUT DEFINITION */
 global _Rollout = Rollout_v title:(filenameFromPath(getSourceFileName()))
@@ -13,6 +12,7 @@ global counter_groupboxes  = 0
 global counter_controls    = 0
 
 /** Layout setup
+  * Make UI big
  */
 function layoutSetup =
 (
@@ -33,7 +33,7 @@ function addControls groupboxes:1 =
 	(
 		Controls = _Rollout.Controls.new groupbox:("Groupbox " + (counter_groupboxes += 1) as string)
 		
-		for i = 1 to g do
+		for i = 1 to g + 2 do
 			Controls.button ("Button "+counter_groupboxes as string +"."+i as string )
 	)
 )
@@ -68,30 +68,29 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 
 
 
+
+
 /*------------------------------------------------------------------------------
 	RUN TESTS
 --------------------------------------------------------------------------------*/
 
---layoutSetup()
+layoutSetup()
 
---addSubRollouts()
---addControls groupboxes:1
-addSubRollouts subrollouts:1 rollouts:1
---addSubRollouts subrollouts:2 rollouts:3
---addControls groupboxes:1
---addSubRollouts subrollouts:3 rollouts:2
---addControls groupboxes:3
+addControls    groupboxes:1
+addSubRollouts subrollouts:2 rollouts:1
+addControls    groupboxes:1
+addSubRollouts subrollouts:1 rollouts:3
 
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:720
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 _Rollout.Layout.fitSubrollouts()
 
---_Rollout.setRolloutWidth()
+_Rollout.setRolloutWidth()

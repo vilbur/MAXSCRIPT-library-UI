@@ -179,7 +179,7 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		"subRollout "+id+" \"slot_name\" height:0" -- HOTFIX set mininum height
+		"subRollout "+id+" \"slot_name\" height:0" -- set 0 height for auto recognition in Layout_v._getFixedSizes()
 		--"subRollout "+id+" \"slot_name\"" --return
 	),
 

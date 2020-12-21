@@ -60,9 +60,9 @@ struct Dialog_v
 
 		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
-		--_RolloutMain.fitSubrollouts()
+		_RolloutMain.Layout.fitSubrollouts()
 		
-		--_RolloutMain.setRolloutWidth()
+		_RolloutMain.setRolloutWidth()
 	),
 	
 	/** rollouts
