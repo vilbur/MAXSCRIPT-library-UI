@@ -45,7 +45,8 @@ struct Rollout_v
 	id,
 
 	/* properties */
-	slot_id = 0,
+	slot_id   = 0,
+	width_min = 128,
 	
 	/* dependency */
 	RolloutCreator,
@@ -94,7 +95,7 @@ struct Rollout_v
 		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
 		--format "Rollout_v.setRolloutWidth() % \n" id
 		max_width = this._getMaxWidthOfNestedElements()
-		
+
 		if ( this._isParentRoll() == true ) then 
 			this.property width:(max_width + 18)
 
@@ -160,8 +161,20 @@ struct Rollout_v
 				append widths (Controlbox_or_Subrollouts.property width:#get)
 			else
 				append widths (Controlbox_or_Subrollouts.setRolloutsWidth())
-				
-		amax widths --return
+
+		this._getMaxWidth widths --return
+	),
+	
+	/** Get widest rollout
+	  * 
+	  * @return	int max element in rollout, or minimal width if dialog is empty
+	 */
+	function _getMaxWidth widths =
+	(
+		if( widths.count > 0 ) then
+			amax widths --return
+		else
+			width_min   --return
 	),
 	
 	/** Set id by title if not defined
@@ -197,6 +210,7 @@ struct Rollout_v
 		try( execute("cui.UnRegisterDialogBar " + id) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
 	),
+	
 	/** Test if this rollout is subrollout
 	 */
 	function _isParentRoll =
