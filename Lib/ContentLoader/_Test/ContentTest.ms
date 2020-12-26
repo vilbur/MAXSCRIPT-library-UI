@@ -17,9 +17,9 @@ function loadContentTest =
 	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
 	--Content.setControlsToUI Dialog
 
-	--Content_nested	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
-	Content_nested	= (Content_v dir:(current_dir+"/Dialog-level")	).load()	
-	Content_nested.craeteDialog Dialog
+	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
+	Content	= Content_v dir:(current_dir+"/Dialog-level")
+	Content.craeteDialog Dialog
 )
 
 /** Add extra rollout
