@@ -6,7 +6,7 @@
 	 */
 	function setControlDimensions &Control =
 	(
-		format "------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
+		--format "------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
 		
 		_width  = this._getControlWidth  Control
 		height = this._getControlHeight Control

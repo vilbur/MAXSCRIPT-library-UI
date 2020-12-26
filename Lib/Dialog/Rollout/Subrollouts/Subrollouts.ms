@@ -21,7 +21,7 @@ struct Subrollouts_v
      */
     function new title =
     (
-        print("Subrollouts.new() title " +title)
+        --print("Subrollouts.new() title " +title)
 		new_subrollout = Parent_roll.newSubrollout title
 		
 		new_subrollout.Parent_Subrollouts = this
@@ -65,7 +65,7 @@ struct Subrollouts_v
 	 */
 	function fitSubrollouts =
 	(
-		print "Subrollouts_v.fitSubrollouts()"
+		--print "Subrollouts_v.fitSubrollouts()"
 		--format "Rollouts = % \n" Rollouts.count
 		for _Rollout in Rollouts do
 			_Rollout.fitSubrollouts()
@@ -198,10 +198,10 @@ struct Subrollouts_v
 	 */
 	on create do
 	(
-		print"-----------------"
-		format "Parent_roll.id = % \n" Parent_roll.id
-		format "this.id = % \n" this.id
-		format "this.getId() = % \n" (this.getId())
+		--print"----------------- Subrollouts_v"
+		--format "Parent_roll.id = % \n" Parent_roll.id
+		--format "this.id = % \n" this.id
+		--format "this.getId() = % \n" (this.getId())
 	)
 		
 		

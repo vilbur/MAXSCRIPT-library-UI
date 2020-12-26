@@ -28,6 +28,9 @@ filein( getFilenamePath(getSourceFileName()) + "/Rollout/RolloutContent.ms" )
   *			Subdir-2\
   *				rollout-C\
   *
+  *
+  *
+  *
   */
 struct Content_v
 (
@@ -55,11 +58,11 @@ struct Content_v
 	/** Set controls to
 	  * @param	__[Dialog](../Dialog)__
 	 */
-	function setControlsToUI Dialog =
+	function craeteDialog Dialog =
 	(
 		--print "Content.setControlsToUI()"
 
-		RolloutContent.addToUi Rollouts:Rollouts Dialog:Dialog
+		RolloutContent.addToUi Dialog:Dialog
 		
 		Dialog.create()
 	),

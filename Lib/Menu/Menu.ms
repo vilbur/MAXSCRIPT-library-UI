@@ -90,7 +90,7 @@ struct Menu_v
 	function _getDefinitionsOfMenuItems =
 	(
 		_definition	= ""
-		format "items.count = % \n" items.count
+		--format "items.count = % \n" items.count
 		for item in items do
 			_definition += item.create ""
 			

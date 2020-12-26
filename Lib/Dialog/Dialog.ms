@@ -96,7 +96,6 @@ struct Dialog_v
 	 */
 	function _setIniFile =
 	(
-		format "id = % \n" id
 		if( Ini.dir #get == undefined ) then
 			Ini.dir (( pathConfig.GetDir #temp ) + "\ini-files")
 		

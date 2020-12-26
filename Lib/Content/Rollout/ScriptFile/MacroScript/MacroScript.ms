@@ -48,8 +48,8 @@ struct MacroScript_Content_v
 	 */
 	function _addControls _Controls =
 	(
-		format "\n"
-		print "HOTFIX MacroScript._addControls()"
+		--format "\n"
+		--print "MacroScript._addControls()"
 		----format " _macroScript	= % \n" _macroScript
 		control_id	=  this.getControlId()
 		--format " control_id	= % \n" control_id

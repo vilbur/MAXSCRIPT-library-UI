@@ -39,7 +39,7 @@ struct Layout_v
 	 */
 	function fitSubrollouts =
 	(
-		print "Layout.fitSubrollouts()"
+		--print "Layout.fitSubrollouts()"
 
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
@@ -54,15 +54,15 @@ struct Layout_v
 		offset            = 0
 
 		
-		format "Controlboxes_and_Subrollouts.count = % \n" Controlboxes_and_Subrollouts.count
-		format "dialog_height       = % \n" dialog_height
-		format "fixed_heights       = % \n" fixed_heights
-		format "fixed_heights.count = % \n" fixed_heights.count
-		format "fixed_height        = % \n" fixed_height
-		format "empty_space         = % \n" empty_space
-		format "subrollouts_count   = % \n" subrollouts_count
-		format "slot_height         = % \n" slot_height
-		format "offset              = % \n" offset
+		--format "Controlboxes_and_Subrollouts.count = % \n" Controlboxes_and_Subrollouts.count
+		--format "dialog_height       = % \n" dialog_height
+		--format "fixed_heights       = % \n" fixed_heights
+		--format "fixed_heights.count = % \n" fixed_heights.count
+		--format "fixed_height        = % \n" fixed_height
+		--format "empty_space         = % \n" empty_space
+		--format "subrollouts_count   = % \n" subrollouts_count
+		--format "slot_height         = % \n" slot_height
+		--format "offset              = % \n" offset
 		
 		if( offset == undefined ) then
 			return false

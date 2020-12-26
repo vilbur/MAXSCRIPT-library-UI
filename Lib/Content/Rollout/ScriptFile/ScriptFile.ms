@@ -60,7 +60,7 @@ struct ScriptFile_Content_v
 				MacroScripts[m]._addControls _controls
 		)
 		else
-			this._runScriptFile()
+			this._fileIn()
 	),
 	
 	--/** Add groupbox
@@ -98,23 +98,23 @@ struct ScriptFile_Content_v
 	 */
 	function _getGroupboxName =
 	(
-		if ( this.hasGroupbox() ) then
+		--if ( this.hasGroupbox() ) then
 			( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+" ).Replace ( trimLeft ( trimRight (getFilenameFile file) "_" )  "_" ) " "
-		else
-			undefined
+		--else
+		--	undefined
 	),
 
-	/** If filename starts with underscore "_"
-	  * @return	boolean	
-	 */
-	function hasGroupbox =
-	(
-		( dotNetClass "System.Text.RegularExpressions.Regex" ).isMatch ( getFilenameFile file ) "^_" == false --return 
-	),
+	--/** If filename starts with underscore "_"
+	--  * @return	boolean	
+	-- */
+	--function hasGroupbox =
+	--(
+	--	( dotNetClass "System.Text.RegularExpressions.Regex" ).isMatch ( getFilenameFile file ) "^_" == false --return 
+	--),
 
 	/** _run script file
 	 */
-	function _runScriptFile =
+	function _fileIn =
 	(
 		--print ("FILEIN:\""+file+"\"")
 		filein file

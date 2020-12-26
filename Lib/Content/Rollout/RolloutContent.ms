@@ -23,27 +23,16 @@ struct Rollout_Content_v
 	(
 		--print ( "Rollout_Content_v.load " + dir as string )
 		this._getControlsAndRollouts (this._getDirContent())
-		--format "Rollout_Content_v.name = % \n" this.name
-		--format "ScriptFile_and_RolloutContent = % \n" ScriptFile_and_RolloutContent
 	
 		this --return
 	),
 	
 	/** Add to ui
 	 */
-	function addToUi Rollouts: Dialog: = -- HOT FIX parameter add: should be removed for cleaner code, it disallows adding of first rollout
+	function addToUi Dialog: Rollouts: =
 	(
 		--print ("Rollout_Content_v.addToUi() " + name)
-		if( Dialog == unsupplied ) then
-			
-			_Rollout	= Rollouts.new name
-		else
-			_Rollout = Dialog._RolloutMain
-		
-		
-		_Rollout	= if( Dialog == unsupplied ) then Rollouts.new name else Dialog._RolloutMain 
-		
-		
+		this._setRollout Dialog Rollouts
 		
 		for ScriptFile_or_RolloutContent in ScriptFile_and_RolloutContent do
 			if( (this._isRolloutContent ScriptFile_or_RolloutContent ) == true ) then
@@ -53,6 +42,17 @@ struct Rollout_Content_v
 				this._addGroupBoxToUi ScriptFile_or_RolloutContent
 	),
 	
+	/** If rollout
+	 */
+	function _setRollout Dialog Rollouts =
+	(
+		if( Dialog == unsupplied ) then
+			
+			_Rollout	= Rollouts.new name
+		
+		else
+			_Rollout = Dialog._RolloutMain
+	),
 		
 	/** _is rollout contet
 	 */
@@ -75,7 +75,7 @@ struct Rollout_Content_v
 	 */
 	function _addGroupBoxToUi ScriptFile =
 	(
-		print ("Rollout_Content_v._addGroupBoxToUi() ")
+		--print ("Rollout_Content_v._addGroupBoxToUi() ")
 		--format "ScriptFile = % \n" ScriptFile
 		
 		if( _Rollout != undefined ) then
@@ -84,6 +84,10 @@ struct Rollout_Content_v
 	
 	
 	
+
+
+
+
 	/** _get controls and rollouts
 	 */
 	function _getControlsAndRollouts dir_contents =
@@ -118,21 +122,21 @@ struct Rollout_Content_v
 	--	this --return
 	--),
 	
-	/** Insert rollout
-	 */
-	function insertRollout Rollouts name =
-	(
-		print "------------\nRollout.insertRollout()"
-		format " name	= % \n" name
-		format " Rollouts	= % \n" Rollouts
-		_rollout = Rollouts.new name
-		format "_rollout = % \n" _rollout
-		print ( "rollout.name = " + name as string )
-		for f=1 to ScriptFiles.count do
-			if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
-				ScriptFiles[f].addControls _rollout
-				--format " ScriptFiles[f]	= % \n" ScriptFiles[f]
-	),
+	--/** Insert rollout
+	-- */
+	--function insertRollout Rollouts name =
+	--(
+	--	print "------------\nRollout.insertRollout()"
+	--	format " name	= % \n" name
+	--	format " Rollouts	= % \n" Rollouts
+	--	_rollout = Rollouts.new name
+	--	format "_rollout = % \n" _rollout
+	--	print ( "rollout.name = " + name as string )
+	--	for f=1 to ScriptFiles.count do
+	--		if( ScriptFiles[f].hasMacroScripts() or ScriptFiles[f].isMaxscriptFile() ) then
+	--			ScriptFiles[f].addControls _rollout
+	--			--format " ScriptFiles[f]	= % \n" ScriptFiles[f]
+	--),
 	
 	private
 	
@@ -176,14 +180,5 @@ struct Rollout_Content_v
 		
 		this.load()
 		
-		--_Rollout = 
-		
 	)
 )
-
-
-
-
-
-
-

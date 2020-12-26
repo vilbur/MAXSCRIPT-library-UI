@@ -84,13 +84,13 @@ struct Properties_v
 	 */
 	function join =
 	(
-		print "Properties_v.join()"
+		--print "Properties_v.join()"
 		_props = ""
 		
 		for k=1 to List.keys.count do
 			_props = _props + " " + List.keys[k] +":"+ List.values[k] as string
 		
-		format " _props	= % \n" _props
+		--format " _props	= % \n" _props
 		_props --return
 	),
 	
@@ -113,7 +113,7 @@ struct Properties_v
      */
     function _setProperty key value =
     (
-		format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " +  this._getValueString key value )
+		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " +  this._getValueString key value )
 		execute ( (this._getPropertyString key )+ " = " + (this._getValueString key value) )
     ),
 
