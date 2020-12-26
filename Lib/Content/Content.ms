@@ -1,6 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/ScriptFile/MacroScript/MacroScript.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/ScriptFile/ScriptFile.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/Rollout/RolloutContent.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Rollout/ContentRollout.ms" )
 
 
 /** Load content to UI by file tree
@@ -49,7 +49,7 @@ struct Content_v
 	(
 		--print "Content.load()"
 
-		RolloutContent =  Rollout_Content_v dir:dir
+		RolloutContent =  ContentRollout_v dir:dir
 		--format "RolloutContent = % \n" RolloutContent
 		
 		this --return
@@ -109,7 +109,7 @@ struct Content_v
 --	function _loadDirectoryAsRollout dir_as_rollout =
 --	(
 --		format "dir_as_rollout = %\n" dir_as_rollout as string
---		Rollout_Content = Rollout_Content_v()
+--		Rollout_Content = ContentRollout_v()
 --		--formad Rollouts ( Rollout_Content.load dir_as_rollout )
 --	),
 	
