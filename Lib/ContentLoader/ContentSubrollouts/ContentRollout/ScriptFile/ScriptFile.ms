@@ -10,7 +10,7 @@
 struct ScriptFile_Content_v
 (
 	/* public properties */
-	file,
+	path,
 
 	/* private properties */
 	_name,
@@ -24,9 +24,9 @@ struct ScriptFile_Content_v
 		--print ("------------\nScriptFile.load file="+file)
 		if( this.isMacrosriptFile() ) then
 		(
-			filein file
+			filein path
 
-			this._parseMacrosInFile (this._getFileContent file)
+			this._parseMacrosInFile (this._getFileContent path)
 		)
 		this --return
 	),
@@ -71,14 +71,14 @@ struct ScriptFile_Content_v
 	 */
 	function isMaxscriptFile =
 	(
-		 getFilenameType file == ".ms" --return
+		 getFilenameType path == ".ms" --return
 	),
 
 	/** Is maxscript file
 	 */
 	function isMacrosriptFile =
 	(
-		 getFilenameType file == ".mcr" --return
+		 getFilenameType path == ".mcr" --return
 	
 	),
 	/** Has macro scripts
@@ -96,7 +96,7 @@ struct ScriptFile_Content_v
 	function _getGroupboxName =
 	(
 		--if ( this.hasGroupbox() ) then
-			( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+" ).Replace ( trimLeft ( trimRight (getFilenameFile file) "_" )  "_" ) " "
+			( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+" ).Replace ( trimLeft ( trimRight (getFilenameFile path) "_" )  "_" ) " "
 		--else
 		--	undefined
 	),
@@ -114,7 +114,7 @@ struct ScriptFile_Content_v
 	function _fileIn =
 	(
 		--print ("FILEIN:\""+file+"\"")
-		filein file
+		filein path
 	),
 
 	/** Parse MacroScripts in file

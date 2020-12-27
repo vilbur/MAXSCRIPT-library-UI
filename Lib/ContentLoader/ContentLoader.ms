@@ -1,7 +1,3 @@
-filein( getFilenamePath(getSourceFileName()) + "/ContentRollout/ScriptFile/MacroScript/MacroScript.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/ContentRollout/ScriptFile/ScriptFile.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/ContentRollout/ContentRollout.ms" )
-
 
 /** Load content to UI by file tree
   *
@@ -20,7 +16,7 @@ struct ContentLoader_v
 	dir, -- source dir of content
 	
 	/*  properties */
-	Dialog	= #(),
+	Dialog,
 	
 	/** Set controls to
 	  * @param	__[Dialog](../Dialog)__
@@ -34,9 +30,19 @@ struct ContentLoader_v
 		--Dialog.create()
 	),
 	
+	
+
+
+
+	
+	
+	
+	
+	
 	on create do
 	(
 		Dialog =  ContentRollout_v dir:dir
+		
 	)
 	
 	

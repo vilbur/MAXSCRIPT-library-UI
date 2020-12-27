@@ -2,6 +2,9 @@ filein( getFilenamePath(getSourceFileName()) + "/../Menu/Menu.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
+
+filein( getFilenamePath(getSourceFileName()) + "/../ContentLoader/ContentSubrollouts/ContentRollout/ContentRollout.ms" ) 
+filein( getFilenamePath(getSourceFileName()) + "/../ContentLoader/ContentSubrollouts/ContentSubrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../ContentLoader/ContentLoader.ms" )
 
 /** Store dialog in global variable

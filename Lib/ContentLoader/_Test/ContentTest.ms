@@ -1,11 +1,18 @@
 clearListener()
 
+/** INCLUDE UI 
+ */
 filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Dialog.ms" )
 
 
+/**  Include scripts
+ */
+filein( getFilenamePath(getSourceFileName()) + "/Dialog-level/includes.ms" )
 
-/** DEFINE FLOATER  */
+
+/** DEFINE DIALOG  */
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
+
 
 /** Load content from file tree
  */
@@ -18,7 +25,7 @@ function loadContentTest =
 	--Content.setControlsToUI Dialog
 
 	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
-	Content	= Content_v dir:(current_dir+"/Dialog-level")
+	Content	= ContentLoader_v dir:(current_dir+"/Dialog-level")
 	Content.craeteDialog Dialog
 )
 
