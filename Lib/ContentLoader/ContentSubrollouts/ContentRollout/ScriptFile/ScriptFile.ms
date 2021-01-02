@@ -13,7 +13,7 @@ struct ScriptFile_Content_v
 	path,
 
 	/* private properties */
-	_name,
+	name,
 	MacroScripts	= #(),
 	_MacroScript,	-- store currently parsed Macro file
 
@@ -42,22 +42,22 @@ struct ScriptFile_Content_v
 	 */
 	function addToUi _Rollout =
 	(
-		--print ( "HOTFIX ScriptFile_Content.addToUi()" )
+		print ( "ScriptFile_Content.addToUi()" )
 
-		--_name	= if( _name==undefined )then "" else "";
-		
-		if( this.isMacrosriptFile() ) then
-		(
-			--format " _Rollout	= % \n" _Rollout
-			--format "this._getGroupboxName() = % \n" (this._getGroupboxName())
-			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-			--format " _controls = % \n" _controls
-		
-			for m = 1 to MacroScripts.count do
-				MacroScripts[m]._addControls _controls
-		)
-		else
-			this._fileIn()
+		----name	= if( name==undefined )then "" else "";
+		--
+		--if( this.isMacrosriptFile() ) then
+		--(
+		--	--format " _Rollout	= % \n" _Rollout
+		--	--format "this._getGroupboxName() = % \n" (this._getGroupboxName())
+		--	_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+		--	--format " _controls = % \n" _controls
+		--
+		--	for m = 1 to MacroScripts.count do
+		--		MacroScripts[m]._addControls _controls
+		--)
+		--else
+		--	this._fileIn()
 	),
 	
 	--/** Add groupbox
@@ -166,9 +166,20 @@ struct ScriptFile_Content_v
 		lines --return
 	),
 
+
+	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
+	 */
+	function _setName =
+	(
+		name = getFilenameFile path
+	),
+	
 	on create do
 	(
-		--print "ScriptFile_Content_v.onCreate()"
-		this.load()
+		this._setName()
+		--format "\n"
+		print ("ScriptFile_Content_v.onCreate " + name )
+
+		--this.load()
 	)
 )

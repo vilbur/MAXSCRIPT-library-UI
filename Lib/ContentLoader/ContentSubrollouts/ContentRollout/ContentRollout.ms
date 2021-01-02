@@ -7,27 +7,41 @@
 struct ContentRollout_v
 (
 	/* required properties */
-	dir,
+	path,
 	
 	/*  properties */
 	name,
 	
-	UI_elements = #(), -- store groupboxes and rollouts
+	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
+	
+	
+	/** Insert to ui
+	 */
+	function addToUi =
+	(
+		format "\n"
+		print ( "ContentRollout_v.addToUi()" )
+
+		for Subrollouts_or_Controls in Subrollouts_and_Controls do
+			Subrollouts_or_Controls.addToUI this
+			
+	),
+		
+	
 	private
 	
 	/** _get controls and rollouts
 	 */
-	function _setControlsAndRollouts paths =
+	function _setControlsAndSubrollouts paths =
 	(
 		format "\n"
-		print ("ContentRollout_v._setControlsAndRollouts() " + name)
-		--format "paths = % \n" paths
-		for path in paths do  --DEBUG
-			format "path = % \n" (filenameFromPath path)
+		print ("ContentRollout_v._setControlsAndSubrollouts() " + name)
+		--for path in paths do  --DEBUG
+			--format "path = % \n" (filenameFromPath path)
 		
 		for path in paths do
-			append UI_elements (this._getGroupboxOrSubrollout path)
+			append Subrollouts_and_Controls (this._getGroupboxOrSubrollout path)
 	),
 	
 	/** _get control or rollout
@@ -35,7 +49,7 @@ struct ContentRollout_v
 	function _getGroupboxOrSubrollout path =
 	(
 		--print ("ContentRollout_v._getGroupboxOrSubrollout " + (filenameFromPath path))
-
+	
 		if( this._isSubrolloutsSlot path == true  ) then
 			--format "Subrollouts = % \n" (filenameFromPath path)
 			ContentSubrollouts_v path:path      -- return
@@ -43,6 +57,15 @@ struct ContentRollout_v
 			ScriptFile_Content_v path:path	-- return
 	),
 	
+	/** Find out if path is subrollouts slot
+	  *
+	  * @return	boolean	
+	 */
+	function _isSubrolloutsSlot path =
+	(
+		matchPattern ( filenameFromPath path ) pattern:"rollouts-*" ignoreCase:true --return
+	),
+		
 	/** Get full paths of directories and files in this.dir
 	  *
 	  * @return	array of paths	sorted alphabetically
@@ -56,17 +79,20 @@ struct ContentRollout_v
 	 */
 	function _getSubDirs =
 	(
-		getDirectories (dir + "/*") --return
+		getDirectories (path + "/*") --return
 	),
 	
+
+
+
 	/** Get macro files
 	 */
 	function _getMacroFiles =
 	(
-		--sort ( join (getFiles (dir + "/*.mcr")) (getFiles (dir + "/*.ms")) ) --return
-		sort ( getFiles (dir + "/*.mcr")) --return
+		--sort ( join (getFiles (path + "/*.mcr")) (getFiles (path + "/*.ms")) ) --return
+		sort ( getFiles (path + "/*.mcr")) --return
 	),
-
+	
 	/** Find out if path is direcotry
 	  *
 	  * @return	boolean	
@@ -75,21 +101,16 @@ struct ContentRollout_v
 	(
 		getFilenameType path == "" --return
 	),
+
 	
-	/** Find out if path is subrollouts slot
-	  *
-	  * @return	boolean	
-	 */
-	function _isSubrolloutsSlot path =
-	(
-		matchPattern ( filenameFromPath path ) pattern:"rollouts-*" ignoreCase:true --return
-	),
+	
+	
 	
 	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
 	 */
 	function _setName =
 	(
-		name = filenameFromPath dir
+		name = getFilenameFile path
 	),
 
 	/** 1) Remove invalid characters, valid characters: "A-Za-z0-9-_"
@@ -106,10 +127,8 @@ struct ContentRollout_v
 		
 		this._setName()
 		this._sanitizeName()
-		--print ("ContentRollout_v.onCreate " + name)
+		print ("ContentRollout_v.onCreate " + name)
 		
-		this._setControlsAndRollouts(this._getPathsInDir())
-		
-		--format "UI_elements.count = % \n" UI_elements.count
+		this._setControlsAndSubrollouts(this._getPathsInDir())
 	)
 )

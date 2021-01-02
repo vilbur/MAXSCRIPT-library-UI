@@ -1,3 +1,9 @@
+filein( getFilenamePath(getSourceFileName()) + "/../Dialog/Dialog.ms" )
+
+	
+filein( getFilenamePath(getSourceFileName()) + "/ContentSubrollouts/ContentRollout/ScriptFile/ScriptFile.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/ContentSubrollouts/ContentRollout/ContentRollout.ms" ) 
+filein( getFilenamePath(getSourceFileName()) + "/ContentSubrollouts/ContentSubrollouts.ms" )
 
 /** Load content to UI by file tree
   *
@@ -13,35 +19,45 @@
 struct ContentLoader_v
 (
 	/* required properties */
-	dir, -- source dir of content
+	path, -- source dir of content
 	
 	/*  properties */
+	name,
 	Dialog,
+	ContentRollout,
 	
 	/** Set controls to
 	  * @param	__[Dialog](../Dialog)__
 	 */
-	function craeteDialog Dialog =
+	function craeteDialog =
 	(
 		--print "Content.setControlsToUI()"
 
 		--Dialog.addToUi Dialog:Dialog
 		
-		--Dialog.create()
+		ContentRollout.addToUi()
+
+			--format "content = % \n" content
+		
+		Dialog.create()
 	),
 	
-	
-
-
-
-	
-	
-	
-	
+	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
+	 */
+	function _setName =
+	(
+		name = getFilenameFile path
+	),
 	
 	on create do
 	(
-		Dialog =  ContentRollout_v dir:dir
+		this._setName()
+		
+		Dialog	= Dialog_v title:name
+			
+		ContentRollout =  ContentRollout_v path:path
+		
+		this.craeteDialog()
 		
 	)
 	
@@ -49,3 +65,4 @@ struct ContentLoader_v
 	
 	
 )
+
