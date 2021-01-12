@@ -15,20 +15,6 @@ struct ContentRollout_v
 	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
 	
-	
-	/** Insert to ui
-	 */
-	function addToUi =
-	(
-		format "\n"
-		print ( "ContentRollout_v.addToUi()" )
-
-		for Subrollouts_or_Controls in Subrollouts_and_Controls do
-			Subrollouts_or_Controls.addToUI this
-			
-	),
-		
-	
 	private
 	
 	/** _get controls and rollouts
@@ -106,6 +92,7 @@ struct ContentRollout_v
 	
 	
 	
+	
 	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
 	 */
 	function _setName =
@@ -124,9 +111,9 @@ struct ContentRollout_v
 	
 	on create do
 	(
-		
 		this._setName()
 		this._sanitizeName()
+		
 		print ("ContentRollout_v.onCreate " + name)
 		
 		this._setControlsAndSubrollouts(this._getPathsInDir())

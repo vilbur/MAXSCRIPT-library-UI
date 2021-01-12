@@ -200,7 +200,7 @@ struct Rollout_v
 	  */
 	function _setGlobalVariable =
 	(
-		--execute ( "global "+ id +" = undefined")
+		execute ( "global "+ id +" = undefined")
 	),
 
 	/** Try destroy dialog by global variable before variable will be overwritten
