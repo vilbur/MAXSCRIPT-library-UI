@@ -10,6 +10,18 @@ struct ContentSubrollouts_v
 	slot,
 	Rollouts	= #(),
 
+	/** Add to ui
+	 */
+	function addToUi _Rollout =
+	(
+		print ("ContentSubrollouts_v.addToUi() " + (filenameFromPath path) )
+		
+		Subrollouts = _Rollout.subrollouts()
+		--Rollout_A	= Subrollouts.new "Rollout A"
+		
+		for ContentRollout in Rollouts do
+			ContentRollout.addToUi Subrollouts
+	),
 	
 	--/** Insert to ui
 	-- */

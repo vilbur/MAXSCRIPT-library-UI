@@ -1,3 +1,6 @@
+filein( getFilenamePath(getSourceFileName()) + "/../ContentSubrollouts.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/ScriptFile/ScriptFile.ms" )
+
 /** Create rollout from dir containing ".ms" & ".mcr" files
  * 
  * @property	string	dir	Path to dir
@@ -14,17 +17,24 @@ struct ContentRollout_v
 	
 	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
+	folder_prefix = "rollouts-*",
+	
+	/** Add to ui
+	 */
+	function addToUi Subrollouts =
+	(
+		print ("ContentRollout_v.addToUi() " + name )
+		_Rollout	= Subrollouts.new name
+	),
 	
 	private
-	
+
 	/** _get controls and rollouts
 	 */
-	function _setControlsAndSubrollouts paths =
+	function _loadContentFromDir paths =
 	(
 		format "\n"
-		print ("ContentRollout_v._setControlsAndSubrollouts() " + name)
-		--for path in paths do  --DEBUG
-			--format "path = % \n" (filenameFromPath path)
+		print ("ContentRollout_v._loadContentFromDir() " + name)
 		
 		for path in paths do
 			append Subrollouts_and_Controls (this._getGroupboxOrSubrollout path)
@@ -34,10 +44,8 @@ struct ContentRollout_v
 	 */
 	function _getGroupboxOrSubrollout path =
 	(
-		--print ("ContentRollout_v._getGroupboxOrSubrollout " + (filenameFromPath path))
-	
-		if( this._isSubrolloutsSlot path == true  ) then
-			--format "Subrollouts = % \n" (filenameFromPath path)
+		if( this._isSubrolloutsSlot path == true  )
+		then
 			ContentSubrollouts_v path:path      -- return
 		else
 			ScriptFile_Content_v path:path	-- return
@@ -49,7 +57,7 @@ struct ContentRollout_v
 	 */
 	function _isSubrolloutsSlot path =
 	(
-		matchPattern ( filenameFromPath path ) pattern:"rollouts-*" ignoreCase:true --return
+		matchPattern ( filenameFromPath path ) pattern:folder_prefix ignoreCase:true --return
 	),
 		
 	/** Get full paths of directories and files in this.dir
@@ -97,7 +105,7 @@ struct ContentRollout_v
 	 */
 	function _setName =
 	(
-		name = getFilenameFile path
+		name = filenameFromPath path
 	),
 
 	/** 1) Remove invalid characters, valid characters: "A-Za-z0-9-_"
@@ -116,6 +124,6 @@ struct ContentRollout_v
 		
 		print ("ContentRollout_v.onCreate " + name)
 		
-		this._setControlsAndSubrollouts(this._getPathsInDir())
+		this._loadContentFromDir(this._getPathsInDir())
 	)
 )

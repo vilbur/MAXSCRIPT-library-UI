@@ -27,7 +27,7 @@ struct Dialog_v
 	title,
 
 	/* dependency */
-	_RolloutMain,
+	RolloutMain,
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
@@ -50,25 +50,25 @@ struct Dialog_v
 	 */
 	function create width:1024 height:512 pos: =
 	(		
-		_RolloutMain.createRollout() -- create all rollouts and subrollouts
+		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
-		Dialog = _RolloutMain.RolloutCreator.getDefinition()
+		Dialog = RolloutMain.RolloutCreator.getDefinition()
 	
-		--CreateDialog ( Dialog ) width:(_RolloutMain.Layout.getRolloutWidth()) height:height
+		--CreateDialog ( Dialog ) width:(RolloutMain.Layout.getRolloutWidth()) height:height
 		CreateDialog Dialog width:width height:height menu:(Menu.create "MainMenu")
 
-		_RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
+		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
-		_RolloutMain.Layout.fitSubrollouts()
+		RolloutMain.Layout.fitSubrollouts()
 		
-		_RolloutMain.setRolloutWidth()
+		--RolloutMain.setRolloutWidth()
 	),
 	
 	/** rollouts
      */
     function rollouts =
     (
-        _RolloutMain.subrollouts() --return
+        RolloutMain.subrollouts() --return
     ),
 		
 	private
@@ -77,7 +77,7 @@ struct Dialog_v
 	 */
 	function _setMainRollout =
 	(
-		_RolloutMain	= Rollout_v title:title id:id
+		RolloutMain	= Rollout_v title:title id:id
 	),
 
 	/** Set id of rollout as global variable

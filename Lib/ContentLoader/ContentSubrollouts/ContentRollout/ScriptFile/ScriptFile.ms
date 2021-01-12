@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/MacroScript/MacroScript.ms" )
+
 /** Process ".ms" & ".mcr" file
   * 1) Get macroscripts from '.mcr' files
   * 2) Filein '.ms' files
@@ -19,46 +21,36 @@ struct ScriptFile_Content_v
 
 	/** File
 	 */
-	function load =
+	function loadMacroscriptFile =
 	(
-		--print ("------------\nScriptFile.load file="+file)
+		print ("------------\nScriptFile.loadMacroscriptFile file="+path)
 		if( this.isMacrosriptFile() ) then
 		(
-			filein path
-
+		--	filein path
+		--
 			this._parseMacrosInFile (this._getFileContent path)
 		)
-		this --return
+		--this --return
 	),
 	
-	--/** Add to ui
-	-- */
-	--function addToUi _Rollout =
-	--(
-	--	--print ("ScriptFile_Content_v.addToUi() " + (getFilenameFile file) )
-	--),
+	/** Insert to ui
+	 */
+	function addToUi _Rollout =
+	(
+		print ( "ScriptFile_Content.addToUi()" )
 	
-	--/** Insert to ui
-	-- */
-	--function addToUi _Rollout =
-	--(
-	--	print ( "ScriptFile_Content.addToUi()" )
-	--
-	--	--name	= if( name==undefined )then "" else "";
-	--	
-	--	if( this.isMacrosriptFile() ) then
-	--	(
-	--		--format " _Rollout	= % \n" _Rollout
-	--		--format "this._getGroupboxName() = % \n" (this._getGroupboxName())
-	--		--_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-	--	--	--format " _controls = % \n" _controls
-	--	--
-	--	--	for m = 1 to MacroScripts.count do
-	--	--		MacroScripts[m]._addControls _controls
-	--	)
-	--	--else
-	--	--	this._fileIn()
-	--),
+		--name	= if( name==undefined )then "" else "";
+		
+		if( this.isMacrosriptFile() ) then
+		(
+			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+			format "MacroScripts = % \n" MacroScripts
+			for m = 1 to MacroScripts.count do
+				MacroScripts[m].addControls _controls
+		)
+		--else
+		--	filein path
+	),
 	
 	--/** Add groupbox
 	-- */
@@ -109,40 +101,33 @@ struct ScriptFile_Content_v
 	--	( dotNetClass "System.Text.RegularExpressions.Regex" ).isMatch ( getFilenameFile file ) "^_" == false --return 
 	--),
 
-	/** _run script file
-	 */
-	function _fileIn =
-	(
-		--print ("FILEIN:\""+file+"\"")
-		filein path
-	),
 
 	/** Parse MacroScripts in file
 	 */
 	function _parseMacrosInFile lines =
 	(
-		--format ( "ScriptFile_Content._parseMacrosInFile()\n" )
+		format ( "ScriptFile_Content._parseMacrosInFile()\n" )
 
 		for _line in lines do
 		(
-			rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
-			rx	= dotNetClass "System.Text.RegularExpressions.Regex"
-
-			if( rx.isMatch _line "(?<!--)macroscript" rx_options.IgnoreCase == true  ) then
-			(
-				if( _MacroScript!=undefined ) then
-					append MacroScripts _MacroScript
-
-				_MacroScript = (MacroScript_Content_v()).setName _line
-			)
-			--else if( _MacroScript!=undefined and  matchPattern _line pattern:@"*:*" ) then
-			else if( _MacroScript!=undefined and rx.isMatch _line "(?<!--)\s*(category|buttonText|toolTip|icon|silentErrors|autoUndoEnabled)\s*:\s*" rx_options.IgnoreCase == true  ) then
-				_MacroScript.setProp (filterString _line ":") 
+			format "_line = % \n" _line
+		--	rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
+		--	rx	= dotNetClass "System.Text.RegularExpressions.Regex"
+		--
+		--	if( rx.isMatch _line "(?<!--)macroscript" rx_options.IgnoreCase == true  ) then
+		--	(
+		--		if( _MacroScript!=undefined ) then
+		--			append MacroScripts _MacroScript
+		--
+		--		_MacroScript = (MacroScript_Content_v()).setName _line
+		--	)
+		--	--else if( _MacroScript!=undefined and  matchPattern _line pattern:@"*:*" ) then
+		--	else if( _MacroScript!=undefined and rx.isMatch _line "(?<!--)\s*(category|buttonText|toolTip|icon|silentErrors|autoUndoEnabled)\s*:\s*" rx_options.IgnoreCase == true  ) then
+		--		_MacroScript.setProp (filterString _line ":") 
 		)
-
-		--format "_MacroScript = %\n" _MacroScript
-		if( _MacroScript!=undefined) then
-			append MacroScripts _MacroScript
+		----format "_MacroScript = %\n" _MacroScript
+		--if( _MacroScript!=undefined) then
+		--	append MacroScripts _MacroScript
 	),
 
 	/** Get file content
@@ -150,13 +135,13 @@ struct ScriptFile_Content_v
 	function _getFileContent _path =
 	(
 		file_opened	= openFile _path mode:"r+"
-		line_cnt	= 0
-		lines	= #() --the array that will hold the lines
+		counter	= 0
+		lines	= #()
 
 		while not eof file_opened do 
 		(
-			append lines ( readLine file_opened ) --append the first line to lines array
-			line_cnt += 1 --add 1 to the counter
+			append lines ( readLine file_opened )
+			counter += 1
 		)
 
 		seek file_opened 0    -- reset position to beginning
@@ -180,6 +165,6 @@ struct ScriptFile_Content_v
 		--format "\n"
 		print ("ScriptFile_Content_v.onCreate " + name )
 
-		--this.load()
+		this.loadMacroscriptFile()
 	)
 )
