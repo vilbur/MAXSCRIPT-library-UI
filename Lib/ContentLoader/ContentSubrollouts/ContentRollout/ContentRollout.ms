@@ -27,6 +27,13 @@ struct ContentRollout_v
 		_Rollout	= Subrollouts.new name
 	),
 	
+	/** Get new instance of This
+	 */
+	function new path =
+	(
+		ContentRollout_v path:path --return
+	),
+	
 	private
 
 	/** _get controls and rollouts
@@ -46,7 +53,7 @@ struct ContentRollout_v
 	(
 		if( this._isSubrolloutsSlot path == true  )
 		then
-			ContentSubrollouts_v path:path      -- return
+			ContentSubrollouts_v path:path RolloutParrent:this     -- return
 		else
 			ScriptFile_Content_v path:path	-- return
 	),

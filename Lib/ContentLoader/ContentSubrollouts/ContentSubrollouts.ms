@@ -9,7 +9,10 @@ struct ContentSubrollouts_v
 	/*  properties */
 	slot,
 	Rollouts	= #(),
-
+	
+	/* dependency */
+	RolloutParrent,
+	
 	/** Add to ui
 	 */
 	function addToUi _Rollout =
@@ -64,7 +67,7 @@ struct ContentSubrollouts_v
 			--format "rollout = % \n" (filenameFromPath path)
 			
 		for path in paths do 
-			append Rollouts (ContentRollout_v path:path )
+			append Rollouts ( RolloutParrent.new path )
 	),
 	
 	
