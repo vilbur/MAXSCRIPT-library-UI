@@ -33,6 +33,6 @@ struct ContentLoader_v
 		
 		DialogCreator  = DialogCreator_v ContentRollout:ContentRollout
 		
-		DialogCreator.craeteDialog()
+		DialogCreator.createDialog()
 	)
 )

@@ -12,7 +12,7 @@ struct DialogCreator_v
 	
 	/** 
 	 */
-	function craeteDialog =
+	function createDialog =
 	(
 		Dialog	= Dialog_v title:ContentRollout.name
 		

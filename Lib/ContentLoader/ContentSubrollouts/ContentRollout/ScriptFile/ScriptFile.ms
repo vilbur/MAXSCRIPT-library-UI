@@ -17,20 +17,15 @@ struct ScriptFile_Content_v
 	/* private properties */
 	name,
 	MacroScripts	= #(),
-	_MacroScript,	-- store currently parsed Macro file
 
 	/** File
 	 */
 	function loadMacroscriptFile =
 	(
 		print ("------------\nScriptFile.loadMacroscriptFile file="+path)
-		if( this.isMacrosriptFile() ) then
-		(
+		if ( this.isMacrosriptFile() ) then
+			MacroScripts = MacroScriptParser_v file_content:(this._getFileContent path)
 		--	filein path
-		--
-			this._parseMacrosInFile (this._getFileContent path)
-		)
-		--this --return
 	),
 	
 	/** Insert to ui
@@ -102,34 +97,6 @@ struct ScriptFile_Content_v
 	--),
 
 
-	/** Parse MacroScripts in file
-	 */
-	function _parseMacrosInFile lines =
-	(
-		format ( "ScriptFile_Content._parseMacrosInFile()\n" )
-
-		for _line in lines do
-		(
-			format "_line = % \n" _line
-		--	rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
-		--	rx	= dotNetClass "System.Text.RegularExpressions.Regex"
-		--
-		--	if( rx.isMatch _line "(?<!--)macroscript" rx_options.IgnoreCase == true  ) then
-		--	(
-		--		if( _MacroScript!=undefined ) then
-		--			append MacroScripts _MacroScript
-		--
-		--		_MacroScript = (MacroScript_Content_v()).setName _line
-		--	)
-		--	--else if( _MacroScript!=undefined and  matchPattern _line pattern:@"*:*" ) then
-		--	else if( _MacroScript!=undefined and rx.isMatch _line "(?<!--)\s*(category|buttonText|toolTip|icon|silentErrors|autoUndoEnabled)\s*:\s*" rx_options.IgnoreCase == true  ) then
-		--		_MacroScript.setProp (filterString _line ":") 
-		)
-		----format "_MacroScript = %\n" _MacroScript
-		--if( _MacroScript!=undefined) then
-		--	append MacroScripts _MacroScript
-	),
-
 	/** Get file content
 	 */
 	function _getFileContent _path =
@@ -150,7 +117,6 @@ struct ScriptFile_Content_v
 
 		lines --return
 	),
-
 
 	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
 	 */

@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptParser/MacroScriptParser.ms" )
+
 /** Struct present single macrosript in ".mcr" file
   *
   * This macro is able to add self calling button to UI
@@ -7,36 +9,29 @@
   */
 struct MacroScript_Content_v
 (
+	/* required properties */
 	name,
+	
+	/* properties */
 	category,
 	buttontext,
 	tooltip,
 	icon,
-	--_macroScript, -- IS THIS USED ?
 	
 	Controls_added	= #(),
-
-	/** Set name
-	 */
-	function setName _string =
-	(
-		name	= trimLeft (trimRight (substring _string 13 -1))
-		name	= ( dotnetObject "System.Text.RegularExpressions.Regex" "[\"]*" ).Replace name ""
-		
-		this --return
-	),
 	
 	/** Set property
+	  * 
+	  * @property	#(key, value)	key_value
 	 */
-	function setProp props =
+	function setProp key_value =
 	(
-		key	= trimLeft (trimRight (trimLeft props[1]))
-		value	= ( dotnetObject "System.Text.RegularExpressions.Regex" "\"" ).Replace ( trimLeft ( trimRight props[2] )  ) ""
-		--print ( key +" = " + value as string )
-		if( hasProperty this key ) then
-			setProperty this key value
+		--format "key_value = % \n" key_value
+		--key	  = key_value[1]
+		--value = key_value[2]
 
-		this --return
+		if( hasProperty this  key_value[1] ) then
+			setProperty this key_value[1] key_value[2]
 	),
 	
 	/*---------------------------------------
@@ -97,6 +92,5 @@ struct MacroScript_Content_v
 	on create do
 	(
 		--print "MacroScript_Content_v.onCreate()"
-
 	)
 )
