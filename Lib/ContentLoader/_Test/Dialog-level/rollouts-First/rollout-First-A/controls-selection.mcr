@@ -7,8 +7,6 @@ macroscript macro_test
 	messagebox "Macro Test \n\nSUCCESS";
 )
 	
-
-
 /** EXAMPLE OF LEFT \RIGHT CLICK BUTTON 
  *	
  *	Both has same buttontext
@@ -35,3 +33,17 @@ macroscript  macro_right_click_test
 	messagebox "Right click on button"
 )
 	
+
+/** TEST OF COMMENTED MACROSCRIPT  
+ *	
+ *	IMPORTANT:
+ *		Don`t use block comment !
+ *		Only inline comment is allowed
+ */
+--macroscript  macro_comented
+--	category:	"_macrotest"
+--	buttontext: ""
+--	toolTip:	""
+--	icon:	""
+--(
+--)

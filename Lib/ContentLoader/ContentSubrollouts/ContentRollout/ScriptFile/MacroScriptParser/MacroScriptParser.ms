@@ -1,4 +1,4 @@
-/**
+/** Parese macroscripts in "*.mcr file"
   *
   *
   */
@@ -14,7 +14,7 @@ struct MacroScriptParser_v
 			
 	/** Parse MacroScripts
 	  *
-	  * IMPORTANT: Keep each attribute of definition on SEPARATE LINE
+	  * IMPORTANT: Keep EACH PROPERTY on SEPARATE LINE
 	  *
 	  *	MacroScript <macro_name>
 	  *		category:	  ""
@@ -32,24 +32,14 @@ struct MacroScriptParser_v
 
 		for line in file_content do
 		(
-			--format "line = % \n" line
-		
 			if( this._lineIsMacroName line )
 			then
 				this._setNewMacroSript (this._getMacroName line)
 			else
 				this._parseProperties line
-				
-			--else if( _MacroScript!=undefined and  matchPattern line pattern:@"*:*" ) then
-			--else if( _MacroScript!=undefined and RegEx.isMatch line "(?<!--)\s*(category|buttonText|toolTip|icon|silentErrors|autoUndoEnabled)\s*:\s*" RegEx_options.IgnoreCase == true  ) then
-				--_MacroScript.setProp (filterString line ":")
-			--format "MacroScript_last = % \n" MacroScript_last
 		)
 
 		this._addLastMacroscript()
-		--format "MacroScripts = %\n" MacroScripts.count
-		for _MacroScript in MacroScripts do
-			format "_MacroScript = % \n" _MacroScript
 	),
 
 	/** _get new macro sript
@@ -100,10 +90,12 @@ struct MacroScriptParser_v
 	function _getKeyValuePair line =
 	(
 		key_value = (filterString line ":")
-		--format "key_value = % \n" key_value
 
 		key   = this._removeWhiteSpace key_value[1]
 		value = this._stripQuotes ( this._removeWhiteSpace key_value[2] )
+		
+		format "key   = % \n" key
+		format "value = % \n" value
 		
 		#(key, value) --return
 	),
