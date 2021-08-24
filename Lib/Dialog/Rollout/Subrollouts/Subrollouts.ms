@@ -15,6 +15,8 @@ struct Subrollouts_v
 	/* dependency */
 	RolloutProperty = Properties_v Parent_Control:this,
 
+	height = 32, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
+	
 	/** New	subrollout
 	  *
 	  * @return	object Rollout_v	
@@ -65,19 +67,20 @@ struct Subrollouts_v
 			this._addSubRollout Subrollout
 	),
 	
-	/** Set rollouts width
+	/** Resize subrollout slot
 	 */
-	function setRolloutsWidth =
+	function resizeSobrolloutsSlot =
 	(
 		widths	= #()
 		
-		--format "Subrollouts_v.setRolloutsWidth() = % \n" id
+		--format "Subrollouts_v.resizeSobrolloutsSlot() = % \n" id
 		for _Rollout in Rollouts do
 			append widths (_Rollout.setRolloutWidth())
 			
 		--format "Subrollouts % widths = %\n\n" id (amax widths)
 		
 		this.resize (amax widths)
+		----this.resize 256
 		
 		amax widths
 	),
@@ -176,8 +179,8 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		--"subRollout "+id+" \"slot_name\" height:0" -- set 0 height for auto recognition in Layout_v._getUserDefinedSize()
-		"subRollout "+id+" \"slot_name\" height:128" -- set 0 height for auto recognition in Layout_v._getUserDefinedSize()
+		"subRollout "+id+" \"slot_name\" height:" + height as string 
+		--"subRollout "+id+" \"slot_name\" height:" + height as string + " width:64"
 		--"subRollout "+id+" \"slot_name\"" --return
 	),
 	

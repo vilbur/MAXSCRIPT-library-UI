@@ -35,30 +35,32 @@ struct Layout_v
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutGroupbox.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutSubrollouts.ms"
 
-	/** If only single subrollouts
+	/** Fit subrollouts slots into dialog
+	  *	1) get height of dialog
+	  * 2) get occupied space by 
+	  *
 	 */
 	function fitSubrollouts =
 	(
-		--print "Layout.fitSubrollouts()"
-
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
 		dialog_height     = (Parent_roll.property height:#get) as integer
-		fixed_heights     = this._getUserDefinedSize Controlboxes_and_Subrollouts
-		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
-		empty_space       = dialog_height - fixed_height
 		
-		subrollouts_count = Controlboxes_and_Subrollouts.count - fixed_heights.count
+		occupied_heights  = this._getOccupiedHeights Controlboxes_and_Subrollouts
+		occupied_height   = 0; for val in occupied_heights do ( occupied_height += val )
+		
+		empty_space       = dialog_height - occupied_height
+		
+		subrollouts_count = Controlboxes_and_Subrollouts.count - occupied_heights.count
 		
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
 
-		
 		--format "Controlboxes_and_Subrollouts.count = % \n" Controlboxes_and_Subrollouts.count
 		--format "dialog_height       = % \n" dialog_height
-		--format "fixed_heights       = % \n" fixed_heights
-		--format "fixed_heights.count = % \n" fixed_heights.count
-		--format "fixed_height        = % \n" fixed_height
+		--format "occupied_heights       = % \n" occupied_heights
+		--format "occupied_heights.count = % \n" occupied_heights.count
+		--format "occupied_height        = % \n" occupied_height
 		--format "empty_space         = % \n" empty_space
 		--format "subrollouts_count   = % \n" subrollouts_count
 		--format "slot_height         = % \n" slot_height
@@ -68,30 +70,40 @@ struct Layout_v
 			return false
 			
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
-			if( this._getType Control_or_Rollout == "subrollouts" ) then
+			if( this._isSubrollouts Control_or_Rollout ) then
 				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
 			else
 				offset = this._offsetGroubox Control_or_Rollout offset
 	),
 	
-	/** Analyze layout
+	/** Collect heights of all elements which ARE NOT Subrollout with default height
+	  *
 	 */
-	function _getUserDefinedSize Controlboxes_and_Subrollouts =
+	function _getOccupiedHeights Controlboxes_and_Subrollouts =
 	(
-		height_user_defined = #()
+		occupied_heights = #()
 		
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
-			if ( (height = Control_or_Rollout.property height:#get) > 0 ) then 
-				append height_user_defined height
+		(
+			height       = Control_or_Rollout.property height:#get
+			control_type = this._getType Control_or_Rollout
+			
+			if( control_type != "subrollouts" or ( control_type == "subrollouts" and height != 32 ) ) then 
+				append occupied_heights height
+		)
 
-		height_user_defined --return
+		occupied_heights --return
 	),
+	
 	
 	/** Get rollout width
 	 */
 	function getRolloutWidth =
 	(
-		256 -- HOTFIX
+		print "HOTFIX Layout_v.getRolloutWidth()"
+		
+		
+		128 -- HOTFIX
 	),
 	
 	/** Get setup from this
@@ -104,6 +116,13 @@ struct Layout_v
 		Layout.margin  = margin
 
 		Layout --return
+	),
+	
+	/** _is subrollouts
+	 */
+	function _isSubrollouts Control_or_Rollout =
+	(
+		this._getType Control_or_Rollout == "subrollouts" --return
 	),
 	
 	on create do

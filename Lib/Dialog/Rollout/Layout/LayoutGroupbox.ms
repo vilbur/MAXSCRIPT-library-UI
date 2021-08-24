@@ -1,3 +1,6 @@
+	
+	groupbox_margin = 4,
+	
 	/** Set init _pos_last 
 	 */
 	function newControlsBox =
@@ -25,9 +28,9 @@
 	function _getBboxOrigin =
 	(
 		--print "Layout._getBboxOrigin()"
-		box_origin = [0,0]
+		box_origin = [groupbox_margin,0]
 		
-		if( this._notFirstGroupBox() == true ) then
+		if( this._isNotFirstGroupBox() == true ) then
 			box_origin.y = this._setNextGroupBoxOrigin box_origin
 		--format "box_origin = % \n" box_origin
 		box_origin
@@ -35,7 +38,7 @@
 
 	/** Is not first group box in rollout
 	 */
-	function _notFirstGroupBox =
+	function _isNotFirstGroupBox =
 	(
 		Bbox != undefined --return
 	),
@@ -62,7 +65,7 @@
 		--print("LayoutGroupbox.ms _offsetGroubox()")
 		--format "ControlBox = % \n" ControlBox
 		
-		ControlBox.offsetGroupbox [0, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
+		ControlBox.offsetGroupbox [groupbox_margin, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
 		--format "offset = % \n" offset
 		offset += (ControlBox.property height:#get)
 		--offset += (ControlBxo._Params.getVal #height)

@@ -76,21 +76,21 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 --------------------------------------------------------------------------------*/
 
 --layoutSetup columns:16 grid:48 padding:16 marginx:32 marginy:16
-layoutSetup columns:12 grid:16 padding:2 marginx:12 marginy:6
+--layoutSetup columns:12 grid:16 padding:2 marginx:64 marginy:6
 
 
 
 addControls    groupboxes:1
---addSubRollouts subrollouts:2 rollouts:1
+addSubRollouts subrollouts:1 rollouts:2
 --addControls    groupboxes:1
---addSubRollouts subrollouts:1 rollouts:3
+--addSubRollouts subrollouts:2 rollouts:1
 
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:720
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:720 width:512
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts

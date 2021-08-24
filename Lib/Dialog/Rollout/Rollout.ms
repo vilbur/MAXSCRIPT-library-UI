@@ -95,11 +95,14 @@ struct Rollout_v
 	(
 		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
 		--format "Rollout_v.setRolloutWidth() % \n" id
+		
 		max_width = this._getMaxWidthOfNestedElements()
-
-		if ( this._isParentRoll() == true ) then 
-			this.property width:(max_width + 18)
-
+		--format "max_width = % \n" max_width
+		
+		--if ( this._isParentRoll() == true ) then 
+			--this.property width:max_width
+			--this.property width:(max_width + 18)
+		
 		max_width --return
 	),
 	
@@ -139,7 +142,26 @@ struct Rollout_v
 			RolloutEvent.setSaveToIniEvents()
 	),
 	
+	
 	private
+
+	/** Loop CotrolBoxes and Rollouts and find element with max width
+	 */
+	function _getMaxWidthOfNestedElements =
+	(
+		widths	= #()
+		
+		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+
+			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+				--append widths (Controlbox_or_Subrollouts.property width:#get)
+				append widths 256
+			else
+			--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
+				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
+		
+		this._getMaxWidth widths --return
+	),
 
 	/** Get name given struct
 	  * @property	struct	_Struct
@@ -150,23 +172,23 @@ struct Rollout_v
 	(
 		toLower (( filterString( classof _Struct as string ) "_*(:" )[2])  --return
 	),
-	
-	/** Loop CotrolBoxes and Rollouts and find element with max width
-	 */
-	function _getMaxWidthOfNestedElements =
-	(
-		widths	= #()
-		
-		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
-				append widths (Controlbox_or_Subrollouts.property width:#get)
-			else
-				append widths (Controlbox_or_Subrollouts.setRolloutsWidth())
 
-		this._getMaxWidth widths --return
-	),
+	--/** Loop CotrolBoxes and Rollouts and find element with max width
+	-- */
+	--function _getMaxWidthOfNestedElements =
+	--(
+	--	widths	= #()
+	--	
+	--	for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+	--		if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+	--			append widths (Controlbox_or_Subrollouts.property width:#get)
+	--		else
+	--			append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
+	--	
+	--	this._getMaxWidth widths --return
+	--),
 	
-	/** Get widest rollout
+	/** Get widest rollout5
 	  * 
 	  * @return	int max element in rollout, or minimal width if dialog is empty
 	 */
