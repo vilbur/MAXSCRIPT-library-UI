@@ -38,10 +38,31 @@ struct Subrollouts_v
 	 */
 	function create =
 	(
+		print ("Subrollouts_v.create() "+ (this._getSubrolloutSlot()) )
 		for _Rollout in Rollouts do
 			_Rollout.createRollout()
 			
 		Parent_roll.RolloutCreator.addSubrolloutSlot( this._getSubrolloutSlot() )
+	),
+	
+	
+	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
+	  *
+	  * @example of executed snippet:
+	  * --------------------------------------------------------------------------------
+	  *
+	  *		AddSubRollout rollout_id.subrollout_id_1 subrollout_id_1 -- THIS KIND OF LINES IS EXECUTED
+	  *		AddSubRollout rollout_id.subrollout_id_2 subrollout_id_2 -- THIS KIND OF LINES IS EXECUTED
+	  *
+	  * --------------------------------------------------------------------------------
+	  *
+	  * @param	string	parrent_rollout_id
+	 */
+	function addSubRollouts =
+	(
+        print("Subrollouts.addSubRollouts to slot " + id)
+		for Subrollout in Rollouts do
+			this._addSubRollout Subrollout
 	),
 	
 	/** Set rollouts width
@@ -80,34 +101,6 @@ struct Subrollouts_v
 		for _Rollout in Rollouts do
 			this._resizeRollout _Rollout
 	),
-	
-	/** Remove and Add Rollout Again
-	  * Refresh rollout width
-	 */
-	function _resizeRollout _Rollout =
-	(
-		this.remove         _Rollout
-		this._addSubRollout _Rollout
-	),
-	
-	
-	/** [ Execute "AddSubRollout" command for all subrollouts ](http://help.autodesk.com/view/3DSMAX/2019/ENU/?guid=GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09#GUID-CDE5B06D-4BB4-4DEA-96C1-6BAB98709F09__WS73099CC142F487553098682E12AC2FC2BC7-7472)
-	  *
-	  * @example of executed snippet:
-	  * --------------------------------------------------------------------------------
-	  *
-	  *		AddSubRollout rollout_id.subrollout_id_1 subrollout_id_1 -- THIS KIND OF LINES IS EXECUTED
-	  *		AddSubRollout rollout_id.subrollout_id_2 subrollout_id_2 -- THIS KIND OF LINES IS EXECUTED
-	  *
-	  * --------------------------------------------------------------------------------
-	  *
-	  * @param	string	parrent_rollout_id
-	 */
-	function addSubRollouts =
-	(
-		for Subrollout in Rollouts do
-			this._addSubRollout Subrollout
-	),
 
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -143,9 +136,13 @@ struct Subrollouts_v
 	 */
 	function _addSubRollout Subrollout =
 	(
-		execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id + " rolledUp:" + this._getIniSetting Subrollout )
+        --print("Subrollouts._addSubRollout() " + Subrollout.title )
+		print ( "Subrollouts._addSubRollout " + this.getId() + " " + Subrollout.id  )
 
-		Subrollout.addSubRollouts()					
+		--execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id + " rolledUp:" + this._getIniSetting Subrollout )
+		execute( "\n AddSubRollout " + this.getId() + " " + Subrollout.id  )
+
+		Subrollout.addSubRollouts()
 	),
 	
 	/** Get ini setting
@@ -179,8 +176,18 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		"subRollout "+id+" \"slot_name\" height:0" -- set 0 height for auto recognition in Layout_v._getFixedSizes()
+		--"subRollout "+id+" \"slot_name\" height:0" -- set 0 height for auto recognition in Layout_v._getUserDefinedSize()
+		"subRollout "+id+" \"slot_name\" height:128" -- set 0 height for auto recognition in Layout_v._getUserDefinedSize()
 		--"subRollout "+id+" \"slot_name\"" --return
+	),
+	
+	/** Remove and Add Rollout Again
+	  * Refresh rollout width
+	 */
+	function _resizeRollout _Rollout =
+	(
+		this.remove         _Rollout
+		this._addSubRollout _Rollout
 	),
 
 	/** Any subrollout exists

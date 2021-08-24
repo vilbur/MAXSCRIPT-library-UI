@@ -17,10 +17,11 @@ struct ContentSubrollouts_v
 	 */
 	function addToUi _Rollout =
 	(
-		print ("ContentSubrollouts_v.addToUi() " + (filenameFromPath path) )
+		--print ("ContentSubrollouts_v.addToUi() " + (filenameFromPath path) )
+		format "\n"
+		--print ("ContentSubrollouts_v.addToUi " + _Rollout.title )
 		
-		Subrollouts = _Rollout.subrollouts()
-		--Rollout_A	= Subrollouts.new "Rollout A"
+		local Subrollouts = _Rollout.subrollouts()
 		
 		for ContentRollout in Rollouts do
 			ContentRollout.addToUi Subrollouts
@@ -85,6 +86,5 @@ struct ContentSubrollouts_v
 		format "\n---------------\n"
 		print ("ContentSubrollouts_v.onCreate " + slot )
 		this._setRollouts(this._getSubDirs())
-
 	)
 )

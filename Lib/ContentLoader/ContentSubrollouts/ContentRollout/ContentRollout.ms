@@ -19,12 +19,19 @@ struct ContentRollout_v
 
 	folder_prefix = "rollouts-*",
 	
-	/** Add to ui
+	/** Create and add Rollouts and Controls to UI
 	 */
 	function addToUi Subrollouts =
 	(
-		print ("ContentRollout_v.addToUi() " + name )
-		_Rollout	= Subrollouts.new name
+		Rollout_new	= Subrollouts.new name -- get new rollout
+		
+		print ("ContentRollout_v.addToUi ADD " + name +" TO "+ Subrollouts.id )
+		--format "Subrollouts_and_Controls = % \n" Subrollouts_and_Controls
+		
+		for Subrollouts_or_Controls in Subrollouts_and_Controls do
+		--format "Subrollouts_or_Controls = % \n" Subrollouts_or_Controls
+			Subrollouts_or_Controls.addToUi Rollout_new
+		
 	),
 	
 	/** Get new instance of This
@@ -40,8 +47,8 @@ struct ContentRollout_v
 	 */
 	function _loadContentFromDir paths =
 	(
-		format "\n"
-		print ("ContentRollout_v._loadContentFromDir() " + name)
+		--format "\n"
+		--print ("ContentRollout_v._loadContentFromDir() " + name)
 		
 		for path in paths do
 			append Subrollouts_and_Controls (this._getGroupboxOrSubrollout path)
@@ -129,7 +136,7 @@ struct ContentRollout_v
 		this._setName()
 		this._sanitizeName()
 		
-		print ("ContentRollout_v.onCreate " + name)
+		--print ("ContentRollout_v.onCreate " + name)
 		
 		this._loadContentFromDir(this._getPathsInDir())
 	)

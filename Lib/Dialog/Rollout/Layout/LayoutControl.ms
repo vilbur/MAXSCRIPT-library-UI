@@ -9,7 +9,7 @@
 		--format "------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
 		
 		_width  = this._getControlWidth  Control
-		height = this._getControlHeight Control
+		_height = this._getControlHeight Control
 		
 		this._trySetNewControlsRow _width
 		
@@ -17,7 +17,7 @@
 		--format "pos = % \n" pos
 		pos.x += padding -- add padding to left side of group box
 		
-		Dimensions = Dimensions_v pos:pos width:_width height:height
+		Dimensions = Dimensions_v pos:pos width:_width height:_height
 		--print Dimensions_v as string 
 		
 		this._setNextControlPosition Dimensions.width
@@ -31,32 +31,32 @@
 	/** Try set new row of controls
 	  * Add margin between controls
 	 */
-	function _trySetNewControlsRow current_control_width =
+	function _trySetNewControlsRow control_width =
 	(
-		if not ( this._controlFitIntoRollout current_control_width ) then
+		if not ( this._controlFitIntoRollout control_width ) then
 			_pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
 	),
 
 	/** Control is out of rollout
      */
-    function _controlFitIntoRollout current_control_width =
+    function _controlFitIntoRollout control_width =
     (
-        (_pos_last.x + current_control_width) < this._getRollWidthByColumns() --return
+        (_pos_last.x + control_width) < this._getRollWidthByColumns() --return
     ),
 	
 	/** _get roll _width
 	 */
 	function _getRollWidthByColumns=
 	(
-		(columns * grid) + margin.x*4 + 14 --return
+		(columns * grid) + margin.x*4 + _padding_corrention --return
 	),
 
 	/** Set new control position
 	  * Add margin between controls
   	 */
-	function _setNextControlPosition current_control_width =
+	function _setNextControlPosition control_width =
 	(
-		_pos_last.x += current_control_width + margin.x
+		_pos_last.x += control_width + margin.x
 	),
 
 	/** _get control _width

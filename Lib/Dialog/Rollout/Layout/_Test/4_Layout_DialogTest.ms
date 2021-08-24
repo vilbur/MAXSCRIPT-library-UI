@@ -1,7 +1,7 @@
 clearListener()
 
---filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../../../../Dialog.ms" )
+--filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../Dialog.ms" )
 
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 

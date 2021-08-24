@@ -25,24 +25,23 @@ struct ScriptFile_Content_v
 		print ("------------\nScriptFile.loadMacroscriptFile file="+path)
 		if ( this.isMacrosriptFile() ) then
 			MacroScripts = MacroScriptParser_v file_content:(this._getFileContent path)
-		--	filein path
 	),
 	
-	/** Insert to ui
+	/** Insert controls to ui
 	 */
 	function addToUi _Rollout =
 	(
-		print ( "ScriptFile_Content.addToUi()" )
+		--print ( "ScriptFile_Content.addToUi()" )
 	
 		--name	= if( name==undefined )then "" else "";
 		
-		if( this.isMacrosriptFile() ) then
-		(
-			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-			format "MacroScripts = % \n" MacroScripts
-			for m = 1 to MacroScripts.count do
-				MacroScripts[m].addControls _controls
-		)
+		--if( this.isMacrosriptFile() ) then
+		--(
+		--	_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+		--	format "MacroScripts = % \n" MacroScripts
+		--	for m = 1 to MacroScripts.count do
+		--		MacroScripts[m].addControls _controls
+		--)
 		--else
 		--	filein path
 	),

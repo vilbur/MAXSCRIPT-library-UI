@@ -1,6 +1,7 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 /* ROLLOUT DEFINITION */
 global _Rollout = Rollout_v title:(filenameFromPath(getSourceFileName()))
@@ -14,14 +15,14 @@ global counter_controls    = 0
 /** Layout setup
   * Make UI big
  */
-function layoutSetup =
+function layoutSetup columns: grid: padding: marginx: marginy:  =
 (
-	_Rollout.Layout.columns  = 16
-	_Rollout.Layout.grid     = 48
+	_Rollout.Layout.columns  = columns
+	_Rollout.Layout.grid     = grid
 	
-	_Rollout.Layout.padding  = 16
-	_Rollout.Layout.margin.x = 32
-	_Rollout.Layout.margin.y = 16
+	_Rollout.Layout.padding  = padding
+	_Rollout.Layout.margin.x = marginx
+	_Rollout.Layout.margin.y = marginy
 )
 
 /** Add extra rollout
@@ -74,12 +75,15 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 	RUN TESTS
 --------------------------------------------------------------------------------*/
 
-layoutSetup()
+--layoutSetup columns:16 grid:48 padding:16 marginx:32 marginy:16
+layoutSetup columns:12 grid:16 padding:2 marginx:12 marginy:6
+
+
 
 addControls    groupboxes:1
-addSubRollouts subrollouts:2 rollouts:1
-addControls    groupboxes:1
-addSubRollouts subrollouts:1 rollouts:3
+--addSubRollouts subrollouts:2 rollouts:1
+--addControls    groupboxes:1
+--addSubRollouts subrollouts:1 rollouts:3
 
 
 /* CREATE ROLLOUT */

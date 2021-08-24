@@ -21,19 +21,19 @@ struct Layout_v
 		
 	width = 1024, 	
 		
-	columns = 16, -- columns _width of rollout
-	grid    = 24,
+	columns = 12, -- columns _width of rollout
+	grid    = 24, -- size of columns in pixels 
 	
 	padding	= 4,	-- padding between controls
-	margin	= [padding,padding],
+	margin	= [padding, padding],
 	
 	_pos_last = [0,0],    -- store origin of last added control 
 
 	_padding_corrention = 12,
 	
-	include "Library/UI/Lib/Dialog/Rollout/Controls/Layout/LayoutControl.ms"
-	include "Library/UI/Lib/Dialog/Rollout/Controls/Layout/LayoutGroupbox.ms"
-	include "Library/UI/Lib/Dialog/Rollout/Controls/Layout/LayoutSubrollouts.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutControl.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutGroupbox.ms"
+	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutSubrollouts.ms"
 
 	/** If only single subrollouts
 	 */
@@ -44,7 +44,7 @@ struct Layout_v
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
 		dialog_height     = (Parent_roll.property height:#get) as integer
-		fixed_heights     = this._getFixedSizes Controlboxes_and_Subrollouts
+		fixed_heights     = this._getUserDefinedSize Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
 		empty_space       = dialog_height - fixed_height
 		
@@ -76,22 +76,22 @@ struct Layout_v
 	
 	/** Analyze layout
 	 */
-	function _getFixedSizes Controlboxes_and_Subrollouts =
+	function _getUserDefinedSize Controlboxes_and_Subrollouts =
 	(
-		height_fixed = #()
+		height_user_defined = #()
 		
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
 			if ( (height = Control_or_Rollout.property height:#get) > 0 ) then 
-				append height_fixed height
+				append height_user_defined height
 
-		height_fixed --return
+		height_user_defined --return
 	),
 	
 	/** Get rollout width
 	 */
 	function getRolloutWidth =
 	(
-		512 -- HOTFIX
+		256 -- HOTFIX
 	),
 	
 	/** Get setup from this

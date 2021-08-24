@@ -15,7 +15,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../Properties/Properties.ms"
 filein( getFilenamePath(getSourceFileName()) + "/RolloutCreator/RolloutCreator.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/Controls/Layout/Layout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/Layout/Layout.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
 
@@ -69,17 +69,18 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		--format "Rollout_v.createRollout %\n" id
+		format "Rollout_v.createRollout %\n" id
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
-		if( this._isSubrollout() == true ) then 
-			RolloutEvent._addHandlers()
+		--if( this._isSubrollout() == true ) then 
+			--RolloutEvent._addHandlers()
 		
-		RolloutCreator.endOfCreation()
+		RolloutCreator.end()
 	),
 	
 	/** New subrollout
+	  * used in Subrollouts_v
 	 */
 	function newSubrollout title =
 	(

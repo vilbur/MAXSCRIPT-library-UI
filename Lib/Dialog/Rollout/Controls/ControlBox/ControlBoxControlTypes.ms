@@ -1,4 +1,4 @@
-/** Control type methods 
+/** Define methods for each Control type  
  */
 button,
 spinner,

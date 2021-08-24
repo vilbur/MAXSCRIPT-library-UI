@@ -1,6 +1,10 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../../Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
+
+
+BUTTONS_COUNT = 10
+
 
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
@@ -12,7 +16,7 @@ controls_1    = _Rollout.Controls.new()
  */
 function addRolloutByCodeTest =
 (
-	for i = 1 to 3 do
+	for i = 1 to BUTTONS_COUNT do
 		controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 )
 
@@ -27,6 +31,6 @@ addRolloutByCodeTest()
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:312
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:512
 
 _Rollout.addSubRollouts()

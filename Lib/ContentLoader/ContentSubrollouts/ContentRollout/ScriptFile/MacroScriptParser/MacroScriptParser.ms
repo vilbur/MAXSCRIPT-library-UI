@@ -94,9 +94,6 @@ struct MacroScriptParser_v
 		key   = this._removeWhiteSpace key_value[1]
 		value = this._stripQuotes ( this._removeWhiteSpace key_value[2] )
 		
-		format "key   = % \n" key
-		format "value = % \n" value
-		
 		#(key, value) --return
 	),
 	
