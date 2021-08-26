@@ -1,4 +1,3 @@
-filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptParser/MacroScriptParser.ms" )
 
 /** Struct present single macrosript in ".mcr" file
   *
@@ -26,7 +25,7 @@ struct MacroScript_Content_v
 	 */
 	function setProp key_value =
 	(
-		--format "key_value = % \n" key_value
+		format "MacroScript_Content_v.setProp % \n" key_value
 		if( hasProperty this  key_value[1] ) then
 			setProperty this key_value[1] key_value[2]
 	),
@@ -88,6 +87,6 @@ struct MacroScript_Content_v
 
 	on create do
 	(
-		--print "MacroScript_Content_v.onCreate()"
+		print "MacroScript_Content_v.onCreate()"
 	)
 )

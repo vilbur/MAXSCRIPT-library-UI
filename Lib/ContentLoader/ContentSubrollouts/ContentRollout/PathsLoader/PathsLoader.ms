@@ -7,9 +7,7 @@ struct PathsLoader_v
 	path,
 	
 	folder_prefix = "rollouts-*",
-	
-	--Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
-	
+		
 	dirs	= #(),
 	
 	rollout_dirs = #(),
@@ -17,8 +15,35 @@ struct PathsLoader_v
 	macro_files	= #(),
 	
 	maxscript_files	= #(),
-	
 
+
+	/** File in files
+	 */
+	function fileInMaxscriptFiles =
+	(
+		for file in maxscript_files do
+			this._fileIn file
+	),
+
+	/** File in
+	 */
+	function _fileIn file =
+	(
+		format "FileInImporter_v.fileIn % \n" file
+		filein file
+	),
+		
+	/** Get full paths of directories and files in this.dir
+	  *
+	  * @return	array of paths	sorted alphabetically
+	 */
+	function getSubrolloutsAndControlsPaths =
+	(
+		sort ( join rollout_dirs macro_files ) --return
+	),
+
+	private
+	
 	/** _get controls and rollouts
 	  *
 	  * @return	array	
@@ -27,17 +52,7 @@ struct PathsLoader_v
 	(
 		matchPattern ( filenameFromPath path ) pattern:folder_prefix ignoreCase:true --return
 	),
-		
-	/** Get full paths of directories and files in this.dir
-	  *
-	  * @return	array of paths	sorted alphabetically
-	 */
-	function _getSubrolloutsAndControlsPaths =
-	(
-		sort ( join rollout_dirs macro_files ) --return
-	),
 	
-
 	/** 
 	 */
 	function _getRolloutDirs =
@@ -51,7 +66,6 @@ struct PathsLoader_v
 	(
 		for dir in (getDirectories (path + "/*")) where not ( this._isSubrolloutsSlot dir ) collect dir --return
 	),
-	
 	
 	
 	/** Get *.mcr files
@@ -81,9 +95,4 @@ struct PathsLoader_v
 		
 		format "macro_files = % \nmaxscript_files = % \nrollout_dirs = % \ndirs = % \n\n" macro_files maxscript_files rollout_dirs dirs
 	)
-	
-	
 )
-
-
-

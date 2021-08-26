@@ -1,3 +1,5 @@
+filein( getFilenamePath(getSourceFileName()) + "/MacroScript/MacroScript.ms" )
+
 /** Parese macroscripts in "*.mcr file"
   *
   *
@@ -47,8 +49,9 @@ struct MacroScriptParser_v
 	 */
 	function _setNewMacroSript name =
 	(
+		format "MacroScriptParser._setNewMacroSript() %\n" name 
 		this._addLastMacroscript()
-
+		print "SHIT"
 		MacroScript_last = MacroScript_Content_v name
 
 		MacroScript_last --return

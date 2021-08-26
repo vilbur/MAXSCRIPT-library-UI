@@ -1,5 +1,4 @@
-filein( getFilenamePath(getSourceFileName()) + "/MacroScript/MacroScript.ms" )
-
+filein( getFilenamePath(getSourceFileName()) + "/MacroScriptParser/MacroScriptParser.ms" )
 /** Process ".ms" & ".mcr" file
   * 1) Get macroscripts from '.mcr' files
   * 2) Filein '.ms' files

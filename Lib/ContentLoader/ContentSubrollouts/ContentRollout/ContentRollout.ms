@@ -18,9 +18,6 @@ struct ContentRollout_v
 	
 	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
-	--folder_prefix = "rollouts-*",
-	
-	--PathsLoader 	= PathsLoader_v(),
 	PathsLoader,
 	
 	/** Create and add Rollouts and Controls to UI
@@ -51,10 +48,9 @@ struct ContentRollout_v
 	 */
 	function _loadContentFromDir =
 	(
-		format "\n"
 		print ("ContentRollout_v._loadContentFromDir() " + name)
 		
-		for path in (PathsLoader._getSubrolloutsAndControlsPaths()) do
+		for path in (PathsLoader.getSubrolloutsAndControlsPaths()) do
 			append Subrollouts_and_Controls	(this._addSubrolloutOrControlBox path)
 	),
 	
@@ -62,7 +58,6 @@ struct ContentRollout_v
 	 */
 	function _addSubrolloutOrControlBox path =
 	(
-		print ("ContentRollout_v._addSubrolloutOrControlBox() " + path)
 		if (this._isDir path) then
 			this._ifPathIsDir path
 		else
@@ -88,6 +83,8 @@ struct ContentRollout_v
 	 */
 	function _ifPathIsFile path =
 	(
+		filein path
+		
 		ScriptFile_Content_v path:path	-- return
 	),
 	
@@ -115,6 +112,8 @@ struct ContentRollout_v
 		--print ("ContentRollout_v.onCreate " + name)
 		
 		PathsLoader = PathsLoader_v path:path
+		
+		PathsLoader.fileInMaxscriptFiles()
 		
 		this._loadContentFromDir()
 		--Subrollouts_and_Controls =
