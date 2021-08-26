@@ -1,3 +1,4 @@
+filein( getFilenamePath(getSourceFileName()) + "/PathsLoader/PathsLoader.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/../ContentSubrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/ScriptFile/ScriptFile.ms" )
 
@@ -17,7 +18,10 @@ struct ContentRollout_v
 	
 	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
-	folder_prefix = "rollouts-*",
+	--folder_prefix = "rollouts-*",
+	
+	--PathsLoader 	= PathsLoader_v(),
+	PathsLoader,
 	
 	/** Create and add Rollouts and Controls to UI
 	 */
@@ -43,77 +47,49 @@ struct ContentRollout_v
 	
 	private
 
-	/** _get controls and rollouts
+		/** _get controls and rollouts
 	 */
-	function _loadContentFromDir paths =
+	function _loadContentFromDir =
 	(
-		--format "\n"
-		--print ("ContentRollout_v._loadContentFromDir() " + name)
+		format "\n"
+		print ("ContentRollout_v._loadContentFromDir() " + name)
 		
-		for path in paths do
-			append Subrollouts_and_Controls (this._getGroupboxOrSubrollout path)
+		for path in (PathsLoader._getSubrolloutsAndControlsPaths()) do
+			append Subrollouts_and_Controls	(this._addSubrolloutOrControlBox path)
 	),
 	
-	/** _get control or rollout
+	/** _add subrollout or control box
 	 */
-	function _getGroupboxOrSubrollout path =
+	function _addSubrolloutOrControlBox path =
 	(
-		if( this._isSubrolloutsSlot path == true  )
-		then
-			ContentSubrollouts_v path:path RolloutParrent:this     -- return
+		print ("ContentRollout_v._addSubrolloutOrControlBox() " + path)
+		if (this._isDir path) then
+			this._ifPathIsDir path
 		else
-			ScriptFile_Content_v path:path	-- return
+			this._ifPathIsFile path
 	),
 	
-	/** Find out if path is subrollouts slot
-	  *
-	  * @return	boolean	
-	 */
-	function _isSubrolloutsSlot path =
-	(
-		matchPattern ( filenameFromPath path ) pattern:folder_prefix ignoreCase:true --return
-	),
-		
-	/** Get full paths of directories and files in this.dir
-	  *
-	  * @return	array of paths	sorted alphabetically
-	 */
-	function _getPathsInDir =
-	(
-		sort ( join (this._getSubDirs()) (this._getMacroFiles()) ) --return
-	),
-	
-	/** _get sub directories
-	 */
-	function _getSubDirs =
-	(
-		getDirectories (path + "/*") --return
-	),
-	
-
-
-
-	/** Get macro files
-	 */
-	function _getMacroFiles =
-	(
-		--sort ( join (getFiles (path + "/*.mcr")) (getFiles (path + "/*.ms")) ) --return
-		sort ( getFiles (path + "/*.mcr")) --return
-	),
-	
-	/** Find out if path is direcotry
-	  *
-	  * @return	boolean	
+	/** _is dir
 	 */
 	function _isDir path =
 	(
 		getFilenameType path == "" --return
 	),
-
 	
+	/** _if path is dir
+	 */
+	function _ifPathIsDir path =
+	(
+		--if( this._isSubrolloutsSlot path == true  ) then
+			ContentSubrollouts_v path:path RolloutParrent:this     -- return
+	),
 	
-	
-	
+	/** If path is file
+	 */
+	function _ifPathIsFile path =
+	(
+		ScriptFile_Content_v path:path	-- return
+	),
 	
 	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
 	 */
@@ -138,6 +114,10 @@ struct ContentRollout_v
 		
 		--print ("ContentRollout_v.onCreate " + name)
 		
-		this._loadContentFromDir(this._getPathsInDir())
+		PathsLoader = PathsLoader_v path:path
+		
+		this._loadContentFromDir()
+		--Subrollouts_and_Controls =
+		
 	)
 )

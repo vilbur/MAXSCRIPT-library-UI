@@ -22,28 +22,30 @@ struct ScriptFile_Content_v
 	 */
 	function loadMacroscriptFile =
 	(
-		print ("------------\nScriptFile.loadMacroscriptFile file="+path)
+		print ("------------\nScriptFile.loadMacroscriptFile file:\n"+ (path)+"\n")
 		if ( this.isMacrosriptFile() ) then
-			MacroScripts = MacroScriptParser_v file_content:(this._getFileContent path)
+			MacroScripts = (MacroScriptParser_v file_content:(this._getFileContent path)).MacroScripts
 	),
 	
 	/** Insert controls to ui
 	 */
 	function addToUi _Rollout =
-	(
-		--print ( "ScriptFile_Content.addToUi()" )
-	
-		--name	= if( name==undefined )then "" else "";
+	(	
+		name	= if( name == undefined )then "" else "";
 		
-		--if( this.isMacrosriptFile() ) then
-		--(
-		--	_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-		--	format "MacroScripts = % \n" MacroScripts
-		--	for m = 1 to MacroScripts.count do
-		--		MacroScripts[m].addControls _controls
-		--)
-		--else
-		--	filein path
+		if( this.isMacrosriptFile() ) then
+		(
+			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+			format "MacroScripts = % \n" MacroScripts
+			for m = 1 to MacroScripts.count do
+			
+				MacroScripts[m].addControls _controls
+		)
+		else
+		(
+			format "!!! filein path = % \n" path
+			--filein path
+		)
 	),
 	
 	--/** Add groupbox
@@ -128,7 +130,7 @@ struct ScriptFile_Content_v
 	(
 		this._setName()
 		--format "\n"
-		print ("ScriptFile_Content_v.onCreate " + name )
+		print ("ScriptFile_v.onCreate " + path )
 
 		this.loadMacroscriptFile()
 	)

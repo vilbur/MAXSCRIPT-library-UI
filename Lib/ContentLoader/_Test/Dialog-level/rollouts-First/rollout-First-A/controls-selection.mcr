@@ -7,6 +7,9 @@ macroscript macro_test
 	messagebox "Macro Test \n\nSUCCESS";
 )
 	
+	
+	
+	
 /** EXAMPLE OF LEFT \RIGHT CLICK BUTTON 
  *	
  *	Both has same buttontext
@@ -17,7 +20,7 @@ macroscript macro_test
 
 macroscript macro_left_click_test
 	category:	"_macrotest"
-	buttontext: "Left\Right click"
+	buttontext: "Left\Right click" 
 	toolTip:	"Button generated"
 	icon:	"#(path, index)"
 (
@@ -26,7 +29,7 @@ macroscript macro_left_click_test
 
 macroscript  macro_right_click_test
 	category:	"_macrotest"
-	buttontext: "Left\Right click"
+	buttontext: "Left\Right click" 
 	toolTip:	"From macro"
 	icon:	"#(path, index)"
 (
@@ -34,11 +37,14 @@ macroscript  macro_right_click_test
 )
 	
 
+
+
+
 /** TEST OF COMMENTED MACROSCRIPT  
  *	
  *	IMPORTANT:
  *		Don`t use block comment !
- *		Only inline comment is allowed
+ *		Only inline comment works for MacroScriptParser_v
  */
 --macroscript  macro_comented
 --	category:	"_macrotest"

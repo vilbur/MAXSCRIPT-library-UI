@@ -28,17 +28,18 @@ struct MacroScriptParser_v
 	  */
 	function _parseMacros =
 	(
-		format ( "ScriptFile_Content._parseMacros()\n" )
+		format ( "MacroScriptParser._parseMacros()\n" )
 
 		for line in file_content do
 		(
 			if( this._lineIsMacroName line )
 			then
+				--format "line = % \n" line
 				this._setNewMacroSript (this._getMacroName line)
 			else
 				this._parseProperties line
 		)
-
+		
 		this._addLastMacroscript()
 	),
 
@@ -75,6 +76,7 @@ struct MacroScriptParser_v
 		RegEx.isMatch line "^\s*(category|buttonText|toolTip|icon|silentErrors|autoUndoEnabled)\s*:\s*" RegEx_options.IgnoreCase == true --return
 	),
 	/** Get name of macro from line
+	  * remove whitespace and tab
 	  *
 	  * @property	string	line	"MacroScript macro_name"
 	  *
@@ -82,7 +84,7 @@ struct MacroScriptParser_v
 	 */
 	function _getMacroName line =
 	(
-		(filterString line " ")[2] --return
+		(filterString line " 	")[2] --return
 	),
 
 	/** _get key value pair
@@ -126,8 +128,7 @@ struct MacroScriptParser_v
 	on create do
 	(
 		--format "\n"
-		print ("MacroScriptParser_v.onCreate()" )
-
+		--print ("MacroScriptParser_v.onCreate ")
 		this._parseMacros()
 	)
 )
