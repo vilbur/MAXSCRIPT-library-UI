@@ -35,7 +35,7 @@ struct ScriptFile_Content_v
 		if( this.isMacrosriptFile() ) then
 		(
 			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-			format "MacroScripts = % \n" MacroScripts
+			--format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
 			
 				MacroScripts[m].addControls _controls
@@ -129,7 +129,7 @@ struct ScriptFile_Content_v
 	(
 		this._setName()
 		--format "\n"
-		print ("ScriptFile_v.onCreate " + path )
+		--print ("ScriptFile_v.onCreate " + path )
 
 		this.loadMacroscriptFile()
 	)

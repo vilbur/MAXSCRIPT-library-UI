@@ -48,7 +48,7 @@ struct Dialog_v
 	/** Create Dialog
 	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
 	 */
-	function create width:1024 height:512 pos: =
+	function create width:320 height:512 pos: =
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
@@ -59,7 +59,7 @@ struct Dialog_v
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
-		RolloutMain.Layout.fitSubrollouts()
+		--RolloutMain.Layout.fitSubrollouts()
 		
 		--RolloutMain.setRolloutWidth()
 	),
@@ -70,7 +70,14 @@ struct Dialog_v
     (
         RolloutMain.subrollouts() --return
     ),
-		
+	
+	/** Destroy dialog
+	 */
+	function destroy =
+	(
+		DestroyDialog __GLOBAL__v.Dialog.Dialog
+	),
+	
 	private
 	
 	/** Set main rollout
@@ -135,6 +142,8 @@ struct Dialog_v
 		this._setId()
 
 		this._unregisterOldDialog()
+		
+		this.destroy()
 		
 		this._setMainRollout()
 		

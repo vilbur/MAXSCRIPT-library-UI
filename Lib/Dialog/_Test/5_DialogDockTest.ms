@@ -5,22 +5,30 @@ filein( getFilenamePath(getSourceFileName()) + "/../Dialog.ms" )
 
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
+
 /* ROLLOUT DEFINITION */
-Rollout_A	= Dialog.roll "Subrollout A"
+
+Rollouts_1 = Dialog.rollouts()
+
+Rollout_A	= Rollouts_1.new "Subrollout A"
 
 
 /* CREATE DIALOG */
 Dialog.create()	-- create with default params
 
 
-/* DOCKING DIALOG */
+
+----/* DOCKING DIALOG */
+
 Dialog.dock #right
 
 messageBox "Dialog is docked right" beep:false
 
+
 Dialog.dock #left
 
 messageBox "Dialog is docked left" beep:false
+
 
 Dialog.undock()
 

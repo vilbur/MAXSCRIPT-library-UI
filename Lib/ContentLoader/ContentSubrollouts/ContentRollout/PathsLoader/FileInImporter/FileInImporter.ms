@@ -13,7 +13,7 @@ struct FileInImporter_v
 	  */
 	function fileInSubdirs dirs =
 	(
-		format "FileI/*n*/Importer_v.fileInSubdirs() % \n" dirs
+		--format "FileI/*n*/Importer_v.fileInSubdirs() % \n" dirs
 		for dir in dirs do
 		(
 			--format "@@@ dir = % \n" dir
@@ -27,7 +27,7 @@ struct FileInImporter_v
 	 */
 	function fileInFiles maxscript_files =
 	(
-		format "maxscript_files = % \n" maxscript_files
+		--format "maxscript_files = % \n" maxscript_files
 		for file in maxscript_files do
 			this.fileIn file
 

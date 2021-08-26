@@ -18,7 +18,7 @@ struct ContentSubrollouts_v
 	function addToUi _Rollout =
 	(
 		--print ("ContentSubrollouts_v.addToUi() " + (filenameFromPath path) )
-		format "\n"
+		--format "\n"
 		--print ("ContentSubrollouts_v.addToUi " + _Rollout.title )
 		
 		local Subrollouts = _Rollout.subrollouts()

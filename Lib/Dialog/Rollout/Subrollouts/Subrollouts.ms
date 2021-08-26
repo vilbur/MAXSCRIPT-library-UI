@@ -17,6 +17,8 @@ struct Subrollouts_v
 
 	height = 32, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
 	
+	nested_level =0,
+	
 	/** New	subrollout
 	  *
 	  * @return	object Rollout_v	
@@ -30,6 +32,8 @@ struct Subrollouts_v
 
 		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
 		
+		new_subrollout.Layout.slot_padding = 96
+		
 		--format "new_subrollout=%"new_subrollout
 		append Rollouts new_subrollout
 		
@@ -40,7 +44,7 @@ struct Subrollouts_v
 	 */
 	function create =
 	(
-		print ("Subrollouts_v.create() "+ (this._getSubrolloutSlot()) )
+		--print ("Subrollouts_v.create() "+ (this._getSubrolloutSlot()) )
 		for _Rollout in Rollouts do
 			_Rollout.createRollout()
 			
@@ -62,7 +66,7 @@ struct Subrollouts_v
 	 */
 	function addSubRollouts =
 	(
-        print("Subrollouts.addSubRollouts to slot " + id)
+        --print("Subrollouts.addSubRollouts to slot " + id)
 		for Subrollout in Rollouts do
 			this._addSubRollout Subrollout
 	),
@@ -73,16 +77,23 @@ struct Subrollouts_v
 	(
 		widths	= #()
 		
-		--format "Subrollouts_v.resizeSobrolloutsSlot() = % \n" id
+		--format "@@@ Subrollouts_v.resizeSobrolloutsSlot() = % \n" id
+	
 		for _Rollout in Rollouts do
-			append widths (_Rollout.setRolloutWidth())
+		(
+			--print ("!!! _Rollout:"+ _Rollout.id)
+			--_Rollout.Layout.fitSubrollouts()
+			append widths ( _Rollout.Layout.fitSubrollouts() )
+		)
+
+			--append widths (_Rollout.setRolloutWidth())
 			
 		--format "Subrollouts % widths = %\n\n" id (amax widths)
 		
-		this.resize (amax widths)
-		----this.resize 256
+		--this.resize (amax widths) 512
+		--this.resize 320 512
 		
-		amax widths
+		--amax widths
 	),
 	
 	/** Fit subrollouts
@@ -97,9 +108,14 @@ struct Subrollouts_v
 	
 	/** Resize subrollouts
 	 */
-	function resize width =
+	function resize width height =
 	(
-		this.property width:(width+16)
+		--format "@@@ Subrollouts_v.resize() = % \n" id
+		--format "width = % \nheight = % \n\n" width height
+		--format "nested_level = % \n" nested_level
+
+		--this.property width:(width+_Rollout.Layout.slot_padding) height:height
+		this.property width:width height:height
 		
 		for _Rollout in Rollouts do
 			this._resizeRollout _Rollout
@@ -179,8 +195,11 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		"subRollout "+id+" \"slot_name\" height:" + height as string 
+		--"subRollout "+id+" \"slot_name\" height:" + height as string 
+
 		--"subRollout "+id+" \"slot_name\" height:" + height as string + " width:64"
+		"subRollout "+id+" \"slot_name\" height:256 width:256"
+		--"subRollout "+id+" \"slot_name\" height:256"
 		--"subRollout "+id+" \"slot_name\"" --return
 	),
 	

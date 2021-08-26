@@ -27,21 +27,21 @@ function layoutSetup columns: grid: padding: marginx: marginy:  =
 
 /** Add extra rollout
  */
-function addControls groupboxes:1 =
+function addControls _Rollout groupboxes:1 =
 (
 	/* DEFINE SLOTS FOR ROLLOUTS */
 	for g = 1 to groupboxes do
 	(
-		Controls = _Rollout.Controls.new groupbox:("Groupbox " + (counter_groupboxes += 1) as string)
+		Controls = _Rollout.Controls.new groupbox:("Groupbox " + (counter_groupboxes += 1) as string )
 		
-		for i = 1 to g + 2 do
+		for i = 1 to g + 1 do
 			Controls.button ("Button "+counter_groupboxes as string +"."+i as string )
 	)
 )
 
 /** Add extra rollout
  */
-function addSubRollouts subrollouts:1 rollouts:1 =
+function addSubRollouts _Rollout subrollouts:1 rollouts:1 =
 (
 	
 	/* DEFINE ROLLOUTS SLOTS */ 
@@ -54,22 +54,43 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 		(
 			_SubRollout	= SubRollouts.new ( s as string + (counter_subrollouts += 1) as string )
 			
-			/* DEFINE GROUPBOX */ 
-			for g = 1 to r do -- every rollout has 1 groupbox more then before
-			(
-				Controls    = _SubRollout.Controls.new groupbox:("Groupbox " + r as string +"" + (counter_groupboxes += 1) as string)
-				
-				/* DEFINE CONTROLS */ 
-				for c = 1 to r do
-					Controls.button ("Button " + s as string +"" + r as string +""+ counter_groupboxes as string +"" + c as string )
-			)
+			addControls _SubRollout groupboxes:2
 		)
 	)
 )
 
-
-
-
+/** Add neste sub rollouts
+ */
+function addNesteSubRollouts _Rollout =
+(
+	
+	/* DEFINE ROLLOUTS SLOTS */ 
+	for s = 1 to 1 do
+	(
+		SubRollouts = _Rollout.subrollouts()
+		
+		/* DEFINE SUBROLLOUTS */ 
+		for r = 1 to 1 do
+		(
+			_SubRollout	= SubRollouts.new ( s as string + "." + (counter_subrollouts += 1) as string )
+			
+			--addControls _SubRollout groupboxes:2
+			--
+			--SubRolloutsNested = _SubRollout.subrollouts()
+			--
+			--SubRolloutsNested.height = 256
+			--
+			--SubRolloutNested	= SubRolloutsNested.new ( s as string + "." + (counter_subrollouts += 1) as string )
+			addControls _SubRollout groupboxes:1
+			--
+			if( counter_subrollouts < 3 ) then 
+				addNesteSubRollouts _SubRollout
+			
+		)
+	)
+)
+	
+	
 
 /*------------------------------------------------------------------------------
 	RUN TESTS
@@ -80,21 +101,25 @@ function addSubRollouts subrollouts:1 rollouts:1 =
 
 
 
-addControls    groupboxes:1
-addSubRollouts subrollouts:1 rollouts:2
---addControls    groupboxes:1
---addSubRollouts subrollouts:2 rollouts:1
+
+
+--addControls    _Rollout groupboxes:1
+--addSubRollouts _Rollout subrollouts:1 rollouts:3
+--addControls    _Rollout groupboxes:1
+--addSubRollouts _Rollout subrollouts:3 rollouts:2
+
+addNesteSubRollouts _Rollout
 
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:720 width:512
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:1024 width:512
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
-_Rollout.Layout.fitSubrollouts()
+--_Rollout.Layout.fitSubrollouts()
 
-_Rollout.setRolloutWidth()
+--_Rollout.setRolloutWidth()

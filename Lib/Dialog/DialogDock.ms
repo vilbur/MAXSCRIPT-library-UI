@@ -10,11 +10,11 @@ function dock side =
 	this._register()
 
 	if( findItem #( #left, #right, #top, #bottom ) (side as name) > 0 ) then 
-		_dock = ("cui_dock_" + side as string) as name
+		dock_state = ("cui_dock_" + side as string) as name
 	else
-		_dock = #cui_floatable
+		dock_state = #cui_floatable
 	
-	cui.DockDialogBar Dialog _dock
+	cui.DockDialogBar Dialog dock_state
 ),
 /** Undock dialog
  */

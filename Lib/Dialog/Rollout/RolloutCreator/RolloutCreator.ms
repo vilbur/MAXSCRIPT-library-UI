@@ -19,7 +19,7 @@ struct RolloutCreator_v
 	 */
 	function addSubrolloutSlot slot_string =
 	(
-		format "RolloutCreator_v.addSubrolloutSlot %\n" slot_string
+		--format "RolloutCreator_v.addSubrolloutSlot %\n" slot_string
 		_rolloutCreator.addText( slot_string )
 	),
 	
@@ -56,7 +56,7 @@ struct RolloutCreator_v
 	 */
 	function end =
 	(
-		format "RolloutCreator_v.end %\n" id
+		--format "RolloutCreator_v.end %\n" id
 		_rolloutCreator.end()
 	),
 

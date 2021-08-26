@@ -30,7 +30,7 @@ struct MacroScriptParser_v
 	  */
 	function _parseMacros =
 	(
-		format ( "MacroScriptParser._parseMacros()\n" )
+		--format ( "MacroScriptParser._parseMacros()\n" )
 
 		for line in file_content do
 		(
@@ -49,9 +49,9 @@ struct MacroScriptParser_v
 	 */
 	function _setNewMacroSript name =
 	(
-		format "MacroScriptParser._setNewMacroSript() %\n" name 
+		--format "MacroScriptParser._setNewMacroSript() %\n" name 
 		this._addLastMacroscript()
-		print "SHIT"
+
 		MacroScript_last = MacroScript_Content_v name
 
 		MacroScript_last --return

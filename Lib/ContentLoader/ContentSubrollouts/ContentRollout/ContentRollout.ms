@@ -1,6 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/PathsLoader/PathsLoader.ms" )
-filein( getFilenamePath(getSourceFileName()) + "/../ContentSubrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/ScriptFile/ScriptFile.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../ContentSubrollouts.ms" )
 
 /** Create rollout from dir containing ".ms" & ".mcr" files
  * 
@@ -48,7 +48,7 @@ struct ContentRollout_v
 	 */
 	function _loadContentFromDir =
 	(
-		print ("ContentRollout_v._loadContentFromDir() " + name)
+		--print ("ContentRollout_v._loadContentFromDir() " + name)
 		
 		for path in (PathsLoader.getSubrolloutsAndControlsPaths()) do
 			append Subrollouts_and_Controls	(this._addSubrolloutOrControlBox path)
