@@ -41,6 +41,7 @@ struct Dialog_v
 	size_init, -- size of dialog after creation
 
 
+	include "Library/UI/Lib/Dialog/DialogRemote.ms"
 	include "Library/UI/Lib/Dialog/DialogRegister.ms"
 	include "Library/UI/Lib/Dialog/DialogDock.ms"
 	
@@ -71,12 +72,7 @@ struct Dialog_v
         RolloutMain.subrollouts() --return
     ),
 	
-	/** Destroy dialog
-	 */
-	function destroy =
-	(
-		DestroyDialog __GLOBAL__v.Dialog.Dialog
-	),
+	
 	
 	private
 	

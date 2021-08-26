@@ -18,7 +18,7 @@ Dialog.create()	-- create with default params
 
 
 
-----/* DOCKING DIALOG */
+/* DOCKING DIALOG */
 
 Dialog.dock #right
 
