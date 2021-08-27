@@ -72,19 +72,25 @@ struct ContentSubrollouts_v
 	),
 	
 	
-	/** _get sub directories
-	 */
-	function _getSubDirs =
-	(
-		getDirectories (path + "/*") --return
-	),
-	
+	--/** _get sub directories
+	-- */
+	--function _getSubDirs =
+	--(
+	--	getDirectories (path + "/*") --return
+	--),
+	--
 	
 	on create do
 	(
 		this._setSlot()
 		format "\n---------------\n"
-		print ("ContentSubrollouts_v.onCreate " + slot )
-		this._setRollouts(this._getSubDirs())
+		print ("ContentSubrollouts_v.onCreate	" + path )
+		
+		PathsLoader = PathsLoader_v path:path
+		
+		PathsLoader.fileInMaxscriptFiles()
+		
+		
+		this._setRollouts( PathsLoader.rollout_dirs )
 	)
 )

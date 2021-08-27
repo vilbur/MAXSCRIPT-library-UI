@@ -6,7 +6,7 @@ struct PathsLoader_v
 (
 	path,
 	
-	folder_prefix = "rollouts-*",
+	folder_prefix = "rollout*",
 		
 	dirs	= #(),
 	
@@ -85,6 +85,8 @@ struct PathsLoader_v
 	
 	on create do
 	(
+		format "PathsLoader_v.onCreate	% \n" path
+		
 		dirs            = this._getDirs()
 		
 		rollout_dirs    = this._getRolloutDirs()
@@ -93,6 +95,6 @@ struct PathsLoader_v
 
 		maxscript_files = this._getMaxscriptFiles()
 		
-		--format "macro_files = % \nmaxscript_files = % \nrollout_dirs = % \ndirs = % \n\n" macro_files maxscript_files rollout_dirs dirs
+		format "macro_files = % \nmaxscript_files = % \nrollout_dirs = % \ndirs = % \n\n" macro_files maxscript_files rollout_dirs dirs
 	)
 )

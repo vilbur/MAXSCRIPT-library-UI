@@ -109,7 +109,7 @@ struct ContentRollout_v
 		this._setName()
 		this._sanitizeName()
 		
-		--print ("ContentRollout_v.onCreate " + name)
+		print ("ContentRollout_v.onCreate 	" + path)
 		
 		PathsLoader = PathsLoader_v path:path
 		

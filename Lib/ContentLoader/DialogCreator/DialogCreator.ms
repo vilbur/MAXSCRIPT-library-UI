@@ -20,6 +20,8 @@ struct DialogCreator_v
 			Subrollouts_or_Controls.addToUi Dialog.RolloutMain
 			
 		Dialog.create()
+		
+		Dialog --return
 	),
 	
 	--/** Add subrollouts or groupbox

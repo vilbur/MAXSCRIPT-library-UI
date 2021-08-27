@@ -21,7 +21,7 @@ struct ScriptFile_Content_v
 	 */
 	function loadMacroscriptFile =
 	(
-		print ("------------\nScriptFile.loadMacroscriptFile file:\n"+ (path)+"\n")
+		--print ("------------\nScriptFile.loadMacroscriptFile file:\n"+ (path)+"\n")
 		if ( this.isMacrosriptFile() ) then
 			MacroScripts = (MacroScriptParser_v file_content:(this._getFileContent path)).MacroScripts
 	),
@@ -42,8 +42,8 @@ struct ScriptFile_Content_v
 		)
 		else
 		(
-			format "!!! filein path = % \n" path
-			--filein path
+			format "!!! ScriptFile_Content_v.loadMacroscriptFile filein % \n" path
+			filein path
 		)
 	),
 	

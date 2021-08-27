@@ -21,8 +21,10 @@ struct ContentLoader_v
 	path, -- source dir of content
 	
 	/*  properties */
-	ContentRollout,
-	DialogCreator,
+	Dialog,
+
+	--ContentRollout,
+	--DialogCreator,
 
 	on create do
 	(
@@ -30,6 +32,6 @@ struct ContentLoader_v
 		
 		DialogCreator  = DialogCreator_v ContentRollout:ContentRollout
 		
-		DialogCreator.createDialog()
+		Dialog = DialogCreator.createDialog()
 	)
 )

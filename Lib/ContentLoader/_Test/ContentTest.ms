@@ -23,8 +23,10 @@ function loadContentTest =
 	--Content.setControlsToUI Dialog
 
 	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
-	Content	= ContentLoader_v path:(current_dir+"/Dialog-level")
+	ContentLoader	= ContentLoader_v path:(current_dir+"/Dialog-level")
 
+	
+	ContentLoader.Dialog --return 
 )
 
 /** Add extra rollout
@@ -42,7 +44,11 @@ function addRolloutByCodeTest name =
 	RUN TESTR
 -----------------------------------------*/
 --addRolloutByCodeTest "Rollout by code 1"
-loadContentTest()
+Dialog = loadContentTest()
+
+Dialog.dock #right
+
+
 --addRolloutByCodeTest "Rollout by code 2"
 
 
