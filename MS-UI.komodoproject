@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="ab3125f8-a921-4fca-a0d7-44425bb3a55d" kpf_version="5" name="MS-UI.komodoproject">
-<livefolder id="0fc40331-2582-4f64-8b2d-1dccc35a72c5" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ControlTypes" url="Lib/Controls/Control/ControlTypes/">
+<livefolder id="2ccc34e7-f606-42b7-9351-99c780c1a7ac" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Controls" url="Lib/Dialog/Rollout/Controls/">
+</livefolder>
+<livefolder id="9ebbb4d9-d69b-4ac6-89d7-73936ff694fe" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ControlTypes" url="Lib/Dialog/Rollout/Controls/ControlBox/ControlTypes/">
 </livefolder>
 <livefolder id="a16cbd79-7ae4-4a90-8181-389d34aacda1" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Dialog" url="Lib/Dialog/">
+</livefolder>
+<livefolder id="c9291dbf-5d50-4472-af6f-33379cca501b" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Control" url="Lib/Dialog/Rollout/Controls/ControlBox/Control/">
 </livefolder>
 <livefolder id="c9dafe4b-5d1f-4a78-9675-9b33022c969c" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Rollout" url="Lib/Dialog/Rollout/">
 </livefolder>

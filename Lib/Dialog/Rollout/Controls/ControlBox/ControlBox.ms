@@ -30,7 +30,6 @@ struct ControlBox_v
 	caption,
 	
 	Groupbox,
-	groupbox_global_id,
 
 	Controls	= #(),
 	

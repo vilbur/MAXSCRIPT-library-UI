@@ -23,13 +23,13 @@ _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 /* CONTROL TYPES */
 _controls_1.button	"Button"
 _controls_1.spinner	"Spinner" 
-_controls_1.edittext	"Edit Text" 
-_controls_1.edittext	"Edit Text Auto Field Width" 
-_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+--_controls_1.edittext	"Edit Text" 
+--_controls_1.edittext	"Edit Text Auto Field Width" 
+--_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 ----_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 --BrowsePath = _controls_1.BrowsePath	"Browse"
 --BrowsePath = _controls_1.BrowsePath	"Browse" width:256
-BrowsePath = _controls_1.BrowsePath	"Browse" width:256  fieldwidth:192  initialDir:(getDir #maxroot)
+--BrowsePath = _controls_1.BrowsePath	"Browse" width:256  fieldwidth:192  initialDir:(getDir #maxroot)
 --_controls_1.spinner	"Spinner with long label" columns:12 this.
 --_controls_1.spinner	"Spinner" offset:[32,0] 
 --_controls_1.checkbutton	"Checkbutton"
@@ -38,8 +38,8 @@ BrowsePath = _controls_1.BrowsePath	"Browse" width:256  fieldwidth:192  initialD
 /** Grid of buttons 
  *	
  */
-for i = 1 to 5 do
-	_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
+--for i = 1 to 5 do
+	--_controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 	
 
 /* CREATE ROLLOUT */

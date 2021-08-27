@@ -28,8 +28,6 @@ struct Controls_v
 	
 		append groupbox_global ControlBox
 		
-		ControlBox._setControlTypeMethods()
-	
 		append Parent_roll.Controlboxes_and_Subrollouts ControlBox
 
 		ControlBox --return
