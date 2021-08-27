@@ -3,14 +3,12 @@
 <project id="ab3125f8-a921-4fca-a0d7-44425bb3a55d" kpf_version="5" name="MS-UI.komodoproject">
 <livefolder id="0fc40331-2582-4f64-8b2d-1dccc35a72c5" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ControlTypes" url="Lib/Controls/Control/ControlTypes/">
 </livefolder>
-<folder id="ede28176-fc49-47b2-81a8-4f5aaac69609" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Includes-Tests">
-</folder>
-<file id="6e321adc-0982-4027-ae5c-1b6724c2199a" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="DialogIncludeTest.ms" url="Lib/Dialog/Test/includes/DialogIncludeTest.ms">
-</file>
-<file id="b37a6f83-5730-4076-b462-d2ad1d82c6dc" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="ControlsIncludeTest.ms" url="Lib/Controls/Test/inlcudes/ControlsIncludeTest.ms">
-</file>
-<file id="df38b4bd-344a-4811-8207-c1d73d4fc1aa" idref="ede28176-fc49-47b2-81a8-4f5aaac69609" name="RolloutIncludeTest.ms" url="Lib/Rollouts/Rollout/Test/includes/RolloutIncludeTest.ms">
-</file>
+<livefolder id="a16cbd79-7ae4-4a90-8181-389d34aacda1" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Dialog" url="Lib/Dialog/">
+</livefolder>
+<livefolder id="c9dafe4b-5d1f-4a78-9675-9b33022c969c" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Rollout" url="Lib/Dialog/Rollout/">
+</livefolder>
+<livefolder id="e9a6949c-a275-49a1-8525-6bdb69684347" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ContentLoader" url="Lib/ContentLoader/">
+</livefolder>
 <preference-set idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" id="project" preftype="project">
   <long id="prefs_version">1</long>
 </preference-set>

@@ -6,7 +6,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
  *	
  */
 --_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) -- test default id by title
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable_id"
+_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) ini:(getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
 
 SubRollouts = _Rollout.subrollouts()
 

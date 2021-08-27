@@ -10,14 +10,14 @@ struct RolloutEvent_v
 	Events	= Events_v event_types:event_types,
 	Parent_roll,
 	
-	/** Bind pressed event
+	/** Bind onOpen event
 	 */
 	function onOpen callback tooltip:"" =
 	(
 		this.Events.add (Event_v type:"onOpen" code:callback params:"val" tooltip:tooltip ) --return
 	),
 	
-	/** Bind pressed event
+	/** Bind onClose event
 	  
 	 */
 	function onClose callback tooltip:"" =
@@ -47,6 +47,7 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
+		print ("RolloutEvent_v._addHandlers()")
 		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" rolledUp val do (" + this._getCallback() + ")" )
 	),
 	

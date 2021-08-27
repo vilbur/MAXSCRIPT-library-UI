@@ -41,6 +41,9 @@
      */
     function _controlFitIntoRollout control_width =
     (
+		print ("LayoutControl.ms._controlFitIntoRollout " + control_width as string )
+		print ("LayoutControl.ms._getRollWidthByColumns() " + (this._getRollWidthByColumns()) as string )
+		
         (_pos_last.x + control_width) < this._getRollWidthByColumns() --return
     ),
 	

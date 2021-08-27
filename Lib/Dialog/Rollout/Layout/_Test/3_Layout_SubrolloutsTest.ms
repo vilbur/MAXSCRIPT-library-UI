@@ -81,7 +81,7 @@ function addNesteSubRollouts _Rollout =
 			--SubRolloutsNested.height = 256
 			--
 			--SubRolloutNested	= SubRolloutsNested.new ( s as string + "." + (counter_subrollouts += 1) as string )
-			addControls _SubRollout groupboxes:1
+			addControls _SubRollout groupboxes:4
 			--
 			if( counter_subrollouts < 3 ) then 
 				addNesteSubRollouts _SubRollout
@@ -116,6 +116,7 @@ _Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:1024 width:512
+
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts

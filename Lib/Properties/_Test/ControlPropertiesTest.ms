@@ -3,7 +3,7 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Rollout/Rollout.ms" )
 
 
-global _Rollout	  = Rollout_v title:(filenameFromPath(getSourceFileName()))
+global _Rollout	  = Rollout_v title:(getFilenameFile(getSourceFileName()))
 global Controls     = _Rollout.Controls.new groupbox:"Controls 1"
 global btn_props    = Controls.button "Button Properties"
 global btn_no_props = Controls.button "Button No Props"

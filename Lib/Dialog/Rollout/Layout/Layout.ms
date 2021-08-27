@@ -21,8 +21,8 @@ struct Layout_v
 		
 	width = 1024, 	
 		
-	columns = 12, -- columns _width of rollout
-	grid    = 24, -- size of columns in pixels 
+	columns = 16, -- columns _width of rollout
+	grid    = 16, -- size of columns in pixels 
 	
 	padding	= 4,	-- padding between controls
 	margin	= [padding, padding],
@@ -123,7 +123,7 @@ struct Layout_v
 		print "HOTFIX Layout_v.getRolloutWidth()"
 		
 		
-		128 -- HOTFIX
+		256 -- HOTFIX
 	),
 	
 	/** Get setup from this

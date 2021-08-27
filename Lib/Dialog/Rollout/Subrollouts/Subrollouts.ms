@@ -32,7 +32,7 @@ struct Subrollouts_v
 
 		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
 		
-		new_subrollout.Layout.slot_padding = 96
+		new_subrollout.Layout.slot_padding = 96  --!!! HOT FIX
 		
 		--format "new_subrollout=%"new_subrollout
 		append Rollouts new_subrollout
@@ -198,8 +198,8 @@ struct Subrollouts_v
 		--"subRollout "+id+" \"slot_name\" height:" + height as string 
 
 		--"subRollout "+id+" \"slot_name\" height:" + height as string + " width:64"
-		"subRollout "+id+" \"slot_name\" height:256 width:256"
-		--"subRollout "+id+" \"slot_name\" height:256"
+		--"subRollout "+id+" \"slot_name\" height:256 width:256"
+		"subRollout "+id+" \"slot_name\" height:256"
 		--"subRollout "+id+" \"slot_name\"" --return
 	),
 	

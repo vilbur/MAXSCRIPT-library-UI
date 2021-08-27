@@ -22,7 +22,6 @@ function cretateControlWithPropertiesTest =
 	global _controls_1  = _Rollout.controls.new groupbox:"Control types"
 	
 	--control_types	= #( #button, #checkbutton, #checkbox, #spinner )
-	--control_types	= #( #button, #checkbox, #spinner )
 	control_types	= #( #button, #checkbox, #spinner )
 	--control_types	= #( #button )
 	

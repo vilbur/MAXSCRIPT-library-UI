@@ -4,7 +4,7 @@
 	 */
 	function newSubrollout title =
 	(
-		Rollout_v title:title --return
+		Rollout_v title:title ini:ini --return
 	),
 	
 	/** Add subrollout

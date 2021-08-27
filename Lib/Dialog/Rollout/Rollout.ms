@@ -60,7 +60,7 @@ struct Rollout_v
 	
 	/* reference */
 	Parent_Subrollouts,
-	ini, -- inherit by Dialog_v
+	ini,
 
 	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
@@ -73,30 +73,30 @@ struct Rollout_v
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
-		--if( this._isSubrollout() == true ) then 
-			--RolloutEvent._addHandlers()
+		if( this._isSubrollout() == true ) then 
+			RolloutEvent._addHandlers()
 		
 		RolloutCreator.end()
 	),
 
-	--/** Set rollout width if Rollout is Parent rollout 
-	--  *
-	--  * @return	int	width of widest element
-	-- */
-	--function setRolloutWidth =
-	--(
-	--	--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
-	--	--format "Rollout_v.setRolloutWidth() % \n" id
-	--	
-	--	max_width = this._getMaxWidthOfNestedElements()
-	--	--format "max_width = % \n" max_width
-	--	
-	--	--if ( this._isParentRoll() == true ) then 
-	--		--this.property width:max_width
-	--		--this.property width:(max_width + 18)
-	--	
-	--	max_width --return
-	--),
+	/** Set rollout width if Rollout is Parent rollout 
+	  *
+	  * @return	int	width of widest element
+	 */
+	function setRolloutWidth =
+	(
+		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
+		--format "Rollout_v.setRolloutWidth() % \n" id
+		
+		max_width = this._getMaxWidthOfNestedElements()
+		--format "max_width = % \n" max_width
+		
+		--if ( this._isParentRoll() == true ) then 
+			--this.property width:max_width
+			--this.property width:(max_width + 18)
+		
+		max_width --return
+	),
 	
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -129,31 +129,31 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		--print (  " Rollout_v.setDefaultEvents()" + ( ini ) as string )
+		print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
 		if( ini != undefined ) then 
 			RolloutEvent.setSaveToIniEvents()
 	),
 	
 	
 	private
-	--
-	--/** Loop CotrolBoxes and Rollouts and find element with max width
-	-- */
-	--function _getMaxWidthOfNestedElements =
-	--(
-	--	widths	= #()
-	--	
-	--	for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-	--
-	--		if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
-	--			--append widths (Controlbox_or_Subrollouts.property width:#get)
-	--			append widths 256
-	--		else
-	--		--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
-	--			append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
-	--	
-	--	this._getMaxWidth widths --return
-	--),
+	
+	/** Loop CotrolBoxes and Rollouts and find element with max width
+	 */
+	function _getMaxWidthOfNestedElements =
+	(
+		widths	= #()
+		
+		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
+	
+			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+				--append widths (Controlbox_or_Subrollouts.property width:#get)
+				append widths 256
+			else
+			--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
+				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
+		
+		this._getMaxWidth widths --return
+	),
 
 	/** Get name given struct
 	  * @property	struct	_Struct
