@@ -8,9 +8,9 @@ Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
 /** CREATE MENU 
  */
-Menu = Dialog.Menu 
+Menu_1 = Dialog.Menu.menu "Menu 1"
 
-Menu.menu "Menu"
+items	= Menu_1.item "Item 1" "messagebox \"Item 1\""
 
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog.create()
