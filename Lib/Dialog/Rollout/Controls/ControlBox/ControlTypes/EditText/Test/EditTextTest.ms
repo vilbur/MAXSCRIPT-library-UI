@@ -8,25 +8,13 @@ _Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 
 
-/** Layout setup
- */
---_Rollout.Layout.columns  = 16
---_Rollout.Layout.grid     = 48
-
---_Rollout.Layout.padding  = 0
---_Rollout.Layout.margin.x = 0
---_Rollout.Layout.margin.y = 0
-
-
 /* CONTROL TYPES */
 
 Edittext = _controls_1.edittext	"Edit Text" text:"XXX"
 
---_controls_1.edittext	"Edit Text Auto Field Width" 
---_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
+_controls_1.edittext	"Field Width By This Label Length" columns:12
+_controls_1.edittext	"Custom Width"           fieldwidth:96
 
-----_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
---format "Edittext = % \n" Edittext
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
@@ -38,4 +26,6 @@ _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 
 
---Edittext.Properties._setValue #text "X"
+/** Change value in control 
+ */
+Edittext.Properties._setValue #text "Changed value"

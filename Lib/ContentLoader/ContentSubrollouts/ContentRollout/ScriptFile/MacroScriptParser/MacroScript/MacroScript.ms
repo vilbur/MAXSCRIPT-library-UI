@@ -17,6 +17,7 @@ struct MacroScript_Content_v
 	tooltip,
 	icon,
 	
+	/* store */
 	Controls_added	= #(),
 	
 	/** Set property
@@ -37,7 +38,7 @@ struct MacroScript_Content_v
 	  *
 	  * Button runs macro on preesed
 	 */
-	function addControls _Controls =
+	function addToUi _Controls =
 	(
 		--format "\n"
 		--print "MacroScript._addControls()"
@@ -49,7 +50,7 @@ struct MacroScript_Content_v
 		----format " _button	= % \n" _button
 		if( _button_exists == false ) then
 		(
-			_button	= _Controls.button ( buttontext as string ) id:control_id
+			_button	= _Controls.button ( buttontext as string ) id:control_id tooltip:tooltip
 			_button = this._setOnClickEvent #left _button 
 		--	_controls.add _button
 		)

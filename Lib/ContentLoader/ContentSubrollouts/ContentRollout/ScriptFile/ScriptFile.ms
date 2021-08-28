@@ -34,11 +34,10 @@ struct ScriptFile_Content_v
 		
 		if( this.isMacrosriptFile() ) then
 		(
-			_controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
+			_Controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
 			--format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
-			
-				MacroScripts[m].addControls _controls
+				MacroScripts[m].addToUi _Controls
 		)
 		else
 		(
