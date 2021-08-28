@@ -52,7 +52,7 @@ struct ControlBox_v
      */
     function create =
     (
-		print ("ControlBox_v.create() "+ (this.getId())  )
+		--print ("ControlBox_v.create() "+ (this.getId())  )
 		Layout.newControlsBox()
 		
 		this._addControls()

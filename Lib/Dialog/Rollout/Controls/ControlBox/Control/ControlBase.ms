@@ -91,7 +91,7 @@
 		this._setCaption()
 	
 		Id = ControlId_v	Parent_Control:this id:id
-		format "init_parameters = % \n" init_parameters
+		--format "init_parameters = % \n" init_parameters
 		--this.params columns:4
 		--this._setValue()
 		

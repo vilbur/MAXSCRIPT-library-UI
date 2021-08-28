@@ -26,7 +26,7 @@ Edittext = _controls_1.edittext	"Edit Text" text:"XXX"
 --_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
 
 ----_controls_1.edittext	"Edit Text Custom Width" fieldwidth:32
-format "Edittext = % \n" Edittext
+--format "Edittext = % \n" Edittext
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()

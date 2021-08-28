@@ -24,7 +24,7 @@ struct Params_v
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		format "Params_v.getOrSet %\n" keys_values as string
+		--format "Params_v.getOrSet %\n" keys_values as string
 
 		for key in keys_values.keys do
 			this._getOrSetValue key (keys_values.getVal key)
