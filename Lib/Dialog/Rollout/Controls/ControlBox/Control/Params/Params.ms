@@ -17,31 +17,21 @@ struct Params_v
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
 	  * @property	#(#name)	keys	of properties
-	  * @property	#("value", #get)	values	of properties, to get values set value to #get
+	  * @property	#("value"|#get)	values	of properties, to get values set value to #get
+	  *
+	  * @return	array	
 	 */
 	function getOrSet keys values =
 	(
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "Params_v.getOrSet %\n" keys_values as string
+		format "Params_v.getOrSet %\n" keys_values as string
 
 		for key in keys_values.keys do
-			this._replaceCurrentOrNewValue keys_values key
-		--format "keys_values = % \n" keys_values
-		keys_values.filter undefined test:false -- remove undefined items
+			this._getOrSetValue key (keys_values.getVal key)
+		
+		keys_values.filter undefined -- remove undefined items
 			
 		keys_values.getValues() -- return
-	),
-	
-	/** _replace current or new value
-	 */
-	function _replaceCurrentOrNewValue &keys_values key =
-	(
-		--format "Params_v._replaceCurrentOrNewValue %\n" key as string
-		--format "keys_values.getVal key = % \n" (keys_values.getVal key)
-		value_curernt_or_new = this._getOrSetValue key (keys_values.getVal key)
-		--value_curernt_or_new = keys_values.getVal key
-		--format "value_curernt_or_new = % \n" value_curernt_or_new
-		keys_values.setVal key value_curernt_or_new
 	),
 	
 	/** _get or set value
@@ -53,6 +43,7 @@ struct Params_v
 			List.getVal key   -- return
 		else
 			List.setVal key value -- return
+			
 	),
 		
 	/** Set val
@@ -60,16 +51,12 @@ struct Params_v
 	function setVal key value =
 	(
 		List.setVal key value -- return
-		--format "Params_v.setVal values = % \n" values as string
 	),
 	
 	/** Get val
 	 */
 	function getVal key =
 	(
-		--format "Params_v.getVal key = % \n" key as string
-		--format "values = % \n" values
-		--format "Params_v.getVal key = % \n" (List.getVal key)
 		List.getVal key   -- return
 	),
 	
@@ -98,12 +85,16 @@ struct Params_v
 	
 	/** Get format of value to string
 	  *
-	  * Add "#" prefix to name
+	  * 
 	 */
 	function _getFormat value =
 	(
 		if( classOf value == name ) then
-			value = "#" + value as string --return
+			value = "#" + value as string -- Add "#" prefix to name
+		
+		else if( classOf value == string ) then
+			value = "\"" + value +"\"" -- Wrap string to escaped qoutes \"\"
+		
 		
 		value as string --return
 	),

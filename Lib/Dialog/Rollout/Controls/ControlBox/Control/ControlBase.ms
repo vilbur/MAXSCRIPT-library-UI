@@ -74,7 +74,7 @@
 		control_exists --return
 	),
 
-	private
+	--private
 
 	/** Init Control struct
 	  * Shared with all control types
@@ -91,7 +91,7 @@
 		this._setCaption()
 	
 		Id = ControlId_v	Parent_Control:this id:id
-		--format "init_parameters = % \n" init_parameters
+		format "init_parameters = % \n" init_parameters
 		--this.params columns:4
 		--this._setValue()
 		
@@ -117,7 +117,7 @@
 	function _setType =
 	(
 		if( type == undefined ) then
-			type = (toLower (( filterString( classof this as string ) "_*(:" )[2])) as name
+			type = ( toLower (( filterString( classof this as string ) "_*(:" )[2]) ) as name
 		--format "ControlOnCreate._setType %\n" type
 	),
 
@@ -134,7 +134,7 @@
 	function _setValueParameter value =
 	(
 		--print "------------\nControlBase._setValueParameter()"
-		this.param name_of_value_param (this._formatDatatypeValue value)
+		_Parameters.getOrSet name_of_value_param (this._formatDatatypeValue value)
 	),
 	
 	/** Format datatype of value

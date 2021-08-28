@@ -30,6 +30,7 @@ struct ControlEvents_v
 		event_types.setVal #checkbox    #( #rightclick, #changed )
 		event_types.setVal #checkbutton #( #rightclick, #changed )
 		event_types.setVal #spinner     #(              #changed, #entered, #buttondown, #buttonup )
+		event_types.setVal #edittext    #( #changed )
 		--event_types.setVal #spinner     #(#changed)
 		
 		Events.event_types = (event_types.getVal Parent_Control.type)

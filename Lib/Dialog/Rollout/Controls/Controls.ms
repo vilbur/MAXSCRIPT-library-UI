@@ -24,7 +24,7 @@ struct Controls_v
 	 */
 	function new groupbox: id: =
 	(
-		ControlBox 	= ControlBox_v Parent_roll:Parent_roll Layout:Parent_roll.Layout caption:groupbox id:id groupbox_global_id:((groupbox_global.count+1) as string)
+		ControlBox 	= ControlBox_v Parent_roll:Parent_roll Layout:Parent_roll.Layout caption:groupbox id:id 
 	
 		append groupbox_global ControlBox
 		

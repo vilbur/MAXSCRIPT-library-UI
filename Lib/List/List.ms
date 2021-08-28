@@ -11,9 +11,9 @@ struct List_v
 	function setVal key val =
 	(
 		if (i = findItem keys key ) > 0 then
-			this._replaceValue   i key val 
+			this._replaceValue   i key val  --return
 		else
-			this._appendNewValue i key val 
+			this._appendNewValue i key val  --return
 	),
 
 	/**  Gt Value
@@ -53,13 +53,13 @@ struct List_v
 
 	/** Filter
 	 */
-	function filter pattern test:true =
+	function filter pattern =
 	(
 		for i in values.count to 1 by -1 do
 			if ( pattern == undefined or values[i] == undefined ) then
-				this._removeUndefined i pattern test
+				this._removeUndefined i pattern
 
-			else if( matchPattern values[i] pattern:pattern != test ) then 
+			else if( matchPattern values[i] pattern:pattern != false ) then 
 				this._removeKeyAndValue i
 	),
 	
@@ -74,9 +74,9 @@ struct List_v
 	
 	/** _remove undefined
 	 */
-	function _removeUndefined i pattern test =
+	function _removeUndefined i pattern =
 	(
-		if( (values[i] == pattern ) != test ) then 
+		if( (values[i] == pattern ) != false ) then 
 			this._removeKeyAndValue i
 	),
 

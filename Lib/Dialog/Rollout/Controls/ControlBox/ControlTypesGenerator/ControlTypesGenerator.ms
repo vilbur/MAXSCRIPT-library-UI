@@ -18,7 +18,6 @@ function writeControlTypesFile =
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
 	control_types	= #( #button, #spinner, #edittext, #browsePath, #checkbox)
-	--control_types	= #( #spinner, #edittext, #browsePath, #checkbox)
 	
 	param_custom = #( #columns )  
 	param_shared = #( #toolTip )  
@@ -50,12 +49,6 @@ function writeControlTypesFile =
 ),\n\n"
 			
 	
-	--file_content += "Twas brillig and the slithy tobes
-	--				did gyre and gimbol in the wabe
-	--				or something like that..."
-	
-	
-	
 	)
 	
 	f = (createFile (getFilenamePath(getSourceFileName()) + "..\\ControlBoxControlTypes.ms") )
@@ -67,6 +60,4 @@ function writeControlTypesFile =
 	
 )
 
-
 writeControlTypesFile()
-

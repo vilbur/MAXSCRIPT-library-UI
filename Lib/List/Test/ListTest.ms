@@ -28,7 +28,7 @@ List.filter undefined test:false       -- Filter items which ARE NOT undefined
 format "filter undefined = % \n" List 
 
 List.filter "Value*"                   -- Filter only values matching "Value*"
-format "filter A         = % \n" List
+format "filter Value*    = % \n" List
 
 
 /* Get value */
