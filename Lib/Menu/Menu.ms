@@ -46,14 +46,15 @@ struct Menu_v
 	function create _name =
 	(
 		--format "Menu_v.create()\n"
-		this.setName _name as string
+		--name	= _name
+		this.setName _name
 		
 		menu_def	= this._getMenuDefinition()
 		subitems	= this._getDefinitionsOfMenuItems()
 		commands	= this._getAllCommandsDefinitions()
 		
 		definition = menu_def + "\n(\n" + subitems + commands + "\n)"
-		
+		--format "definition = % \n" definition
 		if( type == "RCmenu" ) then
 			(execute definition) -- return if menu
 		else
