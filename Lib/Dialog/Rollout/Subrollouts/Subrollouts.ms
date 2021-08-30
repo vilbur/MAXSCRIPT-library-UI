@@ -15,7 +15,7 @@ struct Subrollouts_v
 	/* dependency */
 	RolloutProperty = Properties_v Parent_Control:this,
 
-	height = 32, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
+	height = 1024, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
 	
 	nested_level =0,
 	
@@ -195,11 +195,11 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		--"subRollout "+id+" \"slot_name\" height:" + height as string 
+		"subRollout "+id+" \"slot_name\" height:" + height as string 
 
 		--"subRollout "+id+" \"slot_name\" height:" + height as string + " width:64"
 		--"subRollout "+id+" \"slot_name\" height:256 width:256"
-		"subRollout "+id+" \"slot_name\" height:256"
+		--"subRollout "+id+" \"slot_name\" height:256"
 		--"subRollout "+id+" \"slot_name\"" --return
 	),
 	

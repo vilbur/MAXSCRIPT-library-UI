@@ -78,16 +78,11 @@ struct ControlBox_v
 	 */
 	function get id =
 	(
-		--print ("ControlBox_v.get()")
 		control_exists = false
 		
-		for Control in Controls do
-		--(
-			--format "Control.id.id = % \n" Control.id.id
-			--format "id = % \n" id
-			if( Control.id.id == id ) then 
-				control_exists = Control
-		--)
+		for Control in Controls where ( matchPattern Control.id.id pattern:id ignoreCase:true) do
+			control_exists = Control
+
 		control_exists --return
 	),
 	

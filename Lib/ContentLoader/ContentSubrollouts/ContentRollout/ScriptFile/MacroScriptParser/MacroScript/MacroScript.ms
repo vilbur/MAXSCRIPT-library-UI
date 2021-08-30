@@ -18,7 +18,7 @@ struct MacroScript_Content_v
 	icon,
 	
 	/* store */
-	Controls_added	= #(),
+	--Controls_added	= #(),
 	
 	/** Set property
 	  * 
@@ -26,36 +26,43 @@ struct MacroScript_Content_v
 	 */
 	function setProp key_value =
 	(
+		--if( key_value[2]==undefined ) then 
+			--key_value[2] = ""
+		
 		--format "MacroScript_Content_v.setProp % \n" key_value
 		if( hasProperty this  key_value[1] ) then
 			setProperty this key_value[1] key_value[2]
 	),
 	
-	/*---------------------------------------
-		PRIVATE
-	-----------------------------------------*/
-	/** Insert Macro as button to UI
+	/** Create Control in Controls
 	  *
-	  * Button runs macro on preesed
+	  * 
 	 */
-	function addToUi _Controls =
+	function createControl ControlBox =
 	(
-		--format "\n"
-		--print "MacroScript._addControls()"
-		----format " _macroScript	= % \n" _macroScript
+		print "MacroScript.createControl()"
+		--format "ControlBox = % \n" ControlBox
+		format "tooltip = % \n" tooltip
+		
+		
 		control_id	=  this.getControlId()
 		--format " control_id	= % \n" control_id
-		_button_exists	= _Controls.get ( control_id )
-		--format "_button_exists = % \n" _button_exists
-		----format " _button	= % \n" _button
+		_button_exists	= ControlBox.get ( control_id )
+
+		if( tooltip == undefined ) then 
+			tooltip = ""
+			--format "_button_exists = % \n" _button_exists
+			
 		if( _button_exists == false ) then
 		(
-			_button	= _Controls.button ( buttontext as string ) id:control_id tooltip:tooltip
-			_button = this._setOnClickEvent #left _button 
-		--	_controls.add _button
+			_button	= ControlBox.button ( buttontext as string ) id:control_id
+			this._setOnClickEvent #left _button 
 		)
 		else
-			_button = this._setOnClickEvent #right _button_exists 
+			this._setOnClickEvent #right _button_exists
+			
+			
+		--format "_button.events = % \n" _button.events
 	),
 	
 	/** Get control id
@@ -67,21 +74,22 @@ struct MacroScript_Content_v
 	
 	/** Set leftClick
 	 */
-	function _setOnClickEvent _mbutton Control =
+	function _setOnClickEvent mouse_button Control =
 	(
 		--format "\n"
-		--print "HOTFIX MacroScript._setOnClickEvent()"
+		print "HOTFIX MacroScript._setOnClickEvent()"
 		--callback = "macros.run @"+category+"@ @"+name+"@"
 		callback = "macros.run \""+category+"\" \""+name+"\""
+		format "mouse_button = % \n" mouse_button
 		--format "callback = % \n" callback
 		--Control.Events.setEvent #pressed ("print (\"Pressed\")") "tooltip"
 		--Control.Events.setEvent #pressed callback "tooltip"
 		
-		if( _mbutton==#left ) then
-			Control.Events.setEvent #pressed callback "tooltip"
+		if( mouse_button == #left ) then
+			Control.Events.setEvent #pressed callback tooltip
 		else
 		
-			Control.Events.setEvent #rightclick  callback "tooltip"
+			Control.Events.setEvent #rightclick  callback tooltip
 		
 		Control --return
 	),

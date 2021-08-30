@@ -69,6 +69,8 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
+		format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
+		
 		if( (type == #changed or type == #buttonup  ) and params == "" ) then 
 			params = "val"
 		

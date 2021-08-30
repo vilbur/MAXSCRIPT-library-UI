@@ -85,7 +85,7 @@ struct PathsLoader_v
 	
 	on create do
 	(
-		format "PathsLoader_v.onCreate	% \n" path
+		--format "PathsLoader_v.onCreate	% \n" path
 		
 		dirs            = this._getDirs()
 		
@@ -95,6 +95,6 @@ struct PathsLoader_v
 
 		maxscript_files = this._getMaxscriptFiles()
 		
-		format "macro_files = % \nmaxscript_files = % \nrollout_dirs = % \ndirs = % \n\n" macro_files maxscript_files rollout_dirs dirs
+		--format "macro_files = % \nmaxscript_files = % \nrollout_dirs = % \ndirs = % \n\n" macro_files maxscript_files rollout_dirs dirs
 	)
 )

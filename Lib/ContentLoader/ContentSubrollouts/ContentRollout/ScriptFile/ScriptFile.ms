@@ -23,7 +23,7 @@ struct ScriptFile_Content_v
 	(
 		--print ("------------\nScriptFile.loadMacroscriptFile file:\n"+ (path)+"\n")
 		if ( this.isMacrosriptFile() ) then
-			MacroScripts = (MacroScriptParser_v file_content:(this._getFileContent path)).MacroScripts
+			MacroScripts = (MacroScriptParser_v path:path).MacroScripts
 	),
 	
 	/** Insert controls to ui
@@ -37,7 +37,7 @@ struct ScriptFile_Content_v
 			_Controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
 			--format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
-				MacroScripts[m].addToUi _Controls
+				MacroScripts[m].createControl _Controls
 		)
 		else
 		(
@@ -95,27 +95,6 @@ struct ScriptFile_Content_v
 	--	( dotNetClass "System.Text.RegularExpressions.Regex" ).isMatch ( getFilenameFile file ) "^_" == false --return 
 	--),
 
-
-	/** Get file content
-	 */
-	function _getFileContent _path =
-	(
-		file_opened	= openFile _path mode:"r+"
-		counter	= 0
-		lines	= #()
-
-		while not eof file_opened do 
-		(
-			append lines ( readLine file_opened )
-			counter += 1
-		)
-
-		seek file_opened 0    -- reset position to beginning
-
-		close file_opened -- closes the file
-
-		lines --return
-	),
 
 	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
 	 */

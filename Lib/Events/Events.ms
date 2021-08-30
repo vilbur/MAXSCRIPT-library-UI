@@ -48,6 +48,9 @@ struct Events_v
 		MERGE EVENTS
 	-----------------------------------------*/
 	/** Get events
+	  *
+	  * @property	#name	event_type	#pressed|#rightclick|#changed etc.
+	  *
 	 */
 	function getEvent event_type =
 	(

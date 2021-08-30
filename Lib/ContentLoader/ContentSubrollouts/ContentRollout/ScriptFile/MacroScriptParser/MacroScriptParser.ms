@@ -2,11 +2,16 @@ filein( getFilenamePath(getSourceFileName()) + "/MacroScript/MacroScript.ms" )
 
 /** Parese macroscripts in "*.mcr file"
   *
-  *
+  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_6E21C768_7256_4500_AB1F_B144F492F055_htm
+  * 
   */
 struct MacroScriptParser_v
 (
-	file_content,
+	__construct = #( #path ),
+	/* required */
+	path,
+	
+	file_content = #(),
 	
 	MacroScripts	= #(),
 	MacroScript_last,	-- store currently parsed Macro file
@@ -30,12 +35,11 @@ struct MacroScriptParser_v
 	  */
 	function _parseMacros =
 	(
-		--format ( "MacroScriptParser._parseMacros()\n" )
+		format ( "MacroScriptParser._parseMacros()\n" )
 
 		for line in file_content do
 		(
-			if( this._lineIsMacroName line )
-			then
+			if( this._lineIsMacroName line ) then
 				--format "line = % \n" line
 				this._setNewMacroSript (this._getMacroName line)
 			else
@@ -96,15 +100,15 @@ struct MacroScriptParser_v
 	(
 		key_value = (filterString line ":")
 
-		key   = this._removeWhiteSpace key_value[1]
-		value = this._stripQuotes ( this._removeWhiteSpace key_value[2] )
+		key   = key_value[1]
+		value = this._stripQuotes ( this._trimWhiteSpace key_value[2] )
 		
 		#(key, value) --return
 	),
 	
 	/** Remove leading and trailing white space
 	 */
-	function _removeWhiteSpace _string =
+	function _trimWhiteSpace _string =
 	(
 		trimLeft ( trimRight _string ) --return
 	),
@@ -127,11 +131,53 @@ struct MacroScriptParser_v
 		if( MacroScript_last != undefined ) then
 			append MacroScripts MacroScript_last
 	),
+
+
+	/** Get file content
+	 */
+	function _setFileContent =
+	(
+		file_opened	= openFile path mode:"r+"
+		counter	= 0
+		--lines	= #()
+
+		while not eof file_opened do 
+		(
+			line =  readLine file_opened
+			if( line.count > 1 ) then 
+				append file_content ( this._trimWhiteSpace(line))
+				
+			counter += 1
+		)
+
+		seek file_opened 0    -- reset position to beginning
+
+		close file_opened -- closes the file
+
+		file_content --return
+	),
+	
+	/*------------------------------------------------------------------------------
+		CONSTRUCT
+	--------------------------------------------------------------------------------*/
+	
+	/** Check if properties in __construct are defined when an instance of the struct is created.
+	  * @example __construct = #( #property_name ) 
+	 */
+	function _checkConstctructProperties =
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
 	
 	on create do
 	(
 		--format "\n"
 		--print ("MacroScriptParser_v.onCreate ")
+		this._checkConstctructProperties()
+		
+		this._setFileContent()
+		format "file_content = % \n" file_content
 		this._parseMacros()
 	)
 )

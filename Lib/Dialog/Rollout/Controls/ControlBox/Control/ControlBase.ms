@@ -155,39 +155,6 @@
 		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
 
-	--/** Get parameters
-	-- */
-	--function _getParameters =
-	--(
-	--	--this._setDimensions()
-	--
-	--	Properties.join() + this._getTooltip() --return
-	--	--this._getTooltip() --return
-	--),
-
-	/** Get tooltip, if button then get tooltips from eventsz
-		Set prefixes "Leftclick:" & "\nRightclick:"
-	 */
-	function _getTooltip =
-	(
-		tooltip =	""
-		
-		if( type == #button ) then
-		(
-			Event_pressed	= Events.Events.getEvent "pressed"
-			Event_rightclick	= Events.Events.getEvent "rightclick" 
-			--print ( "Event_pressed = " + Event_pressed as string )
-			--print ( "Event_rightclick = " + Event_rightclick as string )
-			
-			if( Event_pressed != undefined  and Event_rightclick != undefined ) then
-				tooltip = "Leftclick:    " + Event_pressed.tooltip + "\nRightclick: " + Event_rightclick.tooltip
-
-			else if( Event_pressed != undefined ) then
-				tooltip = Event_pressed.tooltip
-		)
-		
-		if( tooltip!=undefined ) then ( " tooltip:\""+tooltip+"\"" ) else "" --return
-	),
 
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 

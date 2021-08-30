@@ -3,6 +3,8 @@
 <project id="ab3125f8-a921-4fca-a0d7-44425bb3a55d" kpf_version="5" name="MS-UI.komodoproject">
 <livefolder id="2ccc34e7-f606-42b7-9351-99c780c1a7ac" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Controls" url="Lib/Dialog/Rollout/Controls/">
 </livefolder>
+<livefolder id="6ad4ebc3-991a-41d1-bffe-f79d1587083c" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Layout" url="Lib/Dialog/Rollout/Layout/">
+</livefolder>
 <livefolder id="9ebbb4d9-d69b-4ac6-89d7-73936ff694fe" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ControlTypes" url="Lib/Dialog/Rollout/Controls/ControlBox/ControlTypes/">
 </livefolder>
 <livefolder id="a16cbd79-7ae4-4a90-8181-389d34aacda1" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Dialog" url="Lib/Dialog/">

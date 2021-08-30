@@ -50,7 +50,7 @@ struct Ini_v
 	 */
 	function save section key value =
 	(
-		--setINISetting _path ( section as string ) ( key as string ) ( value as string )
+		setINISetting _path ( section as string ) ( key as string ) ( value as string )
 	),
 	
 	/** Ini save control state
