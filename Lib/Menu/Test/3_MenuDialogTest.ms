@@ -6,7 +6,7 @@ filein ( getFilenamePath(getSourceFileName()) + "/../Menu.ms" );
  */
 
 /* DEFINE MAIN MENU */
-Menu = Menu_v() 
+Menu = Menu_v()
 
 /* DEFINE MENU */
 menu_1	= Menu.menu "Menu 1"
@@ -38,4 +38,4 @@ rollout roll_main "Menu Test"
 /** CREATE ROLLOUT 
  *	
  */
-CreateDialog roll_main menu:(Menu.create "MainMenu")
+CreateDialog roll_main menu:(Menu.create())

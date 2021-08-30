@@ -4,9 +4,13 @@ filein( getFilenamePath(getSourceFileName()) + "/MenuItem.ms" )
  */
 struct Menu_v
 (
+	__construct = #( ),
+	
+	/* properties */
+	name = "MainMenu",
+	
 	self	= this,
 	type	= "RCmenu",
-	name,
 	items	= #(),
 	
 	/** Submenu
@@ -38,16 +42,13 @@ struct Menu_v
 		this.item "separator" ""
 	),
 
-	/** Create
+	/** Create menu
 	  *
-	  * @param	string|name	_name	Name of main menu, empty if submenu is created
 	  * @return	RcMenu class|string	Return RcMenu for 'CreateDialog menu:RcMenu' or definition of submenu
 	 */
-	function create _name =
+	function create =
 	(
 		--format "Menu_v.create()\n"
-		--name	= _name
-		this.setName _name
 		
 		menu_def	= this._getMenuDefinition()
 		subitems	= this._getDefinitionsOfMenuItems()
@@ -59,14 +60,6 @@ struct Menu_v
 			(execute definition) -- return if menu
 		else
 			definition -- return if submenu
-	),
-	
-	/** Set name
-	 */
-	function setName _name =
-	(
-		if( _name != "" ) then
-			name	= _name
 	),
 
 	/** Add item
@@ -93,7 +86,7 @@ struct Menu_v
 		_definition	= ""
 		--format "items.count = % \n" items.count
 		for item in items do
-			_definition += item.create ""
+			_definition += item.create()
 			
 		_definition -- return
 	),
@@ -120,6 +113,25 @@ struct Menu_v
 			commands += item._getCommandDefinition()
 			
 		commands --return 
-	)
+	),
 
+	/*------------------------------------------------------------------------------
+		CONSTRUCT
+	--------------------------------------------------------------------------------*/
+	
+	/** Check if properties in __construct are defined when an instance of the struct is created.
+	  * @example __construct = #( #property_name ) 
+	 */
+	function _checkConstctructProperties =
+	(
+		for prop in __construct where getProperty this prop == undefined do
+			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	),
+	
+	/**  
+	 */
+	on create do
+	(
+		this._checkConstctructProperties()
+	)
 )
