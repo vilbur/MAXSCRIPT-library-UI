@@ -47,7 +47,7 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
-		print ("RolloutEvent_v._addHandlers()")
+		--print ("RolloutEvent_v._addHandlers()")
 		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" rolledUp val do (" + this._getCallback() + ")" )
 	),
 	

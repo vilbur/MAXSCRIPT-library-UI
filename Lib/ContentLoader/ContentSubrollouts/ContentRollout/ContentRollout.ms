@@ -25,9 +25,7 @@ struct ContentRollout_v
 	function addToUi Subrollouts =
 	(
 		Rollout_new	= Subrollouts.new name -- get new rollout
-		
-		print ("ContentRollout_v.addToUi ADD " + name +" TO "+ Subrollouts.id )
-		--format "Subrollouts_and_Controls = % \n" Subrollouts_and_Controls
+		--print ("ContentRollout_v.addToUi ADD " + name +" TO "+ Subrollouts.id )
 		
 		for Subrollouts_or_Controls in Subrollouts_and_Controls do
 		--format "Subrollouts_or_Controls = % \n" Subrollouts_or_Controls
@@ -109,14 +107,10 @@ struct ContentRollout_v
 		this._setName()
 		this._sanitizeName()
 		
-		print ("ContentRollout_v.onCreate 	" + path)
-		
 		PathsLoader = PathsLoader_v path:path
 		
 		PathsLoader.fileInMaxscriptFiles()
 		
 		this._loadContentFromDir()
-		--Subrollouts_and_Controls =
-		
 	)
 )

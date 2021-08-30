@@ -41,7 +41,7 @@ struct ScriptFile_Content_v
 		)
 		else
 		(
-			format "!!! ScriptFile_Content_v.loadMacroscriptFile filein % \n" path
+			--format "!!! ScriptFile_Content_v.loadMacroscriptFile filein % \n" path
 			filein path
 		)
 	),

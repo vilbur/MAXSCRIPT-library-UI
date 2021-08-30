@@ -25,14 +25,11 @@ function _getTooltip =
 	
 	if( tooltip == undefined ) then
 		tooltip = ""
-	--format "tooltip = % \n" tooltip
+
 	if( type == #button ) then
 	(
 		Event_pressed	= Events.Events.getEvent #pressed
 		Event_rightclick	= Events.Events.getEvent #rightclick
-		print ( "Event_pressed = " + Event_pressed as string )
-		print ( "Event_rightclick = " + Event_rightclick as string )
-		
 		
 		if( Event_pressed != undefined ) then
 			tooltip = Event_pressed.tooltip

@@ -70,9 +70,7 @@ struct DialogCreator_v
 	
 	on create do
 	(
-		format "\n---------------\n"
-		print ("DialogCreator_v.onCreate")
-
-		
+		--format "\n---------------\n"
+		--print ("DialogCreator_v.onCreate")
 	)
 )

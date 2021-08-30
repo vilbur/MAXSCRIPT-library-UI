@@ -35,8 +35,7 @@ struct MacroScriptParser_v
 	  */
 	function _parseMacros =
 	(
-		format ( "MacroScriptParser._parseMacros()\n" )
-
+		--format ( "MacroScriptParser._parseMacros()\n" )
 		for line in file_content do
 		(
 			if( this._lineIsMacroName line ) then
@@ -177,7 +176,7 @@ struct MacroScriptParser_v
 		this._checkConstctructProperties()
 		
 		this._setFileContent()
-		format "file_content = % \n" file_content
+		--format "file_content = % \n" file_content
 		this._parseMacros()
 	)
 )

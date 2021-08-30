@@ -97,10 +97,12 @@ struct Events_v
 		else
 			""
 	),
-
 	
-	function test =
+	/**  
+	 *	
+	 */
+	on create do
 	(
-		messagebox "Events_v.test()"
+
 	)	
 )

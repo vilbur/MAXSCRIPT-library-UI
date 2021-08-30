@@ -83,8 +83,8 @@ struct ContentSubrollouts_v
 	on create do
 	(
 		this._setSlot()
-		format "\n---------------\n"
-		print ("ContentSubrollouts_v.onCreate	" + path )
+		--format "\n---------------\n"
+		--print ("ContentSubrollouts_v.onCreate	" + path )
 		
 		PathsLoader = PathsLoader_v path:path
 		
