@@ -9,7 +9,7 @@
 	/* properties */ 
 	name_of_value_param	= #value,
 	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width ), #( 64 ) )
-	--value,
+	Menu,
 	
 	/* dependency */
 	Id,
@@ -74,7 +74,16 @@
 		control_exists --return
 	),
 
-	--private
+	/** Set menu
+	 */
+	function setMenu Menu event:#rightclick =
+	(
+		Menu.Create()
+		
+		this.Events.setEvent event ("popUpMenu "+Menu.name+" rollout:"+ControlBox.Parent_roll.id ) ("Menu "+Menu.name)
+	),
+	
+	private
 
 	/** Init Control struct
 	  * Shared with all control types

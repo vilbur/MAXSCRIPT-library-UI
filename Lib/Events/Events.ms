@@ -18,9 +18,11 @@ struct Events_v
 	 */
 	function setDefaultEvent Event =
 	(
-		--print ( "_setDefaultEvent=" + Event as string )
+		print ( "_setDefaultEvent = " + Event as string )
 		this.Events_default.setVal Event.type Event
+		format "Events_default = % \n" Events_default
 	),
+	
 	/** Add Event to Events
 	 */
 	function add Event =
@@ -38,10 +40,10 @@ struct Events_v
 		Events_merged	= #()
 		--format "Events_v.event_types = % \n" event_types
 		if(  event_types != undefined ) then
-		for event_type in event_types do
-			append Events_merged (this.getEvent event_type)
-		
-		for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
+			for event_type in event_types do
+				append Events_merged (this.getEvent event_type)
+			
+			for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
 	),
 	
 	/*---------------------------------------
@@ -57,7 +59,7 @@ struct Events_v
 		--print ( "Events_v._mergeEvent() " + event_type as string )
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type
-		
+		f
 		if( Event_default != undefined or Event != undefined ) then
 			this.mergeEvents Event_default Event
 		else
@@ -103,6 +105,7 @@ struct Events_v
 	 */
 	on create do
 	(
+		format "Events_v.onCreate() % \n" event_types
 
 	)	
 )

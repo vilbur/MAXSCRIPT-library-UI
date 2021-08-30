@@ -1,54 +1,44 @@
 clearListener()
 
-filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Dialog.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../Menu.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Rollout/Rollout.ms" )
 
 
-
-/** CREATE MENU 
- */
+/* ROLLOUT DEFINITION */
+_Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 /* DEFINE MAIN MENU */
 global Menu = Menu_v name:"ButtonRcMenu"
 
 /* DEFINE MENU */
 menu_1	= Menu.menu "Menu 1"
-menu_2	= Menu.menu "Menu 2"
 
 
 /** MENU ITEMS 
  */
-menu_1.item "Item 1" "messagebox \"Item 1\"" id:"test_item1"
+menu_1.item "Item 1" "messagebox \"Item 1\""
 
 
-/* DEFINE SUBMENU */
-submenu = menu_1.menu "Submenu"
-submenu.item "Submenu Item 1"  "messagebox \"Submenu Item 1\""
-
-/** MENU ITEMS 2
- */
-menu_2.item "Item 2" "messagebox \"Item 2\""
-menu_2.separator()
-menu_2.item "Item 3" "messagebox \"Item 3\""
+/* CONTROLS */
+Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
+Button_RMB = Controls.button "Menu RMB"
+Button_LMB = Controls.button "Menu LMB"
 
 
-/* define rollout for menu */
-rollout roll_main "Menu Test"
-(
- 	button bnMenu "Click here for the menu..." width:150
- 	
- 	on bnMenu pressed do (
- 		-- use the popUpMenu command to display the RC Menu we defined earlier...
- 		popUpMenu ButtonRcMenu pos:(bnMenu.pos + [145,0]) rollout:roll_main align:#align_topleft
- 	)
- 	
- 	 --on rollout open we call the createMenu fn to define the local RCMenu
- 	on roll_main open do 
-	(
-		Menu.create()
-	)
-)
+/* -----------------------------------------------------------------
 
-/** CREATE ROLLOUT 
- *	
- */
-CreateDialog roll_main
+	SET MENU TO CONTROL
+	
+	
+----------------------------------------------------------------- */
+Button_RMB.setMenu Menu
+Button_LMB.setMenu Menu event:#pressed
+
+
+/* CREATE ROLLOUT */
+_Rollout.createRollout()
+
+/* CREATE DIALOG */
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
+
+_Rollout.addSubRollouts() -- dialog must exist for adding subrollouts

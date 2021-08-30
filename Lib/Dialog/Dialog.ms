@@ -56,7 +56,7 @@ struct Dialog_v
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 	
 		--CreateDialog ( Dialog ) width:(RolloutMain.Layout.getRolloutWidth()) height:height
-		CreateDialog Dialog width:width height:height menu:(Menu.create "MainMenu")
+		CreateDialog Dialog width:width height:height menu:(Menu.create())
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
