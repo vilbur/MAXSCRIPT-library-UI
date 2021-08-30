@@ -105,7 +105,6 @@ struct Events_v
 	 */
 	on create do
 	(
-		format "Events_v.onCreate() % \n" event_types
-
+		--format "Events_v.onCreate() % \n" event_types
 	)	
 )
