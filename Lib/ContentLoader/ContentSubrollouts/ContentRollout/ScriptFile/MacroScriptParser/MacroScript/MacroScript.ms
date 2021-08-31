@@ -49,24 +49,7 @@ struct MacroScript_Content_v
 		else
 			this._setOnClickEvent #right _Button
 			
-		this._setRcMenu _Button
 	),
-	
-	/** _set rc menu
-	 */
-	function _setRcMenu _Button =
-	(
-		format "MacroScript_Content_v._setRcMenu tooltip = % \n" tooltip
-		--test =  matchPattern tooltip pattern:"Menu|*" ignoreCase:true
-		--format "test = % \n" test
-		if( matchPattern tooltip pattern:"Menu|*"ignoreCase:true ) then
-		(
-			tooltipmenu_split = filterString tooltip "|"
-
-			_Button.setMenu (execute(tooltipmenu_split[2]) )
-		)
-	),
-	
 	
 	/** Get control id
 	 */

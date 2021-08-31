@@ -44,6 +44,8 @@ struct Menu_v
 
 	/** Create menu
 	  *
+	  * [rcmenu ]](https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_17DBC9E3_5B61_4738_B78B_D3D57A515CE8_htm)
+	  *
 	  * @return	RcMenu class|string	Return RcMenu for 'CreateDialog menu:RcMenu' or definition of submenu
 	 */
 	function create =
