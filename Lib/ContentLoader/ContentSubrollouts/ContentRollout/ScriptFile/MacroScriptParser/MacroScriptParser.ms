@@ -100,7 +100,34 @@ struct MacroScriptParser_v
 		key_value = (filterString line ":")
 
 		key   = key_value[1]
-		value = this._stripQuotes ( this._trimWhiteSpace key_value[2] )
+		value = key_value[2]
+		
+		format "\nkey = \n% " key
+		values     =  (deleteItem key_value 1)
+		val_join     = ""
+		
+		
+		for val in values do
+			if( matchPattern key pattern:@"tooltip" ) then 
+				val_join += ( val + ":")
+		
+		format "key_value[1] = % \n" key_value[1]
+
+		--val_join     = "Test"
+
+		if( val_join != "" ) then
+		(
+			val_join = trimRight val_join ":"			
+				value = val_join
+		)
+		
+		format "val_join = % \n" val_join
+
+		
+		--else
+		value = this._stripQuotes ( this._trimWhiteSpace value )
+		--value = this._stripQuotes ( this._trimWhiteSpace val_join )
+
 		
 		#(key, value) --return
 	),
