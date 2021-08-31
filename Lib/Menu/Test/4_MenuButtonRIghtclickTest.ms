@@ -21,8 +21,8 @@ menu_1.item "Item 1" "messagebox \"Item 1\""
 
 /* CONTROLS */
 Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
-Button_RMB = Controls.button "Menu RMB"
 Button_LMB = Controls.button "Menu LMB"
+Button_RMB = Controls.button "Menu RMB"
 
 
 /* -----------------------------------------------------------------
@@ -31,8 +31,8 @@ Button_LMB = Controls.button "Menu LMB"
 	
 	
 ----------------------------------------------------------------- */
-Button_RMB.setMenu Menu
 Button_LMB.setMenu Menu event:#pressed
+Button_RMB.setMenu Menu
 
 
 /* CREATE ROLLOUT */
