@@ -97,40 +97,35 @@ struct MacroScriptParser_v
 	 */
 	function _getKeyValuePair line =
 	(
-		key_value = (filterString line ":")
+		
+		delimeter = ":"
+		key_value = (filterString line delimeter)
 
 		key   = key_value[1]
 		value = key_value[2]
 		
-		format "\nkey = \n% " key
 		values     =  (deleteItem key_value 1)
-		val_join     = ""
-		
-		
-		for val in values do
-			if( matchPattern key pattern:@"tooltip" ) then 
-				val_join += ( val + ":")
-		
-		format "key_value[1] = % \n" key_value[1]
 
-		--val_join     = "Test"
-
-		if( val_join != "" ) then
-		(
-			val_join = trimRight val_join ":"			
-				value = val_join
-		)
+		if( matchPattern key pattern:@"tooltip" and values.count > 1 ) then
+			value = this._joinValues values delimeter
 		
-		format "val_join = % \n" val_join
-
-		
-		--else
 		value = this._stripQuotes ( this._trimWhiteSpace value )
-		--value = this._stripQuotes ( this._trimWhiteSpace val_join )
-
 		
 		#(key, value) --return
 	),
+	
+	/** Join values
+	 */
+	function _joinValues values delimeter =
+	(
+		val_join = ""
+		
+		for val in values do
+			val_join += ( val + delimeter)
+	
+		trimRight val_join delimeter	
+	),
+	
 	
 	/** Remove leading and trailing white space
 	 */
