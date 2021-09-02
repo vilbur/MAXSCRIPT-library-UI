@@ -25,18 +25,16 @@ struct List_v
 		if (i = findItem keys key ) > 0 then
 			values[i] --return
 	),
-	
+
 	/** Get values
 	  *
-	  * @return	array values if more then 1 values
-	  * @return	mixed values if only 1 value
-	  * @return	undefined    if values are empty
+	  * @return	array values
 	 */
 	function getValues =
 	(
-		if( this.count() > 1 ) then
-			values --return
-		else if( this.count() == 1 ) then 
+		--if( this.count() > 1 ) then
+			--values --return
+		--else if( this.count() == 1 ) then 
 			values[1] --return
 	),
 	

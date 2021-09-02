@@ -15,7 +15,7 @@ struct MacroScript_Content_v
 	buttontext,
 	tooltip,
 	--icon,
-	params, -- here comes params from icon:
+	params = List_v(), -- here comes params from icon:
 	
 	
 	/** Set property

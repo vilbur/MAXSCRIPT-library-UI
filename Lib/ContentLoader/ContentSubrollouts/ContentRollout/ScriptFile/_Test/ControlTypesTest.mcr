@@ -1,14 +1,15 @@
 /*
 */
---macroscript macroFileTest_cotrol_button
---	category:	"MacroFileTest"
---	buttontext:	"Button"
---	toolTip:	"Basic type of control"
---	--icon:	"#(path, index)"
---	--icon:	#("Cameras",2)
---(
---	
---)
+macroscript macroFileTest_cotrol_button
+	category:	"MacroFileTest"
+	buttontext:	"Button"
+	toolTip:	"Basic type of control"
+	--icon:	"#(path, index)"
+	--icon:	#("Cameras",2)
+	icon:	"border:false"
+(
+	
+)
 
 /*
 */
@@ -17,8 +18,8 @@ macroscript macroFileTest_checkbox
 	buttontext:	"Checkbox"
 	toolTip:	"Checkbox type of control"
 	--icon:	"#(path, index)"
-	icon:	"type:checkbox"
-	--icon:	"type:checkbox|checked:true"
+	--icon:	"type:checkbox"
+	icon:	"type:checkbox|checked:true|border:false"
 (
 	print "checkbox"
 )

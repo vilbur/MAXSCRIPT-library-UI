@@ -23,20 +23,19 @@ struct ControlCreator_v
 		control_id	= this.getControlId()
 		_Control	= ControlBox.get ( control_id )
 		
-		format "_Control = % \n" _Control
-
+		
+		Control_type = if( Macro.params.getVal #type != undefined ) then
+		(
+			Control_type = (Macro.params.getVal #type) as name
+			Macro.params.delete Control_type
+			Control_type
+		)
+		 else
+			#button
+	
 		format "Macro.params = % \n" Macro.params
-		format "Macro.params = % \n" (Macro.params.getVal #type )
 		
-		type = (Macro.params.getVal #type) as name
-		format "type = % \n" type
-		
-		Macro.params.delete type
-		
-		format "control_id = % \n" control_id
-		format "Macro.params.keys = % \nMacro.params.values = % \n\n" Macro.params.keys Macro.params.values
-		_Control = Control_v type:type id:control_id caption:Macro.buttontext ControlBox:ControlBox init_parameters:#( Macro.params.keys, Macro.params.values )
-
+		_Control = Control_v type:Control_type id:control_id caption:Macro.buttontext ControlBox:ControlBox init_parameters:#( Macro.params.keys, Macro.params.values )
 		format "_Control = % \n" _Control
 		
 		--if( tooltip == undefined ) then 

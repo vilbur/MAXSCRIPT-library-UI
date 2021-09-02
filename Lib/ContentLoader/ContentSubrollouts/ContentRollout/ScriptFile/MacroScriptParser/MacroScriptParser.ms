@@ -137,11 +137,44 @@ struct MacroScriptParser_v
 		ListParams = List_v()
 
 		for param in (filterString params "|") do
-			ListParams.addArray (filterString param ":")
-		
-		ListParams.formatKeys()
+			ListParams.addArray (this._formatKeyValue param )
 		
 		ListParams --return
+	),
+	
+	/** Format key value
+	  *
+	  * @property	string	param	e.g.:"checked:true"
+	 */
+	function _formatKeyValue param =
+	(
+		key_value = (filterString param ":")
+		format "key_value = % \n" key_value
+		#( (key_value[1] as name), (this._formatDatatypeValue key_value[2]) ) --return
+
+		
+	),
+	
+		/** Format datatype of value
+	  * Put quotes around string value
+	 */
+	function _formatDatatypeValue value =
+	(
+		--if( classOf value == String and this._isValueBooleanString value == false ) then 
+		if( this._isValueBooleanString value ) then
+			value	= (( toLower value) == "true")
+			 
+			--"\""+value+"\"" --return
+		--else
+		
+		value --return 
+	),
+	
+	/** Is value boolean string E.G.: "true" OR "false"
+	 */
+	function _isValueBooleanString value =
+	(
+		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
 	),
 	
 	/** Remove leading and trailing white space
