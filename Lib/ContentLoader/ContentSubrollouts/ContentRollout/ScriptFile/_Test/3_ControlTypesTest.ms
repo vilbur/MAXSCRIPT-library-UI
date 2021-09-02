@@ -4,11 +4,10 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Dialog/Rollout/R
 
 filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptParser/MacroScriptParser.ms" )
 
-path_ = getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr";
+filein (getFilenamePath(getSourceFileName()) + "ControlTypesTest.mcr")
 
-filein (getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")
 
-MacroScripts = (MacroScriptParser_v path:path_).MacroScripts
+MacroScripts = (MacroScriptParser_v path:( getFilenamePath(getSourceFileName()) + "ControlTypesTest.mcr")).MacroScripts
 
 
 /*---------------------------------------

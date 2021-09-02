@@ -101,16 +101,22 @@ struct MacroScriptParser_v
 		delimeter = ":"
 		key_value = (filterString line delimeter)
 
-		key   = key_value[1]
+		key   = toLower key_value[1]
 		value = key_value[2]
+		format "key = % \n" key
 		
-		values     =  (deleteItem key_value 1)
-
-		if( matchPattern key pattern:@"tooltip" and values.count > 1 ) then
-			value = this._joinValues values delimeter
+		value = case key of
+		(
+			"icon":       this._getIcon value  			
+			"tooltip":    this._joinValues (deleteItem key_value 1) delimeter	
+			--"category":	
+			--"buttontext":	
+			default: value	
+		)
 		
+		--format "value = % \n" value
+		--format "classof value = % \n" (classof value)
 		value = this._stripQuotes ( this._trimWhiteSpace value )
-		
 		#(key, value) --return
 	),
 	
@@ -124,6 +130,16 @@ struct MacroScriptParser_v
 			val_join += ( val + delimeter)
 	
 		trimRight val_join delimeter	
+	),
+	
+	
+	/** _get icon
+	 */
+	function _getIcon value =
+	(
+		format ( "MacroScriptParser_v._getIcon " + value as string )
+		value --return
+
 	),
 	
 	

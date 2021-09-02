@@ -23,6 +23,7 @@ struct MacroScript_Content_v
 	 */
 	function setProp key_value =
 	(
+		format "MacroScript_Content_v.setProp() % \n" key_value
 		if( hasProperty this  key_value[1] ) then
 			setProperty this key_value[1] key_value[2]
 	),

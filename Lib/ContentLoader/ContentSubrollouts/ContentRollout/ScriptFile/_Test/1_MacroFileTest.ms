@@ -2,10 +2,9 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptParser/MacroScriptParser.ms" )
 
-path_ =getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr";
 
 
-MacroScripts = (MacroScriptParser_v path:path_).MacroScripts
+MacroScripts = (MacroScriptParser_v path:(getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr";)).MacroScripts
 
 
 for _MacroScript in MacroScripts do 
