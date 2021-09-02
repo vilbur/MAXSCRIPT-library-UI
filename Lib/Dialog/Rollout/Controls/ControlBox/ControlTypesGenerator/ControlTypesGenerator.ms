@@ -15,9 +15,11 @@ clearListener()
  */
 function writeControlTypesFile =
 (
+	file_path = getFilenamePath(getSourceFileName()) + "..\\ControlBoxControlTypes.ms"
+	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #button, #spinner, #edittext, #browsePath, #checkbox)
+	control_types	= #( #control, #button, #spinner, #edittext, #browsePath, #checkbox);
 	
 	param_custom = #( #columns )  
 	param_shared = #( #toolTip )  
@@ -29,15 +31,25 @@ function writeControlTypesFile =
 		   ,#( #fieldwidth, #initialDir )                                                         -- path
 		   ,#( #checked, #triState ))                                                             -- checkbox
 
-	params_all = param_custom + param_common + param_shared
+		   
+	params_defaults = param_custom + param_common + param_shared
+	
+	params_all = #()
+	
+	for param_by_type in params_by_type do 
+		params_all += param_by_type
+	
+		
+	params_by_type = join #(makeUniqueArray params_all) params_by_type
 	
 	for i = 1 to control_types.count do
 	(
-		params_keys = params_all + params_by_type[i]
+
+		params_keys = params_defaults + params_by_type[i]
 		
-		params_values         = "#"+(( dotNetObject "System.Text.RegularExpressions.Regex" @"#" ).Replace        ( params_keys as string ) "")  -- strip array to string:       "columns, pos, height, width, ..."
+		params_values         = "#"+(( dotNetObject "System.Text.RegularExpressions.Regex" @"#"        ).Replace ( params_keys as string ) "")  -- strip array to string:       "columns, pos, height, width, ..."
 		params_array_stripped =     (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( params_keys as string ) "")  -- strip array to string:       "columns, pos, height, width, ..." 
-		params_passed         =     (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$" ).Replace      ( params_array_stripped) ":") -- add colon ":" to parameters: "columns: pos: height: width: ..." 
+		params_passed         =     (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$"      ).Replace ( params_array_stripped) ":") -- add colon ":" to parameters: "columns: pos: height: width: ..." 
 		--format "params_keys   = % \n" params_keys
 		--format "params_values = % \n" params_values
 		
@@ -51,13 +63,14 @@ function writeControlTypesFile =
 	
 	)
 	
-	f = (createFile (getFilenamePath(getSourceFileName()) + "..\\ControlBoxControlTypes.ms") )
+	f = (createFile file_path )
 
 	format file_content to:f
 	
 	
 	close f
 	
+	print ("\nwriteControlTypesFile to file " + file_path + "\n\nSUCCESS")
 )
 
 writeControlTypesFile()

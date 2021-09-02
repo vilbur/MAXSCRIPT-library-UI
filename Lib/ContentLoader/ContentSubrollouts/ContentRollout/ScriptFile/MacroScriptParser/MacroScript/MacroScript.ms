@@ -17,13 +17,15 @@ struct MacroScript_Content_v
 	tooltip,
 	icon,
 	
+	params,
+	
 	/** Set property
 	  * 
 	  * @property	#(key, value)	key_value
 	 */
 	function setProp key_value =
 	(
-		format "MacroScript_Content_v.setProp() % \n" key_value
+		format "\nMacroScript_Content_v.setProp() % \n" key_value
 		if( hasProperty this  key_value[1] ) then
 			setProperty this key_value[1] key_value[2]
 	),
@@ -35,20 +37,20 @@ struct MacroScript_Content_v
 	function createControl ControlBox =
 	(
 		--print "MacroScript.createControl()"
-		control_id	=  this.getControlId()
-		_Button	= ControlBox.get ( control_id )
+		control_id	= this.getControlId()
+		_Control	= ControlBox.get ( control_id )
 
 		
 		if( tooltip == undefined ) then 
 			tooltip = ""
 			
-		if( _Button == false ) then
+		if( _Control == false ) then
 		(
-			_Button	= ControlBox.button ( buttontext as string ) id:control_id
-			this._setOnClickEvent #left _Button 
+			_Control	= ControlBox.button ( buttontext as string ) id:control_id
+			this._setOnClickEvent #left _Control 
 		)
 		else
-			this._setOnClickEvent #right _Button
+			this._setOnClickEvent #right _Control
 			
 	),
 	

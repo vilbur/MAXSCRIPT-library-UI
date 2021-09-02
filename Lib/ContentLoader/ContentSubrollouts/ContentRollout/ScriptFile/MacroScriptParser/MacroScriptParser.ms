@@ -97,27 +97,18 @@ struct MacroScriptParser_v
 	 */
 	function _getKeyValuePair line =
 	(
-		
 		delimeter = ":"
 		key_value = (filterString line delimeter)
 
-		key   = toLower key_value[1]
-		value = key_value[2]
-		format "key = % \n" key
+		key    = toLower key_value[1]
+		values = this._joinValues (deleteItem key_value 1) delimeter
 		
-		value = case key of
-		(
-			"icon":       this._getIcon value  			
-			"tooltip":    this._joinValues (deleteItem key_value 1) delimeter	
-			--"category":	
-			--"buttontext":	
-			default: value	
-		)
+		if( key == "icon" ) then 
+			key = "params"
+
+		value = this._stripQuotes ( this._trimWhiteSpace values )
 		
-		--format "value = % \n" value
-		--format "classof value = % \n" (classof value)
-		value = this._stripQuotes ( this._trimWhiteSpace value )
-		#(key, value) --return
+		#( key, value ) --return
 	),
 	
 	/** Join values
@@ -135,11 +126,13 @@ struct MacroScriptParser_v
 	
 	/** _get icon
 	 */
-	function _getIcon value =
+	function _getIcon values =
 	(
-		format ( "MacroScriptParser_v._getIcon " + value as string )
-		value --return
-
+		
+		format ( "MacroScriptParser_v._getIcon " )
+		format "values = % \n" values
+		--value --return
+		""
 	),
 	
 	
