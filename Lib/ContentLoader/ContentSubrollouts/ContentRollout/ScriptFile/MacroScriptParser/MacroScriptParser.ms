@@ -103,12 +103,15 @@ struct MacroScriptParser_v
 		key    = toLower key_value[1]
 		values = this._joinValues (deleteItem key_value 1) delimeter
 		
-		if( key == "icon" ) then 
-			key = "params"
-
-		value = this._stripQuotes ( this._trimWhiteSpace values )
+		values = this._stripQuotes ( this._trimWhiteSpace values )
 		
-		#( key, value ) --return
+		
+		if( key == "icon" ) then
+			#( "params", this._splitParams values ) --return
+		
+		else
+			#( key, values ) --return
+		
 	),
 	
 	/** Join values
@@ -118,23 +121,28 @@ struct MacroScriptParser_v
 		val_join = ""
 		
 		for val in values do
-			val_join += ( val + delimeter)
+			val_join += ( trimLeft ( trimRight val ) + delimeter)
 	
 		trimRight val_join delimeter	
 	),
 	
-	
-	/** _get icon
+	/** Split params
+	  *
+	  * @property	string	params	e.g.: "type:checkbox checked:true"
+	  *
 	 */
-	function _getIcon values =
+	function _splitParams params =
 	(
+		--format "params = % \n" ( params)
+		ListParams = List_v()
+
+		for param in (filterString params "|") do
+			ListParams.addArray (filterString param ":")
 		
-		format ( "MacroScriptParser_v._getIcon " )
-		format "values = % \n" values
-		--value --return
-		""
+		ListParams.formatKeys()
+		
+		ListParams --return
 	),
-	
 	
 	/** Remove leading and trailing white space
 	 */

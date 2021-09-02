@@ -1,4 +1,3 @@
-
 /** Struct present single macrosript in ".mcr" file
   *
   * This macro is able to add self calling button to UI
@@ -15,9 +14,9 @@ struct MacroScript_Content_v
 	category,
 	buttontext,
 	tooltip,
-	icon,
+	--icon,
+	params, -- here comes params from icon:
 	
-	params,
 	
 	/** Set property
 	  * 
@@ -30,51 +29,51 @@ struct MacroScript_Content_v
 			setProperty this key_value[1] key_value[2]
 	),
 	
-	/** Create Control in Controls
-	  *
-	  * 
-	 */
-	function createControl ControlBox =
-	(
-		--print "MacroScript.createControl()"
-		control_id	= this.getControlId()
-		_Control	= ControlBox.get ( control_id )
-
-		
-		if( tooltip == undefined ) then 
-			tooltip = ""
-			
-		if( _Control == false ) then
-		(
-			_Control	= ControlBox.button ( buttontext as string ) id:control_id
-			this._setOnClickEvent #left _Control 
-		)
-		else
-			this._setOnClickEvent #right _Control
-			
-	),
-	
-	/** Get control id
-	 */
-	function getControlId =
-	(
-		category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "") --return
-	),
-	
-	/** Set leftClick
-	 */
-	function _setOnClickEvent mouse_button Control =
-	(
-		callback = "macros.run \""+category+"\" \""+name+"\""
-
-		if( mouse_button == #left ) then
-			Control.Events.setEvent #pressed callback tooltip
-		else
-		
-			Control.Events.setEvent #rightclick  callback tooltip
-		
-		Control --return
-	),
+	--/** Create Control in Controls
+	--  *
+	--  * 
+	-- */
+	--function createControl ControlBox =
+	--(
+	--	--print "MacroScript.createControl()"
+	--	control_id	= this.getControlId()
+	--	--_Control	= ControlBox.get ( control_id )
+	--
+	--	
+	--	--if( tooltip == undefined ) then 
+	--	--	tooltip = ""
+	--	--	
+	--	--if( _Control == false ) then
+	--	--(
+	--	--	_Control	= ControlBox.button ( buttontext as string ) id:control_id
+	--	--	this._setOnClickEvent #left _Control 
+	--	--)
+	--	--else
+	--	--	this._setOnClickEvent #right _Control
+	--		
+	--),
+	--
+	--/** Get control id
+	-- */
+	--function getControlId =
+	--(
+	--	category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "") --return
+	--),
+	--
+	--/** Set leftClick
+	-- */
+	--function _setOnClickEvent mouse_button Control =
+	--(
+	--	callback = "macros.run \""+category+"\" \""+name+"\""
+	--
+	--	if( mouse_button == #left ) then
+	--		Control.Events.setEvent #pressed callback tooltip
+	--	else
+	--	
+	--		Control.Events.setEvent #rightclick  callback tooltip
+	--	
+	--	Control --return
+	--),
 
 	on create do
 	(

@@ -17,16 +17,13 @@ struct List_v
 	),
 
 	/**  Gt Value
+	  *
+	  * @return	value|undefined	
 	 */
 	function getVal key =
 	(
-		--format "List_v.getVal % %\n" (key as string) (findItem keys key)
-		--format "values = % \n" values
-
 		if (i = findItem keys key ) > 0 then
 			values[i] --return
-		else
-			undefined --return
 	),
 	
 	/** Get values
@@ -41,6 +38,13 @@ struct List_v
 			values --return
 		else if( this.count() == 1 ) then 
 			values[1] --return
+	),
+	
+	/** Add array
+	 */
+	function addArray _array =
+	(
+		this.setVal _array[1] _array[2]
 	),
 	
 	/**  Delete Value
@@ -61,6 +65,18 @@ struct List_v
 
 			else if( matchPattern values[i] pattern:pattern != false ) then 
 				this._removeKeyAndValue i
+	),
+	
+	/** Format keys to #name dattype
+	  *
+	  *
+	  *
+	  *
+	 */
+	function formatKeys =
+	(
+		for i = 1 to keys.count do
+			keys[i] = keys[i] as name
 	),
 	
 	/** Get Count of values

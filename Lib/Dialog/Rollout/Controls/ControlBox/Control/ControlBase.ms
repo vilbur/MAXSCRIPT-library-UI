@@ -8,7 +8,7 @@
 
 	/* properties */ 
 	name_of_value_param	= #value,
-	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width ), #( 64 ) )
+	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
 	Menu,
 	
 	/* dependency */

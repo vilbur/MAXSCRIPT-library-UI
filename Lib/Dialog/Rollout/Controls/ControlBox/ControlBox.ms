@@ -74,12 +74,10 @@ struct ControlBox_v
 	),
 	
 	/** Get existing control
-	  * @return	false|Control_v
+	  * @return	Control_v|undefined
 	 */
 	function get id =
 	(
-		control_exists = false
-		
 		for Control in Controls where ( matchPattern Control.id.id pattern:id ignoreCase:true) do
 			control_exists = Control
 

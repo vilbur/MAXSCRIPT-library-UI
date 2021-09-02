@@ -1,4 +1,5 @@
 filein( getFilenamePath(getSourceFileName()) + "/MacroScriptParser/MacroScriptParser.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/ControlCreator/ControlCreator.ms" )
 /** Process ".ms" & ".mcr" file
   * 1) Get macroscripts from '.mcr' files
   * 2) Filein '.ms' files
@@ -37,7 +38,12 @@ struct ScriptFile_Content_v
 			_Controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
 			--format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
-				MacroScripts[m].createControl _Controls
+			(
+				ControlCreator 	= ControlCreator_v Macro:MacroScripts[m] ControlBox:_Controls
+				
+				--MacroScripts[m].createControl _Controls
+				
+			)
 		)
 		else
 		(
