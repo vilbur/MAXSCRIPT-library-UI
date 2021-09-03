@@ -1,4 +1,4 @@
-filein( getFilenamePath(getSourceFileName()) + "/MacroScriptParser/MacroScriptFileParser.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/MacroScriptFileParser/MacroScriptFileParser.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/ControlCreator/ControlCreator.ms" )
 /** Process ".ms" & ".mcr" file
   * 1) Get macroscripts from '.mcr' files
