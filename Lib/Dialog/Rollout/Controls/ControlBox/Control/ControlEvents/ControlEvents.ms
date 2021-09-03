@@ -1,17 +1,13 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/EventFired/EventFired.ms" )
-/** Control
+
+/** ControlEvents_v
  *
- *	====================================================================
+ * DEFAULT CALLBACKS:
+ *		1) Fire global variable EventFired = EventFired_v
+ * 		2) Save ctrl value to ini if ini file is defined
+ * 		
  *
- *		!!!!!! IMPORTANT !!!!!!
- *
- *		Add New EVENT Type:
- *			1) Create method in this file
- *			2) Extend this method in struct Control_v
- *		
- *	====================================================================
- *		
  */
 struct ControlEvents_v 
 (
