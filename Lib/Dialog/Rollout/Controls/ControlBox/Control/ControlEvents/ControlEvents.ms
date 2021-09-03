@@ -12,12 +12,26 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events
  *	====================================================================
  *		
  */
+/** Event fired
+ */
+struct EventFired_v
+(
+	--ui,
+	value,
+	control,
+	type
+)
+
+global EventFired = EventFired_v()
+
 struct ControlEvents_v 
 (
 	/* dependency */
 	Events	= Events_v(),
 
 	Parent_Control,
+	
+	callback_value_name = "val", -- literal name of value passed to callback e.g.: callbackfn(value)
 
 	/** Set event types available for each type of control
 	 */
@@ -69,12 +83,20 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
-		format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
+		--format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
+		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
+			params = callback_value_name
 		
-		if( (type == #changed or type == #buttonup  ) and params == "" ) then 
-			params = "val"
 		
-		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
+		callback_test = "EventFired.control=\""+Parent_Control.id.full+"\";"
+		
+		callback_test += "EventFired.type=#"+type+";"
+
+		callback_test += "EventFired.value=val;"
+		
+		callback_test += callback
+
+		this.Events.add (Event_v type:type code:callback_test tooltip:tooltip params:params)
 		
 		Parent_Control --return
 	),

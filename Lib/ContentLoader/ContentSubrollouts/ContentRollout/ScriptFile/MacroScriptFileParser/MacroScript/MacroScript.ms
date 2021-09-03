@@ -22,7 +22,7 @@ struct MacroScript_Content_v
 	 */
 	function getControlId =
 	(
-		category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "") --return
+		category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "_") --return
 	),
 	
 	/** Get type parse icon string and get "type:(.*)" portion of E.G.: "type:checkbox|checked:true|border:false"
@@ -31,8 +31,6 @@ struct MacroScript_Content_v
 	 */
 	function getType =
 	(
-		--if( icon = undefined ) then
-		--format "icon = % \n" icon
 		if( matchPattern icon pattern:"type:*" ) then
 			((this._getMatches icon "Type:([^\|]+)"))[1][2] as name
 		else

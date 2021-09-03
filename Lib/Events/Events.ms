@@ -11,9 +11,6 @@ struct Events_v
 	Events_default	= List_v(),
 	event_types,
 	
-	/*---------------------------------------
-		SET EVENTS TO LIST
-	-----------------------------------------*/
 	/** Set Event to Events
 	 */
 	function setDefaultEvent Event =
@@ -30,9 +27,6 @@ struct Events_v
 		this.Events.setVal Event.type Event
 	),
 	
-	/*---------------------------------------
-		ADDING EVENT HANDLERS
-	-----------------------------------------*/
 	/**  
 	 */
 	function getEvents =
@@ -46,9 +40,6 @@ struct Events_v
 			for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
 	),
 	
-	/*---------------------------------------
-		MERGE EVENTS
-	-----------------------------------------*/
 	/** Get events
 	  *
 	  * @property	#name	event_type	#pressed|#rightclick|#changed etc.
@@ -59,15 +50,13 @@ struct Events_v
 		--print ( "Events_v._mergeEvent() " + event_type as string )
 		Event_default	= Events_default.getVal	event_type
 		Event	= Events.getVal	event_type
-		f
-		if( Event_default != undefined or Event != undefined ) then
-			this.mergeEvents Event_default Event
-		else
-			undefined
 		
-		--Event
-		--print ( "Events_v._mergeEvent() " + event_type as string )
+		if( Event_default != undefined or Event != undefined ) then
+			this.mergeEvents Event_default Event --return
+		else
+			undefined --return 
 	),
+	
 	/** Merge events
 	 */
 	function mergeEvents Event_default Event =
@@ -80,6 +69,7 @@ struct Events_v
 		--print ( "Events_v.mergeEvents() Event_merged = " + Event_merged as string )
 		Event_merged --return
 	),
+	
 	/** Get property from one of defined evets
 	 */
 	function _getEventProperty Event_default Event property =
@@ -90,6 +80,7 @@ struct Events_v
 		else
 			getProperty Event property --return
 	),
+	
 	/** Get code str
 	 */
 	function _getCodeStr Event =

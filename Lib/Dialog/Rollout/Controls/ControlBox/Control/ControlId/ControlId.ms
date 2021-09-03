@@ -2,20 +2,22 @@
  */
 struct ControlId_v
 (
-	__construct = #( #Parent_Control ),
+	__construct = #( #Parent_Control, #id ),
+	
+	/* required properties */
+	id,
 	/* dependency */
+	Parent_Control,
 
 	/* properties */
-	Parent_Control,
-	id,
 	full,
 	
 	/** Set
 	  @return	string	
 	 */
-	function setId id =
+	function setId =
 	(
-		--print ("ControlId.setId " + id as string )
+		print ("ControlId.setId " + id as string )
 		if ( this._isIdValid() ) then
 		    this.id	= id
 		else
@@ -28,6 +30,8 @@ struct ControlId_v
 		
 		--format "id = % \n" this.id
 		this._setIdFull()
+		
+		format "ControlId_v.full = % \n" full
 	),
 	
 	/** Get
@@ -91,6 +95,6 @@ struct ControlId_v
 		--print ("ControlId.onCreate " + id as string )
 		this._checkConstctructProperties()
 		
-		this.setId this.id 
+		this.setId()
 	)
 )
