@@ -1,4 +1,4 @@
-filein( getFilenamePath(getSourceFileName()) + "/MacroScriptParser/MacroScriptParser.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/MacroScriptParser/MacroScriptFileParser.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/ControlCreator/ControlCreator.ms" )
 /** Process ".ms" & ".mcr" file
   * 1) Get macroscripts from '.mcr' files
@@ -24,7 +24,7 @@ struct ScriptFile_Content_v
 	(
 		--print ("------------\nScriptFile.loadMacroscriptFile file:\n"+ (path)+"\n")
 		if ( this.isMacrosriptFile() ) then
-			MacroScripts = (MacroScriptParser_v path:path).MacroScripts
+			MacroScripts = (MacroScriptFileParser_v path:path).MacroScripts
 	),
 	
 	/** Insert controls to ui
@@ -36,11 +36,11 @@ struct ScriptFile_Content_v
 		if( this.isMacrosriptFile() ) then
 		(
 			_Controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
-			--format "MacroScripts = % \n" MacroScripts
+			format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
 			(
-				ControlCreator 	= ControlCreator_v Macro:MacroScripts[m] ControlBox:_Controls
-				
+				--ControlCreator 	= ControlCreator_v Macro:MacroScripts[m] ControlBox:_Controls
+				format "MacroScripts[m] = % \n" MacroScripts[m]
 				--MacroScripts[m].createControl _Controls
 				
 			)

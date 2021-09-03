@@ -17,29 +17,34 @@ struct ControlCreator_v
 	 */
 	function createControl =
 	(
-		format "\nControlCreator_v.createControl = % \n" Macro.category
+		format "\nControlCreator_v.createControl = % \n" Macro
 		
-		--print "MacroScript.createControl()"
-		control_id	= this.getControlId()
-		_Control	= ControlBox.get ( control_id )
+		--control_id	= this.getControlId()
+		--_Control	= ControlBox.get ( control_id )
+		--
+		--
+		--Control_type = if( Macro.params.getVal #type != undefined ) then
+		--(
+		--	Control_type = (Macro.params.getVal #type) as name
+		--	Macro.params.delete Control_type
+		--	Control_type
+		--)
+		-- else
+		--	#button
+		--
+		--format "Macro.params = % \n" Macro.params
+		--
+		--
 		
+		Control_type = Macro.getType()
+		Macro.getId()
+		Macro.getParams()
 		
-		Control_type = if( Macro.params.getVal #type != undefined ) then
-		(
-			Control_type = (Macro.params.getVal #type) as name
-			Macro.params.delete Control_type
-			Control_type
-		)
-		 else
-			#button
-	
-		format "Macro.params = % \n" Macro.params
-		
-		_Control = Control_v type:Control_type id:control_id caption:Macro.buttontext ControlBox:ControlBox init_parameters:#( Macro.params.keys, Macro.params.values )
+		_Control = Control_v type:(Macro.getType()) id:(Macro.getId()) caption:Macro.buttontext ControlBox:ControlBox init_parameters:(Macro.getParams())
 		format "_Control = % \n" _Control
 		
-		--if( tooltip == undefined ) then 
-		--	tooltip = ""
+		--if( tooltip != undefined ) then 
+		--	_Control.tooltip = ""
 		--	
 		--if( _Control == undefined ) then
 		--(
@@ -50,14 +55,7 @@ struct ControlCreator_v
 		--	this._setOnClickEvent #right _Control
 			
 	),
-	
-	/** Get control id
-	 */
-	function getControlId =
-	(
-		Macro.category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower Macro.buttontext ) "") --return
-	),
-	
+
 	/** Set leftClick
 	 */
 	function _setOnClickEvent mouse_button Control =

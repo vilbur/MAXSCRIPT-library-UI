@@ -5,7 +5,7 @@ filein( getFilenamePath(getSourceFileName()) + "/MacroScript/MacroScript.ms" )
   * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_6E21C768_7256_4500_AB1F_B144F492F055_htm
   * 
   */
-struct MacroScriptParser_v
+struct MacroScriptFileParser_v
 (
 	__construct = #( #path ),
 	/* required */
@@ -52,10 +52,9 @@ struct MacroScriptParser_v
 	 */
 	function _setNewMacroSript name =
 	(
-		--format "MacroScriptParser._setNewMacroSript() %\n" name 
 		this._addLastMacroscript()
 
-		MacroScript_last = MacroScript_Content_v name
+		MacroScript_last = MacroScript_Content_v macro_name:name
 
 		MacroScript_last --return
 	),
@@ -65,8 +64,21 @@ struct MacroScriptParser_v
 	function _parseProperties line =
 	(
 		if( this._lineIsProperty line ) then
-			MacroScript_last.setProp (this._getKeyValuePair line)
+			this._parseLine line
+			--MacroScript_last.setProp (this._getKeyValuePair line)
 	),
+	
+	/** _parse line
+	 */
+	function _parseLine line =
+	(
+		key_value = (filterString line ":")
+		key       = toLower key_value[1]
+
+		setProperty MacroScript_last key (this._joinAndSanitizeValues (deleteItem key_value 1))
+		--format "MacroScript_last = % \n" MacroScript_last
+	),
+
 	
 	/** Find if line start with "MacroScript <macro_name>"
 	 */
@@ -92,89 +104,26 @@ struct MacroScriptParser_v
 	(
 		(filterString line " 	")[2] --return
 	),
+	
 
-	/** _get key value pair
+	
+	/** Join and sanitize values
 	 */
-	function _getKeyValuePair line =
+	function _joinAndSanitizeValues values =
 	(
-		delimeter = ":"
-		key_value = (filterString line delimeter)
-
-		key    = toLower key_value[1]
-		values = this._joinValues (deleteItem key_value 1) delimeter
-		
-		values = this._stripQuotes ( this._trimWhiteSpace values )
-		
-		
-		if( key == "icon" ) then
-			#( "params", this._splitParams values ) --return
-		
-		else
-			#( key, values ) --return
-		
+		this._stripQuotes ( this._trimWhiteSpace (this._joinValues values) )
 	),
 	
 	/** Join values
 	 */
-	function _joinValues values delimeter =
+	function _joinValues values =
 	(
 		val_join = ""
 		
 		for val in values do
-			val_join += ( trimLeft ( trimRight val ) + delimeter)
+			val_join += ( trimLeft ( trimRight val ) + ":")
 	
-		trimRight val_join delimeter	
-	),
-	
-	/** Split params
-	  *
-	  * @property	string	params	e.g.: "type:checkbox checked:true"
-	  *
-	 */
-	function _splitParams params =
-	(
-		--format "params = % \n" ( params)
-		ListParams = List_v()
-
-		for param in (filterString params "|") do
-			ListParams.addArray (this._formatKeyValue param )
-		
-		ListParams --return
-	),
-	
-	/** Format key value
-	  *
-	  * @property	string	param	e.g.:"checked:true"
-	 */
-	function _formatKeyValue param =
-	(
-		key_value = (filterString param ":")
-		format "key_value = % \n" key_value
-		#( (key_value[1] as name), (this._formatDatatypeValue key_value[2]) ) --return
-
-		
-	),
-	
-		/** Format datatype of value
-	  * Put quotes around string value
-	 */
-	function _formatDatatypeValue value =
-	(
-		--if( classOf value == String and this._isValueBooleanString value == false ) then 
-		if( this._isValueBooleanString value ) then
-			value	= (( toLower value) == "true")
-			 
-			--"\""+value+"\"" --return
-		--else
-		
-		value --return 
-	),
-	
-	/** Is value boolean string E.G.: "true" OR "false"
-	 */
-	function _isValueBooleanString value =
-	(
-		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
+		trimRight val_join ":"	
 	),
 	
 	/** Remove leading and trailing white space
@@ -244,7 +193,7 @@ struct MacroScriptParser_v
 	on create do
 	(
 		--format "\n"
-		--print ("MacroScriptParser_v.onCreate ")
+		--print ("MacroScriptFileParser_v.onCreate ")
 		this._checkConstctructProperties()
 		
 		this._setFileContent()
