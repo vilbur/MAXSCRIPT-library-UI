@@ -14,22 +14,19 @@ struct ControlCreator_v
 	 */
 	function createControl =
 	(
-		format "\nControlCreator_v.createControl = % \n" Macro
-
-		if ((_Control = ControlBox.get(Macro.getId())) == undefined ) then
-			_Control = Control_v type:(Macro.getType()) id:(Macro.getId()) caption:Macro.buttontext ControlBox:ControlBox init_parameters:(Macro.getParams())
-
-		--if( Macro.tooltip != undefined ) then 
-		--	_Control.setParam #tooltip Macro.tooltip
-			
-
-		--this._setOnClickEvent #left _Control 
-		--this._setOnClickEvent #right _Control
+		--format "\nControlCreator_v.createControl = % \n" Macro
+		_Control = ControlBox.get(Macro.getControlId())
 		
-		event_type = _Control.Events.Events.event_types[1]
-		format "event_type = % \n" event_type
+		control_exists = ( _Control != undefined )
+		
+		 if ( control_exists==false ) then
+			_Control = Control_v type:(Macro.getType()) id:(Macro.getControlId()) caption:Macro.buttontext ControlBox:ControlBox init_parameters:(Macro.getParams())
+	
+		event_type_index = if (control_exists==true) then 2 else 1
+
+		event_type = _Control.Events.Events.event_types[event_type_index]
+
 		this._setOnClickEvent event_type _Control
-		
 	),
 
 	/** Set events which call macro
@@ -37,14 +34,8 @@ struct ControlCreator_v
 	function _setOnClickEvent event_type Control =
 	(
 		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
-		format "callback = % \n" callback
-		--if( event_type == #left ) then
-			Control.Events.setEvent event_type callback Macro.tooltip
-		--else
-		--
-		--	Control.Events.setEvent #rightclick  callback Macro.tooltip
-		
-		Control --return
+
+		Control.Events.setEvent event_type callback Macro.tooltip
 	),
 
 	private

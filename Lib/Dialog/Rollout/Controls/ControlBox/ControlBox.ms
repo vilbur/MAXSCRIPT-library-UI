@@ -78,7 +78,9 @@ struct ControlBox_v
 	 */
 	function get id =
 	(
-		for Control in Controls where ( matchPattern Control.id.id pattern:id ignoreCase:true) do
+		control_exists = undefined
+		
+		for Control in Controls where ( matchPattern Control.id.id pattern:id) do
 			control_exists = Control
 
 		control_exists --return
@@ -198,5 +200,4 @@ struct ControlBox_v
 		
 		Layout = Parent_roll.Layout
 	)
-	
 )

@@ -24,9 +24,9 @@ _Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
 
 ControlBox  = _Rollout.controls.new groupbox:"Control types"
 
-
+format "ControlBox = % \n" ControlBox
 for Macro in MacroScripts do 
-	ControlCreator 	= ControlCreator_v Macro:Macro ControlBox:ControlBox
+	ControlCreator_v Macro:Macro ControlBox:ControlBox
 
 
 

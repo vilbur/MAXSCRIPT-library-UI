@@ -26,7 +26,7 @@ struct ControlEvents_v
 		--format "ControlEvents_v.setEventTypes %\n" Parent_Control.type
 		event_types = List_v()
 		
-		event_types.setVal #button      #( #pressed, #pressed )
+		event_types.setVal #button      #( #pressed, #rightclick )
 		event_types.setVal #checkbox    #( #changed, #rightclick )
 		event_types.setVal #checkbutton #( #changed, #rightclick )
 		event_types.setVal #spinner     #( #changed, #entered, #buttondown, #buttonup )
