@@ -1,4 +1,5 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/EventFired/EventFired.ms" )
 /** Control
  *
  *	====================================================================
@@ -12,18 +13,6 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events
  *	====================================================================
  *		
  */
-/** Event fired
- */
-struct EventFired_v
-(
-	--ui,
-	value,
-	control,
-	type
-)
-
-global EventFired = EventFired_v()
-
 struct ControlEvents_v 
 (
 	/* dependency */
@@ -87,20 +76,26 @@ struct ControlEvents_v
 		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
 			params = callback_value_name
 		
-		
-		callback_test = "EventFired.control=\""+Parent_Control.id.full+"\";"
-		
-		callback_test += "EventFired.type=#"+type+";"
+		callback = (this._setEventFired type) + callback
 
-		callback_test += "EventFired.value=val;"
-		
-		callback_test += callback
-
-		this.Events.add (Event_v type:type code:callback_test tooltip:tooltip params:params)
+		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
 		
 		Parent_Control --return
 	),
+	
+	/** Set event fired
+	 */
+	function _setEventFired type =
+	(
+		local EventFired = "EventFired.control=\""+Parent_Control.id.full+"\";"
+		
+		EventFired += "EventFired.type=#"+type+";"
 
+		EventFired += "EventFired.value=val;"
+		
+		EventFired --return
+	),
+	
 	/** Set default event, save to ini if ini is defined in rollout
 	 */
 	function setDefaultEvents =
