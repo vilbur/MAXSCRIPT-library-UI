@@ -61,24 +61,35 @@ struct MacroScript_Content_v
 		keys	= #()
 		values	= #()
 		
-		params_split = (this._getMatches icon "(\w+):([^\|]+)")
-		format "params_split = % \n" params_split
-		
-		
-		for param in params_split do
+		for param in (this.splitParams()) do
 		(
-			--format "param = % \n" (param[2]) as name
-			--format "param = % \n" param[2]
 			append keys   (param[2] as name)
 			append values (this._formatDatatypeValue param[3])
 		)
-		--format "keys = % \nvalues = % \n\n" keys values
 		
-		
-		
-		#( keys, values ) --return
+		this.removeParam #( keys, values ) #type --return
 	),
-
+	
+	/** Split params in icon parameter by pipe "|" E.G.: "type:checkbox|checked:true|border:false"
+	  *
+	  * @return	2D matrix of splitted params	E.G.: #( #("checked:true", "checked", "true"), #("border:false", "border", "false")) 
+	 */
+	function splitParams =
+	(
+		this._getMatches icon "(\w+):([^\|]+)"
+	),
+	
+	/** Remove param
+	 */
+	function removeParam matrix key =
+	(
+		if( (i = findItem matrix[1] key) > 0 ) then 
+		(
+			deleteItem matrix[1] i
+			deleteItem matrix[2] i
+		)
+		matrix --return
+	),
 	
 		/** Format datatype of value
 	  * Put quotes around string value

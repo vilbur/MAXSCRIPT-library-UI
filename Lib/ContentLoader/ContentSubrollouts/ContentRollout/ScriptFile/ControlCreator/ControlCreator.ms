@@ -8,9 +8,6 @@ struct ControlCreator_v
 	ControlBox,
 	Macro,
 	
-	/* dependency */
-	/* reference */
-	/* properties */
 	/** Create Control in Controls
 	  *
 	  * 
@@ -18,50 +15,25 @@ struct ControlCreator_v
 	function createControl =
 	(
 		format "\nControlCreator_v.createControl = % \n" Macro
-		
-		--control_id	= this.getControlId()
-		--_Control	= ControlBox.get ( control_id )
-		--
-		--
-		--Control_type = if( Macro.params.getVal #type != undefined ) then
-		--(
-		--	Control_type = (Macro.params.getVal #type) as name
-		--	Macro.params.delete Control_type
-		--	Control_type
-		--)
-		-- else
-		--	#button
-		--
-		--format "Macro.params = % \n" Macro.params
-		--
-		--
-		
-		Control_type = Macro.getType()
-		Macro.getId()
-		Macro.getParams()
-		
-		_Control = Control_v type:(Macro.getType()) id:(Macro.getId()) caption:Macro.buttontext ControlBox:ControlBox init_parameters:(Macro.getParams())
-		format "_Control = % \n" _Control
-		
-		--if( tooltip != undefined ) then 
-		--	_Control.tooltip = ""
-		--	
-		--if( _Control == undefined ) then
-		--(
-		--	_Control	= ControlBox.button ( Macro.buttontext as string ) id:control_id
-		--	this._setOnClickEvent #left _Control 
-		--)
-		--else
-		--	this._setOnClickEvent #right _Control
+
+		if ((_Control = ControlBox.get(Macro.getId())) == undefined ) then
+			_Control = Control_v type:(Macro.getType()) id:(Macro.getId()) caption:Macro.buttontext ControlBox:ControlBox init_parameters:(Macro.getParams())
+
+		--if( Macro.tooltip != undefined ) then 
+		--	_Control.setParam #tooltip Macro.tooltip
 			
+
+		this._setOnClickEvent #left _Control 
+		this._setOnClickEvent #right _Control
+		
 	),
 
-	/** Set leftClick
+	/** Set events which call macro
 	 */
 	function _setOnClickEvent mouse_button Control =
 	(
-		callback = "macros.run \""+Macro.category+"\" \""+name+"\""
-
+		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
+		format "callback = % \n" callback
 		if( mouse_button == #left ) then
 			Control.Events.setEvent #pressed callback Macro.tooltip
 		else
@@ -73,14 +45,10 @@ struct ControlCreator_v
 
 	private
 	
-
 	/**  
 	 */
 	on create do
 	(
-		--this._checkConstctructProperties()
-		--format "ControlCreator_v.onCreate() % \nMacroScriptParsed = % \n\n" ControlBox Macro
-		
 		this.createControl()
 	)
 	
