@@ -38,12 +38,7 @@ struct ScriptFile_Content_v
 			_Controls	= _Rollout.Controls.new groupbox:(this._getGroupboxName())
 			format "MacroScripts = % \n" MacroScripts
 			for m = 1 to MacroScripts.count do
-			(
-				--ControlCreator 	= ControlCreator_v Macro:MacroScripts[m] ControlBox:_Controls
-				format "MacroScripts[m] = % \n" MacroScripts[m]
-				--MacroScripts[m].createControl _Controls
-				
-			)
+				ControlCreator_v Macro:MacroScripts[m] ControlBox:_Controls
 		)
 		else
 		(
