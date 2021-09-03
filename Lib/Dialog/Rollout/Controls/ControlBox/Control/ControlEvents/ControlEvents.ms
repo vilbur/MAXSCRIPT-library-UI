@@ -26,10 +26,10 @@ struct ControlEvents_v
 		--format "ControlEvents_v.setEventTypes %\n" Parent_Control.type
 		event_types = List_v()
 		
-		event_types.setVal #button      #( #rightclick, #pressed )
-		event_types.setVal #checkbox    #( #rightclick, #changed )
-		event_types.setVal #checkbutton #( #rightclick, #changed )
-		event_types.setVal #spinner     #(              #changed, #entered, #buttondown, #buttonup )
+		event_types.setVal #button      #( #pressed, #pressed )
+		event_types.setVal #checkbox    #( #changed, #rightclick )
+		event_types.setVal #checkbutton #( #changed, #rightclick )
+		event_types.setVal #spinner     #( #changed, #entered, #buttondown, #buttonup )
 		event_types.setVal #edittext    #( #changed )
 		--event_types.setVal #spinner     #(#changed)
 		
@@ -69,7 +69,7 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
-		--format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
+		format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
 		
 		if( (type == #changed or type == #buttonup  ) and params == "" ) then 
 			params = "val"

@@ -23,22 +23,26 @@ struct ControlCreator_v
 		--	_Control.setParam #tooltip Macro.tooltip
 			
 
-		this._setOnClickEvent #left _Control 
-		this._setOnClickEvent #right _Control
+		--this._setOnClickEvent #left _Control 
+		--this._setOnClickEvent #right _Control
+		
+		event_type = _Control.Events.Events.event_types[1]
+		format "event_type = % \n" event_type
+		this._setOnClickEvent event_type _Control
 		
 	),
 
 	/** Set events which call macro
 	 */
-	function _setOnClickEvent mouse_button Control =
+	function _setOnClickEvent event_type Control =
 	(
 		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
 		format "callback = % \n" callback
-		if( mouse_button == #left ) then
-			Control.Events.setEvent #pressed callback Macro.tooltip
-		else
-		
-			Control.Events.setEvent #rightclick  callback Macro.tooltip
+		--if( event_type == #left ) then
+			Control.Events.setEvent event_type callback Macro.tooltip
+		--else
+		--
+		--	Control.Events.setEvent #rightclick  callback Macro.tooltip
 		
 		Control --return
 	),

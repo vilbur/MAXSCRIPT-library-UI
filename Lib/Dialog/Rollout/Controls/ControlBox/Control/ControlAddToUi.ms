@@ -4,8 +4,7 @@ public
 */
 function addToUi =
 (
-	--print ("ControlAddToUi.ms.addToUi() " + id.id +" " + (this._getParameters()))
-	format "\nControlAddToUi.ms.addToUi() % % % %" type id.id caption (this._getParameters() )
+	--format "\nControlAddToUi.ms.addToUi() % % % %" type id.id caption (this._getParameters() )
     ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (this._getParameters())
 ),
 
