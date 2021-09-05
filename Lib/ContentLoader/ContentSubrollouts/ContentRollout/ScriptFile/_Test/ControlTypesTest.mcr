@@ -4,6 +4,7 @@ macroscript macroFileTest_cotrol_button
 	category:	"MacroFileTest"
 	buttontext:	"Button"
 	toolTip:	"Left click tooltip"
+	--icon:	"border:false"
 	icon:	"border:false"
 (
 	print "Button #pressed"
@@ -25,7 +26,7 @@ macroscript macroFileTest_checkbox
 	category:	"MacroFileTest"
 	buttontext:	"Checkbox"
 	toolTip:	"Changed event tooltip"
-	icon:	"type:checkbox|checked:true|border:false"
+	icon:	"type:checkbox|checked:true|border:false|columns:12"
 (
 	print "checkbox #changed"
 )

@@ -30,10 +30,10 @@ for Macro in MacroScripts do
 
 
 
-
+--
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:512
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:512 width:320
