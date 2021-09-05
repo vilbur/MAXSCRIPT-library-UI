@@ -17,21 +17,17 @@ struct ControlId_v
 	 */
 	function setId =
 	(
-		print ("ControlId.setId " + id as string )
-		if ( this._isIdValid() ) then
-		    this.id	= id
-		else
-			this.id	= this._getIdByConrolType()
+		if not ( this._isIdValid() ) then
+		    --this.id	= id
+		--else
+			id	= this._getIdByConrolType()
 			
 
 		this._removeWhitespace()
 
 		this._sanitizeId()
 		
-		--format "id = % \n" this.id
 		this._setIdFull()
-		
-		format "ControlId_v.full = % \n" full
 	),
 	
 	/** Get
