@@ -21,7 +21,7 @@ struct Subrollouts_v
 	
 	/** New	subrollout
 	  *
-	  * @return	object Rollout_v	
+	  * @return	Rollout_v	
      */
     function new title =
     (

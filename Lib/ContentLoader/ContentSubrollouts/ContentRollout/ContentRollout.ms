@@ -24,7 +24,7 @@ struct ContentRollout_v
 	 */
 	function addToUi Subrollouts =
 	(
-		Rollout_new	= Subrollouts.new title -- get new rollout
+		Rollout_new	= Subrollouts.new title id:title -- get new rollout
 		--print ("ContentRollout_v.addToUi ADD " + title +" TO "+ Subrollouts.id )
 		
 		for Subrollouts_or_Controls in Subrollouts_and_Controls do
@@ -91,8 +91,6 @@ struct ContentRollout_v
 	function _setName =
 	(
 		title = filenameFromPath path
-		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" @"-"           ).Replace title ""
-
 	),
 
 	/** 1) Remove invalid characters, valid characters: "A-Za-z0-9-_"
@@ -100,12 +98,13 @@ struct ContentRollout_v
 	 */
 	function _sanitizeName =
 	(
-		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[-]" ).Replace title "_"
-		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[^A-Za-z0-9-_]" ).Replace title ""
-		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[_]+"           ).Replace title " "
-		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" "rollout"           ).Replace title ""
-		--title	= substring title 9 -1
-		--title += "test"
+		
+		
+		
+		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "^rollout-"          ).Replace title ""
+		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[^A-Za-z0-9]" ).Replace title ""
+		
+		--title += "_CONTENTX"
 	),
 	
 	on create do

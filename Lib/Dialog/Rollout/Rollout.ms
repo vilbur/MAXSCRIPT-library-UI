@@ -203,7 +203,11 @@ struct Rollout_v
 			
 		title_no_whitespace = substituteString title " " "_" -- replace whitespace
 
-		id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
+		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
+	
+	
+		--if not( this._isParentRoll() ) then 
+			id = "ROLLOUT_" + id_by_title
 	),
 
 	--/** Declare rollout global variable
