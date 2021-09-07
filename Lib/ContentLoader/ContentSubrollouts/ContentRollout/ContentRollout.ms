@@ -5,7 +5,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../ContentSubrollouts.ms" )
 /** Create rollout from dir containing ".ms" & ".mcr" files
  * 
  * @property	string	dir	Path to dir
- * @property	string	name	Name of rollout
+ * @property	string	title	Name of rollout
  *
  */
 struct ContentRollout_v
@@ -14,7 +14,7 @@ struct ContentRollout_v
 	path,
 	
 	/*  properties */
-	name,
+	title,
 	
 	Subrollouts_and_Controls = #(), -- store groupboxes and rollouts
 
@@ -24,8 +24,8 @@ struct ContentRollout_v
 	 */
 	function addToUi Subrollouts =
 	(
-		Rollout_new	= Subrollouts.new name -- get new rollout
-		--print ("ContentRollout_v.addToUi ADD " + name +" TO "+ Subrollouts.id )
+		Rollout_new	= Subrollouts.new title -- get new rollout
+		--print ("ContentRollout_v.addToUi ADD " + title +" TO "+ Subrollouts.id )
 		
 		for Subrollouts_or_Controls in Subrollouts_and_Controls do
 		--format "Subrollouts_or_Controls = % \n" Subrollouts_or_Controls
@@ -46,7 +46,7 @@ struct ContentRollout_v
 	 */
 	function _loadContentFromDir =
 	(
-		--print ("ContentRollout_v._loadContentFromDir() " + name)
+		--print ("ContentRollout_v._loadContentFromDir() " + title)
 		
 		for path in (PathsLoader.getSubrolloutsAndControlsPaths()) do
 			append Subrollouts_and_Controls	(this._addSubrolloutOrControlBox path)
@@ -57,9 +57,9 @@ struct ContentRollout_v
 	function _addSubrolloutOrControlBox path =
 	(
 		if (this._isDir path) then
-			this._ifPathIsDir path
+			this._createSubrollouts path
 		else
-			this._ifPathIsFile path
+			this._getFileContent path
 	),
 	
 	/** _is dir
@@ -71,7 +71,7 @@ struct ContentRollout_v
 	
 	/** _if path is dir
 	 */
-	function _ifPathIsDir path =
+	function _createSubrollouts path =
 	(
 		--if( this._isSubrolloutsSlot path == true  ) then
 			ContentSubrollouts_v path:path RolloutParrent:this     -- return
@@ -79,18 +79,20 @@ struct ContentRollout_v
 	
 	/** If path is file
 	 */
-	function _ifPathIsFile path =
+	function _getFileContent path =
 	(
 		filein path
 		
 		ScriptFile_Content_v path:path	-- return
 	),
 	
-	/** Set rollout name by folder name E.g.: "Rollout-1" >> "Rollout 1"
+	/** Set rollout title by folder title E.g.: "Rollout-1" >> "Rollout 1"
 	 */
 	function _setName =
 	(
-		name = filenameFromPath path
+		title = filenameFromPath path
+		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" @"-"           ).Replace title ""
+
 	),
 
 	/** 1) Remove invalid characters, valid characters: "A-Za-z0-9-_"
@@ -98,8 +100,12 @@ struct ContentRollout_v
 	 */
 	function _sanitizeName =
 	(
-		name = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace name ""
-		name = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace name " "
+		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[-]" ).Replace title "_"
+		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[^A-Za-z0-9-_]" ).Replace title ""
+		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[_]+"           ).Replace title " "
+		--title = ( dotNetObject "System.Text.RegularExpressions.Regex" "rollout"           ).Replace title ""
+		--title	= substring title 9 -1
+		--title += "test"
 	),
 	
 	on create do

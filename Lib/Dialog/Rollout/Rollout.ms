@@ -129,7 +129,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
+		print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
 		if( ini != undefined ) then 
 			RolloutEvent.setSaveToIniEvents()
 	),
@@ -203,20 +203,18 @@ struct Rollout_v
 			
 		title_no_whitespace = substituteString title " " "_" -- replace whitespace
 
-		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
-		
-		id = "rollout_" + id_by_title
+		id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
 	),
 
-	/** Declare rollout global variable
-	  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
-	  *
-	  * Declared as undefined, because of reset rollout when script is restarted
-	  */
-	function _setGlobalVariable =
-	(
-		execute ( "global "+ id +" = undefined")
-	),
+	--/** Declare rollout global variable
+	--  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
+	--  *
+	--  * Declared as undefined, because of reset rollout when script is restarted
+	--  */
+	--function _setGlobalVariable =
+	--(
+	--	execute ( "global "+ id +" = undefined")
+	--),
 
 	/** Try destroy dialog by global variable before variable will be overwritten
 	 */

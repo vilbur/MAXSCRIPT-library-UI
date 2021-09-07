@@ -13,6 +13,7 @@ struct Ini_v
 	 */
 	function dir _path =
 	(
+		print ( "Ini_v.dir() = " + _path as string )
 		_path = this._normalizePath _path
 		
 		this._getSetProp #_dir _path --return
@@ -23,7 +24,7 @@ struct Ini_v
 	 */
 	function file filename =
 	(
-		--print ( "Ini_v.file() = " + filename as string )
+		print ( "Ini_v.file() = " + filename as string )
 		this._getSetProp #_file filename --return
 	),
 
@@ -34,7 +35,7 @@ struct Ini_v
 	  */
 	function path _path =
 	(
-		--print "------------\nIni.path()"
+		print "------------\nIni.path()"
 		if( _path == #get ) then
 			this._combinePath()
 
@@ -74,7 +75,7 @@ struct Ini_v
 		value --return
 	),
 
-	private
+	--private
 	
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
@@ -114,8 +115,10 @@ struct Ini_v
 		if( __path != #get ) then ( pathConfig.normalizePath __path ) else __path  --return
 	),
 	
-	function test =
+	/**  
+	 */
+	on create do
 	(
-		messagebox "Ini.test()"
+		print("Ini_v.onCreate()")
 	)
 )

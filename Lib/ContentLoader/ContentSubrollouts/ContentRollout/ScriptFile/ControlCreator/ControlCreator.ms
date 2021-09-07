@@ -16,7 +16,7 @@ struct ControlCreator_v
 	(
 		--format "\nControlCreator_v.createControl = % \n" Macro
 		_Control = ControlBox.get(Macro.getControlId())
-		format "Macro.getParams() = % \n" (Macro.getParams()) 
+		--format "Macro.getParams() = % \n" (Macro.getParams()) 
 		control_exists = ( _Control != undefined )
 		
 		 if ( control_exists==false ) then

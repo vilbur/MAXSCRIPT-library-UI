@@ -26,13 +26,13 @@ struct Dialog_v
 	/* required properties */
 	title,
 
+	/*  properties */
+	id,
+
 	/* dependency */
 	RolloutMain,
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
-	
-	/*  properties */
-	id,
 	
 	/* options */	
 	
@@ -73,7 +73,6 @@ struct Dialog_v
     ),
 	
 	
-	
 	private
 	
 	/** Set main rollout
@@ -81,6 +80,7 @@ struct Dialog_v
 	function _setMainRollout =
 	(
 		RolloutMain	= Rollout_v title:title id:id
+		--ini:ini
 	),
 
 	/** Set id of rollout as global variable
@@ -93,7 +93,7 @@ struct Dialog_v
 
 	/** Set default path to ini file
 	  *
-	  * Default dir:	"#temp\ini-files\"
+	  * Default dir:	"#temp\ini-files\" E.G.: ""C:\Users\[USERNAME]\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\temp""
 	  * Default file:	"%dialog_id%.ini"
 	 */
 	function _setIniFile =
@@ -103,24 +103,14 @@ struct Dialog_v
 		
 		if( Ini.file #get == undefined ) then
 			Ini.file ( (getFilenameFile id) + ".ini" )
+			
+		Ini._combinePath()
+		format "Ini._path = % \n" Ini._path
 	),
 	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
-	/** Set id by title if not defined
-	 */
-	function _setId =
-	(
-		if not ( id == undefined or id == unsupplied ) then
-			return()
-			
-		title_no_whitespace = substituteString title " " "_" -- replace whitespace
-		--print ( title_no_whitespace as String )
-		id_by_title = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower (title_no_whitespace) ) "") --return
-		
-		id = "rollout_" + id_by_title
-	),
 
 	/** Check if required properties are defined
 	  * Names of required props are defined in __construct array
@@ -135,17 +125,14 @@ struct Dialog_v
 	(
 		this._checkConstctructProperties()
 		
-		this._setId()
-
 		this._unregisterOldDialog()
 		
 		this.destroy()
 		
+		--this._setIniFile()
+		
 		this._setMainRollout()
 		
 		this._setDialogGlobal()
-		
-		this._setIniFile()
-
 	)
 )

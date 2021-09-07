@@ -14,8 +14,8 @@ struct DialogCreator_v
 	 */
 	function createDialog =
 	(
-		Dialog	= Dialog_v title:ContentRollout.name
-		
+		Dialog	= Dialog_v title:ContentRollout.title
+
 		for Subrollouts_or_Controls in ContentRollout.Subrollouts_and_Controls do
 			Subrollouts_or_Controls.addToUi Dialog.RolloutMain
 			
