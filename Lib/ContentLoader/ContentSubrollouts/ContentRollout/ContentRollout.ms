@@ -98,13 +98,8 @@ struct ContentRollout_v
 	 */
 	function _sanitizeName =
 	(
-		
-		
-		
-		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "^rollout-"          ).Replace title ""
+		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "^rollout-"    ).Replace title ""
 		title = ( dotNetObject "System.Text.RegularExpressions.Regex" "[^A-Za-z0-9]" ).Replace title ""
-		
-		--title += "_CONTENTX"
 	),
 	
 	on create do

@@ -79,7 +79,7 @@ struct Dialog_v
 	 */
 	function _setMainRollout =
 	(
-		RolloutMain	= Rollout_v title:title
+		RolloutMain	= Rollout_v title:title id:id
 		--ini:ini
 	),
 
