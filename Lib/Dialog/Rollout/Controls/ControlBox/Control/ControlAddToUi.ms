@@ -4,12 +4,10 @@ public
 */
 function addToUi =
 (
-	format "\nControlAddToUi.ms.addToUi() % %" type id.id
-	format "\nControlBox = % \n" ControlBox
-	
+	--format "\nControlAddToUi.ms.addToUi() % %" type id.id
+	--format "\nControlAddToUi.ms.addToUi()	% 	% 	\"%\"" type id.id caption
 	this.Events.setDefaultEvents()
 
-	--format "\nControlAddToUi.ms.addToUi()	% 	% 	\"%\"" type id.id caption
     ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (this._getParameters())
 ),
 
