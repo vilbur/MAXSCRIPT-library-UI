@@ -24,13 +24,15 @@ struct Spinner_v
 		ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
 	),
 
-	/**  
+		/**  
 	 */
 	on create do
 	(
-		--_Parameters.setVal #columns 4
-
+		this.onCreate()
 		
-		this._init()
-	)	
+		this._addToControls()
+	)
+	
+	
+	
 )

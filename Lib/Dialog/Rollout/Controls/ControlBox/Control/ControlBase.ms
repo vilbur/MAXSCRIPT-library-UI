@@ -8,7 +8,7 @@
 
 	/* properties */ 
 	name_of_value_param	= #value,
-	init_parameters, -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
+	init_parameters     = #( #(), #() ), -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
 	Menu,
 	
 	/* dependency */
@@ -92,32 +92,6 @@
 	
 	private
 
-	/** Init Control struct
-	  * Shared with all control types
-	 */
-	function _init = 
-	(
-		--print "ControlOnCreate.ms _init()"
-		this._setType()
-		--format "id = % \n" id
-		this.Events.setEventTypes()
-	
-		this._checkConstctructProperties()
-		
-		this._setCaption()
-	
-		Id = ControlId_v	Parent_Control:this id:id
-		--format "init_parameters = % \n" init_parameters
-		--this.params columns:4
-		--this._setValue()
-		
-		_Parameters.getOrSet init_parameters[1] init_parameters[2]
-		
-		this.Events.setDefaultEvents()
-		
-		this._addToControls()
-	),
-	
 	/** Add itself to Controls
 	 */
 	function _addToControls =
@@ -179,7 +153,7 @@
 	function _checkConstctructProperties =
 	(
 		for prop in __construct where getProperty this prop == undefined do
-			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+			messageBox ( (filenameFromPath(getSourceFileName())) "+\nUndefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 
 	--/** Get value from ini
@@ -219,3 +193,28 @@
 	--	----else
 	--		----this._getValueFromIni()
 	--),
+	public
+
+	/** Init Control struct
+	  * Shared with all control types
+	 */
+	function onCreate = 
+	(
+		--print "ControlOnCreate.ms onCreate()"
+		this._setType()
+
+		this.Events.setEventTypes()
+	
+		this._checkConstctructProperties()
+		
+		this._setCaption()
+		
+		Id = ControlId_v	Parent_Control:this id:id
+
+		--this._setValue()
+		
+		_Parameters.getOrSet init_parameters[1] init_parameters[2]
+		
+		--this.Events.setDefaultEvents()
+	),
+	

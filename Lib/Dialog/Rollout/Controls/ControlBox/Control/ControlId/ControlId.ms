@@ -10,24 +10,29 @@ struct ControlId_v
 	Parent_Control,
 
 	/* properties */
-	full,
+	--full,
 	
 	/** Set
 	  @return	string	
 	 */
 	function setId =
 	(
+		--print("ControlId.setId()")
+
 		if not ( this._isIdValid() ) then
-		    --this.id	= id
-		--else
+		(
 			id	= this._getIdByConrolType()
 			
-
-		this._removeWhitespace()
-
+			
+			this._removeWhitespace()
+			
+			this._addPrefix()
+			
+		)
+		--else
 		this._sanitizeId()
-		
-		this._setIdFull()
+		--format "id = % \n" id
+		--this._setIdFull()
 	),
 	
 	/** Get
@@ -55,18 +60,20 @@ struct ControlId_v
 		Parent_Control.caption + "_" + Parent_Control.type as string
 	),
 	
-	/** Set full id with rollout id
-	 */
-	function _setIdFull =
-	(
-		full	= Parent_Control.ControlBox.Parent_roll.id +"."+id -- make without Parent_roll
-	),
+	--/** Set full id with rollout id
+	-- */
+	--function _setIdFull =
+	--(
+	--	full	= Parent_Control.ControlBox.Parent_roll.id +"."+id -- make without Parent_roll
+	--),
 	
 	/** Sanitize id
 	 */
 	function _sanitizeId =
 	(
-		id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower(id) ) "") --return 
+		--id = (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( toLower(id) ) "") --return 
+		id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9_]+" ).Replace ( id ) ""  --return 
+		id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace ( id ) "_"  --return 
 	),
 		
 	/** Replace whitespace with underscore
@@ -75,21 +82,32 @@ struct ControlId_v
 	(
 		id = substituteString id " " "_" -- replace whitespace
 	),
-
-	/** Check if required properties are defined
-	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
-	  * @param	construct_properties this.properties required for initialization of struct
+	
+	/** _add prefix
 	 */
-	function _checkConstctructProperties =
+	function _addPrefix =
 	(
-		for prop in __construct where getProperty this prop == undefined do
-			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+			--print ( toUpper Parent_Control.type as string )
+		--if( Parent_Control != undefined ) then
+		id = toUpper ( Parent_Control.type as string ) + "_" + id
+		--id += "XXX"	
+			--format "TEST_ID = % \n" TEST_ID
 	),
+	
+	--/** Check if required properties are defined
+	--  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
+	--  * @param	construct_properties this.properties required for initialization of struct
+	-- */
+	--function _checkConstctructProperties =
+	--(
+	--	for prop in __construct where getProperty this prop == undefined do
+	--		messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
+	--),
 	
 	on create do
 	(
 		--print ("ControlId.onCreate " + id as string )
-		this._checkConstctructProperties()
+		--this._checkConstctructProperties()
 		
 		this.setId()
 	)

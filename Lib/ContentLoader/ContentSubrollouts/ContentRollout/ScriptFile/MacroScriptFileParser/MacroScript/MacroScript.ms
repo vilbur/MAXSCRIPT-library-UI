@@ -22,7 +22,18 @@ struct MacroScript_Content_v
 	 */
 	function getControlId =
 	(
-		category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "_") --return
+		--id =
+		(this._prefixByType()) +	category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "_") --return
+	
+		--( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace ( id ) "_"  --return
+		--id
+	),
+	
+	/** Get full id
+	 */
+	function _prefixByType =
+	(
+		toUpper ((this.getType()) as string )+ "_"   --return
 	),
 	
 	/** Get type parse icon string and get "type:(.*)" portion of E.G.: "type:checkbox|checked:true|border:false"

@@ -14,8 +14,5 @@ struct Groupbox_v
 		this._setCaption()
 	
 		Id = ControlId_v	Parent_Control:this id:id
-	
-		--this.params columns:4
-		
 	)	
 )

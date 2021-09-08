@@ -129,7 +129,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
+		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
 		if( ini != undefined ) then 
 			RolloutEvent.setSaveToIniEvents()
 	),

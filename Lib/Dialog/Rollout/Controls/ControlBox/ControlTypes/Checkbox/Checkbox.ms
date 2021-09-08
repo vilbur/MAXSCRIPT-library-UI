@@ -57,6 +57,12 @@ struct Checkbox_v
 	--	name_of_value_param	= #checked
 	--),
 	
-	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlOnCreate.ms"
-
+	/**  
+	 */
+	on create do
+	(
+		this.onCreate()
+		
+		this._addToControls()
+	)
 )

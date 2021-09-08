@@ -118,7 +118,8 @@ struct BrowsePath_v
 	(
 		_Parameters.setVal #columns 8
 
+		this.onCreate()
 		
-		this._init()
+		this._addToControls()
 	)	
 )

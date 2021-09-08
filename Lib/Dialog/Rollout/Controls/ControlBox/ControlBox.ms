@@ -39,12 +39,14 @@ struct ControlBox_v
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/ControlBoxControlTypes.ms"
 
 		
-	/** Add control to rollout
+	/** Add control to Controls
 	 */
 	function add _Control =
 	(
 		--print ("\nControlBox_v.add " + _Control.id.id as string )
 		--format "\nControlBox_v.add %\n" _Control
+		_Control.ControlBox = this
+		
 		append Controls _Control
 	),
 
