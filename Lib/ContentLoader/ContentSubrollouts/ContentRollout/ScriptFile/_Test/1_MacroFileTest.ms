@@ -2,27 +2,33 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../Dialog/Rollout/Rollout.ms" )
 
-filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptParser/MacroScriptParser.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../MacroScriptFileParser/MacroScriptFileParser.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../../../../../Dialog/Rollout/Controls/ControlBox/Control/Control.ms" )
+
+filein( getFilenamePath(getSourceFileName()) + "/../ControlCreator/ControlCreator.ms" )
 
 filein (getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")
-
-
-MacroScripts = (MacroScriptParser_v path:( getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")).MacroScripts
 
 
 /*---------------------------------------
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 
-
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
-
-
-ControlBox  = _Rollout.controls.new groupbox:"Control types"
+MacroScripts = (MacroScriptFileParser_v path:( getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")).MacroScripts
+_Rollout     = Rollout_v title:(getFilenameFile(getSourceFileName()))
+ControlBox   = _Rollout.controls.new groupbox:"Control types"
 
 
-for _MacroScript in MacroScripts do 
-	_MacroScript.createControl ControlBox
+
+
+/*---------------------------------------
+	CREATE CONTROLS FROM MACRO
+-----------------------------------------*/
+for Macro in MacroScripts do 
+
+	ControlCreator_v Macro:Macro ControlBox:ControlBox
+
 
 
 
@@ -30,4 +36,4 @@ for _MacroScript in MacroScripts do
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:512
+CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:512 width:320

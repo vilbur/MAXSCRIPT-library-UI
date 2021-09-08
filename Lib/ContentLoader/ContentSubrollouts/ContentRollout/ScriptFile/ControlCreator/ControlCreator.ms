@@ -15,20 +15,16 @@ struct ControlCreator_v
 	function createControl =
 	(
 		--format "\nControlCreator_v.createControl = % \n" Macro
-		_Control = Control_v type:(Macro.getType()) id:(Macro.getControlId()) caption:Macro.buttontext init_parameters:(Macro.getParams()) ControlBox:ControlBox 
-		
+		_Control       = Control_v type:(Macro.getType()) id:(Macro.getControlId()) caption:Macro.buttontext init_parameters:(Macro.getParams()) ControlBox:ControlBox 
 		_Control_Exist = ControlBox.get(_Control.id.id)
-		
+
 		if( _Control_Exist != undefined ) then
-			_Control = _Control_Exist
+			_Control = _Control_Exist -- update existing control
+
+		this._setControlEvents _Control _Control_Exist 
 		
-		event_type_index = if (control_exists==true) then 2 else 1
-		
-		event_type = _Control.Events.Events.event_types[event_type_index]
-		
-		this._setOnClickEvent event_type _Control
-		
-		ControlBox.add _Control
+		if not( _Control == _Control_Exist ) then -- add only new control
+			ControlBox.add _Control
 	),
 
 	/** Set events which call macro
@@ -41,6 +37,18 @@ struct ControlCreator_v
 	),
 
 	private
+	
+	/** Set control events
+	 */
+	function _setControlEvents _Control _Control_Exist =
+	(
+		event_type_index = if (_Control == _Control_Exist) then 2 else 1
+		
+		event_type = _Control.Events.Events.event_types[event_type_index]
+		
+		this._setOnClickEvent event_type _Control
+	),
+	
 	
 	/**  
 	 */
