@@ -83,7 +83,7 @@ struct ControlEvents_v
 	 */
 	function _setEventFired type =
 	(
-		local EventFired = "EventFired.control=\""+Parent_Control.id.full+"\";"
+		local EventFired = "EventFired.control=\""+(Parent_Control.id.getIdFull())+"\";"
 		
 		EventFired += "EventFired.type=#"+type+";"
 

@@ -214,7 +214,5 @@
 		--this._setValue()
 		
 		_Parameters.getOrSet init_parameters[1] init_parameters[2]
-		
-		--this.Events.setDefaultEvents()
 	),
 	
