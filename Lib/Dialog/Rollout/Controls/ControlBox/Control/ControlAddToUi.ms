@@ -25,22 +25,21 @@ function _getParameters =
 function _getTooltip =
 (
 	tooltip =	_Parameters.getVal #tooltip
-	
+
 	if( tooltip == undefined ) then
 		tooltip = ""
 
-	if( type == #button ) then
-	(
-		Event_pressed	= Events.Events.getEvent #pressed
-		Event_rightclick	= Events.Events.getEvent #rightclick
-		
-		if( Event_pressed != undefined ) then
-			tooltip = Event_pressed.tooltip
+	tooltip_LMB = if( type == #checkbox ) then  "Checked:	" else "LMB:	"
 
-		if( Event_rightclick != undefined ) then
-			tooltip = "LMB: " + tooltip + "\nRMB: " + Event_rightclick.tooltip
-	)
+	Event_pressed	= Events.Events.getEvent #pressed
+	Event_rightclick	= Events.Events.getEvent #rightclick
+	
+	if( Event_pressed != undefined ) then
+		tooltip = Event_pressed.tooltip
+
+	if( Event_rightclick != undefined ) then
+		tooltip = tooltip_LMB + tooltip + "\nRMB:	" + Event_rightclick.tooltip
+	
 	
 	if( tooltip!=undefined ) then ( "tooltip:\""+tooltip+"\"" ) else "" --return
-
 ),

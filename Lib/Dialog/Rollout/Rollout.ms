@@ -210,15 +210,15 @@ struct Rollout_v
 			id = "ROLLOUT_" + id_by_title
 	),
 
-	--/** Declare rollout global variable
-	--  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
-	--  *
-	--  * Declared as undefined, because of reset rollout when script is restarted
-	--  */
-	--function _setGlobalVariable =
-	--(
-	--	execute ( "global "+ id +" = undefined")
-	--),
+	/** Declare rollout global variable
+	  * Global variable is id with prefix "rollout" E.G.: "fooroll" >>> "rollout_fooroll"
+	  *
+	  * Declared as undefined, because of reset rollout when script is restarted
+	  */
+	function _setGlobalVariable =
+	(
+		execute ( "global "+ id +" = undefined")
+	),
 
 	/** Try destroy dialog by global variable before variable will be overwritten
 	 */
