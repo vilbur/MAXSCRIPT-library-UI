@@ -107,10 +107,25 @@ struct MacroScript_Content_v
 	function _formatDatatypeValue value =
 	(
 		--if( classOf value == String and this._isValueBooleanString value == false ) then
-		
+		format "value = % \n" value
 		if( this._isValueBooleanString value ) then
 			value	= (( toLower value) == "true")
 		
+		else if( matchPattern value pattern:"color*") then 
+		(
+			/** Color datatype https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_D8DBE1AA_F3D7_4708_93FA_7C28845A1C03_htm 
+			 */
+			pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
+			rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
+			rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
+			
+			matches = rx.matches value pattern rx_options.IgnoreCase
+			
+			_rgb = (for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].value )) --return
+			
+			value = color _rgb[2] _rgb[3] _rgb[4]
+			
+		)
 		else if( value as number != undefined ) then 
 			value = value as number
 			

@@ -68,7 +68,8 @@ macroscript macroFileTest_checkbutton
 	category:	"MacroFileTest"
 	buttontext:	"Checkbutton"
 	toolTip:	"Checkbutton tooltip"
-	icon:	"type:checkbutton"
+	icon:	"type:checkbutton|highlightColor:color 50 150 30"
+	--icon:	"type:checkbutton"
 (
 	print "Checkbutton #test"
 	format "EventFired = % \n" EventFired.type

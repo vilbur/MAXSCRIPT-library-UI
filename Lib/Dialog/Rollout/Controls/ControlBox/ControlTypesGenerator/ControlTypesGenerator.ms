@@ -21,6 +21,7 @@ function writeControlTypesFile =
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
 	control_types	= #( #button, #spinner, #edittext, #browsePath, #checkbox, #checkbutton );
 	
+	
 	param_custom = #( #columns )  
 	param_shared = #( #toolTip )  
 	param_common = #( #pos, #height, #width, #align, #offset, #across )  -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
@@ -36,17 +37,20 @@ function writeControlTypesFile =
 
 	params_defaults = param_custom + param_common + param_shared
 	
-	params_all = #()
-	
-	for param_by_type in params_by_type do 
-		params_all += param_by_type
+	--params_all = #()
+	--
+	--for param_by_type in params_by_type do 
+	--	params_all += param_by_type
 	
 		
-	params_by_type = join #(makeUniqueArray params_all) params_by_type
+	--params_by_type = join #(makeUniqueArray params_all) params_by_type
+	--format "params_by_type = % \n" params_by_type
 	
 	for i = 1 to control_types.count do
 	(
-
+		format "control_types[i] = % \n" control_types[i]
+		format "params_by_type[i] = % \n" params_by_type[i]
+		
 		params_keys_array = params_defaults + params_by_type[i]
 		
 		
@@ -66,15 +70,7 @@ function writeControlTypesFile =
 		params_keys	=  trimRight params_keys ", "
 		params_values	=  trimRight params_values ", "
 		
-		--params_values         = "#"+(( dotNetObject "System.Text.RegularExpressions.Regex" @"#"        ).Replace ( params_keys ) "")  -- strip array to string:       "columns, pos, height, width, ..."
-		--params_array_stripped =     (( dotNetObject "System.Text.RegularExpressions.Regex" @"[#\(\)]+" ).Replace ( params_keys ) "")  -- strip array to string:       "columns, pos, height, width, ..." 
-		--params_passed         =     (( dotNetObject "System.Text.RegularExpressions.Regex" @",|$"      ).Replace ( params_array_stripped) ":") -- add colon ":" to parameters: "columns: pos: height: width: ..." 
-		--format "\nparams_keys   = % \n" params_keys
-		--format "params_keys = % \n" params_keys
-		--format "params_values = % \n" params_values
-		--format "params_passed = % \n" params_passed
 	
-		
 		params_matrix = "#(#(" + params_keys + "), #(" + params_values + "))" -- wrap matrix #( #(), #()) 
 		
 		file_content += "/*\n*/\nfunction "+control_types[i] as string +" caption id: "+params_passed+" =
