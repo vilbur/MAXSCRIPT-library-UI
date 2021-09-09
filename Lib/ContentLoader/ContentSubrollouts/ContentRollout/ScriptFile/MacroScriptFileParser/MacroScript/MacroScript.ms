@@ -113,7 +113,10 @@ struct MacroScript_Content_v
 		
 		else if( matchPattern value pattern:"color*") then 
 		(
-			/** Color datatype https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_D8DBE1AA_F3D7_4708_93FA_7C28845A1C03_htm 
+			/** Color datatype https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_D8DBE1AA_F3D7_4708_93FA_7C28845A1C03_htm
+			  
+			  Litle dirty code
+			  
 			 */
 			pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
 			rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
@@ -122,8 +125,8 @@ struct MacroScript_Content_v
 			matches = rx.matches value pattern rx_options.IgnoreCase
 			
 			_rgb = (for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].value )) --return
-			
-			value = color _rgb[2] _rgb[3] _rgb[4]
+
+			value = color (_rgb[1][2] as number) (_rgb[1][3] as number) (_rgb[1][4] as number)
 			
 		)
 		else if( value as number != undefined ) then 
