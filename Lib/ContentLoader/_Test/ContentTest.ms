@@ -4,29 +4,16 @@ clearListener()
  */
 filein( getFilenamePath(getSourceFileName()) + "/../ContentLoader.ms" )
 
-/**  Include scripts
- */
---filein( getFilenamePath(getSourceFileName()) + "/Dialog-level/includes.ms" )
-
-
-/** DEFINE DIALOG  */
-
 
 /** Load content from file tree
  */
 function loadContentTest =
 (
 	current_dir	= getFilenamePath(getSourceFileName())
-	----Content	= (Content_v dir:(current_dir+"/Rollout-tooltip-test")	match:"rollout-(.*)$"	).load()
-	
-	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-dirs")	match:"rollout-(.*)$"	).load()
-	--Content.setControlsToUI Dialog
 
-	--Content	= (Content_v dir:(current_dir+"/Rollouts-in-nested-subdirs")	match:"rollout-(test-.*)"	).load()	
 	ContentLoader	= ContentLoader_v path:(current_dir+"/Dialog-level")
 
-	
-	ContentLoader.Dialog --return 
+	ContentLoader.create() --return 
 )
 
 /** Add extra rollout

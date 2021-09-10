@@ -2,8 +2,6 @@ filein( getFilenamePath(getSourceFileName()) + "/../Dialog/Dialog.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/ContentSubrollouts/ContentRollout/ContentRollout.ms" ) 
 
-filein( getFilenamePath(getSourceFileName()) + "/DialogCreator/DialogCreator.ms" )
-
 /** Load content to UI by file tree
   *
   * @property	string	dir	Directory where rollout directories are placed, rollouts are used if ends with "*"
@@ -26,17 +24,21 @@ struct ContentLoader_v
 	Dialog,
 
 	/* depoendency */ 
-	DialogCreator,
-	
+	ContentRollout,
+
 	/** Create
 	 */
-	function create =
+	function create pos: width: height: menu: bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
 	(
-		print "create()"
-		Dialog = DialogCreator.createDialog()
-	),
-	
+		Dialog	= Dialog_v title:ContentRollout.title id:ContentRollout.title
 
+		for Subrollouts_or_Controls in ContentRollout.Subrollouts_and_Controls do
+			Subrollouts_or_Controls.addToUi Dialog.RolloutMain
+			
+		Dialog.create pos:pos width:width height:height menu:menu bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
+	
+		Dialog --return
+	),
 	
 	private
 	

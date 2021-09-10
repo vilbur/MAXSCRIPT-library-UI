@@ -5,7 +5,14 @@
 	function destroy =
 	(
 		if( __GLOBAL__v.Dialog != undefined ) then
+		
+		try
+		(
 			DestroyDialog __GLOBAL__v.Dialog.Dialog
+			
+		)
+		catch()
+		
 	),
 	
 	

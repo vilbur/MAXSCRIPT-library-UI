@@ -104,11 +104,11 @@ function addNesteSubRollouts _Rollout =
 
 
 --addControls    _Rollout groupboxes:1
---addSubRollouts _Rollout subrollouts:1 rollouts:3
+addSubRollouts _Rollout subrollouts:1 rollouts:3
 --addControls    _Rollout groupboxes:1
 --addSubRollouts _Rollout subrollouts:3 rollouts:2
 
-addNesteSubRollouts _Rollout
+--addNesteSubRollouts _Rollout
 
 
 /* CREATE ROLLOUT */
@@ -116,11 +116,12 @@ _Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) height:1024 width:512
+--CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
 
 /* ADD SUBROLLOUTS */ 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
---_Rollout.Layout.fitSubrollouts()
+_Rollout.Layout.fitSubrollouts()
 
 --_Rollout.setRolloutWidth()

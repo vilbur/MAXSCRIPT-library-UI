@@ -15,7 +15,7 @@ struct Subrollouts_v
 	/* dependency */
 	RolloutProperty = Properties_v Parent_Control:this,
 
-	height = 1024, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
+	height = 256, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
 	
 	nested_level =0,
 	

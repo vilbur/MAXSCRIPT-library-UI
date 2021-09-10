@@ -17,3 +17,16 @@
 		--print (toLower (( filterString( classof Object as string ) "_*(:" )[2]))
 		toLower (( filterString( classof Object as string ) "_*(:" )[2])  --return
 	),
+		
+	/** Analyze layout
+	 */
+	function _getFixedSizes Controlboxes_and_Subrollouts =
+	(
+		height_fixed = #()
+		
+		for Control_or_Rollout in Controlboxes_and_Subrollouts do
+			if ( (height = Control_or_Rollout.property height:#get) > 14 ) then 
+				append height_fixed height
+
+		height_fixed --return
+	),

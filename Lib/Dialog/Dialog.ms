@@ -71,7 +71,7 @@ struct Dialog_v
 		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 
-		CreateDialog Dialog pos:pos width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:yellow bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
+		CreateDialog Dialog pos:pos width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
