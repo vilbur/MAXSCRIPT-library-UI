@@ -3,7 +3,8 @@
 function _register =
 (
 	if not( this._isRegistered() ) then 
-		cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles) minSize:size_init maxSize:size_init
+		cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+		--minSize:size_init maxSize:size_init
 ),
 
 /** Unregister dialog bar

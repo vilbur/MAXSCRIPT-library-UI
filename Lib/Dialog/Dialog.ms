@@ -38,8 +38,6 @@ struct Dialog_v
 	
 	/* store */
 	Dialog,
-	size_init, -- size of dialog after creation
-
 
 	include "Library/UI/Lib/Dialog/DialogRemote.ms"
 	include "Library/UI/Lib/Dialog/DialogRegister.ms"
@@ -75,7 +73,7 @@ struct Dialog_v
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
-		--RolloutMain.Layout.fitSubrollouts()
+		RolloutMain.Layout.fitSubrollouts()
 		
 		--RolloutMain.setRolloutWidth()
 	),

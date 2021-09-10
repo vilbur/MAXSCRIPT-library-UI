@@ -10,8 +10,6 @@ filein( getFilenamePath(getSourceFileName()) + "/ContentSubrollouts/ContentRollo
   * --------------------------------------------------------------------------------------------------------------------
   *
   *
-  *
-  *
   */
 struct ContentLoader_v
 (
@@ -51,6 +49,7 @@ struct ContentLoader_v
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("ContentLoader\nUndefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
+	
 	/**  
 	 */
 	on create do
@@ -60,8 +59,5 @@ struct ContentLoader_v
 		this._checkConstctructProperties()
 		
 		ContentRollout =  ContentRollout_v path:path
-		
-		DialogCreator  = DialogCreator_v ContentRollout:ContentRollout
 	)
-	
 )

@@ -1,3 +1,5 @@
+global LAYOUT_FITSUBROLLOUTS_DEFAULT_HEIGHT = 99 -- used in Layout.fitSubrollouts()
+
 /** Store subrollouts
   *
   */
@@ -15,7 +17,7 @@ struct Subrollouts_v
 	/* dependency */
 	RolloutProperty = Properties_v Parent_Control:this,
 
-	height = 256, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
+	--height = 256, -- default height of subrollouts slot, observed in Layout_v._occupiedSpace()
 	
 	nested_level =0,
 	
@@ -195,7 +197,7 @@ struct Subrollouts_v
 	 */
 	function _getSubrolloutSlot =
 	(
-		"subRollout "+id+" \"slot_name\" height:" + height as string 
+		"subRollout "+id+" \"slot_name\" height:" + LAYOUT_FITSUBROLLOUTS_DEFAULT_HEIGHT as string 
 
 		--"subRollout "+id+" \"slot_name\" height:" + height as string + " width:64"
 		--"subRollout "+id+" \"slot_name\" height:256 width:256"

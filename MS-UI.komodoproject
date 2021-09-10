@@ -13,7 +13,13 @@
 </livefolder>
 <livefolder id="c9dafe4b-5d1f-4a78-9675-9b33022c969c" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="Rollout" url="Lib/Dialog/Rollout/">
 </livefolder>
-<livefolder id="e9a6949c-a275-49a1-8525-6bdb69684347" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ContentLoader" url="Lib/ContentLoader/">
+<folder id="e17aa1b5-6e7d-4936-bc22-c230f6d8cfa3" idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" name="ContentLoader">
+</folder>
+<livefolder id="5fb6da70-8e50-4dfb-bf9a-f2e0db72234b" idref="e17aa1b5-6e7d-4936-bc22-c230f6d8cfa3" name="ContentSubrollouts" url="Lib/ContentLoader/ContentSubrollouts/">
+</livefolder>
+<livefolder id="cbefd5e9-c57a-4b74-aab5-3a7424f9e4c8" idref="e17aa1b5-6e7d-4936-bc22-c230f6d8cfa3" name="ContentLoader" url="Lib/ContentLoader">
+</livefolder>
+<livefolder id="f7dfcb62-3e6b-44b5-b7ee-4f9610578a5f" idref="e17aa1b5-6e7d-4936-bc22-c230f6d8cfa3" name="MacroScript" url="Lib/ContentLoader/ContentSubrollouts/ContentRollout/ScriptFile/MacroScriptFileParser/MacroScript/">
 </livefolder>
 <preference-set idref="ab3125f8-a921-4fca-a0d7-44425bb3a55d" id="project" preftype="project">
   <long id="prefs_version">1</long>

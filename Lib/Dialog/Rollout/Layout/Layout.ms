@@ -41,12 +41,18 @@ struct Layout_v
 	  * 2) get occupied space by 
 	  *
 	 */
-	function fitSubrollouts =
+	function fitSubrollouts dialog_height: =
 	(
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
-		dialog_height     = (Parent_roll.property height:#get) as integer
-		fixed_heights     = this._getFixedSizes Controlboxes_and_Subrollouts
+		
+		if( dialog_height == unsupplied ) then
+			dialog_height     = (Parent_roll.property height:#get) as integer
+		
+		
+		
+		
+		fixed_heights     = this._getOccupiedHeights Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
 		empty_space       = dialog_height - fixed_height
 		
@@ -56,7 +62,7 @@ struct Layout_v
 		offset            = 0
 
 		
-		format "Layout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
+		format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
 		format "dialog_height       = % \n" dialog_height
 		format "fixed_heights       = % \n" fixed_heights
 		format "fixed_heights.count = % \n" fixed_heights.count
@@ -65,6 +71,8 @@ struct Layout_v
 		format "subrollouts_count   = % \n" subrollouts_count
 		format "slot_height         = % \n" slot_height
 		format "offset              = % \n" offset
+		
+		--slot_height = dialog_height
 		
 		if( offset == undefined ) then
 			return false
@@ -88,7 +96,8 @@ struct Layout_v
 			height       = Control_or_Rollout.property height:#get
 			control_type = this._getType Control_or_Rollout
 			
-			if( control_type != "subrollouts" or ( control_type == "subrollouts" and height != 32 ) ) then 
+			--if( control_type != "subrollouts" or ( control_type == "subrollouts" and height != LAYOUT_FITSUBROLLOUTS_DEFAULT_HEIGHT ) ) then 
+			if( control_type != "subrollouts" ) then 
 				append occupied_heights height
 		)
 
