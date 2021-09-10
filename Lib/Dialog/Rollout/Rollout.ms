@@ -48,7 +48,7 @@ struct Rollout_v
 
 	/* properties */
 	slot_id   = 0,
-	width_min = 128,
+	min_width_of_rollout = 128,
 	
 	/* dependency */
 	RolloutCreator,
@@ -88,16 +88,10 @@ struct Rollout_v
 	function setRolloutWidth =
 	(
 		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
-		--format "Rollout_v.setRolloutWidth() % \n" id
-		
 		max_width = this._getMaxWidthOfNestedElements()
-		--format "max_width = % \n" max_width
 		
-		--if ( this._isParentRoll() == true ) then 
-			--this.property width:max_width
-			--this.property width:(max_width + 18)
-		
-		max_width --return
+		-- HOTFIX WIDTH OF ROLLUTS
+		max_width + 32 --return
 	),
 	
 	/** Set any property for rollout 
@@ -143,17 +137,18 @@ struct Rollout_v
 	 */
 	function _getMaxWidthOfNestedElements =
 	(
+		print "Rollout_v._getMaxWidthOfNestedElements"
 		widths	= #()
 		
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 	
 			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
-				--append widths (Controlbox_or_Subrollouts.property width:#get)
-				append widths 256
+				append widths (Controlbox_or_Subrollouts.property width:#get)
+				--append widths 256
 			else
 			--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
 				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
-		
+		format "TOTAL widths = % \n" widths
 		this._getMaxWidth widths --return
 	),
 
@@ -166,21 +161,6 @@ struct Rollout_v
 	(
 		toLower (( filterString( classof _Struct as string ) "_*(:" )[2])  --return
 	),
-
-	--/** Loop CotrolBoxes and Rollouts and find element with max width
-	-- */
-	--function _getMaxWidthOfNestedElements =
-	--(
-	--	widths	= #()
-	--	
-	--	for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-	--		if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
-	--			append widths (Controlbox_or_Subrollouts.property width:#get)
-	--		else
-	--			append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
-	--	
-	--	this._getMaxWidth widths --return
-	--),
 	
 	/** Get widest rollout5
 	  * 
@@ -191,7 +171,7 @@ struct Rollout_v
 		if( widths.count > 0 ) then
 			amax widths --return
 		else
-			width_min   --return
+			min_width_of_rollout   --return
 	),
 	
 	/** Set id by title if not defined

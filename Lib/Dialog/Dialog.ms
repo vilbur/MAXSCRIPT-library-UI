@@ -75,7 +75,9 @@ struct Dialog_v
 		
 		RolloutMain.Layout.fitSubrollouts()
 		
-		--RolloutMain.setRolloutWidth()
+		max_width = RolloutMain.setRolloutWidth()
+		
+		this.width max_width
 	),
 	 
 	/** rollouts

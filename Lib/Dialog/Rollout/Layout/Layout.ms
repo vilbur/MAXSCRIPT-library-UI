@@ -45,12 +45,8 @@ struct Layout_v
 	(
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
-		
 		if( dialog_height == unsupplied ) then
 			dialog_height     = (Parent_roll.property height:#get) as integer
-		
-		
-		
 		
 		fixed_heights     = this._getOccupiedHeights Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
@@ -61,20 +57,18 @@ struct Layout_v
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
 
+		--format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
+		--format "dialog_height       = % \n" dialog_height
+		--format "fixed_heights       = % \n" fixed_heights
+		--format "fixed_heights.count = % \n" fixed_heights.count
+		--format "fixed_height        = % \n" fixed_height
+		--format "empty_space         = % \n" empty_space
+		--format "subrollouts_count   = % \n" subrollouts_count
+		--format "slot_height         = % \n" slot_height
+		--format "offset              = % \n" offset
 		
-		format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
-		format "dialog_height       = % \n" dialog_height
-		format "fixed_heights       = % \n" fixed_heights
-		format "fixed_heights.count = % \n" fixed_heights.count
-		format "fixed_height        = % \n" fixed_height
-		format "empty_space         = % \n" empty_space
-		format "subrollouts_count   = % \n" subrollouts_count
-		format "slot_height         = % \n" slot_height
-		format "offset              = % \n" offset
 		
-		--slot_height = dialog_height
-		
-		if( offset == undefined ) then
+		if( offset == undefined ) then -- offset can be returned undefined in nested loop of fitSubrollouts()
 			return false
 			
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
@@ -105,16 +99,16 @@ struct Layout_v
 	),
 	
 	
-	/** Get rollout width
-	 */
-	function getRolloutWidth =
-	(
-		print "HOTFIX Layout_v.getRolloutWidth()"
-		
-		
-		256 -- HOTFIX
-	),
-	
+	--/** Get rollout width
+	-- */
+	--function getRolloutWidth =
+	--(
+	--	print "HOTFIX Layout_v.getRolloutWidth()"
+	--	
+	--	
+	--	256 -- HOTFIX
+	--),
+	--
 	/** Get setup from this
 	 */
 	function copySetup Layout =

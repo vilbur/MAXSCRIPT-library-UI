@@ -77,25 +77,15 @@ struct Subrollouts_v
 	 */
 	function resizeSobrolloutsSlot =
 	(
+		--format "Subrollouts_v.resizeSobrolloutsSlot() = % \n" id
 		widths	= #()
-		
-		--format "@@@ Subrollouts_v.resizeSobrolloutsSlot() = % \n" id
 	
 		for _Rollout in Rollouts do
-		(
-			--print ("!!! _Rollout:"+ _Rollout.id)
-			--_Rollout.Layout.fitSubrollouts()
-			append widths ( _Rollout.Layout.fitSubrollouts() )
-		)
+			append widths (_Rollout.setRolloutWidth())
+		
+		this.resize (amax widths) unsupplied
 
-			--append widths (_Rollout.setRolloutWidth())
-			
-		--format "Subrollouts % widths = %\n\n" id (amax widths)
-		
-		--this.resize (amax widths) 512
-		--this.resize 320 512
-		
-		--amax widths
+		amax widths
 	),
 	
 	/** Fit subrollouts
@@ -112,11 +102,7 @@ struct Subrollouts_v
 	 */
 	function resize width height =
 	(
-		--format "@@@ Subrollouts_v.resize() = % \n" id
-		--format "width = % \nheight = % \n\n" width height
-		--format "nested_level = % \n" nested_level
-
-		--this.property width:(width+_Rollout.Layout.slot_padding) height:height
+		--format "Subrollouts_v.resize() = % \n" id
 		this.property width:width height:height
 		
 		for _Rollout in Rollouts do
