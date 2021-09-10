@@ -57,15 +57,15 @@ struct Layout_v
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
 
-		--format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
-		--format "dialog_height       = % \n" dialog_height
-		--format "fixed_heights       = % \n" fixed_heights
-		--format "fixed_heights.count = % \n" fixed_heights.count
-		--format "fixed_height        = % \n" fixed_height
-		--format "empty_space         = % \n" empty_space
-		--format "subrollouts_count   = % \n" subrollouts_count
-		--format "slot_height         = % \n" slot_height
-		--format "offset              = % \n" offset
+		format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
+		format "dialog_height       = % \n" dialog_height
+		format "fixed_heights       = % \n" fixed_heights
+		format "fixed_heights.count = % \n" fixed_heights.count
+		format "fixed_height        = % \n" fixed_height
+		format "empty_space         = % \n" empty_space
+		format "subrollouts_count   = % \n" subrollouts_count
+		format "slot_height         = % \n" slot_height
+		format "offset              = % \n" offset
 		
 		
 		if( offset == undefined ) then -- offset can be returned undefined in nested loop of fitSubrollouts()
@@ -97,17 +97,7 @@ struct Layout_v
 
 		occupied_heights --return
 	),
-	
-	
-	--/** Get rollout width
-	-- */
-	--function getRolloutWidth =
-	--(
-	--	print "HOTFIX Layout_v.getRolloutWidth()"
-	--	
-	--	
-	--	256 -- HOTFIX
-	--),
+
 	--
 	/** Get setup from this
 	 */
@@ -130,6 +120,6 @@ struct Layout_v
 	
 	on create do
 	(
-		--messagebox "Layout_v.test()"
+
 	)
 )

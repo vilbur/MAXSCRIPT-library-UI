@@ -1,4 +1,7 @@
 /** Dock\Undock sidebar to window
+  * 
+  * Subrollouts and dialog are resized after docking
+  *
   * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
   *
   * @example dock "right"	// dock dialog right
@@ -7,16 +10,23 @@
  */
 function dock side =
 (
-	this._register()
-
 	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
 		dock_state = ("cui_dock_" + side as string) as name
 	else
 		dock_state = #cui_floatable
 	
-	if( dock_state != #cui_floatable ) then -- resize before docking
-		this.RolloutMain.Layout.fitSubrollouts dialog_height:(this._getViewportHeight())
+	max_height	= this._getViewportHeight()
 		
+	--format "this._getViewportHeight() = % \n" (this._getViewportHeight())
+	if( dock_state != #cui_floatable ) then -- resize before docking
+	(
+		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+		
+		this.height max_height -- resize dialog
+	)
+		
+	this._register() -- must be after resize
+
 	cui.DockDialogBar Dialog dock_state
 ),
 

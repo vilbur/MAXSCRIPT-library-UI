@@ -63,7 +63,7 @@ struct Dialog_v
 		
 	  *
 	 */
-	function create pos: width:512 height:320 bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
+	function create pos: width: height: bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
@@ -75,9 +75,9 @@ struct Dialog_v
 		
 		RolloutMain.Layout.fitSubrollouts()
 		
-		max_width = RolloutMain.setRolloutWidth()
+		--max_width = RolloutMain.setRolloutWidth()
 		
-		this.width max_width
+		--this.width max_width
 	),
 	 
 	/** rollouts
