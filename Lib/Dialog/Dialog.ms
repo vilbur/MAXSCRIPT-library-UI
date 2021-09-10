@@ -47,16 +47,31 @@ struct Dialog_v
 	
 	
 	/** Create Dialog
-	  * Same parameters as __[ Rollout.create() ](../Rollouts/Rollout)__
+	  * Parameters: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	  *
+	  * IMPORTANT: param fgcolor doesn't work
+		WORKAROUND:
+		
+		rollout roll_test "test" (
+			  dotNetControl dnc_label "Windows.Forms.Label"
+		  
+			  on roll_test open do (
+				  dnc_label.text = "Hello World"
+				  local bkgCol = (colorman.getcolor #background * 255) as color
+				  dnc_label.backColor = (dotNetClass "System.Drawing.Color").fromArgb bkgCol.r bkgCol.g bkgCol.b
+			  )
+		  )
+		  createDialog roll_test
+		
+	  *
 	 */
-	function create width:320 height:512 pos: =
+	function create pos: width:512 height:320 bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
-	
-		--CreateDialog ( Dialog ) width:(RolloutMain.Layout.getRolloutWidth()) height:height
-		CreateDialog Dialog width:width height:height menu:(Menu.create())
+
+		CreateDialog Dialog width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:yellow bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
@@ -64,7 +79,7 @@ struct Dialog_v
 		
 		--RolloutMain.setRolloutWidth()
 	),
-	
+	 
 	/** rollouts
      */
     function rollouts =

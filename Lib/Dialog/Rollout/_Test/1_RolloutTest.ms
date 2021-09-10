@@ -10,4 +10,4 @@ _rollout	= Rollout_v title:(getFilenameFile(getSourceFileName())) id:"optionable
 _rollout.createRollout()	-- create with default parameters
 
 /* CREATE DIALOG */
-CreateDialog ( _rollout.RolloutCreator.getDefinition() )
+CreateDialog ( _rollout.RolloutCreator.getDefinition() ) fgcolor:yellow height:512

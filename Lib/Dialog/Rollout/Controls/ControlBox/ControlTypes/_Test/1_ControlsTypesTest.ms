@@ -40,6 +40,7 @@ _controls_1.edittext	"Edit Text"
 --_controls_1.checkbutton	"Checkbutton"
 --_controls_1.checkbox	"Checkbox"
 
+_controls_1.edittext	"Edit Text" 
 /** Grid of buttons 
  *	
  */

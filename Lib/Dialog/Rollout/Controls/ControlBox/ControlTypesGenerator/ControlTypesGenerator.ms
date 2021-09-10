@@ -19,7 +19,7 @@ function writeControlTypesFile =
 	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #button, #spinner, #edittext, #browsePath, #checkbox, #checkbutton );
+	control_types	= #( #button, #label, #spinner, #edittext, #browsePath, #checkbox, #checkbutton );
 	
 	
 	param_custom = #( #columns )  
@@ -28,6 +28,7 @@ function writeControlTypesFile =
 	
 	params_by_type	= #(
 			#( #images, #border )                                                                 -- button
+		   ,#( #style_sunkenedge )                                                              -- checkbox
 		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
 		   ,#( #fieldwidth, #text, #bold, #labelOnTop, #readOnly )                                -- edittext
 		   ,#( #fieldwidth, #initialDir )                                                         -- path

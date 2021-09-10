@@ -1,4 +1,6 @@
-/**  
+/** Rollout https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+ *
+ *
  */
 global add_subrollouts = " "
 global groupbox_global = #() -- store groupboxes for dynamic method creation in ControlBoxControlTypes.ms
@@ -65,7 +67,7 @@ struct Rollout_v
 	include "Library/UI/Lib/Dialog/Rollout/RolloutSubrollouts.ms"
 
 	/** Create rollout with [ rolloutCreator() ](http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm)
-	  * Used for creation of rollout and subrollout subrollout
+	  *	  
 	 */
 	function createRollout =
 	(

@@ -107,7 +107,7 @@ struct MacroScript_Content_v
 	function _formatDatatypeValue value =
 	(
 		--if( classOf value == String and this._isValueBooleanString value == false ) then
-		format "value = % \n" value
+
 		if( this._isValueBooleanString value ) then
 			value	= (( toLower value) == "true")
 		

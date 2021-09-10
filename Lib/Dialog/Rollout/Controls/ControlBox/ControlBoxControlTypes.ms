@@ -7,6 +7,13 @@ function button caption id: columns: pos: height: width: align: offset: across: 
 
 /*
 */
+function label caption id: columns: pos: height: width: align: offset: across: toolTip: style_sunkenedge:  =
+(
+	label_v id:id caption:caption ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #style_sunkenedge), #(columns, pos, height, width, align, offset, across, toolTip, style_sunkenedge))
+),
+
+/*
+*/
 function spinner caption id: columns: pos: height: width: align: offset: across: toolTip: range: type: scale: fieldwidth: indeterminate: controller: setKeyBrackets:  =
 (
 	spinner_v id:id caption:caption ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #range, #type, #scale, #fieldwidth, #indeterminate, #controller, #setKeyBrackets), #(columns, pos, height, width, align, offset, across, toolTip, range, type, scale, fieldwidth, indeterminate, controller, setKeyBrackets))
