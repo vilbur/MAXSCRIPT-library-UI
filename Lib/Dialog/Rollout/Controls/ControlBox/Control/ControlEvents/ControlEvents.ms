@@ -43,27 +43,27 @@ struct ControlEvents_v
 			@param	string	callback	Code executed on event
 			@param	callback	tooltip	Tooltip for control
 	-----------------------------------------*/
-	/** Bind pressed event
-	 */
-	function pressed callback tooltip:"" =
-	(
-		this.setEvent #pressed callback tooltip
-	),
-
-	/** Bind changed event
-	  * Value of control is passed to control as variable "val" 
-	  */
-	function changed callback tooltip:"" =
-	(
-		this.setEvent #changed callback tooltip
-	),
-
-	/** Bind rightclick event
-	  */
-	function rightclick callback tooltip:"" =
-	(
-		this.setEvent #rightclick callback tooltip
-	),
+	--/** Bind pressed event
+	-- */
+	--function pressed callback tooltip:"" =
+	--(
+	--	this.setEvent #pressed callback tooltip
+	--),
+	--
+	--/** Bind changed event
+	--  * Value of control is passed to control as variable "val" 
+	--  */
+	--function changed callback tooltip:"" =
+	--(
+	--	this.setEvent #changed callback tooltip
+	--),
+	--
+	--/** Bind rightclick event
+	--  */
+	--function rightclick callback tooltip:"" =
+	--(
+	--	this.setEvent #rightclick callback tooltip
+	--),
 	
 	/** Set event
 	 */
@@ -106,16 +106,12 @@ struct ControlEvents_v
 	function setSaveToIniCallback =
 	(
 		--format "------------\nControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
-		--format " Parent_Control	= % \n" Parent_Control
-		--format " Parent_Control.path	= % \n" Parent_Control.id.id
-		--section_key	= filterString Parent_Control.id.id "."
-		
+
 		dynamic_types = #(#changed)
 
-		--format "Events.event_types = % \n" Events.event_types
-		
-		for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
-			this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.ControlBox.Parent_roll.ini+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
+		if(  Events.event_types != undefined ) then
+			for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
+				this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.ControlBox.Parent_roll.ini+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
 	),
 
 	/** _add handlers
