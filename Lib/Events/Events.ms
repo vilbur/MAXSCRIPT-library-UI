@@ -40,6 +40,19 @@ struct Events_v
 			for Event_merged in Events_merged where Event_merged!=undefined collect Event_merged --return
 	),
 	
+	/** Set event fired
+	 */
+	function setEventFired type id =
+	(
+		local EventFired = "EventFired.control=\""+(id)+"\";"
+		
+		EventFired += "EventFired.type=#"+type+";"
+		
+		EventFired += "EventFired.value=val;"
+		
+		EventFired --return
+	),
+	
 	/** Get events
 	  *
 	  * @property	#name	event_type	#pressed|#rightclick|#changed etc.

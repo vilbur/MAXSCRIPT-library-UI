@@ -15,24 +15,12 @@ struct RolloutEvent_v
 	 */
 	function setEvent type callback params:"" =
 	(
-		callback = (this._setEventFired type) + callback
+		callback = (this.Events.setEventFired type Parent_roll.id) + callback
 
 		this.Events.add (Event_v type:type code:callback params:"val")
 	),
 	
-	/** Set event fired
-	 */
-	function _setEventFired type =
-	(
-		local EventFired = "EventFired.control=\""+(Parent_roll.id)+"\";"
-		
-		EventFired += "EventFired.type=#"+type+";"
-		
-		EventFired += "EventFired.value=val;"
-		
-		EventFired --return
-	),
-	
+
 	/*---------------------------------------
 		PRIVATE 
 	-----------------------------------------*/

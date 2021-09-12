@@ -43,27 +43,7 @@ struct ControlEvents_v
 			@param	string	callback	Code executed on event
 			@param	callback	tooltip	Tooltip for control
 	-----------------------------------------*/
-	--/** Bind pressed event
-	-- */
-	--function pressed callback tooltip:"" =
-	--(
-	--	this.setEvent #pressed callback tooltip
-	--),
-	--
-	--/** Bind changed event
-	--  * Value of control is passed to control as variable "val" 
-	--  */
-	--function changed callback tooltip:"" =
-	--(
-	--	this.setEvent #changed callback tooltip
-	--),
-	--
-	--/** Bind rightclick event
-	--  */
-	--function rightclick callback tooltip:"" =
-	--(
-	--	this.setEvent #rightclick callback tooltip
-	--),
+	
 	
 	/** Set event
 	 */
@@ -73,24 +53,11 @@ struct ControlEvents_v
 		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
 			params = callback_value_name
 		
-		callback = (this._setEventFired type) + callback
+		callback = (this.Events.setEventFired type (Parent_Control.id.getIdFull())) + callback
 
 		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
 		
 		Parent_Control --return
-	),
-	
-	/** Set event fired
-	 */
-	function _setEventFired type =
-	(
-		local EventFired = "EventFired.control=\""+(Parent_Control.id.getIdFull())+"\";"
-		
-		EventFired += "EventFired.type=#"+type+";"
-
-		EventFired += "EventFired.value=val;"
-		
-		EventFired --return
 	),
 	
 	/** Set default event, save to ini if ini is defined in rollout
