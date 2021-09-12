@@ -13,9 +13,9 @@
 	
 	/* dependency */
 	Id,
-	Events     = ControlEvents_v	Parent_Control:this,
+	Events      = ControlEvents_v	Parent_Control:this,
 	_Parameters = Params_v(),
-	Properties = Properties_v	Parent_Control:this,
+	Properties  = Properties_v	Parent_Control:this,
 	
 
 	/* reference */

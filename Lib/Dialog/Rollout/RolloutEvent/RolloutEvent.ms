@@ -4,25 +4,33 @@
   */
 struct RolloutEvent_v 
 (
-	event_types	= #("onOpen", "onClose"),
+	--event_types	= #( #onOpen, #onClose ),
 	
 	/* dependency */
-	Events	= Events_v event_types:event_types,
+	Events	= Events_v event_types:#( #onOpen, #onClose ),
 	Parent_roll,
+
 	
-	/** Bind onOpen event
+	/** Set event
 	 */
-	function onOpen callback tooltip:"" =
+	function setEvent type callback params:"" =
 	(
-		this.Events.add (Event_v type:"onOpen" code:callback params:"val" tooltip:tooltip ) --return
+		callback = (this._setEventFired type) + callback
+
+		this.Events.add (Event_v type:type code:callback params:"val")
 	),
 	
-	/** Bind onClose event
-	  
+	/** Set event fired
 	 */
-	function onClose callback tooltip:"" =
+	function _setEventFired type =
 	(
-		this.Events.add (Event_v type:"onClose" code:callback params:"val" tooltip:tooltip ) --return
+		local EventFired = "EventFired.control=\""+(Parent_roll.id)+"\";"
+		
+		EventFired += "EventFired.type=#"+type+";"
+		
+		EventFired += "EventFired.value=val;"
+		
+		EventFired --return
 	),
 	
 	/*---------------------------------------
@@ -38,9 +46,9 @@ struct RolloutEvent_v
 			return false --return
 		
 		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"rolledUp\" ((val==false) as string)"
-
-		this.Events.setDefaultEvent ( Event_v type:"onOpen"	code:save_to_ini_method )
-		this.Events.setDefaultEvent ( Event_v type:"onClose"	code:save_to_ini_method )
+		
+		this.Events.setDefaultEvent ( Event_v type:#onOpen	code:save_to_ini_method )
+		this.Events.setDefaultEvent ( Event_v type:#onClose	code:save_to_ini_method )
 	),
 	
 	/** Bind events handlers to rollout 
@@ -55,8 +63,8 @@ struct RolloutEvent_v
 	 */
 	function _getCallback =
 	(
-		callback_open	= this._getEventCode "onOpen"
-		callback_close	= this._getEventCode "onClose"
+		callback_open	= this._getEventCode #onOpen
+		callback_close	= this._getEventCode #onClose
 				
 		"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
 	),
@@ -73,8 +81,6 @@ struct RolloutEvent_v
 			"" --return
 	),
 	
-	function test =
-	(
-		messagebox "Control_v.test()"
-	)
+	on create do
+	()
 )

@@ -48,15 +48,16 @@ struct Rollout_v
 
 	/* properties */
 	slot_id   = 0,
+	
 	min_width_of_rollout = 128,
 	
 	/* dependency */
 	RolloutCreator,
 	
-	RolloutEvent	   = RolloutEvent_v    Parent_roll:   this,
- 	Controls        = Controls_v        Parent_roll:   this,
-	Layout          = Layout_v          Parent_roll:   this,
-	Properties      = Properties_v      Parent_Control:this, -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	Events	    = RolloutEvent_v    Parent_roll:   this,
+ 	Controls   = Controls_v        Parent_roll:   this,
+	Layout     = Layout_v          Parent_roll:   this,
+	Properties = Properties_v      Parent_Control:this, -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 
 	Controlboxes_and_Subrollouts	= #(),  -- store subrollouts and controlboxes
 	
@@ -76,7 +77,7 @@ struct Rollout_v
 			Controlbox_or_Subrollouts.create()
 		
 		if( this._isSubrollout() == true ) then 
-			RolloutEvent._addHandlers()
+			Events._addHandlers()
 		
 		RolloutCreator.end()
 	),
@@ -127,7 +128,7 @@ struct Rollout_v
 	(
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
 		if( ini != undefined ) then 
-			RolloutEvent.setSaveToIniEvents()
+			Events.setSaveToIniEvents()
 	),
 	
 	
@@ -178,7 +179,7 @@ struct Rollout_v
 	 */
 	function _setId =
 	(
-		--print "Rollout_v._setId()"
+		print "Rollout_v._setId()"
 
 		if not ( id == undefined or id == unsupplied ) then
 			return()
@@ -237,7 +238,7 @@ struct Rollout_v
 		this._checkConstctructProperties()
 		
 		this._setId()
-		
+
 		this._destroy()
 		
 		--this._setGlobalVariable()
