@@ -59,7 +59,11 @@ struct RolloutEvent_v
 	(
 		val = if( type == #open or type == #close ) then " " else " val "
 		
-		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+" do (" + (this._getCallback type) + ")" )
+		callback = this._getCallback type
+		--format "callback = % \n" callback
+		
+		if( callback != "" ) then 
+			Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+" do (" + callback + ")" )
 	),
 	/** Get callback on rollout open\close
 	 */
