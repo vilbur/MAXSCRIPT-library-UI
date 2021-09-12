@@ -1,5 +1,8 @@
 clearListener()
 
+try(cui.UnRegisterDialogBar ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
+try(DestroyDialog  ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
+
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 /** CREATE ROLLOUTS 
@@ -11,11 +14,6 @@ SubRollouts = _Rollout.subrollouts()
 
 Rollout_A    = SubRollouts.new "Subrollout A"
 
---format "Rollout_A = % \n" Rollout_A
---/* CONTROLS  */
---Controls_1    = Rollout_A.Controls.new groupbox:"Groupbox 2"
---Button_A1	  = Controls_1.button "Test 1" 
-
 
 /*
 	CHANGE DEFAULT EVENTS
@@ -25,12 +23,18 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 
 */
 
-
 /*
 	SET CUSTOM EVENTS
 */
-Rollout_A.Events.setEvent #onOpen  "format \"EventFired = % \n\" EventFired"
-Rollout_A.Events.setEvent #onClose "format \"EventFired = % \n\" EventFired"
+
+_Rollout.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
+_Rollout.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
+
+Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
+Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+
+
 
 
 

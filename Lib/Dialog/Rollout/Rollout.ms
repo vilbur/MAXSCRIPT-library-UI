@@ -76,7 +76,7 @@ struct Rollout_v
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
-		if( this._isSubrollout() == true ) then 
+		--if( this._isSubrollout() == true ) then 
 			Events._addHandlers()
 		
 		RolloutCreator.end()
@@ -179,8 +179,7 @@ struct Rollout_v
 	 */
 	function _setId =
 	(
-		print "Rollout_v._setId()"
-
+		--print "Rollout_v._setId()"
 		if not ( id == undefined or id == unsupplied ) then
 			return()
 			

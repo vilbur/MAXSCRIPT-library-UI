@@ -1,13 +1,18 @@
- /** RolloutEvent
-  *		
-  *		
+/** RolloutEvent https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+  *	
+  *	Default events of rollout on open|close|rolledUp are merged
+  *	
+  *	Merged types are #open|#close
+  * 		On Dialog  level they substitute on open|close
+  * 		On Rollout level they substitute on rolledUp
+  * 
+  * 
+  *	
   */
 struct RolloutEvent_v 
 (
-	--event_types	= #( #onOpen, #onClose ),
-	
 	/* dependency */
-	Events	= Events_v event_types:#( #onOpen, #onClose ),
+	Events	= Events_v event_types:#( #open, #close, #resized, #moved ),
 	Parent_roll,
 
 	
@@ -20,10 +25,6 @@ struct RolloutEvent_v
 		this.Events.add (Event_v type:type code:callback params:"val")
 	),
 	
-
-	/*---------------------------------------
-		PRIVATE 
-	-----------------------------------------*/
 	/** Add default callback for event
 	  * Default callback function is added in "Rollout_v._addSaveIniFunction()"
 	  *
@@ -35,26 +36,44 @@ struct RolloutEvent_v
 		
 		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"rolledUp\" ((val==false) as string)"
 		
-		this.Events.setDefaultEvent ( Event_v type:#onOpen	code:save_to_ini_method )
-		this.Events.setDefaultEvent ( Event_v type:#onClose	code:save_to_ini_method )
+		this.Events.setDefaultEvent ( Event_v type:#open	code:save_to_ini_method )
+		this.Events.setDefaultEvent ( Event_v type:#close	code:save_to_ini_method )
 	),
 	
 	/** Bind events handlers to rollout 
 	 */
 	function _addHandlers =
 	(
-		--print ("RolloutEvent_v._addHandlers()")
-		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" rolledUp val do (" + this._getCallback() + ")" )
+		print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
+		--format "Parent_roll._isSubrollout() = % \n" (Parent_roll._isSubrollout())
+		handler_types	= Events.event_types
+		
+		append handler_types #rolledUp
+		
+		for type in handler_types do 
+			this._addHandler type
 	),
-	
+	/** _add handler
+	 */
+	function _addHandler type =
+	(
+		val = if( type == #open or type == #close ) then " " else " val "
+		
+		Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+" do (" + (this._getCallback type) + ")" )
+	),
 	/** Get callback on rollout open\close
 	 */
-	function _getCallback =
+	function _getCallback type =
 	(
-		callback_open	= this._getEventCode #onOpen
-		callback_close	= this._getEventCode #onClose
+		if( type == #rolledUp ) then
+		(
+			callback_open	= this._getEventCode #open
+			callback_close	= this._getEventCode #close
+			
+			"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
+		)else
+			this._getEventCode type
 				
-		"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
 	),
 	
 	/** _get event code
