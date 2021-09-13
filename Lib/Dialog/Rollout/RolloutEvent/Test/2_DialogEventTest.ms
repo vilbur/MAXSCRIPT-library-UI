@@ -46,7 +46,7 @@ function onDockTest val =
 --_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "onresize val"
-_Rollout.Events.setEvent #docked   "onDockTest val"
+--_Rollout.Events.setEvent #docked   "onDockTest val"
 
 
 --_Rollout.Events.setEvent #docked  "print \"Custom Event\""

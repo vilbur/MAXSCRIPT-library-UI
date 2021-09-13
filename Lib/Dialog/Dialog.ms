@@ -2,6 +2,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../Menu/Menu.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
+filein( getFilenamePath(getSourceFileName()) + "/DialogGlobal/DialogGlobal.ms" )
 
 /** Store dialog in global variable
   * 
@@ -12,6 +13,12 @@ struct Globals_v
 )
 if( __GLOBAL__v == undefined ) then
 	global __GLOBAL__v = Globals_v()
+
+
+
+if( DialogsGlobal == undefined ) then
+	global DialogsGlobal = DialogsGlobal_v()
+
 
 
 /** Use Rollout as dialog
@@ -104,6 +111,10 @@ struct Dialog_v
 	function _setDialogGlobal =
 	(
 		__GLOBAL__v.Dialog = this
+		
+		DialogsGlobal.setDialog RolloutMain.id this
+		format "DialogsGlobal       = % \n" DialogsGlobal
+		format "DialogsGlobal.count = % \n" DialogsGlobal.Dialogs.count
 	),
 
 	/** Set default path to ini file
