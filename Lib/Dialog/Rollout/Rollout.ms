@@ -129,6 +129,9 @@ struct Rollout_v
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( ini ) as string )
 		if( ini != undefined ) then 
 			Events.setSaveToIniEvents()
+			
+		Events.setOnDockEvents()
+			
 	),
 	
 	

@@ -34,34 +34,29 @@ function _isRegistered =
 
 /** `On resize`
  */
-function onResize new_size =
+function onDialogIsDocked new_size =
 (
-	--print "onResize()"
-	--format "new_size = % \n" new_size
-	--format "_isRegistered() = % \n" (_isRegistered())
 	
-	current_state = _isRegistered()
-	--format "current_state = % \n" current_state
-	if( matchPattern (current_state as string) pattern:"cui_dock_*" ) then 
-	
-		if( current_state != DIALOG_PREVIOUS_STATE ) then 
-		(
-			print  ("DOCKED " + current_state)
-			format "EventFired = % \n" EventFired
-			DIALOG_PREVIOUS_STATE = current_state
-		)
-	
+	format "\nEventFired = % \n" EventFired
+	current_state = try(cui.getDockState ROLLOUT_1_rollouteventtest)catch(false)
+	format "current_state         = % \n" current_state
+	format "DIALOG_PREVIOUS_STATE = % \n" DIALOG_PREVIOUS_STATE
+	if( current_state != DIALOG_PREVIOUS_STATE and matchPattern (current_state as string) pattern:"cui_dock*") then 
+		(print  ("DOCKED " + current_state);DIALOG_PREVIOUS_STATE = current_state)
 )
 
 /*
 	SET CUSTOM EVENTS
 */
-_Rollout.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
-_Rollout.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+--_Rollout.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
+--_Rollout.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
-_Rollout.Events.setEvent #resized "onresize val"
-_Rollout.Events.setEvent #moved   "onresize val"
+--_Rollout.Events.setEvent #resized "onresize val"
+--_Rollout.Events.setEvent #moved   "onresize val"
+
+
+_Rollout.Events.setEvent #docked  "print \"YESS\""
 
 Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
 Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
@@ -78,7 +73,7 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
-clearListener()
+--clearListener()
 
 cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
 
@@ -86,6 +81,6 @@ cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_doc
 cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_right
 
 
-sleep 3
-
-cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_left
+--sleep 3
+--
+--cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_left

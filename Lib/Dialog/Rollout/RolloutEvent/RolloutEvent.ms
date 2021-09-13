@@ -12,7 +12,7 @@
 struct RolloutEvent_v 
 (
 	/* dependency */
-	Events	= Events_v event_types:#( #open, #close, #resized, #moved ),
+	Events	= Events_v event_types:#( #open, #close, #resized, #moved, #docked ),
 	Parent_roll,
 
 	
@@ -31,25 +31,45 @@ struct RolloutEvent_v
 	 */
 	function setSaveToIniEvents =
 	(
-		if( Parent_roll.ini == undefined ) then
-			return false --return
+		--if( Parent_roll.ini == undefined ) then
+			--return false --return
 		
-		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \"rolledUp\" ((val==false) as string)"
-		
-		this.Events.setDefaultEvent ( Event_v type:#open	code:save_to_ini_method )
-		this.Events.setDefaultEvent ( Event_v type:#close	code:save_to_ini_method )
+		this.setSaveIniDefaultEvent #open  "(val==false)"
+		this.setSaveIniDefaultEvent #close "(val==false)"
 	),
 	
+	/** Set save ini default event
+	 */
+	function setSaveIniDefaultEvent type _value =
+	(
+		
+		key = if( type == #open or type == #close ) then "rolledUp" else "docked"
+		
+		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \""+key+"\" ("+_value+" as string)"
+		
+		this.Events.setDefaultEvent ( Event_v type:type	code:save_to_ini_method )
+		
+	),
+	
+	/** Set on dock events
+	 */
+	function setOnDockEvents =
+	(
+		
+		this.setSaveIniDefaultEvent #moved ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
+
+		
+	),
 	/** Bind events handlers to rollout 
 	 */
 	function _addHandlers =
 	(
 		print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
 		--format "Parent_roll._isSubrollout() = % \n" (Parent_roll._isSubrollout())
-		handler_types	= Events.event_types
+		--handler_types	= Events.event_types
 		
-		append handler_types #rolledUp
-		
+		handler_types	= #( #open, #close, #rolledUp, #resized, #moved )
+				
 		for type in handler_types do 
 			this._addHandler type
 	),
@@ -63,7 +83,7 @@ struct RolloutEvent_v
 		--format "callback = % \n" callback
 		
 		if( callback != "" ) then 
-			Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+" do (" + callback + ")" )
+			Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+"do (" + callback + ")" )
 	),
 	/** Get callback on rollout open\close
 	 */
@@ -75,7 +95,15 @@ struct RolloutEvent_v
 			callback_close	= this._getEventCode #close
 			
 			"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
-		)else
+			
+		)
+		else if( type == #moved ) then
+		(
+			(this._getEventCode #moved)
+			--+" ; "+	(this._getEventCode #docked)
+
+			
+		) else
 			this._getEventCode type
 				
 	),
