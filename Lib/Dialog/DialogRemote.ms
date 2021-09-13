@@ -1,38 +1,33 @@
-	
-	
-	/** Destroy dialog
-	 */
-	function destroy =
-	(
-		if( __GLOBAL__v.Dialog != undefined ) then
-		
+
+
+/** Destroy dialog
+ */
+function destroy =
+(
+	if( ( Dialog_global = DialogsGlobal.get(RolloutMain.id) )!= undefined ) then
 		try
 		(
-			DestroyDialog __GLOBAL__v.Dialog.Dialog
-			
+			DestroyDialog Dialog_global.Dialog
 		)
 		catch()
-		
-	),
-	
-	
-	/** Position
-	 */
-	function position x y =
-	(
-		--SetDialogPos __GLOBAL__v.Dialog.Dialog [0, 0]
-		SetDialogPos Dialog [0, 0]
-	),
-	
-	/** Set width
-	 */
-	function width width =
-	(
-		Dialog.width = width
-	),	
-	/** Set width
-	 */
-	function height height =
-	(
-		Dialog.height = height
-	),
+),
+
+/** Position
+ */
+function position x y =
+(
+	SetDialogPos Dialog [0, 0]
+),
+
+/** Set width
+ */
+function width width =
+(
+	Dialog.width = width
+),	
+/** Set width
+ */
+function height height =
+(
+	Dialog.height = height
+),

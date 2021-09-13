@@ -4,22 +4,6 @@ filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/DialogGlobal/DialogGlobal.ms" )
 
-/** Store dialog in global variable
-  * 
-  */
-struct Globals_v
-(
-	Dialog
-)
-if( __GLOBAL__v == undefined ) then
-	global __GLOBAL__v = Globals_v()
-
-
-
-if( DialogsGlobal == undefined ) then
-	global DialogsGlobal = DialogsGlobal_v()
-
-
 
 /** Use Rollout as dialog
   *
@@ -113,8 +97,11 @@ struct Dialog_v
 		__GLOBAL__v.Dialog = this
 		
 		DialogsGlobal.setDialog RolloutMain.id this
-		format "DialogsGlobal       = % \n" DialogsGlobal
-		format "DialogsGlobal.count = % \n" DialogsGlobal.Dialogs.count
+		--format "DialogsGlobal       = % \n" DialogsGlobal
+		--format "DialogsGlobal.count = % \n" DialogsGlobal.Dialogs.count
+		--
+		--Dialog_global = (DialogsGlobal.get(RolloutMain.id))
+		--format "Dialog_global = % \n" Dialog_global
 	),
 
 	/** Set default path to ini file
@@ -151,13 +138,13 @@ struct Dialog_v
 	(
 		this._checkConstctructProperties()
 		
+		this._setMainRollout()
+		
 		this._unregisterOldDialog()
 		
 		this.destroy()
 		
 		--this._setIniFile()
-		
-		this._setMainRollout()
 		
 		this._setDialogGlobal()
 	)

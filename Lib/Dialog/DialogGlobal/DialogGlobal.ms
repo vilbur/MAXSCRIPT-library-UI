@@ -4,12 +4,6 @@ struct DialogsGlobal_v
 (
 	ids     = #(),
 	Dialogs = #(),
-	
-	/* required */
-	/* dependency */
-	/* reference */
-	/* properties */
-	id,
 
 	
 	/** Set dialog
@@ -18,10 +12,25 @@ struct DialogsGlobal_v
 	(
 		appendIfUnique ids id
 		
-		index	= findItem ids id
+		Dialogs[this.index id] = Dialog
+	),
+	
+	/** Get Dialog
+	 */
+	function get id =
+	(
 		
-		Dialogs[index] = Dialog
+		index = this.index id
 		
+		if( index > 0 ) then 
+			Dialogs[this.index id] --return
+	),
+	
+	/** Index
+	 */
+	function index id =
+	(
+		findItem ids id
 	),
 	
 	private
@@ -35,3 +44,8 @@ struct DialogsGlobal_v
 	)
 	
 )
+
+
+
+if( DialogsGlobal == undefined ) then
+	global DialogsGlobal = DialogsGlobal_v()

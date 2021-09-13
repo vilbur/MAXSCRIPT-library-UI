@@ -20,7 +20,10 @@ function loadContentTest =
  */
 function addRolloutByCodeTest name =
 (
-	_rollout    = __GLOBAL__v.Dialog.roll name ""
+	--_rollout    = __GLOBAL__v.Dialog.roll name ""
+	_rollout = DialogsGlobal.get(name)
+
+	
 	_controls_A = _rollout.controls groupbox:"Groupbox A" -- get new container for controls
 	_controls_B = _rollout.controls groupbox:"Groupbox B" -- get new container for controls
 	_controls_A.button ("button by code")

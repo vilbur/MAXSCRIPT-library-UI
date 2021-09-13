@@ -7,3 +7,6 @@ Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog.create()
+
+
+Dialog.dock #right

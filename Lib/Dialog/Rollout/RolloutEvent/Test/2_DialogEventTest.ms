@@ -3,6 +3,7 @@ clearListener()
 try(cui.UnRegisterDialogBar ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
 try(DestroyDialog  ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
 
+
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 /** CREATE ROLLOUTS 

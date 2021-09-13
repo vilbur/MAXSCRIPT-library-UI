@@ -12,14 +12,15 @@ function _register =
 function _unregister =
 (
 	try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
-	--try(cui.UnRegisterDialogBar __GLOBAL__v.Dialog)catch() --try to unregister if already registered
 ),
+
 /** Close
  */
 function _unregisterOldDialog =
 (
-	if not (classOf __GLOBAL__v.Dialog == UndefinedClass ) then
-		__GLOBAL__v.Dialog._unregister()
+
+	if( ( Dialog_global = DialogsGlobal.get(RolloutMain.id) )!= undefined ) then
+		Dialog_global._unregister()
 ),
 
 /** _is registered
