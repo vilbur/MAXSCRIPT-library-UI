@@ -35,8 +35,8 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 --_Rollout.Events.setEvent #moved   "onresize val"
 
 
---_Rollout.Events.setEvent #docked  "print \"Custom Event\""
-_Rollout.Events.setEvent #docked  "print current_state as string"
+_Rollout.Events.setEvent #docked  "print \"Custom Event\""
+--_Rollout.Events.setEvent #docked  "print current_state as string"
 
 Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
 Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"

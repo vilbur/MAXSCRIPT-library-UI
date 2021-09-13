@@ -2,14 +2,19 @@ global DIALOG_PREVIOUS_STATE = undefined
 
 
 /** RolloutEvent https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
-  *	
-  *	Default events of rollout on open|close|rolledUp are merged
-  *	
-  *	Merged types are #open|#close
-  * 		On Dialog  level they substitute on open|close
-  * 		On Rollout level they substitute on rolledUp
   * 
-  * 
+  *		1) Available events for dialog|rollout are #open, #close, #resized, #moved, #docked 
+  *	
+  *		2) Events #open, #close and #docked fires save to ini callback before user defined callback, if ini file is defined then
+  *
+  *		3) Each event fires global variable EventFired
+  *	
+  *	
+  * IMPORTANT:
+  *	
+  *		Dialog  #open and #close fires when dialog is  opened or closed
+  *		Rollout #open and #close fires when subrollout is roll up or down
+  *	
   *	
   */
 struct RolloutEvent_v 
@@ -40,7 +45,6 @@ struct RolloutEvent_v
 		this.setSaveIniDefaultEvent #open  "rolledUp" "(val==false)"
 		this.setSaveIniDefaultEvent #close "rolledUp" "(val==false)"
 		this.setSaveIniDefaultEvent #moved "docked"   ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
-		
 	),
 	
 	/** Set save ini default event
@@ -81,27 +85,50 @@ struct RolloutEvent_v
 	function _getCallback type =
 	(
 		if( type == #rolledUp ) then
-		(
-			callback_open	= this._getEventCode #open
-			callback_close	= this._getEventCode #close
-			
-			"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
-		)
+			this._bindToRolledUpHandler() --return
+		
 		else if( type == #moved ) then
-		(
-			callback_moved	= this._getEventCode #moved
-			callback_docked	= this._getEventCode #docked
-			
-			_format = "format \"TEST DIALOG_PREVIOUS_STATE %\n\" DIALOG_PREVIOUS_STATE"
-			
-			if( callback_docked != "" ) then -- on move, if dialog is docked and change its state then call #docked callback
-				callback_moved += "\n"+	"if ((current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE and matchPattern (current_state as string) pattern:\"cui_dock*\") then (DIALOG_PREVIOUS_STATE = current_state\n"+_format + callback_docked + ")"
-			
-			callback_moved --return
-		) else
+			this._bindToMovedHandler()
+		
+		else
 			this._getEventCode type
 				
 	),
+	
+	/** Bind to rolled up handler
+	  *
+	  * Events #open, #close are bind to #rolledUp handler
+	  *
+	 */
+	function _bindToRolledUpHandler =
+	(
+		callback_open	= this._getEventCode #open
+		callback_close	= this._getEventCode #close
+		
+		"if( val==true ) then (" +callback_open+ ")else(" +callback_close+ ")" --return
+	),
+	
+	/** Bind to moved handler
+	  *
+	  *	Event #docked is bind to #moved handler
+	  * If dialog is docked then callback of #docked is called
+	  *
+	  * #moved Event is fired many times, gloabl variable DIALOG_PREVIOUS_STATE is used to find out if dialog gets just docket
+	  *
+	 */
+	function _bindToMovedHandler =
+	(
+		callback_moved	= this._getEventCode #moved
+		callback_docked	= this._getEventCode #docked
+		
+		_format = "format \"TEST DIALOG_PREVIOUS_STATE %\n\" DIALOG_PREVIOUS_STATE"
+		
+		if( callback_docked != "" ) then -- on move, if dialog is docked and change its state then call #docked callback
+			callback_moved += "\n"+	"if ((dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE and matchPattern (dialog_current_state as string) pattern:\"cui_dock*\") then (DIALOG_PREVIOUS_STATE = dialog_current_state\n"+_format + callback_docked + ")"
+		
+		callback_moved --return
+	),
+	
 
 	/** _get event code
 	 */
@@ -112,7 +139,6 @@ struct RolloutEvent_v
 		if( _Event!=undefined ) then
 			_Event.code --return
 		else
-			--"print \"shit\"" --return
 			"" --return
 	),
 	

@@ -15,9 +15,8 @@ struct Events_v
 	 */
 	function setDefaultEvent Event =
 	(
-		print ( "_setDefaultEvent = " + Event as string )
+		--print ( "Events_v._setDefaultEvent " + Event as string )
 		this.Events_default.setVal Event.type Event
-		format "Events_default = % \n" Events_default
 	),
 	
 	/** Add Event to Events
@@ -27,12 +26,21 @@ struct Events_v
 		this.Events.setVal Event.type Event
 	),
 	
+	/** Add Event to Events
+	 */
+	function addCodeToDefaultEvent type code =
+	(
+		Event = this.Events_default.getVal type
+		
+		Event.code += "\n"+code
+	),
+	
 	/**  
 	 */
 	function getEvents =
 	(
 		Events_merged	= #()
-		--format "Events_v.event_types = % \n" event_types
+
 		if(  event_types != undefined ) then
 			for event_type in event_types do
 				append Events_merged (this.getEvent event_type)
@@ -77,9 +85,9 @@ struct Events_v
 		Event_merged 	= Event_v type:(this._getEventProperty Event_default Event "type")
 		
 		Event_merged.params	= this._getEventProperty	Event_default Event "params"
-		Event_merged.code	=(this._getCodeStr	Event_default ) + ";" + ( this._getCodeStr Event )
+		Event_merged.code	=(this._getCodeStr	Event_default ) + "\n" + ( this._getCodeStr Event )
 		Event_merged.tooltip	= this._getEventProperty	Event_default Event "tooltip"
-		--print ( "Events_v.mergeEvents() Event_merged = " + Event_merged as string )
+
 		Event_merged --return
 	),
 	
