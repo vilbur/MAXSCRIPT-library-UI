@@ -23,27 +23,6 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 
 */
 
-global DIALOG_PREVIOUS_STATE
-
-/** _is registered
- */
-function _isRegistered =
-(
-	try(cui.getDockState ROLLOUT_1_rollouteventtest)catch(false)
-)
-
-/** `On resize`
- */
-function onDialogIsDocked new_size =
-(
-	
-	format "\nEventFired = % \n" EventFired
-	current_state = try(cui.getDockState ROLLOUT_1_rollouteventtest)catch(false)
-	format "current_state         = % \n" current_state
-	format "DIALOG_PREVIOUS_STATE = % \n" DIALOG_PREVIOUS_STATE
-	if( current_state != DIALOG_PREVIOUS_STATE and matchPattern (current_state as string) pattern:"cui_dock*") then 
-		(print  ("DOCKED " + current_state);DIALOG_PREVIOUS_STATE = current_state)
-)
 
 /*
 	SET CUSTOM EVENTS
@@ -56,7 +35,8 @@ function onDialogIsDocked new_size =
 --_Rollout.Events.setEvent #moved   "onresize val"
 
 
-_Rollout.Events.setEvent #docked  "print \"YESS\""
+--_Rollout.Events.setEvent #docked  "print \"Custom Event\""
+_Rollout.Events.setEvent #docked  "print current_state as string"
 
 Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
 Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
