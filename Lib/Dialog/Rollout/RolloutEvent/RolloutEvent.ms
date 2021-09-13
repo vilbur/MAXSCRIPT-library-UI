@@ -10,10 +10,15 @@ global DIALOG_PREVIOUS_STATE = undefined
   *		3) Each event fires global variable EventFired
   *	
   *	
-  * IMPORTANT:
+  *	------------------------------------------------------------------------------------------------------------
   *	
+  * #OPEN and #CLOSE:
   *		Dialog  #open and #close fires when dialog is  opened or closed
   *		Rollout #open and #close fires when subrollout is roll up or down
+  *	
+  *	
+  *	#DOCKED
+  *		If fired each time dialog change its docked state, on dock or undock
   *	
   *	
   */
@@ -124,7 +129,7 @@ struct RolloutEvent_v
 		_format = "format \"TEST DIALOG_PREVIOUS_STATE %\n\" DIALOG_PREVIOUS_STATE"
 		
 		if( callback_docked != "" ) then -- on move, if dialog is docked and change its state then call #docked callback
-			callback_moved += "\n"+	"if ((dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE and matchPattern (dialog_current_state as string) pattern:\"cui_dock*\") then (DIALOG_PREVIOUS_STATE = dialog_current_state\n"+_format + callback_docked + ")"
+			callback_moved += "\n"+	"if ((dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE and matchPattern (dialog_current_state as string) pattern:\"cui_*\") then (DIALOG_PREVIOUS_STATE = dialog_current_state\n"+_format + callback_docked + ")"
 		
 		callback_moved --return
 	),

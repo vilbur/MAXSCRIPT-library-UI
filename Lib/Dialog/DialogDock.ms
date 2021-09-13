@@ -1,6 +1,6 @@
 /** Dock\Undock sidebar to window
   * 
-  * Subrollouts and dialog are resized after docking
+  * Subrollouts and dialog are resized BEFORE docking
   *
   * @param	string	side	"left|top|right|bottom" or #left|#top|#right|#bottom, otherwise undock
   *
@@ -15,11 +15,12 @@ function dock side =
 	else
 		dock_state = #cui_floatable
 	
-	max_height	= this._getViewportHeight()
 		
 	--format "this._getViewportHeight() = % \n" (this._getViewportHeight())
 	if( dock_state != #cui_floatable ) then -- resize before docking
 	(
+		max_height	= this._getViewportHeight()
+	
 		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
 		
 		this.height max_height -- resize dialog
@@ -53,7 +54,7 @@ function _isDocked =
 	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
 ),
     
-/** Get height of maximized vieport for find out height of docked dialog
+/** Get height of maximized viewport to find out height of docked dialog
  */
 function _getViewportHeight =
 (

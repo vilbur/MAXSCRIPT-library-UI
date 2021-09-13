@@ -24,6 +24,20 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 */
 
 
+/** On dock test
+ */
+function onDockTest val =
+(
+	print "onDockTest()"
+	max_height	= this._getViewportHeight()
+
+	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	
+	this.height max_height -- resize dialog
+	
+)
+
+
 /*
 	SET CUSTOM EVENTS
 */
@@ -32,12 +46,15 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 --_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "onresize val"
+_Rollout.Events.setEvent #docked   "onDockTest val"
 
 
-_Rollout.Events.setEvent #docked  "print \"Custom Event\""
+--_Rollout.Events.setEvent #docked  "print \"Custom Event\""
+--_Rollout.Events.setEvent #docked  "print current_state as string"
 
 Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
 Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+
 
 
 
@@ -50,4 +67,14 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
+--clearListener()
+
 cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+
+
+--cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_right
+
+
+--sleep 3
+--
+--cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_left
