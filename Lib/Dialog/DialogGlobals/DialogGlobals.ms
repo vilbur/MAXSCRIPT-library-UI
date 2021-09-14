@@ -1,6 +1,6 @@
 /** Dialog global
  */
-struct DialogsGlobal_v
+struct DialogGlobals_v
 (
 	ids     = #(),
 	Dialogs = #(),
@@ -47,5 +47,5 @@ struct DialogsGlobal_v
 
 
 
-if( DialogsGlobal == undefined ) then
-	global DialogsGlobal = DialogsGlobal_v()
+if( DialogGlobals == undefined ) then
+	global DialogGlobals = DialogGlobals_v()

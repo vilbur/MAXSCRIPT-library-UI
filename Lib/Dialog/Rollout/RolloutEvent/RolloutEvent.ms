@@ -126,10 +126,15 @@ struct RolloutEvent_v
 		callback_moved	= this._getEventCode #moved
 		callback_docked	= this._getEventCode #docked
 		
-		_format = "format \"TEST DIALOG_PREVIOUS_STATE %\n\" DIALOG_PREVIOUS_STATE"
+		_format = "\nformat \"TEST DIALOG_PREVIOUS_STATE %\" DIALOG_PREVIOUS_STATE \n"
+		
+		previous_state_definded =	" (DIALOG_PREVIOUS_STATE != false) "
+		current_state_changed   = " (dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE "
+		state_match_cui         = " matchPattern (dialog_current_state as string) pattern:\"cui_*\" "
+		set_previous_state      = " DIALOG_PREVIOUS_STATE = dialog_current_state "
 		
 		if( callback_docked != "" ) then -- on move, if dialog is docked and change its state then call #docked callback
-			callback_moved += "\n"+	"if ((dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE and matchPattern (dialog_current_state as string) pattern:\"cui_*\") then (DIALOG_PREVIOUS_STATE = dialog_current_state\n"+_format + callback_docked + ")"
+			callback_moved += _format+"\n"+"if ( "+previous_state_definded+" and  "+current_state_changed+" and "+state_match_cui+") then (" + callback_docked + ")\n" + set_previous_state
 		
 		callback_moved --return
 	),

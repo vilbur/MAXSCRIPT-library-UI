@@ -2,7 +2,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../Menu/Menu.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
-filein( getFilenamePath(getSourceFileName()) + "/DialogGlobal/DialogGlobal.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/DialogGlobals/DialogGlobals.ms" )
 
 
 /** Use Rollout as dialog
@@ -94,9 +94,9 @@ struct Dialog_v
 	  */
 	function _setDialogGlobal =
 	(
-		__GLOBAL__v.Dialog = this
+		--__GLOBAL__v.Dialog = this
 		
-		DialogsGlobal.setDialog RolloutMain.id this
+		DialogGlobals.setDialog RolloutMain.id this
 		--format "DialogsGlobal       = % \n" DialogsGlobal
 		--format "DialogsGlobal.count = % \n" DialogsGlobal.Dialogs.count
 		--

@@ -9,4 +9,4 @@ Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 Dialog.create()
 
 
-Dialog.dock #right
+--Dialog.dock #rig ht

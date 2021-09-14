@@ -1,7 +1,7 @@
 clearListener()
 
-try(cui.UnRegisterDialogBar ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
-try(DestroyDialog  ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
+try(cui.UnRegisterDialogBar ROLLOUT_2_dialogeventtest)catch() --try to unregister if already registered
+try(DestroyDialog  ROLLOUT_2_dialogeventtest)catch() --try to unregister if already registered
 
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
@@ -29,16 +29,18 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
  */
 function onDockTest val =
 (
-	print "onDockTest()"
-	max_height	= this._getViewportHeight()
-
-	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	print "\nonDockTest()"
 	
-	this.height max_height -- resize dialog
+	format "EventFired = % \n" EventFired
+	--max_height	= this._getViewportHeight()
+	--
+	--this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	--
+	--this.height max_height -- resize dialog
 	
 )
 
-
+--format "DIALOG_PREVIOUS_STATE = % \n" DIALOG_PREVIOUS_STATE
 /*
 	SET CUSTOM EVENTS
 */
@@ -47,7 +49,7 @@ function onDockTest val =
 --_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
 --_Rollout.Events.setEvent #resized "onresize val"
---_Rollout.Events.setEvent #docked   "onDockTest val"
+_Rollout.Events.setEvent #docked   "onDockTest val"
 
 
 --_Rollout.Events.setEvent #docked  "print \"Custom Event\""
@@ -68,14 +70,13 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
---clearListener()
 
-cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+cui.RegisterDialogBar	ROLLOUT_2_dialogeventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
 
 
---cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_right
+cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_right
 
 
 --sleep 3
 --
---cui.DockDialogBar     ROLLOUT_1_rollouteventtest #cui_dock_left
+--cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_left

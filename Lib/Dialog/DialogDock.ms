@@ -17,14 +17,14 @@ function dock side =
 	
 		
 	--format "this._getViewportHeight() = % \n" (this._getViewportHeight())
-	if( dock_state != #cui_floatable ) then -- resize before docking
-	(
-		max_height	= this._getViewportHeight()
-	
-		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
-		
-		this.height max_height -- resize dialog
-	)
+	--if( dock_state != #cui_floatable ) then -- resize before docking
+	--(
+	--	max_height	= this._getViewportHeight()
+	--
+	--	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	--	
+	--	this.height max_height -- resize dialog
+	--)
 		
 	this._register() -- must be after resize
 

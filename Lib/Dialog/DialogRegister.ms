@@ -19,7 +19,7 @@ function _unregister =
 function _unregisterOldDialog =
 (
 
-	if( ( Dialog_global = DialogsGlobal.get(RolloutMain.id) )!= undefined ) then
+	if( ( Dialog_global = DialogGlobals.get(RolloutMain.id) )!= undefined ) then
 		Dialog_global._unregister()
 ),
 
