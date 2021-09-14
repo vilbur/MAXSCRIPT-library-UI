@@ -30,4 +30,4 @@ Dialog = createDialog MainRollout
 
 
 cui.RegisterDialogBar	MainRollout style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
-cui.DockDialogBar MainRollout #cui_dock_right
+cui.DockDialogBar     MainRollout #cui_dock_right

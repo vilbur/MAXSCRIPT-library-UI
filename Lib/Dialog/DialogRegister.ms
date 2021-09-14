@@ -2,15 +2,19 @@
  */
 function _register =
 (
+	--ENABLE_RESIZING = false
+	print "Dialog._register()"
 	if not( this._isRegistered() ) then 
 		cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
 		--minSize:size_init maxSize:size_init
+	--ENABLE_RESIZING = true
 ),
 
 /** Unregister dialog bar
  */
 function _unregister =
 (
+	print "Dialog._unregister()"
 	try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
 ),
 
@@ -18,6 +22,7 @@ function _unregister =
  */
 function _unregisterOldDialog =
 (
+	print "Dialog._unregisterOldDialog()"
 
 	if( ( Dialog_global = DialogGlobals.get(RolloutMain.id) )!= undefined ) then
 		Dialog_global._unregister()

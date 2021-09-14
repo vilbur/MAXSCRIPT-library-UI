@@ -10,11 +10,15 @@
  */
 function dock side =
 (
+	print "dock.undock()"
 	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
 		dock_state = ("cui_dock_" + side as string) as name
 	else
 		dock_state = #cui_floatable
-		
+	
+	this._resizeDialogBeforeDocking()
+	
+	
 	this._register() -- must be after resize
 
 	cui.DockDialogBar Dialog dock_state
@@ -24,6 +28,7 @@ function dock side =
  */
 function undock =
 (
+	print "Dialog.undock()"
 	if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "" --return
 	
@@ -34,6 +39,9 @@ function undock =
  */
 function _isFloatable =
 (
+	print "Dialog._isFloatable()"
+	--ENABLE_RESIZING = false
+	
 	if ( this._isRegistered() and cui.getDockState Dialog == #cui_floatable ) then true else false --return;
 ),
 /** _is docked
@@ -42,21 +50,48 @@ function _isDocked =
 (
 	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
 ),
-  
- /** Resize subrollouts
-  */
- function resizeSubrollouts =
- (
-	if not( this._isFloatable() ) then -- resize before docking
-	(
-		max_height	= this._getViewportHeight()
-		--format "max_height = % \n" max_height
-		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
-		 
-		--this.height max_height -- resize dialog
-	)
-	
-), 
+
+/** Resize dialog before docking
+ */
+function _resizeDialogBeforeDocking =
+(
+	max_height	= this._getViewportHeight()
+	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	this.height max_height -- resize dialog
+),
+
+
+
+-- /** Resize subrollouts
+--  */
+-- function resizeSubrolloutsOfDockedDialog =
+-- (
+--	print "Dialog.resizeSubrolloutsOfDockedDialog()"
+--	 --this._isFloatable()
+--	--if not( this._isFloatable() ) then -- resize before docking
+--	(
+--		max_height	= this._getViewportHeight()
+--		
+--		ENABLE_RESIZING = false
+--	
+--		dock_state = cui.getDockState Dialog
+--		
+--		try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
+--
+--		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+--		this.height max_height -- resize dialog
+--		
+--		cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+--
+--
+--		cui.DockDialogBar Dialog dock_state
+--		
+--		ENABLE_RESIZING = true
+--
+--	)
+--	
+--),
+
   
     
 /** Get height of maximized viewport to find out height of docked dialog

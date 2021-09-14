@@ -16,6 +16,7 @@ rollout_A	= Rollouts.new "Rollout A"
 rollout_B	= Rollouts.new "Rollout B"
 
 
+global ENABLE_RESIZING = false
 
 /*
 	CHANGE DEFAULT EVENTS
@@ -34,10 +35,19 @@ function onDockResizeDialogCallback val =
 	
 	format "EventFired = % \n" EventFired
 	
-	if( ( Dialog_global = DialogGlobals.get(EventFired.Control) )!= undefined ) then
+	format "ENABLE_RESIZING = % \n" ENABLE_RESIZING
+	format "STATE = % \n" (cui.getDockState ROLLOUT_2_dialogeventtest)
+
+	if( ENABLE_RESIZING ) then
 	(
-		Dialog_global.resizeSubrollouts()
+	
+		if( ( Dialog_global = DialogGlobals.get(EventFired.Control) )!= undefined ) then
+		(
+			Dialog_global.resizeSubrolloutsOfDockedDialog()
+		)
+		
 	)
+	
 	
 	--max_height	= this._getViewportHeight()
 	--
@@ -73,10 +83,10 @@ Dialog.RolloutMain.Events.setEvent #docked   "onDockResizeDialogCallback val"
 /* CREATE DIALOG */
 Dialog.create()
 
-clearListener()
+--clearListener()
 
 Dialog.dock #right
-
+--
 --CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 --
 --_Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
