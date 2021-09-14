@@ -1,19 +1,20 @@
 clearListener()
 
-try(cui.UnRegisterDialogBar ROLLOUT_2_dialogeventtest)catch() --try to unregister if already registered
-try(DestroyDialog  ROLLOUT_2_dialogeventtest)catch() --try to unregister if already registered
 
-
-filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
+filein( getFilenamePath(getSourceFileName()) + "/../../../Dialog.ms" )
 
 /** CREATE ROLLOUTS 
  *	
  */
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) ini:(getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
+Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
+--_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) ini:(getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
 
-SubRollouts = _Rollout.subrollouts()
+/*------ CREATE FLOATER DIALOG ------*/
 
-Rollout_A    = SubRollouts.new "Subrollout A"
+Rollouts = Dialog.rollouts()
+rollout_A	= Rollouts.new "Rollout A"
+rollout_B	= Rollouts.new "Rollout B"
+
 
 
 /*
@@ -27,11 +28,17 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 
 /** On dock test
  */
-function onDockTest val =
+function onDockResizeDialogCallback val =
 (
-	print "\nonDockTest()"
+	print "\n onDockResizeDialogCallback()"
 	
 	format "EventFired = % \n" EventFired
+	
+	if( ( Dialog_global = DialogGlobals.get(EventFired.Control) )!= undefined ) then
+	(
+		Dialog_global.resizeSubrollouts()
+	)
+	
 	--max_height	= this._getViewportHeight()
 	--
 	--this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
@@ -44,38 +51,42 @@ function onDockTest val =
 /*
 	SET CUSTOM EVENTS
 */
---_Rollout.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #resized "onresize val"
-_Rollout.Events.setEvent #docked   "onDockTest val"
+--Dialog.RolloutMain.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
+--Dialog.RolloutMain.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+--Dialog.RolloutMain.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
+--Dialog.RolloutMain.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
+--Dialog.RolloutMain.Events.setEvent #resized "onresize val"
+Dialog.RolloutMain.Events.setEvent #docked   "onDockResizeDialogCallback val"
+--
+--
+--Dialog.RolloutMain.Events.setEvent #docked  "print \"Custom Event\""
+----_Rollout.Events.setEvent #docked  "print current_state as string"
+--
+--Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
+--Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
+--
 
 
---_Rollout.Events.setEvent #docked  "print \"Custom Event\""
---_Rollout.Events.setEvent #docked  "print current_state as string"
-
-Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
-Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
 
 
-
-
-
-/* CREATE ROLLOUT */
-_Rollout.createRollout()
 
 /* CREATE DIALOG */
-CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
+Dialog.create()
 
-_Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
+clearListener()
 
+Dialog.dock #right
 
-cui.RegisterDialogBar	ROLLOUT_2_dialogeventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
-
-
-cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_right
-
+--CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
+--
+--_Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
+--
+--
+--cui.RegisterDialogBar	ROLLOUT_2_dialogeventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+--
+--
+--cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_right
+--
 
 --sleep 3
 --

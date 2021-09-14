@@ -126,7 +126,8 @@ struct RolloutEvent_v
 		callback_moved	= this._getEventCode #moved
 		callback_docked	= this._getEventCode #docked
 		
-		_format = "\nformat \"TEST DIALOG_PREVIOUS_STATE %\" DIALOG_PREVIOUS_STATE \n"
+		--_format = "\nformat \"TEST DIALOG_PREVIOUS_STATE %\" DIALOG_PREVIOUS_STATE \n"
+		_format = ""
 		
 		previous_state_definded =	" (DIALOG_PREVIOUS_STATE != false) "
 		current_state_changed   = " (dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE "

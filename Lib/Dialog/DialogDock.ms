@@ -14,17 +14,6 @@ function dock side =
 		dock_state = ("cui_dock_" + side as string) as name
 	else
 		dock_state = #cui_floatable
-	
-		
-	--format "this._getViewportHeight() = % \n" (this._getViewportHeight())
-	--if( dock_state != #cui_floatable ) then -- resize before docking
-	--(
-	--	max_height	= this._getViewportHeight()
-	--
-	--	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
-	--	
-	--	this.height max_height -- resize dialog
-	--)
 		
 	this._register() -- must be after resize
 
@@ -53,6 +42,22 @@ function _isDocked =
 (
 	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
 ),
+  
+ /** Resize subrollouts
+  */
+ function resizeSubrollouts =
+ (
+	if not( this._isFloatable() ) then -- resize before docking
+	(
+		max_height	= this._getViewportHeight()
+		--format "max_height = % \n" max_height
+		this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+		 
+		--this.height max_height -- resize dialog
+	)
+	
+), 
+  
     
 /** Get height of maximized viewport to find out height of docked dialog
  */
