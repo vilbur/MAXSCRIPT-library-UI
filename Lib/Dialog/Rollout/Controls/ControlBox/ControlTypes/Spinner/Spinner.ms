@@ -30,7 +30,8 @@ struct Spinner_v
 	(
 		this.onCreate()
 		
-		this._addToControls()
+		if ( add_to_controls ) then
+			this._addToControls()
 	)
 	
 	

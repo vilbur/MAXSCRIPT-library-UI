@@ -42,10 +42,12 @@ struct EditText_v
 	 */
 	on create do
 	(
-		_Parameters.setVal #columns 8
-
 		this.onCreate()
-		
-		this._addToControls()
+
+		this.setParam #columns 8
+
+		if ( add_to_controls ) then
+			this._addToControls()
 	)
 )
+

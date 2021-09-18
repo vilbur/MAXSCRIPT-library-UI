@@ -28,6 +28,7 @@ struct ControlBox_v
 	/* properties of Groupbox */
 	id,
 	caption,
+	add_to_controls = true, -- suspend creation of control used in E.G.: ControlCreator_v.createControl()
 	
 	Groupbox,
 

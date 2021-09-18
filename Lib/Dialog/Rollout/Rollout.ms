@@ -92,7 +92,7 @@ struct Rollout_v
 		max_width = this._getMaxWidthOfNestedElements()
 		
 		-- HOTFIX WIDTH OF ROLLUTS
-		max_width + 32 --return
+		max_width + 24 --return
 	),
 	
 	/** Set any property for rollout 
@@ -139,7 +139,7 @@ struct Rollout_v
 	 */
 	function _getMaxWidthOfNestedElements =
 	(
-		print "Rollout_v._getMaxWidthOfNestedElements"
+		--print "Rollout_v._getMaxWidthOfNestedElements"
 		widths	= #()
 		
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
@@ -150,7 +150,7 @@ struct Rollout_v
 			else
 			--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
 				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
-		format "TOTAL widths = % \n" widths
+		--format "TOTAL widths = % \n" widths
 		this._getMaxWidth widths --return
 	),
 

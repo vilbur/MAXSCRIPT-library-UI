@@ -22,12 +22,7 @@ struct MacroScript_Content_v
 	 */
 	function getControlId =
 	(
-		--id =
-		--(this._prefixByType()) +	category as string + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "_") --return
 		(this._prefixByType()) + "_"+ (( dotNetObject "System.Text.RegularExpressions.Regex" @"[^A-Za-z0-9-_]" ).Replace ( toLower buttontext ) "_") --return
-	
-		--( dotNetObject "System.Text.RegularExpressions.Regex" @"[_]+"           ).Replace ( id ) "_"  --return
-		--id
 	),
 	
 	/** Get full id
@@ -39,14 +34,14 @@ struct MacroScript_Content_v
 	
 	/** Get type parse icon string and get "type:(.*)" portion of E.G.: "type:checkbox|checked:true|border:false"
 	  *
-	  * @return	#type of control e.g.: #checkbox
+	  * @return	string type of control e.g.: "checkbox"
 	 */
 	function getType =
 	(
 		if( matchPattern icon pattern:"type:*" ) then
-			((this._getMatches icon "Type:([^\|]+)"))[1][2] as name
+			((this._getMatches icon "Type:([^\|]+)"))[1][2]
 		else
-			#button
+			"button"
 	),
 	
 	/** _get matches
@@ -64,20 +59,17 @@ struct MacroScript_Content_v
 	/** Parse string of icon property
 	  *
 	  *
-	  * @return	2D matrix of keys and values E.G.: #( #(#border, #tooltip), #(true, "Foo tooltip") )	
+	  * @return	string passed to methods in ControlBoxControlTypes E.G.: "columns: pos:"
+	  --* @return	2D matrix of keys and values E.G.: #( #(#border, #tooltip), #(true, "Foo tooltip") )	
 	 */
 	function getParams =
 	(
-		keys	= #()
-		values	= #()
+		init_params_string = ""
 		
-		for param in (this.splitParams()) do
-		(
-			append keys   (param[2] as name)
-			append values (this._formatDatatypeValue param[3])
-		)
-		
-		this.removeParam #( keys, values ) #type --return
+		for param in (this.splitParams()) where param[2] != "type" do
+			init_params_string += param[2] as string +":"+ param[3]+" "
+
+		init_params_string --return
 	),
 	
 	/** Split params in icon parameter by pipe "|" E.G.: "type:checkbox|checked:true|border:false"
@@ -88,59 +80,7 @@ struct MacroScript_Content_v
 	(
 		this._getMatches icon "(\w+):([^\|]+)"
 	),
-	
-	/** Remove param
-	 */
-	function removeParam matrix key =
-	(
-		if( (i = findItem matrix[1] key) > 0 ) then 
-		(
-			deleteItem matrix[1] i
-			deleteItem matrix[2] i
-		)
-		matrix --return
-	),
-	
-		/** Format datatype of value
-	  * Put quotes around string value
-	 */
-	function _formatDatatypeValue value =
-	(
-		--if( classOf value == String and this._isValueBooleanString value == false ) then
 
-		if( this._isValueBooleanString value ) then
-			value	= (( toLower value) == "true")
-		
-		else if( matchPattern value pattern:"color*") then 
-		(
-			/** Color datatype https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_D8DBE1AA_F3D7_4708_93FA_7C28845A1C03_htm
-			  
-			  Litle dirty code
-			  
-			 */
-			pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
-			rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
-			rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
-			
-			matches = rx.matches value pattern rx_options.IgnoreCase
-			
-			_rgb = (for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].value )) --return
-
-			value = color (_rgb[1][2] as number) (_rgb[1][3] as number) (_rgb[1][4] as number)
-			
-		)
-		else if( value as number != undefined ) then 
-			value = value as number
-			
-		value --return 
-	),
-	
-	/** Is value boolean string E.G.: "true" OR "false"
-	 */
-	function _isValueBooleanString value =
-	(
-		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
-	),
 	
 	/**  
 	 */

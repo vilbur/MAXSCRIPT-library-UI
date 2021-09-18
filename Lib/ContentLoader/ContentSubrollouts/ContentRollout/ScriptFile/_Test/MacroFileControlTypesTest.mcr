@@ -6,7 +6,7 @@ macroscript MacroFileTest_A
 	category:	"MacroFileTest"
 	buttontext:	"MacroFileTest A"
 	toolTip:	"Tooltip with Colon:\nand new line"
-	icon:	"#(path, index)"
+	--icon:	"#(path, index)"
 (
 	
 )
@@ -62,15 +62,15 @@ macroscript macroFileTest_checkbox_right
 	print "checkbox #rightclick"
 )
 	
-	/*
+/*
 */
 macroscript macroFileTest_checkbutton
 	category:	"MacroFileTest"
 	buttontext:	"Checkbutton"
 	toolTip:	"Checkbutton tooltip"
-	icon:	"type:checkbutton|highlightColor:color 50 150 30"
+	icon:	"type:checkbutton|highlightColor:(color 50 150 30)"
 	--icon:	"type:checkbutton"
 (
 	print "Checkbutton #test"
 	format "EventFired = % \n" EventFired.type
-)
+) 

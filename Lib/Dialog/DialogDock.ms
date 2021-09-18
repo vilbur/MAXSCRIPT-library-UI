@@ -18,7 +18,6 @@ function dock side =
 	
 	this._resizeDialogBeforeDocking()
 	
-	
 	this._register() -- must be after resize
 
 	cui.DockDialogBar Dialog dock_state
@@ -102,11 +101,11 @@ function _getViewportHeight =
 
 	height_of_ui = 0 -- Add heigh
 
-	if( trackbar.visible ) then 
-		height_of_ui	+= 27
-
-	if( timeSlider.isVisible() ) then 
-		height_of_ui	+= 18
+	--if( trackbar.visible ) then 
+	--	height_of_ui	+= 27
+	--
+	--if( timeSlider.isVisible() ) then 
+	--	height_of_ui	+= 18
 	
 
 	if not( is_maximized ) then 

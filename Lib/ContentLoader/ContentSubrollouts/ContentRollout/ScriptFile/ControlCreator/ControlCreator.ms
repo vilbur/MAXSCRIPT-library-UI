@@ -15,7 +15,10 @@ struct ControlCreator_v
 	function createControl =
 	(
 		--format "\nControlCreator_v.createControl = % \n" Macro
-		_Control       = Control_v type:(Macro.getType()) id:(Macro.getControlId()) caption:Macro.buttontext init_parameters:(Macro.getParams()) ControlBox:ControlBox 
+		ControlBox.add_to_controls = false
+
+		_Control =  execute ( "ControlBox." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
+
 		_Control_Exist = ControlBox.get(_Control.id.id)
 
 		if( _Control_Exist != undefined ) then
@@ -58,3 +61,4 @@ struct ControlCreator_v
 	)
 	
 )
+

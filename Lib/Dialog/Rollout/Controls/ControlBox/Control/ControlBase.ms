@@ -9,10 +9,12 @@
 	/* properties */ 
 	name_of_value_param	= #value,
 	init_parameters     = #( #(), #() ), -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
-	Menu,
+	add_to_controls		= true, -- add control to UI on creation, false for example when generating controls in ControlCreator_v.createControl()
 	
 	/* dependency */
+	Menu,
 	Id,
+
 	Events      = ControlEvents_v	Parent_Control:this,
 	_Parameters = Params_v(),
 	Properties  = Properties_v	Parent_Control:this,

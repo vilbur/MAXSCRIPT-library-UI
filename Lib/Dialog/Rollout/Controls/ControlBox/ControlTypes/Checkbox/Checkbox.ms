@@ -61,8 +61,13 @@ struct Checkbox_v
 	 */
 	on create do
 	(
+		--print "Checkbox.onCreate()"
+
 		this.onCreate()
 		
-		this._addToControls()
+		this.setParam #columns 6
+				
+		if ( add_to_controls ) then
+			this._addToControls()		
 	)
 )

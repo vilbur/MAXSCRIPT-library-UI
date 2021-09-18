@@ -50,6 +50,7 @@ struct Params_v
 	 */
 	function setVal key value =
 	(
+		--format "Params_v.setVal % %\n" (key as string) (value)
 		List.setVal key value -- return
 	),
 	

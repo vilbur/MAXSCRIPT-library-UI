@@ -1,6 +1,6 @@
-/** Button http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_E03EED5F_E21F_4C2F_AFA9_BA16A6602ACA_htm
+/** Checkbutton control
  */
-struct Button_v 
+struct Checkbutton_v 
 (
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlAddToUi.ms"

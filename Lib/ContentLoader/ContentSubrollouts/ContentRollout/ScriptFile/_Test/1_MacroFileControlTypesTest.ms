@@ -8,14 +8,13 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Dialog/Rollout/C
 
 filein( getFilenamePath(getSourceFileName()) + "/../ControlCreator/ControlCreator.ms" )
 
-filein (getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")
-
+filein( getFilenamePath(getSourceFileName()) + "/MacroFileControlTypesTest.mcr" )
 
 /*---------------------------------------
 	ROLLOUT DEFINITION
 -----------------------------------------*/
 
-MacroScripts = (MacroScriptFileParser_v path:( getFilenamePath(getSourceFileName()) + "MacroFileTest.mcr")).MacroScripts
+MacroScripts = (MacroScriptFileParser_v path:( getFilenamePath(getSourceFileName()) + "MacroFileControlTypesTest.mcr")).MacroScripts
 _Rollout     = Rollout_v title:(getFilenameFile(getSourceFileName()))
 ControlBox   = _Rollout.controls.new groupbox:"Control types"
 

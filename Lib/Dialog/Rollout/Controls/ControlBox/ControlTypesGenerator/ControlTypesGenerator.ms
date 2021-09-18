@@ -76,7 +76,7 @@ function writeControlTypesFile =
 		
 		file_content += "/*\n*/\nfunction "+control_types[i] as string +" caption id: "+params_passed+" =
 (
-	" +control_types[i] as string +"_v id:id caption:caption ControlBox:this init_parameters:" + params_matrix + "
+	" +control_types[i] as string +"_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:" + params_matrix + "
 ),\n\n"
 			
 	
