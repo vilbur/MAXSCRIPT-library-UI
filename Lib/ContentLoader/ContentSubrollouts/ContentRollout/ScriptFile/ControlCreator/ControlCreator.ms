@@ -1,3 +1,6 @@
+
+global CONTROLBOX_CONTROL_TYPES = undefined
+
 /** Control creator
  */
 struct ControlCreator_v
@@ -14,11 +17,12 @@ struct ControlCreator_v
 	 */
 	function createControl =
 	(
-		--format "\nControlCreator_v.createControl = % \n" Macro
+		CONTROLBOX_CONTROL_TYPES = ControlBox
+
 		ControlBox.add_to_controls = false
 
-		_Control =  execute ( "ControlBox." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
-
+		_Control =  execute ( "CONTROLBOX_CONTROL_TYPES." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
+		
 		_Control_Exist = ControlBox.get(_Control.id.id)
 
 		if( _Control_Exist != undefined ) then
