@@ -108,7 +108,7 @@
 	--	--format "_value = % \n" _value
 	--	----if( _value!=undefined and _value!=""  ) then
 	--	--	this._setValueParameter _value
-	--	----else
+	--	----else	   
 	--		----this._getValueFromIni()
 	--),
 	
@@ -144,11 +144,14 @@
 	function _getValueFromIni =
 	(
 		print "ControlBase.ms _getValueFromIni()"
-		--this.value (CotrolValue.getValueFromIni())
-		--format "Parent_roll.id = % \n" Parent_roll.id
-		_value = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-		format "ControlBase.ms return _value = % \n" _value
 
+		_value = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
+		
+		format "name_of_value_param = % \n" name_of_value_param 
+		format "_value              = % \n" _value 
+
+		
+		_Parameters.getOrSet name_of_value_param _value
 	),
 	
 	/** Check if required properties are defined

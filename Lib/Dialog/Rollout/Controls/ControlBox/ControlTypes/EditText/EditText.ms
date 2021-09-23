@@ -42,9 +42,9 @@ struct EditText_v
 	 */
 	on create do
 	(
-		this.onCreate()
-		
 		name_of_value_param = #text
+		
+		this.onCreate()
 		
 		this.setParam #columns 8
 

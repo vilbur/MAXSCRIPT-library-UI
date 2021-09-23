@@ -16,16 +16,19 @@ struct Params_v
 	/** Set any property to rollout
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
-	  * @property	#(#name)	keys	of properties
-	  * @property	#("value"|#get)	values	of properties, to get values set value to #get
+	  * @property	#key  |#(#key)	keys	of properties
+	  * @property	#value|#("value"|#get)	values	of properties, to get values set value to #get
 	  *
 	  * @return	array	
 	 */
 	function getOrSet keys values =
 	(
+		if( classOf keys   != Array ) then keys   = #(keys)
+		if( classOf values != Array ) then values = #(values)
+		
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "Params_v.getOrSet %\n" keys_values as string
-
+		format "Params_v.getOrSet %\n" keys_values as string
+		
 		for key in keys_values.keys do
 			this._getOrSetValue key (keys_values.getVal key)
 		

@@ -48,4 +48,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
-SubRollouts.property height:256
+--SubRollouts.property height:256

@@ -8,22 +8,6 @@ struct Ini_v
 	_file,	-- *.ini filename
 	_path,	-- full pah to *.ini file
 	
-	--/** Get _value from ini
-	-- */
-	--function getValueFromIni _section key =
-	--(
-	--	print "------------\nIni_v._getValueFromIni()"
-	--	--print "HOTFIX"
-	--	format "selection = % \nkey = % \n\n" _section key
-	--	--format "ini = % \n" ( Parent_Control.ControlBox.Parent_roll.ini )
-	--	
-	--	--if( (ini = Parent_Control.ControlBox.Parent_roll.ini ) != undefined ) then
-	--	--	_value = getINISetting ini rollout_id control_id --return
-	--	--format "_value = % \n" _value
-	--	--( this._formatDatatypeValue _value ) --return
-	--),	
-	
-		
 	/** Set path to dir which contains *.ini fie
 	  * @property	string	_path	path to dir
 	 */
@@ -75,15 +59,15 @@ struct Ini_v
 		--format "------------\nIni.load()"
 		_section	= _section	as string
 		_key	= _key	as string
-		_value	= default
+		val	= default
+		
+		val_from_ini = getINISetting _path _section _key -- return
 
-		_value_ini = getINISetting _path _section _key -- return
-
-		if( _value_ini != undefined ) then _value_ini else _value --return
+		if( val_from_ini != undefined ) then this._formatDatatypeValue(val_from_ini) else val --return
 	),
 
-	private
 	
+	private
 
 
 	/** Combine path
@@ -92,8 +76,83 @@ struct Ini_v
 	(
 		if( _path == undefined and _dir != undefined and _file != undefined ) then
 			_path = _dir +"\\" + _file
-			
-		--print ( "Ini._combinePath = " + _path as string )
+	),
+
+	/** Format string value to valid datatype
+	  *
+	  * Put quotes around string value
+	  *
+	  *
+	 */
+	function _formatDatatypeValue val =
+	(		
+		data_type	= this._getDataType val
+		
+		case data_type of
+		(
+			(#boolean):	this._formatBoolean val
+			(#number):	this._formatNumber  val
+			(#color):	this._formatColor   val
+			default:	val
+		)
+		
+	),
+
+	/** _get data type
+	 */
+	function _getDataType val =
+	(
+		if( this._isValueBooleanString val ) then
+			#boolean --return
+		
+		else if( val as number != undefined ) then 
+			#number --return
+		
+		else if( matchPattern val pattern:"color*" ) then
+			#color --return
+		
+		else
+			#string
+	),
+	
+	/** Find out if value boolean string ? E.G.: "true" OR "false"
+	 */
+	function _isValueBooleanString val =
+	(
+		matchPattern val pattern:"true" or matchPattern val pattern:"false" 
+	),
+	
+	/** Format boolean
+	  *
+	  * @return	Boolean
+	 */
+	function _formatBoolean val =
+	(
+		( toLower val ) == "true" --return 
+	),
+	
+	/** _format color
+	  *
+	  * @return	Color
+	 */
+	function _formatColor val =
+	(
+		pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
+		rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
+		rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
+		
+		matches = rx.matches val pattern rx_options.IgnoreCase
+		
+		_rgb = (for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].val )) --return
+
+		color (_rgb[1][2] as number) (_rgb[1][3] as number) (_rgb[1][4] as number)
+	),
+	
+	/** _format number
+	 */
+	function _formatNumber =
+	(
+		val as number --return
 	),
 	
 	/** Get\set value of property 
