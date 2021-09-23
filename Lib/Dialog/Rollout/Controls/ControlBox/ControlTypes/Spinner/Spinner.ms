@@ -30,8 +30,9 @@ struct Spinner_v
 	(
 		name_of_value_param = #range
 
+		this.setParam #range [0,999,99] -- default value, used in "ControlBase.ms _getValueFromIni()"
+
 		this.onCreate()
-		
 		
 		if ( add_to_controls ) then
 			this._addToControls()

@@ -148,15 +148,7 @@ struct Subrollouts_v
 	function _addSubRollout _Rollout =
 	(
         --print("Subrollouts._addSubRollout() " + _Rollout.title )
-		--print ( "Subrollouts._addSubRollout " + this.getId() + " " + _Rollout.id  )
-
-		format "this._getIniRolledUp _Rollout = % \n" (this._getIniRolledUp _Rollout)
-
-		--execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + this._getIniRolledUp _Rollout )
-		--execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:true" )
-		
 		execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + (this._getIniRolledUp _Rollout) as string )
-		--execute( "\n AddSubRollout " + this.getId() + " " + _Rollout.id  )
 
 		_Rollout.addSubRollouts()
 	),

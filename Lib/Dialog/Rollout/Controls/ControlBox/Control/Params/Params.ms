@@ -13,48 +13,24 @@ struct Params_v
 	
 	List	= List_v keys:keys values:values,
 
-	/** Set any property to rollout
-	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
-	  *
-	  * @property	#key  |#(#key)	keys	of properties
-	  * @property	#value|#("value"|#get)	values	of properties, to get values set value to #get
-	  *
-	  * @return	array	
+	/** Set values
 	 */
-	function getOrSet keys values =
+	function setValues _keys _values =
 	(
-		if( classOf keys   != Array ) then keys   = #(keys)
-		if( classOf values != Array ) then values = #(values)
-		
-		keys_values = this._filterUnsuppliedParameters keys values
-		format "Params_v.getOrSet %\n" keys_values as string
-		
+		keys_values = this._filterUnsuppliedParameters _keys _values
+
 		for key in keys_values.keys do
-			this._getOrSetValue key (keys_values.getVal key)
-		
-		keys_values.filter undefined -- remove undefined items
-			
-		keys_values.getValues() -- return
-	),
-	
-	/** _get or set value
-	 */
-	function _getOrSetValue key value =
-	(
-		--format "Params_v._getOrSetValue % %\n" (key as string) (value)
-		if( value == #get ) then 
-			List.getVal key   -- return
-		else
-			List.setVal key value -- return
-			
+			this.setVal key (keys_values.getVal key)
 	),
 		
-	/** Set val
+	/** Set parameter to rollout
+	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  
 	 */
-	function setVal key value =
+	function setVal key val =
 	(
-		--format "Params_v.setVal % %\n" (key as string) (value)
-		List.setVal key value -- return
+		--format "Params_v.setVal % %\n" (key as string) (val)
+		List.setVal key val -- return
 	),
 	
 	/** Get val
@@ -75,32 +51,29 @@ struct Params_v
 	 */
 	function join =
 	(
-		--print "HOTFIX Params_v.join()"
+		--print "\nHOTFIX Params_v.join()"
 		_params = ""
 		
 		for k=1 to List.keys.count do
 			_params = _params + " " + List.keys[k] +":"+ this._getFormat List.values[k]
-		
-		--format "Params_v.join %\n" _params
-		--format "keys   = % \n" keys
-		--format "values = % \n" values
+
 		_params --return
 	),
 	
-	/** Get format of value to string
+	/** Format value to string
 	  *
-	  * 
+	  * @return	string	
 	 */
-	function _getFormat value =
+	function _getFormat val =
 	(
-		if( classOf value == name ) then
-			value = "#" + value as string -- Add "#" prefix to name
+		--print ("Params_v._getFormat() " + val as string)
+		if( classOf val == name ) then
+			val = "#" + val as string -- Add "#" prefix to name
 		
-		else if( classOf value == string ) then
-			value = "\"" + value +"\"" -- Wrap string to escaped qoutes \"\"
+		else if( classOf val == string ) then
+			val = "\"" + val +"\"" -- Wrap string to escaped qoutes \"\"
 		
-		
-		value as string --return
+		val as string --return
 	),
 	
 	/** Filter unsupplied parameters
@@ -124,7 +97,6 @@ struct Params_v
 
 		keys_values --return
     ),
-
 
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 

@@ -20,18 +20,16 @@ _Controls = Rollout_A.Controls.new groupbox:"test"
 --Button_A1 = _Controls.button "Test 1" 
 
 /* VALUE CONTROLS  */
-_Checkbox = _Controls.checkbox	"Checkbox"
+--_Checkbox = _Controls.checkbox	"Checkbox" checked:true
 
---_Checkbox.value "test value"
 
-----BrowsePath = _Controls.BrowsePath	"Browse"
---
---_Controls.spinner	"Spinner with long label" columns:12
---_Controls.spinner	"Spinner" offset:[32,0] 
+_Controls.spinner	"Spinner" range:[0,999,99]
 --
 --_Controls.checkbutton	"Checkbutton"
 
 --_Controls.edittext	"Edit Text" 
+
+----BrowsePath = _Controls.BrowsePath	"Browse"
 
 /**  Set ini path 
  *	
@@ -48,4 +46,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
---SubRollouts.property height:256
+--SubRollouts.property height:256this.

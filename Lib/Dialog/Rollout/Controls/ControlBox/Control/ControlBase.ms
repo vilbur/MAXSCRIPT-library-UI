@@ -32,7 +32,7 @@
 	(
 		print "ControlBase.ms value()"
 		format "_value = % \n" _value
-		--_Parameters.getOrSet name_of_value_param _value
+		--_Parameters.setVal name_of_value_param _value
 	),
 
 	/** Set param
@@ -50,7 +50,7 @@
      */
     function property enabled: title: visible: pos: height: width: columns: border: range: scale: =
     (
-		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
+		Properties.setVal #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
 	),
 	
 	/** Set dimensions
@@ -58,7 +58,7 @@
     function setDimensions Dimensions =
     (
 		--format "HOTFIX ControlBase.ms.setDimensions() %\n" Dimensions
-		_Parameters.getOrSet #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, Dimensions.height )
+		_Parameters.setValues #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, Dimensions.height )
     ),
 
 	/** Find if control is rendered in ui already
@@ -97,30 +97,6 @@
 		ControlBox.add this
 	),
 
-	--/** _set _value
-	-- */
-	--function _setValue =
-	--(
-	--	print "------------\nControlBase._setValue()"
-	--	format "_value = % \n" value
-	--	--if( _value == undefined ) then
-	--	--	_value = this.Ini.getValueFromIni()
-	--	--format "_value = % \n" _value
-	--	----if( _value!=undefined and _value!=""  ) then
-	--	--	this._setValueParameter _value
-	--	----else	   
-	--		----this._getValueFromIni()
-	--),
-	
-	--/** Add quotes to parameter if _value is string
-	--  * Add _value to params
-	-- */
-	--function _setValueParameter _value =
-	--(
-	--	--print "------------\nControlBase._setValueParameter()"
-	--	_Parameters.getOrSet name_of_value_param _value
-	--),
-
 	/** _set caption
 	 */
 	function _setCaption =
@@ -143,15 +119,25 @@
 	 */
 	function _getValueFromIni =
 	(
-		print "ControlBase.ms _getValueFromIni()"
+		--print "ControlBase.ms _getValueFromIni()"
+		if( name_of_value_param != undefined ) then 
+		(
+			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
+			--format "type = % \n" type
+			if( type == #spinner ) then
+				val   = this. _setValueTopoint3 val
 
-		_value = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-		
-		format "name_of_value_param = % \n" name_of_value_param 
-		format "_value              = % \n" _value 
-
-		
-		_Parameters.getOrSet name_of_value_param _value
+			_Parameters.setVal name_of_value_param val
+		)
+	),
+	
+	/** _set value topoint3
+	 */
+	function _setValueTopoint3 val =
+	(
+		range = _Parameters.getVal #range
+		--format "!!! range = % \n" range
+		[ range[1], range[2], val ]
 	),
 	
 	/** Check if required properties are defined
@@ -182,9 +168,8 @@
 		
 		Id = ControlId_v	Parent_Control:this id:id
 		
-		this._getValueFromIni()
-		
-		_Parameters.getOrSet init_parameters[1] init_parameters[2]
-		
+		_Parameters.setValues init_parameters[1] init_parameters[2]
+
+		this._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
 	),
 	

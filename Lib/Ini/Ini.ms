@@ -63,7 +63,7 @@ struct Ini_v
 		
 		val_from_ini = getINISetting _path _section _key -- return
 
-		if( val_from_ini != undefined ) then this._formatDatatypeValue(val_from_ini) else val --return
+		if( val_from_ini != undefined ) then this._convertToDatatypeValue(val_from_ini) else val --return
 	),
 
 	
@@ -84,15 +84,15 @@ struct Ini_v
 	  *
 	  *
 	 */
-	function _formatDatatypeValue val =
+	function _convertToDatatypeValue val =
 	(		
 		data_type	= this._getDataType val
 		
 		case data_type of
 		(
-			(#boolean):	this._formatBoolean val
-			(#number):	this._formatNumber  val
-			(#color):	this._formatColor   val
+			(#boolean):	this._convertToBoolean val
+			(#number):	this._convertToNumber  val
+			(#color):	this._convertToColor   val
 			default:	val
 		)
 		
@@ -126,16 +126,16 @@ struct Ini_v
 	  *
 	  * @return	Boolean
 	 */
-	function _formatBoolean val =
+	function _convertToBoolean val =
 	(
 		( toLower val ) == "true" --return 
 	),
 	
-	/** _format color
+	/** _convertTo color
 	  *
 	  * @return	Color
 	 */
-	function _formatColor val =
+	function _convertToColor val =
 	(
 		pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
 		rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
@@ -148,9 +148,9 @@ struct Ini_v
 		color (_rgb[1][2] as number) (_rgb[1][3] as number) (_rgb[1][4] as number)
 	),
 	
-	/** _format number
+	/** _convertTo number
 	 */
-	function _formatNumber =
+	function _convertToNumber val =
 	(
 		val as number --return
 	),
