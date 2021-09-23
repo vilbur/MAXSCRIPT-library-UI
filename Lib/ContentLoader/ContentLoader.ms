@@ -54,7 +54,7 @@ struct ContentLoader_v
 	 */
 	on create do
 	(
-		print("ContentLoader_v.onCreate()")
+		--print("ContentLoader_v.onCreate()")
 
 		this._checkConstctructProperties()
 		

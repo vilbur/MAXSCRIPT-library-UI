@@ -4,6 +4,8 @@ filein( getFilenamePath(getSourceFileName()) + "/Control/ControlEvents/ControlEv
 
 filein( getFilenamePath(getSourceFileName()) + "/Control/Params/Params.ms" ) 
 
+filein( getFilenamePath(getSourceFileName()) + "/Control/CotrolValue/CotrolValue.ms" )
+
 filein( getFilenamePath(getSourceFileName()) + "/Control/Control.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/ControlTypes/includes.ms" )

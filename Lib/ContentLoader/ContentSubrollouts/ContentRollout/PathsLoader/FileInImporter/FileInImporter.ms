@@ -13,10 +13,10 @@ struct FileInImporter_v
 	  */
 	function fileInSubdirs dirs =
 	(
-		format "FileI/*n*/Importer_v.fileInSubdirs() % \n" dirs
+		--format "FileI/*n*/Importer_v.fileInSubdirs() % \n" dirs
 		for dir in dirs do
 		(
-			format "@@@ dir = % \n" dir
+			--format "@@@ dir = % \n" dir
 			(FileInImporter_v()).fileInSubdirs (getDirectories (dir + "/*"))
 			
 			this.fileInFiles (getFiles (dir + "/*.ms"))
@@ -37,7 +37,7 @@ struct FileInImporter_v
 	 */
 	function fileIn file =
 	(
-		format "	FileInImporter_v.fileIn % \n" file
+		--format "	FileInImporter_v.fileIn qs% \n" file
 		filein file
 	),
 	

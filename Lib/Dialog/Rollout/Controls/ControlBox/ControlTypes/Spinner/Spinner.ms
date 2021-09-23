@@ -30,6 +30,8 @@ struct Spinner_v
 	(
 		this.onCreate()
 		
+		this.name_of_value_param = #range
+		
 		if ( add_to_controls ) then
 			this._addToControls()
 	)

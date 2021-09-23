@@ -8,7 +8,6 @@ _Rollout	= Rollout_v title:(getFilenameFile(getSourceFileName()))
 
 /* DEFINE SLOTS FOR ROLLOUTS */ 
 Rollouts_1 = _Rollout.subrollouts()
-Rollouts_1.height = 256
 
 --format "Rollouts_1 = % \n" Rollouts_1
 --Rollouts_2 = _Rollout.subrollouts()

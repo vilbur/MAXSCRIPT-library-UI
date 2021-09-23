@@ -62,9 +62,10 @@ struct Checkbox_v
 	on create do
 	(
 		--print "Checkbox.onCreate()"
-
 		this.onCreate()
 		
+		this.name_of_value_param = #text
+				
 		this.setParam #columns 6
 				
 		if ( add_to_controls ) then

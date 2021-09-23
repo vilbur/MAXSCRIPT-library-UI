@@ -47,18 +47,20 @@ struct RolloutEvent_v
 		--if( Parent_roll.ini == undefined ) then
 			--return false --return
 		
-		this.setSaveIniDefaultEvent #open  "rolledUp" "(val==false)"
-		this.setSaveIniDefaultEvent #close "rolledUp" "(val==false)"
+		this.setSaveIniDefaultEvent #open  "rolledUp" "(val == false)"
+		this.setSaveIniDefaultEvent #close "rolledUp" "(val == false)"
 		this.setSaveIniDefaultEvent #moved "docked"   ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
 	),
 	
-	/** Set save ini default event
+	/** Set save to ini default event
 	 */
-	function setSaveIniDefaultEvent type key _value =
+	function setSaveIniDefaultEvent type key val =
 	(
-		save_to_ini_method	= "setINISetting \""+Parent_roll.ini+"\" \""+Parent_roll.id+"\" \""+key+"\" ("+_value+" as string)"
+		if_val_not_undefined	= "if( val != undefined ) then" -- on subrollout creation is "rolledUp" fired with undefined value
 		
-		this.Events.setDefaultEvent ( Event_v type:type	code:save_to_ini_method )
+		save_to_ini	= "( setINISetting \""+(Parent_roll.ini #get)+"\" \""+Parent_roll.id+"\" \""+key+"\" ("+val+" as string) )"
+		
+		this.Events.setDefaultEvent ( Event_v type:type	code:(if_val_not_undefined + save_to_ini) )
 	),
 	
 	/** Bind events handlers to rollout 

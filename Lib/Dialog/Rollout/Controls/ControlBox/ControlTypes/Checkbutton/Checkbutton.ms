@@ -56,6 +56,8 @@ struct Checkbutton_v
 	(
 		this.onCreate()
 		
+		this.name_of_value_param = #checked
+		
 		if ( add_to_controls ) then
 			this._addToControls()
 	)

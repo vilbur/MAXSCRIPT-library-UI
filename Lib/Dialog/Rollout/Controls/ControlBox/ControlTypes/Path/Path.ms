@@ -119,6 +119,8 @@ struct BrowsePath_v
 		this.onCreate()
 		
 		this.setParam #columns 8
+		
+		this.name_of_value_param = #text
 
 		if ( add_to_controls ) then
 			this._addToControls()

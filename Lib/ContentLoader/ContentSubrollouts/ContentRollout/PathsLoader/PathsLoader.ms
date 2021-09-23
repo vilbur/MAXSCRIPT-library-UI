@@ -29,7 +29,7 @@ struct PathsLoader_v
 	 */
 	function _fileIn file =
 	(
-		format "FileInImporter_v.fileIn % \n" file
+		--format "PathsLoader_v.fileIn % \n" file
 		filein file
 	),
 		

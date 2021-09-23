@@ -138,13 +138,14 @@ struct Dialog_v
 	(
 		this._checkConstctructProperties()
 		
+		--this._setIniFile()
+
 		this._setMainRollout()
 		
 		this._unregisterOldDialog()
 		
 		this.destroy()
 		
-		--this._setIniFile()
 		
 		this._setDialogGlobal()
 	)

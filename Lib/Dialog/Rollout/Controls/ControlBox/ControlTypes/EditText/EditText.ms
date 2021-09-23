@@ -43,7 +43,9 @@ struct EditText_v
 	on create do
 	(
 		this.onCreate()
-
+		
+		name_of_value_param = #text
+		
 		this.setParam #columns 8
 
 		if ( add_to_controls ) then

@@ -69,8 +69,8 @@ struct Subrollouts_v
 	function addSubRollouts =
 	(
         --print("Subrollouts.addSubRollouts to slot " + id)
-		for Subrollout in Rollouts do
-			this._addSubRollout Subrollout
+		for _Rollout in Rollouts do
+			this._addSubRollout _Rollout
 	),
 	
 	/** Resize subrollout slot
@@ -125,11 +125,11 @@ struct Subrollouts_v
 	(
 		Parent_roll.id + "." + id --return
 	),
-	/** Remove Subrollout
+	/** Remove _Rollout
 	 */
-	function remove Subrollout =
+	function remove _Rollout =
 	(
-		execute ( "\n RemoveSubRollout " + this.getId() + " " + Subrollout.id )
+		execute ( "\n RemoveSubRollout " + this.getId() + " " + _Rollout.id )
 	),
 	/** 
 	  *
@@ -138,31 +138,38 @@ struct Subrollouts_v
 	(
 		Parent_roll.exists() --return
 	),
+	
+	
+	private
 
+	
 	/** Add subrollout to UI
 	 */
-	function _addSubRollout Subrollout =
+	function _addSubRollout _Rollout =
 	(
-        --print("Subrollouts._addSubRollout() " + Subrollout.title )
-		print ( "Subrollouts._addSubRollout " + this.getId() + " " + Subrollout.id  )
+        --print("Subrollouts._addSubRollout() " + _Rollout.title )
+		--print ( "Subrollouts._addSubRollout " + this.getId() + " " + _Rollout.id  )
 
-		--execute ( "\n AddSubRollout " + this.getId() + " " + Subrollout.id + " rolledUp:" + this._getIniSetting Subrollout )
-		execute( "\n AddSubRollout " + this.getId() + " " + Subrollout.id  )
+		format "this._getIniRolledUp _Rollout = % \n" (this._getIniRolledUp _Rollout)
 
-		Subrollout.addSubRollouts()
+		--execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + this._getIniRolledUp _Rollout )
+		--execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:true" )
+		
+		execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + (this._getIniRolledUp _Rollout) as string )
+		--execute( "\n AddSubRollout " + this.getId() + " " + _Rollout.id  )
+
+		_Rollout.addSubRollouts()
 	),
 	
 	/** Get ini setting
+	  *
+	  * @return	boolean	
 	 */
-	function _getIniSetting Subrollout =
+	function _getIniRolledUp _Rollout =
 	(
-		if( Subrollout.ini != undefined ) then
-		(
-			Ini = Ini_v()
-			Ini.path Subrollout.ini
+		if( _Rollout._ini._path != undefined ) then
+			(_Rollout._Ini.load (_Rollout.id) "rolledUp" default:false)  --return
 
-			(Ini.load Subrollout.id "rolledUp" default:true) as string --return
-		)
 		else
 			false as string  --return default
 	),

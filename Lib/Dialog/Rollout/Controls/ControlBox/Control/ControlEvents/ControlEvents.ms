@@ -78,7 +78,7 @@ struct ControlEvents_v
 
 		if(  Events.event_types != undefined ) then
 			for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
-				this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+Parent_Control.ControlBox.Parent_roll.ini+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
+				this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
 	),
 
 	/** _add handlers

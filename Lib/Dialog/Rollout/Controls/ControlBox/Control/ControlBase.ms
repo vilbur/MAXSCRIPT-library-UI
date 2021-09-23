@@ -7,7 +7,7 @@
 	caption,
 
 	/* properties */ 
-	name_of_value_param	= #value,
+	name_of_value_param,
 	init_parameters     = #( #(), #() ), -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
 	add_to_controls		= true, -- add control to UI on creation, false for example when generating controls in ControlCreator_v.createControl()
 	
@@ -15,36 +15,31 @@
 	Menu,
 	Id,
 
+	--CotrolValue = CotrolValue_v   Parent_Control:this,
 	Events      = ControlEvents_v	Parent_Control:this,
-	_Parameters = Params_v(),
 	Properties  = Properties_v	Parent_Control:this,
+	_Parameters = Params_v(),
 	
-
 	/* reference */
 	ControlBox,
 
 	/* options */
 	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 
-
-	/** _set id
+	/** Value
 	 */
-	function setId id =
+	function value _value =
 	(
-		this.Id.setId id
-	),
-	/** Get id
-	 */
-	function getId =
-	(
-		Id.full --return
+		print "ControlBase.ms value()"
+		format "_value = % \n" _value
+		--_Parameters.getOrSet name_of_value_param _value
 	),
 
 	/** Set param
 	 */
-	function setParam key value =
+	function setParam key _value =
 	(
-		_Parameters.setVal key value
+		_Parameters.setVal key _value
 	),
 
 	/** Set Controls Common Properties
@@ -94,12 +89,43 @@
 	
 	private
 
-	/** Add itself to Controls
+	/** Add self to Controls
 	 */
 	function _addToControls =
 	(
 		--print ("ControlBase.ms._addToControls() " + ControlBox.Groupbox.id.id as string )
 		ControlBox.add this
+	),
+
+	--/** _set _value
+	-- */
+	--function _setValue =
+	--(
+	--	print "------------\nControlBase._setValue()"
+	--	format "_value = % \n" value
+	--	--if( _value == undefined ) then
+	--	--	_value = this.Ini.getValueFromIni()
+	--	--format "_value = % \n" _value
+	--	----if( _value!=undefined and _value!=""  ) then
+	--	--	this._setValueParameter _value
+	--	----else
+	--		----this._getValueFromIni()
+	--),
+	
+	--/** Add quotes to parameter if _value is string
+	--  * Add _value to params
+	-- */
+	--function _setValueParameter _value =
+	--(
+	--	--print "------------\nControlBase._setValueParameter()"
+	--	_Parameters.getOrSet name_of_value_param _value
+	--),
+
+	/** _set caption
+	 */
+	function _setCaption =
+	(
+		caption	= trimLeft ( trimRight caption "_" )  "_"
 	),
 
 	/** Set type of control by class name of control
@@ -112,42 +138,19 @@
 			type = ( toLower (( filterString( classof this as string ) "_*(:" )[2]) ) as name
 		--format "ControlOnCreate._setType %\n" type
 	),
-
-	/** _set caption
+	
+	/** _get value from ini
 	 */
-	function _setCaption =
+	function _getValueFromIni =
 	(
-		caption	= trimLeft ( trimRight caption "_" )  "_"
+		print "ControlBase.ms _getValueFromIni()"
+		--this.value (CotrolValue.getValueFromIni())
+		--format "Parent_roll.id = % \n" Parent_roll.id
+		_value = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
+		format "ControlBase.ms return _value = % \n" _value
+
 	),
 	
-	/** Add quotes to parameter if value is string
-	  * Add value to params
-	 */
-	function _setValueParameter value =
-	(
-		--print "------------\nControlBase._setValueParameter()"
-		_Parameters.getOrSet name_of_value_param (this._formatDatatypeValue value)
-	),
-	
-	/** Format datatype of value
-	  * Put quotes around string value
-	 */
-	function _formatDatatypeValue value =
-	(
-		if( classOf value == String and this._isValueBooleanString value == false ) then 
-			"\""+value+"\"" --return
-		else
-			value --return 
-	),
-	
-	/** Is value boolean string E.G.: "true" OR "false"
-	 */
-	function _isValueBooleanString value =
-	(
-		matchPattern value pattern:"true" or matchPattern value pattern:"false" 
-	),
-
-
 	/** Check if required properties are defined
 	  * Names of construct props are defined in __construct array E.g.: __construct = #( #prop_name ) 
 	  * @param	construct_properties this.properties required for initialization of struct
@@ -158,43 +161,6 @@
 			messageBox ( (filenameFromPath(getSourceFileName())) "+\nUndefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
 
-	--/** Get value from ini
-	-- */
-	--function _getValueFromIni =
-	--(
-	--	print "------------\nControlBase._getValueFromIni()"
-	--	print "HOTFIX"
-	--	ini_path = ControlBox.Parent_roll.ini
-	--	
-	--	if( ini_path != undefined ) then
-	--		value = ((Ini_v()).path ini_path ).load ControlBox.Parent_roll.id id --return
-	--	
-	--	value --return
-	--),	
-	--
-	--/** Get Name of value parameter by type of control E.G.: CKECBOX = #checked | EDITTEXT = #text | DEFAULT = #value
-	--  * 
-	--  * Return value name_of_value_param property if defined, else return #value
-	--  * 
-	--  * @return	name 
-	-- */
-	--function _getNameOfValueParameter =
-	--(
-	--	if( hasProperty this "name_of_value_param" ) then name_of_value_param else name_of_value_param_extend --return
-	--),
-	
-	--/** _set value
-	-- */
-	--function _setValue =
-	--(
-	--	if( value==undefined ) then
-	--		this._getValueFromIni()
-	--
-	--	if( value!=undefined and value!=""  ) then
-	--		this._setValueParameter value
-	--	----else
-	--		----this._getValueFromIni()
-	--),
 	public
 
 	/** Init Control struct
@@ -202,19 +168,20 @@
 	 */
 	function onCreate = 
 	(
-		--print "ControlOnCreate.ms onCreate()"
+		--print "ControlBase.ms onCreate()"
 		this._setType()
 
-		this.Events.setEventTypes()
-	
 		this._checkConstctructProperties()
+	
+		this.Events.setEventTypes()
 		
 		this._setCaption()
 		
 		Id = ControlId_v	Parent_Control:this id:id
-
-		--this._setValue()
+		
+		this._getValueFromIni()
 		
 		_Parameters.getOrSet init_parameters[1] init_parameters[2]
+		
 	),
 	

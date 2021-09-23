@@ -4,7 +4,7 @@
 	 */
 	function newSubrollout title =
 	(
-		Rollout_v title:title ini:ini --return
+		Rollout_v title:title _ini:_ini --return
 	),
 	
 	/** Add subrollout
@@ -39,6 +39,7 @@
 	 */
 	function isSubrollouts _struct =
 	(
+		print("RolloutSubrollouts.isSubrollouts()")
 		((filterString( classof _struct as string ) "_*(:" )[2]) == "Subrollouts" --return
 	),
 	
@@ -46,5 +47,6 @@
 	 */
 	function _isSubrollout =
 	(
+		print("RolloutSubrollouts._isSubrollout()")
 		Parent_Subrollouts != undefined --return
 	),

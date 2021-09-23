@@ -19,7 +19,7 @@ function writeControlTypesFile =
 	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #button, #label, #spinner, #edittext, #browsePath, #checkbox, #checkbutton );
+	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #browsePath )
 	
 	
 	param_custom = #( #columns )  
@@ -28,12 +28,16 @@ function writeControlTypesFile =
 	
 	params_by_type	= #(
 			#( #images, #border )                                                                 -- button
-		   ,#( #style_sunkenedge )                                                              -- checkbox
-		   ,#( #range, #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
-		   ,#( #fieldwidth, #text, #bold, #labelOnTop, #readOnly )                                -- edittext
-		   ,#( #fieldwidth, #initialDir )                                                         -- path
-		   ,#( #checked, #triState )                                                              -- checkbox
-		   ,#( #checked, #highlightColor, #images )                                               -- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
+		   ,#( #style_sunkenedge )                                                                -- label
+		   
+		   /* Default controls with kind of "value" parameter */ 
+		   ,#( #checked,#triState )                                                              -- checkbox
+		   ,#( #range,  #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets ) -- spinner
+		   ,#( #text,   #fieldwidth, #bold, #labelOnTop, #readOnly )                                -- edittext
+		   ,#( #checked,#highlightColor, #images )                                               -- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
+		   
+		   /* Custom compounded controls */ 
+		   ,#( #text,   #fieldwidth, #initialDir )                                                         -- browsePath
 		 )
 
 	params_defaults = param_custom + param_common + param_shared

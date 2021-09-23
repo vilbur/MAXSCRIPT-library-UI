@@ -8,13 +8,29 @@ struct Ini_v
 	_file,	-- *.ini filename
 	_path,	-- full pah to *.ini file
 	
+	--/** Get _value from ini
+	-- */
+	--function getValueFromIni _section key =
+	--(
+	--	print "------------\nIni_v._getValueFromIni()"
+	--	--print "HOTFIX"
+	--	format "selection = % \nkey = % \n\n" _section key
+	--	--format "ini = % \n" ( Parent_Control.ControlBox.Parent_roll.ini )
+	--	
+	--	--if( (ini = Parent_Control.ControlBox.Parent_roll.ini ) != undefined ) then
+	--	--	_value = getINISetting ini rollout_id control_id --return
+	--	--format "_value = % \n" _value
+	--	--( this._formatDatatypeValue _value ) --return
+	--),	
+	
+		
 	/** Set path to dir which contains *.ini fie
 	  * @property	string	_path	path to dir
 	 */
 	function dir _path =
 	(
-		print ( "Ini_v.dir() = " + _path as string )
-		_path = this._normalizePath _path
+		--print ( "Ini_v.dir() = " + _path as string )
+		_path = this._escapePath _path
 		
 		this._getSetProp #_dir _path --return
 	),
@@ -24,7 +40,7 @@ struct Ini_v
 	 */
 	function file filename =
 	(
-		print ( "Ini_v.file() = " + filename as string )
+		--print ( "Ini_v.file() = " + filename as string )
 		this._getSetProp #_file filename --return
 	),
 
@@ -35,47 +51,50 @@ struct Ini_v
 	  */
 	function path _path =
 	(
-		print "------------\nIni.path()"
-		if( _path == #get ) then
-			this._combinePath()
+		--print ("------------\nIni.path() " + _path as string) 
+		if( _path != #get ) then
+			_path = this._escapePath _path
 
-		_path = this._normalizePath _path
-		
 		this._getSetProp #_path _path --return
 	),
 
 	/** Ini save control state
-	  * @property	string|name	section
+	  * @property	string|name	_section
 	  * @property	string|name	key
 	  * @property	mixed	value
 	 */
-	function save section key value =
+	function save _section key value =
 	(
-		setINISetting _path ( section as string ) ( key as string ) ( value as string )
+		setINISetting _path ( _section as string ) ( key as string ) ( value as string )
 	),
 	
-	/** Ini save control state
+	/** Ini load control state
 	 */
-	function load section key default:undefined =
+	function load _section _key default:undefined =
 	(
-		format "------------\nIni.load()"
-		section	= section	as string
-		key	= key	as string
-		value	= default
-		--ini	= ( dotnetObject "System.Text.RegularExpressions.Regex" @"\\/+" ).Replace ini "\\\\"
-		
-		--format " _path	= % \n" _path
-		--format " section	= % \n key	= % \n value	= % \n\n" section key value
-		--format " hasINISetting _path section key	= % \n" (hasINISetting _path section key)
-		--format " _path != undefined and hasINISetting _path section key == true	= % \n" (_path != undefined and hasINISetting _path section key == true)
-		if( _path != undefined and hasINISetting _path section key == true ) then
-			value = getINISetting _path section key -- return
-		
-		--format " value	= % \n" value
-		value --return
+		--format "------------\nIni.load()"
+		_section	= _section	as string
+		_key	= _key	as string
+		_value	= default
+
+		_value_ini = getINISetting _path _section _key -- return
+
+		if( _value_ini != undefined ) then _value_ini else _value --return
 	),
 
-	--private
+	private
+	
+
+
+	/** Combine path
+	 */
+	function _combinePath =
+	(
+		if( _path == undefined and _dir != undefined and _file != undefined ) then
+			_path = _dir +"\\" + _file
+			
+		--print ( "Ini._combinePath = " + _path as string )
+	),
 	
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
@@ -96,23 +115,13 @@ struct Ini_v
 		) else
 			getProperty this ( key as string ) --return
 	),
-
-	/** Combine path
-	 */
-	function _combinePath =
-	(
-		if( _path == undefined and _dir != undefined and _file != undefined ) then
-			_path = _dir +"\\" + _file
-			
-		--print ( "Ini._combinePath = " + _path as string )
-	),
-
+	
 	/** Escape path
 	 */
-	function _normalizePath __path =
+	function _escapePath path_for_escape =
 	(
-		--if( __path != #get ) then ( substituteString ( __path as string ) "\\" "\\\\" ) else __path  --return
-		if( __path != #get ) then ( pathConfig.normalizePath __path ) else __path  --return
+		--if( path_for_escape != #get ) then ( substituteString ( path_for_escape as string ) "\\" "\\\\" ) else path_for_escape  --return
+		if( path_for_escape != #get ) then ( pathConfig.normalizePath path_for_escape ) else path_for_escape  --return
 	),
 	
 	/**  

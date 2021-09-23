@@ -10,7 +10,7 @@
  */
 function dock side =
 (
-	print "dock.undock()"
+	--print "dock.undock()"
 	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
 		dock_state = ("cui_dock_" + side as string) as name
 	else
@@ -27,7 +27,7 @@ function dock side =
  */
 function undock =
 (
-	print "Dialog.undock()"
+	--print "Dialog.undock()"
 	if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "" --return
 	
@@ -38,7 +38,7 @@ function undock =
  */
 function _isFloatable =
 (
-	print "Dialog._isFloatable()"
+	--print "Dialog._isFloatable()"
 	--ENABLE_RESIZING = false
 	
 	if ( this._isRegistered() and cui.getDockState Dialog == #cui_floatable ) then true else false --return;
