@@ -14,6 +14,8 @@ struct Subrollouts_v
 	/* properties */
 	Rollouts	= #(),  -- store rollouts used as subrollouts
 
+	rolledup_on_init = false,
+	
 	/* dependency */
 	RolloutProperty = Properties_v Parent_Control:this,
 
@@ -160,7 +162,7 @@ struct Subrollouts_v
 	function _getIniRolledUp _Rollout =
 	(
 		if( _Rollout._ini._path != undefined ) then
-			(_Rollout._Ini.load (_Rollout.id) "rolledUp" default:false)  --return
+			(_Rollout._Ini.load (_Rollout.id) #rolledUp default:rolledup_on_init)  --return
 
 		else
 			false as string  --return default
@@ -214,14 +216,5 @@ struct Subrollouts_v
 	 */
 	on create do
 	(
-		--print"----------------- Subrollouts_v"
-		--format "Parent_roll.id = % \n" Parent_roll.id
-		--format "this.id = % \n" this.id
-		--format "this.getId() = % \n" (this.getId())
 	)
-		
-		
-		
-		
-		
 )

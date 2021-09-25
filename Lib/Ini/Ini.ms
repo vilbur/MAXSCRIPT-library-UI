@@ -69,8 +69,8 @@ struct Ini_v
 		val	= default
 		
 		val_from_ini = getINISetting _path _section _key -- return
-
-		if( val_from_ini != undefined ) then this._convertToDatatypeValue(val_from_ini) else val --return
+		--format "\nval_from_ini = % \n" val_from_ini
+		if( val_from_ini == "" or val_from_ini == undefined ) then val else this._convertToDatatypeValue(val_from_ini) --return
 	),
 
 	
@@ -193,6 +193,6 @@ struct Ini_v
 	 */
 	on create do
 	(
-		print("Ini_v.onCreate()")
+		--print("Ini_v.onCreate()")
 	)
 )

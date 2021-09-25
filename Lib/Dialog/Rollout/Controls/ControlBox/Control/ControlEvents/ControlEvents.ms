@@ -72,12 +72,8 @@ struct ControlEvents_v
 	function setSaveToIniCallback =
 	(
 		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
-
-		dynamic_types = #( #changed, #entered, #buttondown, #buttonup )
-
 		if( this._iniFileIsDefined() and Events.event_types != undefined ) then
-			for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
-				this.Events.setDefaultEvent(Event_v type:event_type code:("setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
+			this.Events.setDefaultEvent(Event_v type:#changed code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
 	),
 
 	/** _add handlers

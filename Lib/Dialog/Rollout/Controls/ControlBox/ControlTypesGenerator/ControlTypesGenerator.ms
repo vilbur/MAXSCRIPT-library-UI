@@ -3,7 +3,7 @@ clearListener()
 
 /** Generate methods for control types above
  * 
- * Control Types: http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
+ * Control Types: https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
  * 
  * @return	generated method returns object of new Control
  * Generate method like this:
@@ -31,13 +31,13 @@ function writeControlTypesFile =
 		   ,#( #style_sunkenedge )                                                                -- label
 		   
 		   /* Default controls with kind of "value" parameter */ 
-		   ,#( #checked,#triState )                                                               -- checkbox
-		   ,#( #range,  #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets )-- spinner
-		   ,#( #text,   #fieldwidth, #bold, #labelOnTop, #readOnly )                              -- edittext
+		   ,#( #checked,#triState )                                                               -- checkbox	
+		   ,#( #range,  #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets )-- spinner	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
+		   ,#( #text,   #fieldwidth, #bold, #labelOnTop, #readOnly )                              -- edittext	
 		   ,#( #checked,#highlightColor, #images )                                                -- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
 		   
 		   /* Custom compounded controls */ 
-		   ,#( #text,   #fieldwidth, #initialDir )                                                         -- browsePath
+		   ,#( #text,   #fieldwidth, #initialDir )                                                -- browsePath
 		 )
 
 	params_defaults = param_custom + param_common + param_shared
