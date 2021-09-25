@@ -120,7 +120,7 @@
 	function _getValueFromIni =
 	(
 		--print "ControlBase.ms _getValueFromIni()"
-		if( name_of_value_param != undefined ) then 
+		if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
 		(
 			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
 			--format "type = % \n" type

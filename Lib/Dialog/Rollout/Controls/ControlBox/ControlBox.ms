@@ -165,9 +165,6 @@ struct ControlBox_v
 		Layout.setControlDimensions Control
 		
 		this._addControlToUi Control
-		--format "HOTFIX ControlBox.ms._addControl() EVENTS TURNED OFF\n"
-
-		Control.Events.setDefaultEvents()
 		
 		Control.Events.addHandlers()
     ),

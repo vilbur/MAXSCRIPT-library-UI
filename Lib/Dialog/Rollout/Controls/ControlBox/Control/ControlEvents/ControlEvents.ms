@@ -36,16 +36,14 @@ struct ControlEvents_v
 		Events.event_types = (event_types.getVal Parent_Control.type)
 	),
 	
-	/*---------------------------------------
-		BIND EVENT BY TYPE
-		
-		Common parameters:
-			@param	string	callback	Code executed on event
-			@param	callback	tooltip	Tooltip for control
-	-----------------------------------------*/
-	
-	
-	/** Set event
+	/** Set event by type
+	  * 
+	  * @property	#name	type	of callback
+	  * @param	string	callback	code executed on event
+	  * @param	string	tooltip	tooltip for control
+	  * @property	string	params	for callback
+	  * 
+	  * @return	object Control	
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
@@ -64,6 +62,7 @@ struct ControlEvents_v
 	 */
 	function setDefaultEvents =
 	(
+		--format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
 		if( Parent_Control.ControlBox.Parent_roll.ini != undefined ) then
 			this.setSaveToIniCallback()
 	),
@@ -72,17 +71,17 @@ struct ControlEvents_v
 	 */
 	function setSaveToIniCallback =
 	(
-		--format "------------\nControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
+		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
 
-		dynamic_types = #(#changed)
+		dynamic_types = #( #changed, #entered, #buttondown, #buttonup )
 
-		if(  Events.event_types != undefined ) then
+		if( this._iniFileIsDefined() and Events.event_types != undefined ) then
 			for event_type in Events.event_types where findItem dynamic_types event_type > 0 do
-				this.Events.setDefaultEvent(Event_v type:#changed code:("setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
+				this.Events.setDefaultEvent(Event_v type:event_type code:("setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string)") params:"val")
 	),
 
 	/** _add handlers
-	  *http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
+	  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
 	 */
 	function addHandlers =
 	(
@@ -95,6 +94,14 @@ struct ControlEvents_v
 	
 	private
 
+	/** _ini is defined
+	 */
+	function _iniFileIsDefined =
+	(
+		Parent_Control.ControlBox.Parent_roll._Ini.isDefined() --return
+	),
+	
+	
 	on create do
 	(
 	)

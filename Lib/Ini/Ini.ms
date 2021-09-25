@@ -42,6 +42,13 @@ struct Ini_v
 		this._getSetProp #_path _path --return
 	),
 
+	/** Is defined
+	 */
+	function isDefined =
+	(
+		_path != undefined
+	),
+	
 	/** Ini save control state
 	  * @property	string|name	_section
 	  * @property	string|name	key
@@ -95,7 +102,6 @@ struct Ini_v
 			(#color):	this._convertToColor   val
 			default:	val
 		)
-		
 	),
 
 	/** _get data type
