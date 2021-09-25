@@ -1,11 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/Bbox/Bbox.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Dimensions/Dimensions.ms" )
 
-struct LayoutControls
-(
-	height_defined
-)
-
 /** Layout
   * @property	int	columns	_width of groupbox
   * @property	int	grid    size of column in pixels
@@ -18,19 +13,20 @@ struct Layout_v
 (
 	Bbox,
 	Parent_roll,
-		
-	width = 1024, 	
-		
+	
+	/* properties */ 
 	columns = 16, -- columns _width of rollout
 	grid    = 16, -- size of columns in pixels 
+		
+	width = 1024, 	
 	
 	padding	= 4,	-- padding between controls
 	margin	= [padding, padding],
 	
 	_pos_last = [0,0],    -- store origin of last added control 
 
+	slot_padding        = 32,
 	_padding_corrention = 12,
-	slot_padding = 32,
 
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutControl.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutGroupbox.ms"
