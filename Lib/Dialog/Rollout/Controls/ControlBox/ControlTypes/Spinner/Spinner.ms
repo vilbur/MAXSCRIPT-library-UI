@@ -9,7 +9,9 @@ struct Spinner_v
 	*/
 	function addToUi =
 	(
+		--format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
 		this._setFiledWidth()
+		--format "\nParameters  = % \n" (_Parameters.join())
 		
 		this.Events.setDefaultEvents()
 		
@@ -30,10 +32,9 @@ struct Spinner_v
 	 */
 	function _getFieldWidthByCaption =
 	(
-
 		--format "\n_Parameters.getVal #range = % \n" ((_Parameters.getVal #range)[2])
 		filed_width =  this._getStringLengthOfMaxValue() --return
-		
+		--format "filed_width = % \n" filed_width
 		filed_width --return
 	),
 	
@@ -53,7 +54,7 @@ struct Spinner_v
 		
 	 	filed_width = ( max_value_of_spinner as string ).count * width_per_caracter + arrow_controls_width
 		
-		if( spinner_type == #float ) then -- correct
+		if( spinner_type == #float ) then -- correct decimal point of float
 			filed_width -= 2
 		
 		filed_width
@@ -69,7 +70,7 @@ struct Spinner_v
 
 		this.setParam #range [0,999,99] -- default value, used in "ControlBase.ms _getValueFromIni()"
 		
-		this.setParam #columns 6
+		this.setParam #columns 8
 		
 		this.onCreate()
 		

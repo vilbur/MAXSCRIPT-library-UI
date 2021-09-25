@@ -3,28 +3,43 @@ clearListener()
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 
-BUTTONS_COUNT = 10
+CONTROLS_COUNT = 4
 
 
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
 /* DEFINE GROUPBOXES */ 
-controls_1    = _Rollout.Controls.new()
+--_Buttons    = _Rollout.Controls.new()
+_Buttons  = _Rollout.Controls.new groupbox:"Buttons"
+_Spinners = _Rollout.Controls.new groupbox:"Spinners"
+
 
 /** Add extra rollout
  */
-function addRolloutByCodeTest =
+function addButtons =
 (
-	for i = 1 to BUTTONS_COUNT do
-		controls_1.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
+	for i = 1 to CONTROLS_COUNT do
+		_Buttons.button ("Button "+i as string )
 )
+
+
+/** Add extra rollout
+ */
+function addSpinners =
+(
+	for i = 1 to CONTROLS_COUNT do
+		_Spinners.spinner ("Spinner "+i as string )
+)
+
+
 
 
 /*---------------------------------------
 	RUN TEST
 -----------------------------------------*/
-addRolloutByCodeTest()
+addButtons()
+addSpinners()
 
 
 /* CREATE ROLLOUT */

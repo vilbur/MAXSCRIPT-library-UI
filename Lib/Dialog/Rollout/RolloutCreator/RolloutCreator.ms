@@ -49,7 +49,7 @@ struct RolloutCreator_v
 	 */
     function getDefinition =
 	(
-		format "RolloutCreator_v.getDefinition() % \n" _rolloutCreator
+		--format "RolloutCreator_v.getDefinition() % \n" _rolloutCreator
 		_rolloutCreator.def --return
 	),
 

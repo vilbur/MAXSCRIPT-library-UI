@@ -1,4 +1,6 @@
 	
+	columns_default = 4,
+	
 	/** Set dimensions of control, add to Bounding box
 	  * @param	Params	Params
 	  * @param	int	columns	Width of control
@@ -6,14 +8,14 @@
 	 */
 	function setControlDimensions &Control =
 	(
-		--format "------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
-		
+		--format "\n------------\nLayoutControl.ms setControlDimensions %\n" (Control.id.get())
+		--format "Control = % \n" Control._parameters.values
 		_width  = this._getControlWidth  Control
 		_height = this._getControlHeight Control
 		
 		this._trySetNewControlsRow _width
 		
-		pos    = this._getControlPos    Control _width
+		pos    = this._getControlPos Control _width
 		--format "pos = % \n" pos
 		pos.x += padding -- add padding to left side of group box
 		
@@ -75,6 +77,26 @@
 		_width --return
 	),
 	
+	/** Get height
+	 */
+	function _getControlWidthRaw Control =
+	(
+		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
+		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
+		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
+		columns_count = Control._Parameters.getVal #columns
+		--format "columns_count = % \n" columns_count
+		if( columns_count == undefined ) then 
+			columns_count = columns_default -- set default columns width 
+
+		width_raw = columns_count * grid
+		
+		width_raw += columns_count-1 * padding
+		
+		
+		width_raw --return
+	),
+	
 	/** _get control height
 	 */
 	function _getControlHeight Control =
@@ -86,6 +108,15 @@
 			height = this._getControlHeightRaw()
 		
 		height --return
+	),
+	
+	/** Get height
+	 */
+	function _getControlHeightRaw =
+	(
+		--format "HOTFIX LayoutControl.ms _getControlHeightRaw()\n"
+		grid --return
+		--grid - padding * 2 --return
 	),
 	
 	/** _get control position;
@@ -113,28 +144,3 @@
 		[ _pos_last.x, _pos_last.y ] + offset --return
 	),
 	
-	/** Get height
-	 */
-	function _getControlWidthRaw Control =
-	(
-		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
-		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
-		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
-		columns_count = Control._Parameters.getVal #columns
-
-		if( columns_count == undefined ) then 
-			columns_count = 4 -- set default columns width 
-
-		width_raw = columns_count * grid --return
-		
-		width_raw --return
-	),	
-	
-	/** Get height
-	 */
-	function _getControlHeightRaw =
-	(
-		--format "HOTFIX LayoutControl.ms _getControlHeightRaw()\n"
-		grid --return
-		--grid - padding * 2 --return
-	),

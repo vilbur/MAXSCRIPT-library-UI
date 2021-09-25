@@ -25,7 +25,7 @@ struct ControlBox_v
 	Parent_roll,
 
 	/* reference */
-	Layout,     -- Parent_Roll.Layout
+	Layout,
 	
 	/* properties of Groupbox */
 	id,
