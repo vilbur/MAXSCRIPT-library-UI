@@ -2,8 +2,7 @@
  *
  *
  */
-global add_subrollouts = " "
-global groupbox_global = #() -- store groupboxes for dynamic method creation in ControlBoxControlTypes.ms
+global GROUPBOX_GLOBAL = #() -- store groupboxes for dynamic method creation in ControlBoxControlTypes.ms
 
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../../List/List.ms" )

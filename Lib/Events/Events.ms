@@ -49,14 +49,16 @@ struct Events_v
 	),
 	
 	/** Set event fired
+	  *
+	  * @return	string	
 	 */
-	function setEventFired type id =
+	function setEventFired type id val:"val" =
 	(
 		local EventFired = "EventFired.control=\""+(id)+"\";"
 		
-		EventFired += "EventFired.type=#"+type+";"
+		EventFired    += "EventFired.type=#"+type+";"
 		
-		EventFired += "EventFired.value=val;"
+		EventFired    += "EventFired.value="+val as string +";"
 		
 		EventFired --return
 	),

@@ -6,7 +6,7 @@ struct Ini_v
 (
 	_dir,	-- dir of *.ini file
 	_file,	-- *.ini filename
-	_path,	-- full pah to *.ini file
+	_path,	-- full pah to *.ini file*
 	
 	/** Set path to dir which contains *.ini fie
 	  * @property	string	_path	path to dir

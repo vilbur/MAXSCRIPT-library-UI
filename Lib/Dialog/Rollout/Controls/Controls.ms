@@ -1,5 +1,6 @@
 filein( getFilenamePath(getSourceFileName()) + "/ControlBox/ControlBox.ms" )
 
+
 /** Controls
   *
   * @property	obj	Parent_roll
@@ -26,7 +27,7 @@ struct Controls_v
 	(
 		ControlBox 	= ControlBox_v Parent_roll:Parent_roll Layout:Parent_roll.Layout caption:groupbox id:id 
 	
-		append groupbox_global ControlBox
+		append GROUPBOX_GLOBAL ControlBox
 		
 		append Parent_roll.Controlboxes_and_Subrollouts ControlBox
 

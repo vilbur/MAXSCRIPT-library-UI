@@ -69,6 +69,8 @@ struct Dialog_v
 		max_width = RolloutMain.setRolloutWidth()
 		
 		this.width max_width
+		
+		this._runCallbacksOnStart()
 	),
 	 
 	/** rollouts
@@ -95,7 +97,14 @@ struct Dialog_v
 	(
 		DialogGlobals.setDialog RolloutMain.id this
 	),
-
+	
+	/** Run callbacks of controls on start
+	 */
+	function _runCallbacksOnStart =
+	(
+		for callback in CONTROLS_CALLBACKS_START do
+			execute (callback)
+	),
 
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
@@ -121,7 +130,6 @@ struct Dialog_v
 		this._unregisterOldDialog()
 		
 		this.destroy()
-		
 		
 		this._setDialogGlobal()
 	)

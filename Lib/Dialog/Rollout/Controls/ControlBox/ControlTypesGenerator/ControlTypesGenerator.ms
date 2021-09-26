@@ -9,7 +9,7 @@ clearListener()
  * Generate method like this:
  *			function caption button width:64 =
  *			(
- *				Button_v caption:caption ControlBox:groupbox_global[1] init_parameters: #(#(#width), #(64)) -- return
+ *				Button_v caption:caption ControlBox:GROUPBOX_GLOBAL[1] init_parameters: #(#(#width), #(64)) -- return
  *			)
  *
  */

@@ -1,6 +1,8 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/EventFired/EventFired.ms" )
 
+global CONTROLS_CALLBACKS_START = #() -- run callbacks of controls like checkbox, checkbutton on UI start
+
 /** ControlEvents_v
  *
  * DEFAULT CALLBACKS:
@@ -31,14 +33,13 @@ struct ControlEvents_v
 		event_types.setVal #checkbutton #( #changed, #rightclick )
 		event_types.setVal #spinner     #( #changed, #entered, #buttondown, #buttonup )
 		event_types.setVal #edittext    #( #changed )
-		--event_types.setVal #spinner     #(#changed)
 		
 		Events.event_types = (event_types.getVal Parent_Control.type)
 	),
 	
 	/** Set event by type
 	  * 
-	  * @property	#name	type	of callback
+	  * @property	#name	type	of callback #pressed|#rightclick|#changed|#entered|#buttondown|#buttonup 
 	  * @param	string	callback	code executed on event
 	  * @param	string	tooltip	tooltip for control
 	  * @property	string	params	for callback
@@ -47,13 +48,21 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
-		--format "ControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
+		--format "\nControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
 		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
 			params = callback_value_name
 		
-		callback = (this.Events.setEventFired type (Parent_Control.id.getIdFull())) + callback
+		_EventFired = this.Events.setEventFired type (Parent_Control.id.getIdFull())
 
-		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
+		if( Parent_Control._Parameters.getVal #checked == true ) then
+		(
+			EventFired_true = this.Events.setEventFired type (Parent_Control.id.getIdFull()) val:true -- simulate event fired
+
+			appendIfUnique CONTROLS_CALLBACKS_START (EventFired_true+callback)
+			
+		)
+
+		this.Events.add (Event_v type:type code:(_EventFired+callback) tooltip:tooltip params:params)
 		
 		Parent_Control --return
 	),
@@ -86,6 +95,15 @@ struct ControlEvents_v
 		
 		for _Event in _Events do
 			Parent_Control.ControlBox.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
+	),
+	
+	/** Get callback
+	 */
+	function getCallback event_type =
+	(
+		--print "ControlEvents_v.getCallback()"
+		--format "Events.Events	= % \n" Events.Events
+		Events.Events.getVal	event_type --return
 	),
 	
 	private

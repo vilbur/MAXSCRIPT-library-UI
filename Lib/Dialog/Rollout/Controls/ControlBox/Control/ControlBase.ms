@@ -125,17 +125,18 @@
 		if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
 		(
 			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-			format "val = % \n" val
+			--format "val = % \n" val
 			
 			if( val == undefined ) then
 				return false
-			format "type = % \n" type
+			--format "type = % \n" type
 			if( type == #spinner ) then
 				val   = this. _setValueTopoint3 val
 				
 			_Parameters.setVal name_of_value_param val
 		)
 	),
+
 	
 	/** _set value topoint3
 	 */
@@ -177,5 +178,6 @@
 		_Parameters.setValues init_parameters[1] init_parameters[2]
 
 		this._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
+			
 	),
 	
