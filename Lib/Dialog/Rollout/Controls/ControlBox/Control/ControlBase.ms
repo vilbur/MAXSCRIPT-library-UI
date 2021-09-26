@@ -50,7 +50,7 @@
      */
     function property enabled: title: visible: pos: height: width: columns: border: range: scale: =
     (
-		Properties.setVal #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
+		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
 	),
 	
 	/** Set dimensions

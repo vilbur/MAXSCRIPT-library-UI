@@ -4,8 +4,8 @@ public
 */
 function addToUi =
 (
-	--format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
-	--format "\nParameters  = % \n" (this._getParameters())
+	format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
+	format "\nParameters  = % \n" (this._getParameters())
 	--format "\nControlAddToUi.ms.addToUi()	% 	% 	\"%\"" type id.id caption
 	
 	this.Events.setDefaultEvents()
