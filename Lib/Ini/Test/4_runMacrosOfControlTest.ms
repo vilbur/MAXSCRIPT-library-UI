@@ -49,5 +49,5 @@ _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 /** SIMULATE method of Dialog_v._runCallbacksOnStart() 
  *	
  */
-for callback in CONTROLS_CALLBACKS_START do 
+for callback in STARTUP_EVENTS do 
 	execute (callback)

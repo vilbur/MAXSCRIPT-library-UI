@@ -1,7 +1,7 @@
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../../Events/Events.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/EventFired/EventFired.ms" )
 
-global CONTROLS_CALLBACKS_START = #() -- run callbacks of controls like checkbox, checkbutton on UI start
+global STARTUP_EVENTS = #() -- run callbacks of controls like checkbox, checkbutton on UI start
 
 /** ControlEvents_v
  *
@@ -54,15 +54,9 @@ struct ControlEvents_v
 		
 		_EventFired = this.Events.setEventFired type (Parent_Control.id.getIdFull())
 
-		if( Parent_Control._Parameters.getVal #checked == true ) then
-		(
-			EventFired_true = this.Events.setEventFired type (Parent_Control.id.getIdFull()) val:true -- simulate event fired
-
-			appendIfUnique CONTROLS_CALLBACKS_START (EventFired_true+callback)
-			
-		)
-
-		this.Events.add (Event_v type:type code:(_EventFired+callback) tooltip:tooltip params:params)
+		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
+		
+		this._addToStartupEvents type callback
 		
 		Parent_Control --return
 	),
@@ -99,11 +93,14 @@ struct ControlEvents_v
 	
 	/** Get callback
 	 */
-	function getCallback event_type =
+	function _addToStartupEvents type callback =
 	(
-		--print "ControlEvents_v.getCallback()"
-		--format "Events.Events	= % \n" Events.Events
-		Events.Events.getVal	event_type --return
+		if( Parent_Control._Parameters.getVal #checked == true ) then
+		(
+			EventFired_true = this.Events.setEventFired type (Parent_Control.id.getIdFull()) val:true -- simulate event fired
+
+			appendIfUnique STARTUP_EVENTS (EventFired_true+callback)
+		)
 	),
 	
 	private

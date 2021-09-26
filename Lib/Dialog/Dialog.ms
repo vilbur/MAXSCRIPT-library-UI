@@ -102,7 +102,7 @@ struct Dialog_v
 	 */
 	function _runCallbacksOnStart =
 	(
-		for callback in CONTROLS_CALLBACKS_START do
+		for callback in STARTUP_EVENTS do
 			execute (callback)
 	),
 
