@@ -17,6 +17,7 @@ struct ContentLoader_v
 	
 	/* required properties */
 	path, -- source dir of content
+	ini,  -- path to ini file
 	
 	/*  properties */
 	Dialog,
@@ -30,6 +31,9 @@ struct ContentLoader_v
 	(
 		Dialog	= Dialog_v title:ContentRollout.title id:ContentRollout.title
 
+		if( ini != undefined ) then
+			Dialog.RolloutMain.ini ini
+		
 		for Subrollouts_or_Controls in ContentRollout.Subrollouts_and_Controls do
 			Subrollouts_or_Controls.addToUi Dialog.RolloutMain
 			

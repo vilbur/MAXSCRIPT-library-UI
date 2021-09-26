@@ -161,6 +161,23 @@ struct Ini_v
 		val as number --return
 	),
 	
+	/** Set default path to ini file
+	  *
+	  * Default dir:	"#temp\ini-files\" E.G.: ""C:\Users\[USERNAME]\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\temp""
+	  * Default file:	"%dialog_id%.ini"
+	 */
+	function _setIniFile =
+	(
+		if( dir #get == undefined ) then
+			dir (( pathConfig.GetDir #temp ) + "\ini-files")
+		
+		if( file #get == undefined ) then
+			file ( (getFilenameFile id) + ".ini" )
+			
+		this._combinePath()
+		format "_path = % \n" _path
+	),
+	
 	/** Get\set value of property 
 	  * @param	string|name key	Name  of property E.G.: "foo_key" OR #foo_key 
 	  * @param	string|#get value	Value of property

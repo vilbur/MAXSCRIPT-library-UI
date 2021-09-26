@@ -56,7 +56,7 @@ struct Rollout_v
 	/* dependency */
 	RolloutCreator,
 	
-	_Ini        = Ini_v(),
+	_Ini       = Ini_v(),
 	Events	    = RolloutEvent_v    Parent_roll:   this,
  	Controls   = Controls_v        Parent_roll:   this,
 	Layout     = Layout_v          Parent_roll:   this,

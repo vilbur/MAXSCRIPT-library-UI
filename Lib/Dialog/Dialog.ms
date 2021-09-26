@@ -57,7 +57,7 @@ struct Dialog_v
 	function create pos: width: height: bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
-		
+
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 
 		CreateDialog Dialog pos:pos width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
@@ -85,8 +85,7 @@ struct Dialog_v
 	 */
 	function _setMainRollout =
 	(
-		RolloutMain	= Rollout_v title:title id:id
-		--ini:ini
+		RolloutMain	= Rollout_v title:title id:id --ini:ini
 	),
 
 	/** Set id of rollout as global variable
@@ -94,33 +93,10 @@ struct Dialog_v
 	  */
 	function _setDialogGlobal =
 	(
-		--__GLOBAL__v.Dialog = this
-		
 		DialogGlobals.setDialog RolloutMain.id this
-		--format "DialogsGlobal       = % \n" DialogsGlobal
-		--format "DialogsGlobal.count = % \n" DialogsGlobal.Dialogs.count
-		--
-		--Dialog_global = (DialogsGlobal.get(RolloutMain.id))
-		--format "Dialog_global = % \n" Dialog_global
 	),
 
-	/** Set default path to ini file
-	  *
-	  * Default dir:	"#temp\ini-files\" E.G.: ""C:\Users\[USERNAME]\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\temp""
-	  * Default file:	"%dialog_id%.ini"
-	 */
-	function _setIniFile =
-	(
-		if( Ini.dir #get == undefined ) then
-			Ini.dir (( pathConfig.GetDir #temp ) + "\ini-files")
-		
-		if( Ini.file #get == undefined ) then
-			Ini.file ( (getFilenameFile id) + ".ini" )
-			
-		Ini._combinePath()
-		format "Ini._path = % \n" Ini._path
-	),
-	
+
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
