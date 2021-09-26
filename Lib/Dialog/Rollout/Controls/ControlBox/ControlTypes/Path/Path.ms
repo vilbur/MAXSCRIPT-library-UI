@@ -12,13 +12,15 @@ struct BrowsePath_v
 	button_default_width = 64,
 	initial_dir          = "C:",
 	
+	BrowseButton,
+	
 	/** Add to ui
 	*/
 	function addToUi =
 	(
 		this._setDefaultFiledWidth()
 		this._setInitialdir()
-
+		
 		this._addBrowseButton()
 		this._addTextField()
 		this._addBrowseButtonEvent()
@@ -51,17 +53,26 @@ struct BrowsePath_v
 	 */
 	function _addBrowseButton =
 	(
-		ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button_id" caption (this._getButtonParameters())
+		BrowseButton = ControlBox.Parent_roll.RolloutCreator.addControl #button "browse_button_id" caption (this._getButtonParameters())
 	),
 	 
 	 /** _add browse button event
 	  */
 	 function _addBrowseButtonEvent =
 	 (
-		Event = Event_v code:("local dir = getSavePath caption:\"Test path...\" initialDir:\""+initial_dir+"\\\"
-							  	;if (dir != undefined) do ( "+id.full+".text = dir )")
+		Event = Event_v type:#pressed
 		
+		Event.code = "local dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@
+							  	\nif (dir != undefined) do ( "+id.id+".text = dir )"
+		
+		--Event = Event_v type:#pressed code:"print \"Test\""
+
 		ControlBox.Parent_roll.RolloutCreator.addhandler "browse_button_id" Event
+		--ControlBox.Parent_roll.RolloutCreator.addhandler "browse_button_id" #pressed codeStr:"print \"Test\""
+		
+		--BrowseButton.Events.setEvent #pressed "print \"Test\"" "" params:""
+		
+		format "BrowseButton	= % \n" BrowseButton
 	 ),
 	 
 	/** Add Edit text field http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm

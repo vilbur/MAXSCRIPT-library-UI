@@ -12,6 +12,8 @@ struct EditText_v
 	(
 		this._setFiledWidth()
 		
+		this.Events.setDefaultEvents()
+		
 		ControlBox.Parent_roll.RolloutCreator.addControl type id.id caption (_Parameters.join())
 	),
 
@@ -44,9 +46,10 @@ struct EditText_v
 	(
 		name_of_value_param = #text
 		
+		this.setParam #columns 8
+
 		this.onCreate()
 		
-		this.setParam #columns 8
 
 		if ( add_to_controls ) then
 			this._addToControls()

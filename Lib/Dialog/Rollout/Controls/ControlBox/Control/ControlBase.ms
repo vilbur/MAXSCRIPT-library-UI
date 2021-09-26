@@ -120,14 +120,16 @@
 	function _getValueFromIni =
 	(
 		--print "ControlBase.ms _getValueFromIni()"
+		--format "ControlBox.Parent_roll._Ini.isDefined()	= % \n" (ControlBox.Parent_roll._Ini.isDefined())
+		--format "name_of_value_param	= % \n" name_of_value_param
 		if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
 		(
 			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-			--format "val = % \n" val
+			format "val = % \n" val
 			
 			if( val == undefined ) then
 				return false
-			--format "type = % \n" type
+			format "type = % \n" type
 			if( type == #spinner ) then
 				val   = this. _setValueTopoint3 val
 				

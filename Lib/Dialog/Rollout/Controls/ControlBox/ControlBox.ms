@@ -63,7 +63,7 @@ struct ControlBox_v
 		this._addControls()
 		
 		if (Groupbox != undefined ) then
-			this._addGroupBox()
+			this._addGroupBoxToUi()
 		--print ("ControlBox_v.create() END")
     ),
 
@@ -171,7 +171,7 @@ struct ControlBox_v
 
 	/** Add id
 	 */
-	function _addGroupBox =
+	function _addGroupBoxToUi =
 	(		
 		Layout.setGroupboxDimensions Groupbox
 

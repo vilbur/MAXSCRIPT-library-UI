@@ -4,7 +4,8 @@ struct Spinner_v
 (
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"
 	
-	public 
+	public
+	
 	/** Add to ui
 	*/
 	function addToUi =

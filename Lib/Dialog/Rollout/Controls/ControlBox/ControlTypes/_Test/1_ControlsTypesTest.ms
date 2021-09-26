@@ -21,28 +21,38 @@ _Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
 
 
 
-/* CONTROL TYPES */
---_Controls.button	"Button"
 
-_Controls.edittext	"Edit Text" 
-_Controls.edittext	"Edit Text Custom Width" fieldwidth:32
-_Controls.edittext	"Edit Text Auto Field Width" 
+/* BUTTON  */
+--_Button = _Controls.button "Test 1" 
 
---BrowsePath = _Controls.BrowsePath	"Browse"
---BrowsePath = _Controls.BrowsePath	"Browse" width:256
---BrowsePath = _Controls.BrowsePath	"Browse" width:256  fieldwidth:192  initialDir:(getDir #maxroot)
 
-_Controls.spinner	"Spinner with long label" columns:12
-_Controls.spinner	"Spinner" offset:[32,0] 
+/* CHECKBOX  */
+--_Checkbox = _Controls.checkbox	"Checkbox" checked:true
 
-_Controls.checkbutton	"Checkbutton"
-_Controls.checkbox	"Checkbox"
+
+/* SPINNER  */
+--_Controls.spinner	"Spinner int"   range:[0,9,99]
+--_Controls.spinner	"Spinner float" range:[0,999,999.0] type:#float
+--_Controls.spinner	"Test Spinner" 
+
+
+/* CHECKBUTTON  */
+--_Controls.checkbutton	"Checkbutton"
+
+
+/* EDITTEXT  */
+--_Controls.edittext	"Edit Text" 
+
+
+/* PATH  */
+BrowsePath = _Controls.BrowsePath	"Browse"
+
 
 /** Grid of buttons 
  *	
  */
-for i = 1 to 8 do
-	_Controls.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
+--for i = 1 to 8 do
+	--_Controls.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
 	
 
 /* CREATE ROLLOUT */
