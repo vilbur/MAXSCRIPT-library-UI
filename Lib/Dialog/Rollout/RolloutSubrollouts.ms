@@ -31,15 +31,15 @@
 	(
 		--print("RolloutSubrollouts.addSubRollouts()")
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-			if ( this.isSubrollouts Controlbox_or_Subrollouts ) then
+			if ( this._isSubrolloutsStruct Controlbox_or_Subrollouts ) then
 				Controlbox_or_Subrollouts.addSubRollouts()
 	),
 
 	/** Is subrollout class
 	 */
-	function isSubrollouts _struct =
+	function _isSubrolloutsStruct _struct =
 	(
-		print("RolloutSubrollouts.isSubrollouts()")
+		--print("RolloutSubrollouts._isSubrolloutsStruct()")
 		((filterString( classof _struct as string ) "_*(:" )[2]) == "Subrollouts" --return
 	),
 	
@@ -47,6 +47,6 @@
 	 */
 	function _isSubrollout =
 	(
-		print("RolloutSubrollouts._isSubrollout()")
+		--print("RolloutSubrollouts._isSubrollout()")
 		Parent_Subrollouts != undefined --return
 	),

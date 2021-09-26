@@ -54,8 +54,7 @@ struct ControlId_v
 	 */
 	function _isIdValid =
 	(
-		print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
-		format "ControlId._isIdValid id	= % \n" id
+		--print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
 		( id == unsupplied or id == undefined ) == false  --return
 	),
 	--
