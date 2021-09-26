@@ -23,29 +23,29 @@ _Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
 
 
 /* BUTTON  */
---_Button = _Controls.button "Test 1" 
+_Button = _Controls.button "Test 1" 
 
 
 /* CHECKBOX  */
---_Checkbox = _Controls.checkbox	"Checkbox" checked:true
+_Checkbox = _Controls.checkbox	"Checkbox" checked:true
 
 
 /* SPINNER  */
---_Controls.spinner	"Spinner int"   range:[0,9,99]
---_Controls.spinner	"Spinner float" range:[0,999,999.0] type:#float
---_Controls.spinner	"Test Spinner" 
+_Controls.spinner	"Spinner int"   range:[0,9,99]
+_Controls.spinner	"Spinner float" range:[0,999,999.0] type:#float
+_Controls.spinner	"Test Spinner" 
 
 
 /* CHECKBUTTON  */
---_Controls.checkbutton	"Checkbutton"
+_Controls.checkbutton	"Checkbutton"
 
 
 /* EDITTEXT  */
---_Controls.edittext	"Edit Text" 
+_Controls.edittext	"Edit Text" 
 
 
 /* PATH  */
-BrowsePath = _Controls.BrowsePath	"Browse"
+BrowsePath = _Controls.BrowsePath	"Get Dir" columns:16 
 
 
 /** Grid of buttons 

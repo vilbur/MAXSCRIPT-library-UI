@@ -10,7 +10,7 @@ _Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) id:"rollout_ma
 
 SubRollouts = _Rollout.subrollouts()
 
-Rollout_A    = SubRollouts.new "Subrollout A"
+Rollout_A   = SubRollouts.new "Subrollout A"
 
 /**  Set ini path 
  *	

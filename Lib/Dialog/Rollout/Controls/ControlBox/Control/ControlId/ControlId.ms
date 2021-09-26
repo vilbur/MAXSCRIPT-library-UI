@@ -21,8 +21,7 @@ struct ControlId_v
 
 		if not ( this._isIdValid() ) then
 		(
-			id	= this._getIdByConrolType()
-			
+			id = toLower Parent_Control.caption
 			
 			this._removeWhitespace()
 			
@@ -55,17 +54,18 @@ struct ControlId_v
 	 */
 	function _isIdValid =
 	(
-		--print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
+		print ("ControlId._isIdValid " + (( id == unsupplied or id == undefined ) == false) as string )
+		format "ControlId._isIdValid id	= % \n" id
 		( id == unsupplied or id == undefined ) == false  --return
 	),
-	
-	/** Use controls caption, if id is unsuplied
-	 */
-	function _getIdByConrolType =
-	(
-		--print("ControlId._getIdByConrolType()")
-		Parent_Control.caption + "_" + Parent_Control.type as string
-	),
+	--
+	--/** Use controls caption, if id is unsuplied
+	-- */
+	--function _getIdByConrolType =
+	--(
+	--	--print("ControlId._getIdByConrolType()")
+	--	Parent_Control.caption + "_" + Parent_Control.type as string
+	--),
 
 	
 	/** Sanitize id
@@ -88,11 +88,8 @@ struct ControlId_v
 	 */
 	function _addPrefix =
 	(
-			--print ( toUpper Parent_Control.type as string )
-		--if( Parent_Control != undefined ) then
+		--print("ControlId._getIdByConrolType()")
 		id = toUpper ( Parent_Control.type as string ) + "_" + id
-		--id += "XXX"	
-			--format "TEST_ID = % \n" TEST_ID
 	),
 	
 	--/** Check if required properties are defined
