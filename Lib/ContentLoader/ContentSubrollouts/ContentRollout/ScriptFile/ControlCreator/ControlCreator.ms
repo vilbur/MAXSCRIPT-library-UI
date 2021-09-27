@@ -17,9 +17,8 @@ struct ControlCreator_v
 	 */
 	function createControl =
 	(
-		format "ControlCreator_v.createControl Macro	= % \n" Macro
-		format "Macro.tooltip	= % \n" Macro.toolTip
-		--format "Macro.getParams()	= % \n" (Macro.getParams())
+		--format "ControlCreator_v.createControl Macro	= % \n" Macro
+		--format "Macro.tooltip	= % \n" Macro.toolTip
 		CONTROLBOX_CONTROL_CREATOR = ControlBox
 
 		ControlBox.add_to_controls = false
@@ -55,7 +54,6 @@ struct ControlCreator_v
 	function _setOnClickEvent event_type Control =
 	(
 		--format "ControlCreator_v._setOnClickEvent event_type	= % \n" event_type
-		--format "Macro.tooltip	= % \n" Macro.toolTip
 		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
 
 		Control.Events.setEvent event_type callback Macro.toolTip

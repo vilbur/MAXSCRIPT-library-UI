@@ -4,7 +4,7 @@ public
 */
 function addToUi =
 (
-	format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
+	--format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
 	--format "Parameters  = % \n" (this._getParameters())
 	--format "tooltip  = % \n" (this._getTooltip())
 	
