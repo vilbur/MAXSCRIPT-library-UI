@@ -149,7 +149,7 @@ struct RolloutEvent_v
 	 */
 	function _getEventCode event_type =
 	(
-		_Event	= this.Events.getEvent event_type
+		_Event	= this.Events.getMergedEvent event_type
 		
 		if( _Event!=undefined ) then
 			_Event.code --return

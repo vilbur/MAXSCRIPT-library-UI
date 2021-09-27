@@ -24,9 +24,9 @@ struct Checkbox_v
 		--print "Checkbox.onCreate()"
 		name_of_value_param = #checked
 
-		this.onCreate()
-				
 		this.setParam #columns 6
+				
+		this.onCreate()
 				
 		if ( add_to_controls ) then
 			this._addToControls()		

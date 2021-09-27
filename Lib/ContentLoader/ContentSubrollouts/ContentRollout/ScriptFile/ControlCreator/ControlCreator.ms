@@ -1,5 +1,5 @@
 
-global CONTROLBOX_CONTROL_TYPES = undefined
+global CONTROLBOX_CONTROL_CREATOR = undefined
 
 /** Control creator
  */
@@ -17,30 +17,26 @@ struct ControlCreator_v
 	 */
 	function createControl =
 	(
-		CONTROLBOX_CONTROL_TYPES = ControlBox
+		format "ControlCreator_v.createControl Macro	= % \n" Macro
+		format "Macro.tooltip	= % \n" Macro.toolTip
+		--format "Macro.getParams()	= % \n" (Macro.getParams())
+		CONTROLBOX_CONTROL_CREATOR = ControlBox
 
 		ControlBox.add_to_controls = false
 
-		_Control =  execute ( "CONTROLBOX_CONTROL_TYPES." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
+		_Control =  execute ( "CONTROLBOX_CONTROL_CREATOR." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
 		
 		_Control_Exist = ControlBox.get(_Control.id.id)
 
 		if( _Control_Exist != undefined ) then
 			_Control = _Control_Exist -- update existing control
 
-		this._setControlEvents _Control _Control_Exist 
+		event_type = this._setControlEvents _Control _Control_Exist
+		
+		this._setOnClickEvent event_type _Control
 		
 		if not( _Control == _Control_Exist ) then -- add only new control
 			ControlBox.add _Control
-	),
-
-	/** Set events which call macro
-	 */
-	function _setOnClickEvent event_type Control =
-	(
-		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
-
-		Control.Events.setEvent event_type callback Macro.tooltip
 	),
 
 	private
@@ -51,12 +47,20 @@ struct ControlCreator_v
 	(
 		event_type_index = if (_Control == _Control_Exist) then 2 else 1
 		
-		event_type = _Control.Events.Events.event_types[event_type_index]
-		
-		this._setOnClickEvent event_type _Control
+		_Control.Events.Events.event_types[event_type_index]
 	),
 	
-	
+	/** Set events which call macro
+	 */
+	function _setOnClickEvent event_type Control =
+	(
+		--format "ControlCreator_v._setOnClickEvent event_type	= % \n" event_type
+		--format "Macro.tooltip	= % \n" Macro.toolTip
+		callback = "macros.run \""+Macro.category+"\" \""+Macro.macro_name+"\""
+
+		Control.Events.setEvent event_type callback Macro.toolTip
+	),
+
 	/**  
 	 */
 	on create do

@@ -2,7 +2,7 @@
 macroscript macro_left_click_test
 category:	"_macrotest"
 buttontext:	"Left\Right click"
-toolTip:	"Button generated"
+toolTip:	"Tooltip button pressed"
 --icon:	"#(path, index)"
 (
 	--messagebox "Left click on button"
@@ -12,7 +12,7 @@ toolTip:	"Button generated"
 macroscript macro_right_click_test
 category:	"_macrotest"
 buttontext:	"Left\Right click"
-toolTip:	"From macro"
+toolTip:	"Tooltip button rightclick"
 --icon:	"#(path, index)"
 (
 	messagebox "Right click on button"

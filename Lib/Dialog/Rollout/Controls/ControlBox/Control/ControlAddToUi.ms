@@ -5,8 +5,8 @@ public
 function addToUi =
 (
 	format "\nControlAddToUi.ms.addToUi() % %\n" type id.id
-	format "\nParameters  = % \n" (this._getParameters())
-	--format "\nControlAddToUi.ms.addToUi()	% 	% 	\"%\"" type id.id caption
+	--format "Parameters  = % \n" (this._getParameters())
+	--format "tooltip  = % \n" (this._getTooltip())
 	
 	this.Events.setDefaultEvents()
 
@@ -26,22 +26,24 @@ function _getParameters =
  */
 function _getTooltip =
 (
-	tooltip =	_Parameters.getVal #tooltip
-
-	if( tooltip == undefined ) then
+	if( (tooltip = _Parameters.getVal #tooltip) == undefined ) then
 		tooltip = ""
-
-	tooltip_LMB = if( type == #checkbox ) then  "Checked: " else "LMB: "
-
-	Event_pressed	= Events.Events.getEvent #pressed
-	Event_rightclick	= Events.Events.getEvent #rightclick
+		
+	for event_type in Events.Events.event_types do
+		if( (_Event	= Events.Events.Custom.getVal event_type) != undefined ) then
+			tooltip += (this._getEventPrefix event_type) + _Event.tooltip + "\n"
 	
-	if( Event_pressed != undefined ) then
-		tooltip = Event_pressed.tooltip
+	"tooltip:\""+tooltip+"\""
+),
 
-	if( Event_rightclick != undefined ) then
-		tooltip = tooltip_LMB + tooltip + "\nRMB: " + Event_rightclick.tooltip
-	
-	
-	if( tooltip!=undefined ) then ( "tooltip:\""+tooltip+"\"" ) else "" --return
+/** _get event prefix
+ */
+function _getEventPrefix event_type =
+(
+	case event_type of
+	(
+		#pressed:	"LMB: "	
+		#rightclick:	"RMB: "	
+		default:	""
+	)
 ),

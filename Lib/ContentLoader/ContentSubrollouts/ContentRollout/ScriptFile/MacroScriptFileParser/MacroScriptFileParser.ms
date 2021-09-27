@@ -72,9 +72,10 @@ struct MacroScriptFileParser_v
 	 */
 	function _parseLine line =
 	(
+		--print "MacroScriptParser._parseLine()"
 		key_value = (filterString line ":")
 		key       = toLower key_value[1]
-
+		--format "key_value	= % \n" key_value
 		setProperty MacroScript_last key (this._joinAndSanitizeValues (deleteItem key_value 1))
 		--format "MacroScript_last = % \n" MacroScript_last
 	),
@@ -112,6 +113,11 @@ struct MacroScriptFileParser_v
 	function _joinAndSanitizeValues values =
 	(
 		this._stripQuotes ( this._trimWhiteSpace (this._joinValues values) )
+		--sanitized = this._stripQuotes ( this._trimWhiteSpace (this._joinValues values) )
+		--
+		--format "sanitized	= % \n" sanitized
+		--
+		--sanitized --return
 	),
 	
 	/** Join values

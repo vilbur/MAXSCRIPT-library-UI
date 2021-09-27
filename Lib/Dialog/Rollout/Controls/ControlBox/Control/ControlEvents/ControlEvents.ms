@@ -53,7 +53,7 @@ struct ControlEvents_v
 			params = callback_value_name
 		
 		_EventFired = this.Events.setEventFired type (Parent_Control.id.getIdFull())
-
+		--format "tooltip	= % \n" tooltip
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
 		
 		this._addToStartupEvents type callback
@@ -79,7 +79,7 @@ struct ControlEvents_v
 			this.Events.setDefaultEvent(Event_v type:#changed code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
 	),
 
-	/** _add handlers
+	/** Add handlers
 	  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
 	 */
 	function addHandlers =
