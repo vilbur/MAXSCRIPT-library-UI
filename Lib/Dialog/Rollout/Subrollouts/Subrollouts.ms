@@ -48,7 +48,7 @@ struct Subrollouts_v
 	 */
 	function create =
 	(
-		--print ("Subrollouts_v.create() "+ (this._getSubrolloutSlot()) )
+		--print ("Subrollouts_v.create()	"+ (this._getSubrolloutSlot()) )
 		for _Rollout in Rollouts do
 			_Rollout.createRollout()
 			
@@ -89,6 +89,37 @@ struct Subrollouts_v
 
 		amax widths
 	),
+
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
+     */
+    function property offset: open: pos: height: width: =
+    (
+		RolloutProperty.getOrSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
+	),
+	
+	/** Get id
+	 */
+	function getId =
+	(
+		Parent_roll.id + "." + id --return
+	),
+	
+	/** Remove _Rollout
+	 */
+	function remove _Rollout =
+	(
+		execute ( "\n RemoveSubRollout " + this.getId() + " " + _Rollout.id )
+	),
+	
+	/** 
+	 */
+	function exists =
+	(
+		Parent_roll.exists() --return
+	),
 	
 	/** Fit subrollouts
 	 */
@@ -110,37 +141,6 @@ struct Subrollouts_v
 		for _Rollout in Rollouts do
 			this._resizeRollout _Rollout
 	),
-
-	/** Set any property for rollout 
-	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
-	  *
-	  * @property	mixed	name|title|open|scrollPos|height|width
-     */
-    function property offset: open: pos: height: width: =
-    (
-		RolloutProperty.getOrSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
-	),
-	
-	/** Get id
-	 */
-	function getId =
-	(
-		Parent_roll.id + "." + id --return
-	),
-	/** Remove _Rollout
-	 */
-	function remove _Rollout =
-	(
-		execute ( "\n RemoveSubRollout " + this.getId() + " " + _Rollout.id )
-	),
-	/** 
-	  *
-	 */
-	function exists =
-	(
-		Parent_roll.exists() --return
-	),
-	
 	
 	private
 

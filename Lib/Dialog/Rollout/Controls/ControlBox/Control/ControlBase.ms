@@ -28,18 +28,18 @@
 
 	/** Value
 	 */
-	function value _value =
+	function value val =
 	(
-		print "ControlBase.ms value()"
-		format "_value = % \n" _value
-		--_Parameters.setVal name_of_value_param _value
+		--print "ControlBase.ms value()"
+		--format "val = % \n" val
+		_Parameters.setVal name_of_value_param val
 	),
 
 	/** Set param
 	 */
-	function setParam key _value =
+	function setParam key val =
 	(
-		_Parameters.setVal key _value
+		_Parameters.setVal key val
 	),
 
 	/** Set Controls Common Properties
@@ -50,7 +50,15 @@
      */
     function property enabled: title: visible: pos: height: width: columns: border: range: scale: =
     (
+		--print ("ControlBase.ms.property() " + id.id as string )
 		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
+	),
+	
+	/** Get id
+	 */
+	function getId =
+	(
+		Id.full --return
 	),
 	
 	/** Set dimensions

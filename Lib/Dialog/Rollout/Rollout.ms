@@ -73,6 +73,7 @@ struct Rollout_v
 	function createRollout =
 	(
 		--format "Rollout_v.createRollout %\n" id
+
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
@@ -81,7 +82,17 @@ struct Rollout_v
 		
 		RolloutCreator.end()
 	),
-
+	
+	/** Set any property for rollout 
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
+	  *
+	  * @property	mixed	name|title|open|scrollPos|height|width
+     */
+    function property name: title: open: scrollPos: height: width: =
+    (
+		Properties.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+	),
+	
 	/** Set rollout width if Rollout is Parent rollout 
 	  *
 	  * @return	int	width of widest element
@@ -93,16 +104,6 @@ struct Rollout_v
 		
 		-- HOTFIX WIDTH OF ROLLUTS
 		max_width + 24 --return
-	),
-	
-	/** Set any property for rollout 
-	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
-	  *
-	  * @property	mixed	name|title|open|scrollPos|height|width
-     */
-    function property name: title: open: scrollPos: height: width: =
-    (
-		Properties.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
 	),
 	
 	/** Find if rollout has been added to UI already

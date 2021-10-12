@@ -10,7 +10,7 @@ struct ControlId_v
 	Parent_Control,
 
 	/* properties */
-	--full,
+	full, -- rollout id + control id
 	
 	/** Set
 	  @return	string	
@@ -31,7 +31,7 @@ struct ControlId_v
 		--else
 		this._sanitizeId()
 		--format "id = % \n" id
-		--this._setIdFull()
+		this._setIdFull()
 	),
 	
 	/** Get
@@ -43,9 +43,9 @@ struct ControlId_v
 	
 	/** Set full id with rollout id
 	 */
-	function getIdFull =
+	function _setIdFull =
 	(
-		Parent_Control.ControlBox.Parent_roll.id +"."+id -- make without Parent_roll
+		full = Parent_Control.ControlBox.Parent_roll.id +"."+id -- make without Parent_roll
 	),
 	
 	private

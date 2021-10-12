@@ -26,10 +26,14 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 
-/* TEST PROPERTIES */ 
+
+/*
+	TEST PROPERTIES
+*/ 
 _Rollout.property	height:512
 Rollouts_1.property	height:500
 Rollout_A.property	height:400
 Subrollouts_A.property	height:300
+
 
 SubRollout_A1.property title:"Renamed" open:false

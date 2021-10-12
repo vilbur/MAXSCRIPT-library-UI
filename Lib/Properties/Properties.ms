@@ -9,12 +9,7 @@ struct Properties_v
 	
 	/* reference */
 	Parent_Control,
-	
-	keys	= #(),
-	values	= #(),
-	
-	List	= List_v keys:keys values:values,
-	
+
 	/** Set any property to rollout
 	  * According to Rollout Properties: https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
@@ -23,9 +18,9 @@ struct Properties_v
 	 */
 	function getOrSet keys values =
 	(
+		--print "Properties_v.getOrSet()"
 		keys_values = this._filterUnsuppliedParameters keys values
-		--format "Properties_v.getOrSet %\n" (Parent_Control.getId() + "." + keys_values.values[1] as string)
-
+	
 		if( Parent_Control == undefined ) then
 			return false
 		
@@ -35,6 +30,7 @@ struct Properties_v
 		keys_values.filter undefined test:false -- remove undefined items
 			
 		keys_values.getValues() -- return
+		--256
 	),
 	
 	/** _replace current or new value
@@ -60,40 +56,19 @@ struct Properties_v
 	 */
 	function _getValue key =
 	(
-		--format "Properties_v._getValue (%)\n" key
-		--List.setVal key 256 -- return
-			
+		--print "Properties_v._getValue()"
 		if ( Parent_Control.exists() ) then
 			this._getProperty key -- return
-		else
-			List.getVal key   -- return
 	),
 	
 	/** _get or set value
 	 */
 	function _setValue key value =
 	(
-		--format "Properties_v._setValue (% %)\n" key value
 		if ( Parent_Control.exists() ) then
 			this._setProperty key value -- return
-		else
-			List.setVal key value -- return
 	),	
 
-	/** Join array
-	 */
-	function join =
-	(
-		--print "Properties_v.join()"
-		_props = ""
-		
-		for k=1 to List.keys.count do
-			_props = _props + " " + List.keys[k] +":"+ List.values[k] as string
-		
-		--format " _props	= % \n" _props
-		_props --return
-	),
-	
 	--private
 
 	/** Get property
@@ -102,8 +77,6 @@ struct Properties_v
      */
     function _getProperty key =
     (
-		--format "Properties_v._getProperty (%)" key
-		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " + this._getValue key value )
 		execute ( this._getPropertyString key )
     ),
 	
@@ -113,7 +86,6 @@ struct Properties_v
      */
     function _setProperty key value =
     (
-		--format "Properties_v._setProperty() % \n" ( this._getPropertyString key + " = " +  this._getValueString key value )
 		execute ( (this._getPropertyString key )+ " = " + (this._getValueString key value) )
     ),
 
@@ -123,10 +95,10 @@ struct Properties_v
 	 */
 	function _getPropertyString key =
 	(
-		--format "Properties_v._getPropertyString %" (Parent_Control.getId() + "." + key as string)
-		Parent_Control.getId() + "." + key as string  --return
-		--Parent_Control.id + "." + key as string  --return
+		--print "Properties_v._getPropertyString()"
+		(Parent_Control.getId()) + "." + key as string  --return
 	),
+	
 	/** Get value
 	 */
 	function _getValueString key value relative:false =
@@ -171,6 +143,7 @@ struct Properties_v
 		for prop in __construct where getProperty this prop == undefined do
 			messageBox ("Undefined construct property !\n\n"+ ((filterString( classof this as string )"(:")[2]) +"."+ prop )
 	),
+	
 	on create do
 	(
 		this._checkConstctructProperties()
