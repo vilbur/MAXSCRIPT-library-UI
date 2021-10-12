@@ -52,7 +52,7 @@ struct ControlEvents_v
 		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
 			params = callback_value_name
 		
-		_EventFired = this.Events.setEventFired type (Parent_Control.id.getIdFull())
+		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
 		--format "tooltip	= % \n" tooltip
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
 		
