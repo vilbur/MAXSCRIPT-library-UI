@@ -48,10 +48,10 @@
 	  *
 	  * @property	mixed	name|title|open|scrollPos|height|width
      */
-    function property enabled: title: visible: pos: height: width: columns: border: range: scale: =
+    function property key val =
     (
-		--print ("ControlBase.ms.property() " + id.id as string )
-		Properties.getOrSet #(#enabled, #title, #visible, #pos, #height, #width, #columns, #border, #range, #scale) #(enabled, title, visible, pos, height, width, columns, border, range, scale)
+		print ("ControlBase.ms.property() " + id.id as string )
+		Properties.getOrSet #( key ) #( val )
 	),
 	
 	/** Get id
@@ -133,14 +133,13 @@
 		if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
 		(
 			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-			--format "val = % \n" val
 			
 			if( val == undefined ) then
 				return false
 			--format "type = % \n" type
 			if( type == #spinner ) then
 				val   = this. _setValueTopoint3 val
-				
+
 			_Parameters.setVal name_of_value_param val
 		)
 	),

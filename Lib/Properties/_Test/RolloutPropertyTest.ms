@@ -30,10 +30,11 @@ _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 /*
 	TEST PROPERTIES
 */ 
-_Rollout.property	height:512
-Rollouts_1.property	height:500
-Rollout_A.property	height:400
-Subrollouts_A.property	height:300
+_Rollout.property	#height 512
+Rollouts_1.property	#height 500
+Rollout_A.property	#height 400
+Subrollouts_A.property	#height 300
 
 
-SubRollout_A1.property title:"Renamed" open:false
+SubRollout_A1.property #title	"Renamed"
+SubRollout_A1.property #open	false

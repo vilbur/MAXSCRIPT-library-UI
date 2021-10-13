@@ -86,11 +86,15 @@ struct Rollout_v
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
-	  * @property	mixed	name|title|open|scrollPos|height|width
+	  * @property	mixed key #caption|#text|#enabled|#pos|#visible|#hwnd OR #get for get value
+	  * @property	mixed value
+	  *
+	  * @return mixed
      */
-    function property name: title: open: scrollPos: height: width: =
+    function property key val =
     (
-		Properties.getOrSet #(#name, #title, #open, #scrollPos, #height, #width) #(name, title, open, scrollPos, height, width)
+		print ("Rollout_v.ms.property() " + id as string )
+		Properties.getOrSet #( key ) #( val )
 	),
 	
 	/** Set rollout width if Rollout is Parent rollout 

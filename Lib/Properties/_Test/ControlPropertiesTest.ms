@@ -18,13 +18,13 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() )
 
 /** SET PROPERTY  
  */
-btn_disable.property   enabled:false
-btn_invisible.property visible:false
+btn_disable.property   #enabled false
+btn_invisible.property #visible false
 
 
 
 /** GET PROPERTY  
  */
-property_value = btn_disable.property enabled:#get
+property_value = btn_disable.property #enabled #get
 
 format "property_value	= % \n" property_value

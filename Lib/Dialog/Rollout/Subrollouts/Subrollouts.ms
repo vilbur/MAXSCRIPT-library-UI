@@ -93,13 +93,16 @@ struct Subrollouts_v
 	/** Set any property for rollout 
 	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 	  *
-	  * @property	mixed	name|title|open|scrollPos|height|width
+	  * @property	mixed key #caption|#text|#enabled|#pos|#visible|#hwnd OR #get for get value
+	  * @property	mixed value
+	  *
+	  * @return mixed
      */
-    function property offset: open: pos: height: width: =
+    function property key val =
     (
-		RolloutProperty.getOrSet #(#offset, #open, #pos, #height, #width) #(offset, open, pos, height, width)
+		print ("Subrollouts_v.ms.property() " + id as string )
+		RolloutProperty.getOrSet #( key ) #( val )
 	),
-	
 	/** Get id
 	 */
 	function getId =

@@ -11,22 +11,18 @@ _Rollout.ini	(getFilenamePath(getSourceFileName()) + getFilenameFile(getSourceFi
 
 
 /* LISTBOX  */
-Listbox = _Controls.Listbox	"Listbox" items:#("item 1", "item 2", "item 3")
-
-/* BUTTON  */
---_Button = _Controls.button "Test 1" 
+Listbox_1 = _Controls.Listbox	"Listbox 1" items:#("item 1", "item 2")
+Listbox_2 = _Controls.Listbox	"Listbox 2" items:#("item 1", "item 2", "selected") selection:3
 
 
-
-/** Grid of buttons 
- *	
- */
---for i = 1 to 8 do
-	--_Controls.button ("Button A "+i as string ) id: ("ButtonA"+i as string )
-	
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()
 
 /* CREATE DIALOG */
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
+
+
+selected = Listbox_2.property #selection #get
+
+format "selected	= % \n" selected

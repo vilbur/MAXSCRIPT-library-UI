@@ -10,6 +10,8 @@ struct Listbox_v
 	 */
 	on create do
 	(
+		name_of_value_param = #selection
+		
 		this.onCreate()
 		
 		if ( add_to_controls ) then

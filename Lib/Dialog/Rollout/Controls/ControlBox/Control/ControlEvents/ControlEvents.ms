@@ -83,7 +83,6 @@ struct ControlEvents_v
 	/** Set save to ini callback
 	  *
 	  * If control has callback which is changing value of control
-	  *
 	 */
 	function setSaveToIniCallback =
 	(
