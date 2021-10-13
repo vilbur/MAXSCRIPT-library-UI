@@ -42,7 +42,7 @@ struct Layout_v
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
 		if( dialog_height == unsupplied ) then
-			dialog_height     = (Parent_roll.property height:#get) as integer
+			dialog_height     = (Parent_roll.property #height #get) as integer
 		
 		fixed_heights     = this._getOccupiedHeights Controlboxes_and_Subrollouts
 		fixed_height      = 0; for val in fixed_heights do ( fixed_height += val )
@@ -83,7 +83,7 @@ struct Layout_v
 		
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
 		(
-			height       = Control_or_Rollout.property height:#get
+			height       = Control_or_Rollout.property #height #get
 			control_type = this._getType Control_or_Rollout
 			
 			--if( control_type != "subrollouts" or ( control_type == "subrollouts" and height != LAYOUT_FITSUBROLLOUTS_DEFAULT_HEIGHT ) ) then 

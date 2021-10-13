@@ -5,7 +5,7 @@
 	(
 		--print("LayoutSubrollouts.ms _offsetSubrollouts()")
 		
-		Subrollouts.property height:(slot_height - 4) pos:[0,offset]
+		Subrollouts.property #height (slot_height - 4) pos:[0,offset]
 		
 		offset += slot_height --return
 	),

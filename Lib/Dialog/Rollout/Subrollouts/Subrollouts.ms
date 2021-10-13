@@ -139,7 +139,8 @@ struct Subrollouts_v
 	function resize width height =
 	(
 		--format "Subrollouts_v.resize() = % \n" id
-		this.property width:width height:height
+		this.property #width  width
+		this.property #height height
 		
 		for _Rollout in Rollouts do
 			this._resizeRollout _Rollout
