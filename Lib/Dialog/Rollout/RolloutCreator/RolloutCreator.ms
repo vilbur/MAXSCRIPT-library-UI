@@ -8,8 +8,7 @@ struct RolloutCreator_v
 	id,
 	title,
 
-	/* options */
-	
+	/* properties */
 	_rolloutCreator,
 	
 	definition = " ", -- used in "rolloutCreator.addText( definition )", !!! NOTE: empty string must has whitespace, otherwise is threated as undefined 
@@ -27,6 +26,7 @@ struct RolloutCreator_v
 	 */
 	function addControl type id caption paramStr =
 	(
+		--print "RolloutCreator_v.addControl()"
 		_rolloutCreator.addControl type id caption paramStr:paramStr
 	),
 	

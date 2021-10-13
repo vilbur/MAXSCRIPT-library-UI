@@ -6,7 +6,7 @@ macroscript MacroFileTest_A
 	category:	"MacroFileTest"
 	buttontext:	"MacroFileTest A"
 	toolTip:	"Tooltip with Colon:\nand new line"
-	--icon:	"#(path, index)"
+	icon:	"#(path, index)"
 (
 	
 )
@@ -22,7 +22,6 @@ macroscript macroFileTest_cotrol_button
 	category:	"MacroFileTest"
 	buttontext:	"Button"
 	toolTip:	"Left click tooltip"
-	--icon:	"border:false"
 	icon:	"border:false"
 (
 	print "Button #pressed"
@@ -43,6 +42,8 @@ macroscript macroFileTest_cotrol_button_right
   CONTROL TYPES
 --------------------------------------------------------------------------------*/	
 
+/* CHECKBOX 
+*/ 
 macroscript macroFileTest_checkbox
 	category:	"MacroFileTest"
 	buttontext:	"Checkbox"
@@ -62,15 +63,26 @@ macroscript macroFileTest_checkbox_right
 	print "checkbox #rightclick"
 )
 	
-/*
-*/
+/* CHECKBUTTON 
+*/ 
 macroscript macroFileTest_checkbutton
 	category:	"MacroFileTest"
 	buttontext:	"Checkbutton"
 	toolTip:	"Checkbutton tooltip"
 	icon:	"type:checkbutton|highlightColor:(color 50 150 30)"
-	--icon:	"type:checkbutton"
 (
 	print "Checkbutton #test"
 	format "EventFired = % \n" EventFired.type
+)
+
+/* CHECKBUTTON 
+*/ 
+macroscript macroFileTest_checkbutton
+	category:	"MacroFileTest"
+	buttontext:	"Listbox test"
+	toolTip:	"Listbox tooltip"
+	icon:	"type:Listbox|items:#( 'item 1', 'item 2', '3' )|selection:2"
+(
+
+
 ) 

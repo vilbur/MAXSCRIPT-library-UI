@@ -22,14 +22,16 @@ struct ControlCreator_v
 		CONTROLBOX_CONTROL_CREATOR = ControlBox
 
 		ControlBox.add_to_controls = false
-
-		_Control =  execute ( "CONTROLBOX_CONTROL_CREATOR." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+Macro.getParams()+"  add_to_controls:false" )
+		
+		params = substituteString (Macro.getParams())  "'" "\""
+		
+		_Control =  execute ( "CONTROLBOX_CONTROL_CREATOR." +(Macro.getType())+" \""+Macro.buttontext+"\" id:#" +(Macro.getControlId())+" "+params+"  add_to_controls:false" )
 		
 		_Control_Exist = ControlBox.get(_Control.id.id)
-
+		
 		if( _Control_Exist != undefined ) then
 			_Control = _Control_Exist -- update existing control
-
+		
 		event_type = this._setControlEvents _Control _Control_Exist
 		
 		this._setOnClickEvent event_type _Control
@@ -67,4 +69,5 @@ struct ControlCreator_v
 	)
 	
 )
+
 

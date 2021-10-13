@@ -2,37 +2,55 @@
  */
 struct CotrolValue_v
 (
-	/* required */
-	Parent_Control,
-	
 	/* dependency */
-	/* reference */
+	Parent_Control,
 	
 	/* properties */
 	_value,
-	--name_of_value_param,
-	
-	/** Set value
+
+	/** _get value from ini
 	 */
-	function setValue _value =
+	function _getValueFromIni =
 	(
-		print "CotrolValue_v.setValue()"
-		this._value = _value
+		--print "CotrolValue_v._getValueFromIni()"
+		
+		if( this._isIniIsDefined() and Parent_Control.name_of_value_param != undefined ) then 
+			if( (val = this._loadValueFromFile()) != undefined ) then
+				Parent_Control._Parameters.setVal Parent_Control.name_of_value_param (this._convertValueForControlTye val)
 	),
 	
-	/** Get _value from ini
+	/** _if ini is defined
 	 */
-	function getValueFromIni =
+	function _isIniIsDefined =
 	(
-		print "------------\nCotrolValue_v._getValueFromIni()"
-		print "HOTFIX"
-		--format "ini = % \n" ( Parent_Control.ControlBox.Parent_roll.ini )
-		
-		--if( (ini = Parent_Control.ControlBox.Parent_roll.ini ) != undefined ) then
-		--	_value = getINISetting ini rollout_id control_id --return
-		--format "_value = % \n" _value
-		--( this._formatDatatypeValue _value ) --return
-	),	
+		Parent_Control.ControlBox.Parent_roll._Ini.isDefined() --return
+	),
+
+	/** _load value from file
+	 */
+	function _loadValueFromFile =
+	(
+		Parent_Control.ControlBox.Parent_roll._Ini.load (Parent_Control.ControlBox.Parent_roll.id) (Parent_Control.id.get()) -- return
+	),
+	
+	/** _convert value for control type
+	 */
+	function _convertValueForControlTye val =
+	(
+		if( Parent_Control.type == #spinner ) then
+			val   = this._setValueTopoint3 val
+	
+		val --return
+	),
+	
+	/** _set value topoint3
+	 */
+	function _setValueTopoint3 val =
+	(
+		range = Parent_Control._Parameters.getVal #range
+
+		[ range[1], range[2], val ] --return
+	),
 	
 	/** Format datatype of value
 	  * Put quotes around string value
@@ -99,19 +117,6 @@ struct CotrolValue_v
 			----this._getValueFromIni()
 	),
 	
-	--/** Add quotes to parameter if _value is string
-	--  * Add _value to params
-	-- */
-	--function _setValueParameter _value =
-	--(
-	--	--print "------------\nCotrolValue_v._setValueParameter()"
-	--	_Parameters.getOrSet name_of_value_param _value
-	--),
-	
-
-	private
-	
-
 	/**  
 	 */
 	on create do

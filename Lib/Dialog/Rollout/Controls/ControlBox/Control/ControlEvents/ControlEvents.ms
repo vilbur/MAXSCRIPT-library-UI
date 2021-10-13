@@ -118,7 +118,7 @@ struct ControlEvents_v
 	(
 		if( Parent_Control._Parameters.getVal #checked == true ) then
 		(
-			EventFired_true = this.Events.setEventFired type (Parent_Control.id.getIdFull()) val:true -- simulate event fired
+			EventFired_true = this.Events.setEventFired type Parent_Control.id.full val:true -- simulate event fired
 
 			appendIfUnique STARTUP_EVENTS (EventFired_true+callback)
 		)

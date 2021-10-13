@@ -15,7 +15,7 @@
 	Menu,
 	Id,
 
-	--CotrolValue = CotrolValue_v   Parent_Control:this,
+	CotrolValue = CotrolValue_v   Parent_Control:this,
 	Events      = ControlEvents_v	Parent_Control:this,
 	Properties  = Properties_v	Parent_Control:this,
 	_Parameters = Params_v(),
@@ -50,7 +50,7 @@
      */
     function property key val =
     (
-		print ("ControlBase.ms.property() " + id.id as string )
+		--print ("ControlBase.ms.property() " + id.id as string )
 		Properties.getOrSet #( key ) #( val )
 	),
 	
@@ -184,7 +184,8 @@
 		
 		_Parameters.setValues init_parameters[1] init_parameters[2]
 
-		this._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
+		--this._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
+		this.CotrolValue._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
 			
 	),
 	

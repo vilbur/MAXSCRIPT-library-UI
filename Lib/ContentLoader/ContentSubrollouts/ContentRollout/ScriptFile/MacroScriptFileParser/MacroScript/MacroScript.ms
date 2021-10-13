@@ -43,29 +43,18 @@ struct MacroScript_Content_v
 		else
 			"button"
 	),
-	
-	/** _get matches
-	 */
-	function _getMatches string pattern ignorecase:true =
-	(
-		rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
-		rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
-		
-		matches = if (ignorecase) then rx.matches string pattern rx_options.IgnoreCase else rx.matches string pattern 
-		
-		(for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].value )) --return
-	),
-	
+
 	/** Parse string of icon property
 	  *
 	  *
 	  * @return	string passed to methods in ControlBoxControlTypes E.G.: "columns: pos:"
-	  --* @return	2D matrix of keys and values E.G.: #( #(#border, #tooltip), #(true, "Foo tooltip") )	
+	  * @return	2D matrix of keys and values E.G.: #( #("checked:true", "checked", "true"), #("border:false", "border", "false") )	
 	 */
 	function getParams =
 	(
+		--print "MacroScript_Content_v.getParams()"
 		init_params_string = ""
-		
+
 		for param in (this.splitParams()) where param[2] != "type" do
 			init_params_string += param[2] as string +":"+ param[3]+" "
 
@@ -80,7 +69,18 @@ struct MacroScript_Content_v
 	(
 		this._getMatches icon "(\w+):([^\|]+)"
 	),
-
+	
+	/** _get matches
+	 */
+	function _getMatches string pattern ignorecase:true =
+	(
+		rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
+		rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
+		
+		matches = if (ignorecase) then rx.matches string pattern rx_options.IgnoreCase else rx.matches string pattern 
+		
+		(for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].value )) --return
+	),
 	
 	/**  
 	 */

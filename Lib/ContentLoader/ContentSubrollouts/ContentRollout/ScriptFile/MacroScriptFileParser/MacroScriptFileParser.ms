@@ -79,7 +79,6 @@ struct MacroScriptFileParser_v
 		setProperty MacroScript_last key (this._joinAndSanitizeValues (deleteItem key_value 1))
 		--format "MacroScript_last = % \n" MacroScript_last
 	),
-
 	
 	/** Find if line start with "MacroScript <macro_name>"
 	 */
@@ -106,18 +105,11 @@ struct MacroScriptFileParser_v
 		(filterString line " 	")[2] --return
 	),
 	
-
-	
 	/** Join and sanitize values
 	 */
 	function _joinAndSanitizeValues values =
 	(
 		this._stripQuotes ( this._trimWhiteSpace (this._joinValues values) )
-		--sanitized = this._stripQuotes ( this._trimWhiteSpace (this._joinValues values) )
-		--
-		--format "sanitized	= % \n" sanitized
-		--
-		--sanitized --return
 	),
 	
 	/** Join values

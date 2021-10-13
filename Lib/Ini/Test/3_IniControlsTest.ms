@@ -25,7 +25,7 @@ _Controls = Rollout_A.Controls.new()
 
 
 /* SPINNER  */
---_Controls.spinner	"Spinner int"   range:[0,9,99]
+_Controls.spinner	"Spinner int"   range:[0,9,99]
 --_Controls.spinner	"Spinner float" range:[0,999,999.0] type:#float
 --_Controls.spinner	"Test Spinner" 
 
@@ -39,7 +39,7 @@ _Controls = Rollout_A.Controls.new()
 
 
 /* PATH  */
-BrowsePath = _Controls.BrowsePath	"Browse"
+--BrowsePath = _Controls.BrowsePath	"Browse"
 
 /**  Set ini path 
  *	
