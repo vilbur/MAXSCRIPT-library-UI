@@ -42,6 +42,13 @@ function checkbutton caption id: columns: pos: height: width: align: offset: acr
 
 /*
 */
+function listbox caption id: columns: pos: height: width: align: offset: across: toolTip: selection: items: readOnly:  =
+(
+	listbox_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #selection, #items, #readOnly), #(columns, pos, height, width, align, offset, across, toolTip, selection, items, readOnly))
+),
+
+/*
+*/
 function browsePath caption id: columns: pos: height: width: align: offset: across: toolTip: text: fieldwidth: initialDir:  =
 (
 	browsePath_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #text, #fieldwidth, #initialDir), #(columns, pos, height, width, align, offset, across, toolTip, text, fieldwidth, initialDir))
