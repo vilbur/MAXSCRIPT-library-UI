@@ -18,21 +18,31 @@ struct ControlEvents_v
 
 	Parent_Control,
 	
+	/* Properties */ 
 	callback_value_name = "val", -- literal name of value passed to callback e.g.: callbackfn(value)
+	
+	event_types = List_v(),
 
+	save_to_ini_events = #( #changed, #selected ),
+
+	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox ),
+	
+	control_types_events = #(
+		#( ),
+		#( #pressed, #rightclick ),
+		#( #changed, #rightclick ),
+		#( #changed, #rightclick ),
+		#( #changed, #entered, #buttondown, #buttonup ),
+		#( #changed ),
+		#( #selected, #doubleClicked, #rightClick )),
+
+	
 	/** Set event types available for each type of control
 	 */
 	function setEventTypes =
 	(
-		--format "ControlEvents_v.setEventTypes %\n" Parent_Control.type
-		event_types = List_v()
-		
-		event_types.setVal #label       #( )
-		event_types.setVal #button      #( #pressed, #rightclick )
-		event_types.setVal #checkbox    #( #changed, #rightclick )
-		event_types.setVal #checkbutton #( #changed, #rightclick )
-		event_types.setVal #spinner     #( #changed, #entered, #buttondown, #buttonup )
-		event_types.setVal #edittext    #( #changed )
+		event_types.keys	= control_types
+		event_types.values	= control_types_events
 		
 		Events.event_types = (event_types.getVal Parent_Control.type)
 	),
@@ -71,14 +81,26 @@ struct ControlEvents_v
 	),
 	
 	/** Set save to ini callback
+	  *
+	  * If control has callback which is changing value of control
+	  *
 	 */
 	function setSaveToIniCallback =
 	(
 		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
-		if( this._iniFileIsDefined() and Events.event_types != undefined ) then
-			this.Events.setDefaultEvent(Event_v type:#changed code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
-	),
 
+		if( this._iniFileIsDefined() ) then
+			for dynamic_event_type in (this._getSaveiniEventType()) do 
+				this.Events.setDefaultEvent(Event_v type:dynamic_event_type code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
+	),
+	
+	/** Get saveini event type
+	 */
+	function _getSaveiniEventType =
+	(
+		for event_type in Events.event_types where findItem save_to_ini_events event_type > 0 collect event_type 
+	),
+	
 	/** Add handlers
 	  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
 	 */
