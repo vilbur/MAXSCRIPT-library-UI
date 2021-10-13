@@ -1,7 +1,21 @@
 clearListener()
 
-
-/** Generate methods for control types above
+/**
+ *	
+ *	
+ *	
+ *	!!!!!!!!! NOTES FOR ADDING NEW TYPE OF CONTROL !!!
+ *	
+ *	1) Add control type to array PARAM_COMMON
+ *	
+ *	2) Add parameters to PARAMS_BY_TYPE array
+ *	
+ *	3) Add Events to file "../Control/ControlEvents/ControlEvents.ms"
+ *	
+ *	
+ *	
+ *	
+ *	Generate methods for control types
  * 
  * Control Types: https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
  * 
@@ -19,44 +33,45 @@ function writeControlTypesFile =
 	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #browsePath )
+	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #listbox, #browsePath )
 	
 	
 	param_custom = #( #columns )  
-	param_shared = #( #toolTip )  
-	param_common = #( #pos, #height, #width, #align, #offset, #across )  -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
+	param_shared = #( #tooltip )  
+	PARAM_COMMON = #( #pos, #height, #width, #align, #offset, #across ) -- this array are KEYS for PARAMS_BY_TYPE -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
 	
-	params_by_type	= #(
-			#( #images, #border )                                                                 -- button
-		   ,#( #style_sunkenedge )                                                                -- label
-		   
-		   /* Default controls with kind of "value" parameter */ 
-		   ,#( #checked,#triState )                                                               -- checkbox	
-		   ,#( #range,  #type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets )-- spinner	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
-		   ,#( #text,   #fieldwidth, #bold, #labelOnTop, #readOnly )                              -- edittext	
-		   ,#( #checked,#highlightColor, #images )                                                -- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
-		   
-		   /* Custom compounded controls */ 
-		   ,#( #text,   #fieldwidth, #initialDir )                                                -- browsePath
-		 )
+	PARAMS_BY_TYPE = #(
+		#( #images, #border )	-- button
+		,#( #style_sunkenedge )	-- label
+		
+		/* Default controls with kind of "value" parameter */
+		,#( #checked,	#triState )	-- checkbox
+		,#( #range,	#type, #scale, #fieldwidth, #Indeterminate, #controller, #setKeyBrackets )	-- spinner	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_E421933F_958E_42FD_80A1_D66F2A2C0A06_htm
+		,#( #text,	#fieldwidth, #bold, #labelOnTop, #readOnly )                              	-- edittext	
+		,#( #checked,	#highlightColor, #images )	-- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
+		,#( #selection,	#items, #readOnly )	-- Listbox	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
+		
+		/* Custom compounded controls */ 
+		,#( #text, #fieldwidth, #initialDir )                                                -- browsePath
+	)
 
-	params_defaults = param_custom + param_common + param_shared
+	params_defaults = param_custom + PARAM_COMMON + param_shared
 	
 	--params_all = #()
 	--
-	--for param_by_type in params_by_type do 
+	--for param_by_type in PARAMS_BY_TYPE do 
 	--	params_all += param_by_type
 	
 		
-	--params_by_type = join #(makeUniqueArray params_all) params_by_type
-	--format "params_by_type = % \n" params_by_type
+	--PARAMS_BY_TYPE = join #(makeUniqueArray params_all) PARAMS_BY_TYPE
+	--format "PARAMS_BY_TYPE = % \n" PARAMS_BY_TYPE
 	
 	for i = 1 to control_types.count do
 	(
 		format "control_types[i] = % \n" control_types[i]
-		format "params_by_type[i] = % \n" params_by_type[i]
+		format "PARAMS_BY_TYPE[i] = % \n" PARAMS_BY_TYPE[i]
 		
-		params_keys_array = params_defaults + params_by_type[i]
+		params_keys_array = params_defaults + PARAMS_BY_TYPE[i]
 		
 		
 		params_passed = ""

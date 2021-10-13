@@ -44,8 +44,12 @@ _Controls.checkbutton	"Checkbutton"
 _Controls.edittext	"Edit Text" 
 
 
-/* PATH  */
+/* BROWSEPATH  */
 BrowsePath = _Controls.BrowsePath	"Get Dir" columns:16 
+
+/* LISTBOX  */
+Listbox = _Controls.Listbox	"Listbox"
+
 
 
 /** Grid of buttons 
