@@ -75,14 +75,31 @@ macroscript macroFileTest_checkbutton
 	format "EventFired = % \n" EventFired.type
 )
 
-/* CHECKBUTTON 
+/* LISTBOX
+ *  
+ *  On item selected
 */ 
-macroscript macroFileTest_checkbutton
+macroscript macroFileTest_Listbox
 	category:	"MacroFileTest"
 	buttontext:	"Listbox test"
-	toolTip:	"Listbox tooltip"
+	toolTip:	"Listbox on selected"
 	icon:	"type:Listbox|items:#( 'item 1', 'item 2', '3' )|selection:2"
 (
+	format "EventFired	= % \n" EventFired
+	print "Item selected"
+)
 
 
+/* LISTBOX
+ *  
+ *  On item doubleclick
+*/ 
+macroscript macroFileTest_Listbox_rightclick
+	category:	"MacroFileTest"
+	buttontext:	"Listbox test"
+	toolTip:	"Listbox on rightclick"
+	icon:	"type:Listbox"
+(
+	format "EventFired	= % \n" EventFired
+	print "Item doubleclicked"
 ) 

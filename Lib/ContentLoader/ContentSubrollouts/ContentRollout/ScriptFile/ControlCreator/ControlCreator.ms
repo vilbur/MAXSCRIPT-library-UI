@@ -32,8 +32,8 @@ struct ControlCreator_v
 		if( _Control_Exist != undefined ) then
 			_Control = _Control_Exist -- update existing control
 		
-		event_type = this._setControlEvents _Control _Control_Exist
-		
+		event_type = this._setControlEvent _Control _Control_Exist
+
 		this._setOnClickEvent event_type _Control
 		
 		if not( _Control == _Control_Exist ) then -- add only new control
@@ -42,9 +42,11 @@ struct ControlCreator_v
 
 	private
 	
-	/** Set control events
+	/** Set control event
+	  *
+	  * @return	#event_type	E.G.: #pressed|#righclick|#selected
 	 */
-	function _setControlEvents _Control _Control_Exist =
+	function _setControlEvent _Control _Control_Exist =
 	(
 		event_type_index = if (_Control == _Control_Exist) then 2 else 1
 		

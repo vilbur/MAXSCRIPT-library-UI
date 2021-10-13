@@ -59,16 +59,23 @@ struct ControlEvents_v
 	function setEvent type callback tooltip params:"" =
 	(
 		--format "\nControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
-		if( (type == #changed or type == #entered or type == #buttonup  or type == #buttondown   ) and params == "" ) then 
+		if( ( this._eventHasValue type ) and params == "" ) then 
 			params = callback_value_name
 		
 		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
-		--format "tooltip	= % \n" tooltip
+
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
 		
 		this._addToStartupEvents type callback
 		
 		Parent_Control --return
+	),
+	
+	/** Test if callback has value
+	 */
+	function _eventHasValue type =
+	(
+		type == #changed or type == #entered or type == #buttonup  or type == #buttondown  or type == #selected or type == #doubleClicked --return
 	),
 	
 	/** Set default event, save to ini if ini is defined in rollout
