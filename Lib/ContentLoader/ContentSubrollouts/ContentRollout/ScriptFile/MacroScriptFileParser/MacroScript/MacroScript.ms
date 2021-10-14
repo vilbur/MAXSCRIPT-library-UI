@@ -8,11 +8,19 @@
   */
 struct MacroScript_Content_v
 (
+	
+	/* Properties of macroscript */ 
 	macro_name,
 	category,
 	buttontext,
 	tooltip = "",
 	icon    = "",
+	
+	private
+	
+	params_split,
+	
+	public
 	
 	/** Get id of control
 	  *
@@ -55,11 +63,36 @@ struct MacroScript_Content_v
 		--print "MacroScript_Content_v.getParams()"
 		init_params_string = ""
 
-		for param in (this.splitParams()) where param[2] != "type" do
+		this._setSplitParams()
+		
+		for param in params_split where param[2] != "type" do
 			init_params_string += param[2] as string +":"+ param[3]+" "
 
 		init_params_string --return
 	),
+	
+	/** Get param
+	 */
+	function getParam param_get =
+	(
+		print "MacroScript_Content_v.getParam()"
+		this._setSplitParams()
+
+		params = for param in params_split where param[2] == ( param_get as string ) collect param
+
+		if( params.count > 0 ) then
+			params[1][3] --return
+	),
+	
+	
+	/** Set split params
+	 */
+	function _setSplitParams =
+	(
+		if( params_split == undefined ) then
+			params_split = this.splitParams()
+	),
+
 	
 	/** Split params in icon parameter by pipe "|" E.G.: "type:checkbox|checked:true|border:false"
 	  *

@@ -1,7 +1,7 @@
 
 /*------------------------------------------------------------------------------
 	BUTTON
-------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------*/
 macroscript MacroFileTest_A
 	category:	"MacroFileTest"
 	buttontext:	"MacroFileTest A"
@@ -9,6 +9,19 @@ macroscript MacroFileTest_A
 	icon:	"#(path, index)"
 (
 	print "Button MacroFileTest A #pressed"
+
+)
+
+/*------------------------------------------------------------------------------
+	BUTTON - SET EVENT DIRECTLY
+----------------------------------------------------------------------------*/
+macroscript MacroFileTest_button_Rightclick
+	category:	"MacroFileTest"
+	buttontext:	"Rightclick test"
+	toolTip:	"Tooltip with Colon:\nand new line"
+	icon:	"event:rightClick"
+(
+	print "Button Rightclick #rightclick"
 
 )
 
