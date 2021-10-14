@@ -78,9 +78,17 @@ struct Rollout_v
 			Controlbox_or_Subrollouts.create()
 		
 		--if( this._isSubrollout() == true ) then 
-			Events._addHandlers()
+		Events._addHandlers()
 		
-		RolloutCreator.end()
+		try
+		(
+			/*------ PREVENT adding same control again ------*/
+			RolloutCreator.end()
+		)
+		catch(
+			messageBox (getCurrentException()) beep:false
+			return false
+		)
 	),
 	
 	/** Set any property for rollout 
@@ -93,7 +101,7 @@ struct Rollout_v
      */
     function property key val =
     (
-		print ("Rollout_v.ms.property() " + id as string )
+		--print ("Rollout_v.ms.property() " + id as string )
 		Properties.getOrSet #( key ) #( val )
 	),
 	

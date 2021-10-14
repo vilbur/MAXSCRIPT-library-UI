@@ -100,7 +100,7 @@ struct Subrollouts_v
      */
     function property key val =
     (
-		print ("Subrollouts_v.ms.property() " + id as string )
+		--print ("Subrollouts_v.ms.property() " + id as string )
 		RolloutProperty.getOrSet #( key ) #( val )
 	),
 	/** Get id
@@ -154,7 +154,14 @@ struct Subrollouts_v
 	function _addSubRollout _Rollout =
 	(
         --print("Subrollouts._addSubRollout() " + _Rollout.title )
-		execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + (this._getIniRolledUp _Rollout) as string )
+		try
+		(
+			/*------ IF ERROR in Rollout_v.createRollout() then error occur here to ------*/
+			execute ( "\n AddSubRollout " + this.getId() + " " + _Rollout.id + " rolledUp:" + (this._getIniRolledUp _Rollout) as string )
+		)
+		catch(
+			messageBox (getCurrentException()) beep:false
+		)
 
 		_Rollout.addSubRollouts()
 	),
