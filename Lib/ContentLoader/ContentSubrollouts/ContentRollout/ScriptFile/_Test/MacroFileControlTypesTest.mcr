@@ -1,14 +1,15 @@
 
 /*------------------------------------------------------------------------------
 	BUTTON
---------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------*/
 macroscript MacroFileTest_A
 	category:	"MacroFileTest"
 	buttontext:	"MacroFileTest A"
 	toolTip:	"Tooltip with Colon:\nand new line"
 	icon:	"#(path, index)"
 (
-	
+	print "Button MacroFileTest A #pressed"
+
 )
 
 
@@ -39,10 +40,11 @@ macroscript macroFileTest_cotrol_button_right
 	
 
 /*------------------------------------------------------------------------------
-  CONTROL TYPES
+  CHECKBOX
 --------------------------------------------------------------------------------*/	
 
-/* CHECKBOX 
+
+/*  
 */ 
 macroscript macroFileTest_checkbox
 	category:	"MacroFileTest"
@@ -63,7 +65,13 @@ macroscript macroFileTest_checkbox_right
 	print "checkbox #rightclick"
 )
 	
-/* CHECKBUTTON 
+
+
+/*------------------------------------------------------------------------------
+  CHECKBUTTON
+--------------------------------------------------------------------------------*/	
+
+/*  
 */ 
 macroscript macroFileTest_checkbutton
 	category:	"MacroFileTest"
@@ -75,9 +83,14 @@ macroscript macroFileTest_checkbutton
 	format "EventFired = % \n" EventFired.type
 )
 
-/* LISTBOX
- *  
- *  On item selected
+
+
+
+/*------------------------------------------------------------------------------
+  LISTBOX
+--------------------------------------------------------------------------------*/	
+
+/* On item selected
 */ 
 macroscript macroFileTest_Listbox
 	category:	"MacroFileTest"
@@ -90,9 +103,7 @@ macroscript macroFileTest_Listbox
 )
 
 
-/* LISTBOX
- *  
- *  On item doubleclick
+/* On item doubleclick
 */ 
 macroscript macroFileTest_Listbox_rightclick
 	category:	"MacroFileTest"
@@ -102,4 +113,37 @@ macroscript macroFileTest_Listbox_rightclick
 (
 	format "EventFired	= % \n" EventFired
 	print "Item doubleclicked"
-) 
+)
+
+
+
+/*------------------------------------------------------------------------------
+  MULTILISTBOX
+--------------------------------------------------------------------------------*/	
+
+/* On item selected
+*/ 
+macroscript macroFileTest_Listbox
+	category:	"MacroFileTest"
+	buttontext:	"Multilistbox test"
+	toolTip:	"Multilistbox on selected"
+	icon:	"type:Multilistbox|items:#( 'item 1', 'item 2', '3' )|selection:2"
+(
+	format "EventFired	= % \n" EventFired
+	print "Item selected"
+)
+
+
+/* On item doubleclick
+*/ 
+macroscript macroFileTest_Listbox_rightclick
+	category:	"MacroFileTest"
+	buttontext:	"Multilistbox test"
+	toolTip:	"Multilistbox on rightclick"
+	icon:	"type:Multilistbox"
+(
+	format "EventFired	= % \n" EventFired
+	print "Item doubleclicked"
+)
+
+

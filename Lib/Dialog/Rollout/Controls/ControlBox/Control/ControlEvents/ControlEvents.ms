@@ -65,7 +65,7 @@ struct ControlEvents_v
 		this._addFunctionBrackets &callback type
 		
 		this._setCallbackParamter &params type
-
+		--format "callback	= % \n" callback
 		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
 
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
@@ -79,10 +79,15 @@ struct ControlEvents_v
 	 */
 	function _addFunctionBrackets &callback type =
 	(
-		match = if( this._eventHasValue type ) then "("+callback_value_name+")" else "()" -- "(val)" or "()"
+		--format "ControlEvents_v._addFunctionBrackets	= % \n" callback
 		
-		if not( matchPattern callback pattern:("*"+match) ) then
-			callback += match
+		if not( matchPattern callback pattern:"macros.run*" ) then 
+		(
+			match = if( this._eventHasValue type ) then "("+callback_value_name+")" else "()" -- "(val)" or "()"
+			
+			if not( matchPattern callback pattern:("*"+match) ) then
+				callback += match
+		)
 	),
 	
 	/** Set callback paramter
@@ -92,7 +97,7 @@ struct ControlEvents_v
 		if( ( this._eventHasValue type ) and params == "" ) then 
 			params = callback_value_name
 			
-		params
+		--params
 	),
 	
 	/** Test if callback has value
