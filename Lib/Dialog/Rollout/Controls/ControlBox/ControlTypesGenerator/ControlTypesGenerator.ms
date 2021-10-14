@@ -10,7 +10,7 @@ clearListener()
  *	
  *	2) Add parameters to PARAMS_BY_TYPE array
  *	
- *	3) Add Events to file "../Control/ControlEvents/ControlEvents.ms"
+ *	3) Edit arrays: control_types_events, control_types, events_with_param in file "../Control/ControlEvents/ControlEvents.ms"
  *	
  *	
  *	
@@ -33,7 +33,7 @@ function writeControlTypesFile =
 	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #listbox, #browsePath )
+	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #listbox, #multiListBox, #browsePath )
 	
 	
 	param_custom = #( #columns )  
@@ -50,6 +50,7 @@ function writeControlTypesFile =
 		,#( #text,	#fieldwidth, #bold, #labelOnTop, #readOnly )                              	-- edittext	
 		,#( #checked,	#highlightColor, #images )	-- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
 		,#( #selection,	#items, #readOnly )	-- Listbox	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
+		,#( #selection,	#items )	-- Multilistbox	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DBFFD89F_A6DD_46DC_BE74_5B8CEEA5402C_htm
 		
 		/* Custom compounded controls */ 
 		,#( #text, #fieldwidth, #initialDir )                                                -- browsePath

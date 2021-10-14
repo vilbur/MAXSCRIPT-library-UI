@@ -49,6 +49,13 @@ function listbox caption id: columns: pos: height: width: align: offset: across:
 
 /*
 */
+function multiListBox caption id: columns: pos: height: width: align: offset: across: toolTip: selection: items:  =
+(
+	multiListBox_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #selection, #items), #(columns, pos, height, width, align, offset, across, toolTip, selection, items))
+),
+
+/*
+*/
 function browsePath caption id: columns: pos: height: width: align: offset: across: toolTip: text: fieldwidth: initialDir:  =
 (
 	browsePath_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:#(#(#columns, #pos, #height, #width, #align, #offset, #across, #toolTip, #text, #fieldwidth, #initialDir), #(columns, pos, height, width, align, offset, across, toolTip, text, fieldwidth, initialDir))

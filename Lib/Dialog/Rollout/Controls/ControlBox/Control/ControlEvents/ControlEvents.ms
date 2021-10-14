@@ -25,7 +25,9 @@ struct ControlEvents_v
 
 	save_to_ini_events = #( #changed, #selected ),
 
-	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox ),
+	events_with_param = #( #changed, #entered, #buttonup, #buttondown, #doubleClicked, #selected ),
+	
+	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox, #multilistbox  ),
 	
 	control_types_events = #(
 		#( ),
@@ -34,7 +36,8 @@ struct ControlEvents_v
 		#( #changed, #rightclick ),
 		#( #changed, #entered, #buttondown, #buttonup ),
 		#( #changed ),
-		#( #selected, #doubleClicked, #rightClick )),
+		#( #selected, #doubleClicked, #rightClick ),
+		#( #selected, #doubleClicked, #rightClick, #selectionEnd )),
 
 	
 	/** Set event types available for each type of control
@@ -59,9 +62,10 @@ struct ControlEvents_v
 	function setEvent type callback tooltip params:"" =
 	(
 		--format "\nControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
-		if( ( this._eventHasValue type ) and params == "" ) then 
-			params = callback_value_name
+		this._addFunctionBrackets &callback type
 		
+		this._setCallbackParamter &params type
+
 		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
 
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
@@ -71,11 +75,31 @@ struct ControlEvents_v
 		Parent_Control --return
 	),
 	
+	/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
+	 */
+	function _addFunctionBrackets &callback type =
+	(
+		match = if( this._eventHasValue type ) then "("+callback_value_name+")" else "()" -- "(val)" or "()"
+		
+		if not( matchPattern callback pattern:("*"+match) ) then
+			callback += match
+	),
+	
+	/** Set callback paramter
+	 */
+	function _setCallbackParamter &params type =
+	(
+		if( ( this._eventHasValue type ) and params == "" ) then 
+			params = callback_value_name
+			
+		params
+	),
+	
 	/** Test if callback has value
 	 */
 	function _eventHasValue type =
 	(
-		type == #changed or type == #entered or type == #buttonup  or type == #buttondown  or type == #selected or type == #doubleClicked --return
+		findItem events_with_param type > 0 --return
 	),
 	
 	/** Set default event, save to ini if ini is defined in rollout
