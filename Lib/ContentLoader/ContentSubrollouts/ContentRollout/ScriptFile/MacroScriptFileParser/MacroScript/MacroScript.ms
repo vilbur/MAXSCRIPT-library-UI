@@ -75,7 +75,7 @@ struct MacroScript_Content_v
 	 */
 	function getParam param_get =
 	(
-		print "MacroScript_Content_v.getParam()"
+		--print "MacroScript_Content_v.getParam()"
 		this._setSplitParams()
 
 		params = for param in params_split where param[2] == ( param_get as string ) collect param

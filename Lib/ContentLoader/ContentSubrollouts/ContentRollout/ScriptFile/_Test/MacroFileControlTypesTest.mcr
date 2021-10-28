@@ -81,6 +81,23 @@ macroscript macroFileTest_checkbox_right
 
 
 /*------------------------------------------------------------------------------
+  BROWSE PATH
+--------------------------------------------------------------------------------*/	
+
+/*  
+*/ 
+macroscript macroFileTest_browsepath
+	category:	"MacroFileTest"
+	buttontext:	"BrowsePath"
+	toolTip:	"BrowsePath tooltip"
+	icon:	"type:BrowsePath|width:256 "
+(
+	print "BrowsePath test"
+	format " EventFired.value = % \n"  EventFired.value
+)
+
+
+/*------------------------------------------------------------------------------
   CHECKBUTTON
 --------------------------------------------------------------------------------*/	
 
@@ -95,7 +112,6 @@ macroscript macroFileTest_checkbutton
 	print "Checkbutton #test"
 	format "EventFired = % \n" EventFired.type
 )
-
 
 
 

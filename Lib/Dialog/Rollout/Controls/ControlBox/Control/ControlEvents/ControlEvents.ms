@@ -27,23 +27,26 @@ struct ControlEvents_v
 
 	events_with_param = #( #changed, #entered, #buttonup, #buttondown, #doubleClicked, #selected ),
 	
-	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox, #multilistbox  ),
+	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #browsePath, #listbox, #multilistbox  ),
 	
 	control_types_events = #(
-		#( ),
-		#( #pressed, #rightclick ),
-		#( #changed, #rightclick ),
-		#( #changed, #rightclick ),
-		#( #changed, #entered, #buttondown, #buttonup ),
-		#( #changed ),
-		#( #selected, #doubleClicked, #rightClick ),
-		#( #selected, #doubleClicked, #rightClick, #selectionEnd )),
+		#( ),	-- #label
+		#( #pressed, #rightclick ),	-- #button
+		#( #changed, #rightclick ),	-- #checkbox
+		#( #changed, #rightclick ),	-- #checkbutton
+		#( #changed, #entered, #buttondown, #buttonup ),	-- #spinner
+		#( #changed ),	-- #edittext
+		#( #changed ),	-- #browsePath
+		#( #selected, #doubleClicked, #rightClick ),	-- #listbox
+		#( #selected, #doubleClicked, #rightClick, #selectionEnd ) ),	-- #multilistbox
 
 	
 	/** Set event types available for each type of control
 	 */
 	function setEventTypes =
 	(
+		--format "ControlEvents_v.setEventTypes	= % \n" Parent_Control.type
+
 		event_types.keys	= control_types
 		event_types.values	= control_types_events
 		
