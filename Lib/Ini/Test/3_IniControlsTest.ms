@@ -25,7 +25,7 @@ _Controls = Rollout_A.Controls.new()
 
 
 /* SPINNER  */
-_Controls.spinner	"Spinner int"   range:[0,9,99]
+--_Controls.spinner	"Spinner int"   range:[0,9,99]
 --_Controls.spinner	"Spinner float" range:[0,999,999.0] type:#float
 --_Controls.spinner	"Test Spinner" 
 
@@ -35,11 +35,13 @@ _Controls.spinner	"Spinner int"   range:[0,9,99]
 
 
 /* EDITTEXT  */
---_Controls.edittext	"Edit Text" 
+--_EditText = _Controls.edittext	"Edit Text" 
 
 
 /* PATH  */
---BrowsePath = _Controls.BrowsePath	"Browse"
+--BrowsePath = _Controls.BrowsePath	"Browse test" columns:14
+
+--format "_Controls.Controls.count	= % \n" _Controls.Controls.count
 
 /**  Set ini path 
  *	
@@ -57,3 +59,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
 --SubRollouts.property height:256
+  

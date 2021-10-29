@@ -3,7 +3,7 @@ filein( getFilenamePath(getSourceFileName()) + "/EventFired/EventFired.ms" )
 
 global STARTUP_EVENTS = #() -- run callbacks of controls like checkbox, checkbutton on UI start
 
-/** ControlEvents_v
+/** ControlEvents_v 
  *
  * DEFAULT CALLBACKS:
  *		1) Fire global variable EventFired = EventFired_v
@@ -19,40 +19,59 @@ struct ControlEvents_v
 	Parent_Control,
 	
 	/* Properties */ 
-	callback_value_name = "val", -- literal name of value passed to callback e.g.: callbackfn(value)
+	--callback_value_name = "val", -- literal name of value passed to callback e.g.: callbackfn(value)
 	
-	event_types = List_v(),
+	--event_types = List_v(),
 
-	save_to_ini_events = #( #changed, #selected ),
+	save_to_ini_events = #( #changed, #selected ), -- this events fires default save to ini callback
 
-	events_with_param = #( #changed, #entered, #buttonup, #buttondown, #doubleClicked, #selected ),
+	--events_with_val_param = #( #changed, #entered, #buttonup, #doubleClicked, #selected ), -- events with "val" parameter
 	
 	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #browsePath, #listbox, #multilistbox  ),
 	
+	
+	/* If event is array then it has "val" param
+	*
+	* Other items in array defines additional params for event
+	*
+	*/ 
 	control_types_events = #(
-		#( ),	-- #label
-		#( #pressed, #rightclick ),	-- #button
-		#( #changed, #rightclick ),	-- #checkbox
-		#( #changed, #rightclick ),	-- #checkbutton
-		#( #changed, #entered, #buttondown, #buttonup ),	-- #spinner
-		#( #changed ),	-- #edittext
-		#( #changed ),	-- #browsePath
-		#( #selected, #doubleClicked, #rightClick ),	-- #listbox
-		#( #selected, #doubleClicked, #rightClick, #selectionEnd ) ),	-- #multilistbox
+		#( ),			-- #label	
+		#( #pressed,	#rightclick ),		-- #button	
+		#( #(#changed, "val"),	#rightclick  ),		-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
+		#( #(#changed),	#rightclick ),		-- #checkbutton	
+		#( #(#changed, "val inSpin_arg"),	#entered, #buttondown, #buttonup ),		-- #spinner	
+		#( #(#changed),	#entered ),		-- #edittext	
+		#( #(#changed),	#entered ),		-- #browsePath	
+		#( #selected,	#doubleClicked, #rightClick ),		-- #listbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
+		#( #selected,	#doubleClicked, #rightClick, #selectionEnd ) ),		-- #multilistbox	
 
+	
 	
 	/** Set event types available for each type of control
 	 */
 	function setEventTypes =
-	(
-		--format "ControlEvents_v.setEventTypes	= % \n" Parent_Control.type
-
-		event_types.keys	= control_types
-		event_types.values	= control_types_events
+	(		
+		events_of_control = control_types_events[findItem control_types Parent_Control.type]
 		
-		Events.event_types = (event_types.getVal Parent_Control.type)
+		--for event_type in events_of_control do
+		--	append Events.event_types ( if( classOf event_type == Array ) then event_type[1] else event_type )
+		
+		Events.event_types = for event_type in events_of_control collect
+			if( classOf event_type == Array ) then event_type[1] else event_type
+
+		
+		Events.event_params = for event_type in events_of_control where classOf event_type == Array collect event_type
+
+		--for i = 1 to Events.event_params.count where classOf Events.event_params[i] == Array do
+		--	format "Events.event_params[i]	= % \n" Events.event_params[i]
+		--	--Events.event_types[i] = Events.event_params[i][1]
+		--
+		format "Events.event_types	= % \n" Events.event_types
+		format "Events.event_params	= % \n" Events.event_params
+		
 	),
-	
+
 	/** Set event by type
 	  * 
 	  * @property	#name	type	of callback #pressed|#rightclick|#changed|#entered|#buttondown|#buttonup 
@@ -64,57 +83,89 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
-		--format "\nControlEvents_v.setEvent type:% callback:% tooltip:%\n" type callback tooltip
-		this._addFunctionBrackets &callback type
+		format "\nControlEvents_v.setEvent type:% callback:\"%\" tooltip:\"%\" params:%\n" type callback tooltip params
+		--format "Events.event_types	= % \n" Events.event_types
+		
+		--if( findItem Events.event_types type == 0 ) then 
+			--this._exception()
 		
 		this._setCallbackParamter &params type
-		--format "callback	= % \n" callback
-		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
+		this._addFunctionBrackets &callback params
+		format "callback	= % \n" callback
 
-		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
+		--_EventFired = this.Events.setEventFired type (Parent_Control.getId())
+		format "params	= % \n" params
+		--this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
+		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
 		
-		this._addToStartupEvents type callback
+		--this._addToStartupEvents type callback
 		
 		Parent_Control --return
 	),
 	
+	/** Add handlers
+	  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
+	 */
+	function addHandlers =
+	(
+		print ( "ControlEvent_v._addHandlers" )
+		_Events = this.Events.getEvents()
+		format "_Events	= % \n" _Events
+		for _Event in _Events do
+			Parent_Control.ControlBox.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
+	),
+	
 	/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
 	 */
-	function _addFunctionBrackets &callback type =
+	function _addFunctionBrackets &callback params =
 	(
 		--format "ControlEvents_v._addFunctionBrackets	= % \n" callback
 		
 		if not( matchPattern callback pattern:"macros.run*" ) then 
-		(
-			match = if( this._eventHasValue type ) then "("+callback_value_name+")" else "()" -- "(val)" or "()"
-			
-			if not( matchPattern callback pattern:("*"+match) ) then
-				callback += match
-		)
+			if not( matchPattern callback pattern:("*(*)") ) then
+				callback += " " + params
+				--callback += "("+params+")"
 	),
 	
-	/** Set callback paramter
+	/** Get parameters of callback defined in control_types_events
 	 */
 	function _setCallbackParamter &params type =
 	(
-		if( ( this._eventHasValue type ) and params == "" ) then 
-			params = callback_value_name
-			
-		--params
+		print "ControlEvents._setCallbackParamter()"
+		format "params	= % \n" params
+		
+		if( ( event_params = this._eventHasParameter type ) != undefined and params == "" ) then
+			params = event_params
+		
+		params --return
 	),
 	
-	/** Test if callback has value
+	/** If event in Events.event_types is Array, then it has parameter
 	 */
-	function _eventHasValue type =
+	function _eventHasParameter type =
 	(
-		findItem events_with_param type > 0 --return
+		format "ControlEvents_v._eventHasParameter	= % \n" type
+
+		param
+		
+		for event_param in Events.event_params where event_param[1] == type do
+			param = event_param[2]
+			
+		param --return
 	),
+	
+	--/** _get event type
+	-- */
+	--function _getEventType type =
+	--(
+	--	for event_type in Events.event_types where classOf event_type == Array and event_type[1] == type do return event_type
+	--),
 	
 	/** Set default event, save to ini if ini is defined in rollout
 	 */
 	function setDefaultEvents =
 	(
-		--format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
+		format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
 		if( Parent_Control.ControlBox.Parent_roll.ini != undefined ) then
 			this.setSaveToIniCallback()
 	),
@@ -125,7 +176,7 @@ struct ControlEvents_v
 	 */
 	function setSaveToIniCallback =
 	(
-		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
+		format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
 
 		if( this._iniFileIsDefined() ) then
 			for dynamic_event_type in (this._getSaveiniEventType()) do 
@@ -138,20 +189,9 @@ struct ControlEvents_v
 	(
 		for event_type in Events.event_types where findItem save_to_ini_events event_type > 0 collect event_type 
 	),
+
 	
-	/** Add handlers
-	  * http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_5FC5036F_E2D7_46C9_9AFA_7B3550B9F254_htm
-	 */
-	function addHandlers =
-	(
-		--print ( "ControlEvent_v._addHandlers=" + this.Events.getEvents() as string )
-		_Events = this.Events.getEvents()
-		
-		for _Event in _Events do
-			Parent_Control.ControlBox.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
-	),
-	
-	/** Get callback
+	/** If checkbox has value true, then fire up checkbox`s callback when UI starts
 	 */
 	function _addToStartupEvents type callback =
 	(
@@ -165,6 +205,13 @@ struct ControlEvents_v
 	
 	private
 
+	/** Exception
+	 */
+	function _exception =
+	(
+		messageBox ("WARNING !\n\nControlEvents_v.setEvent()\n\nUNKNOWN event type: #"+ type + "\n\nControl: "+ (Parent_Control.Id.get() ))
+	),
+	
 	/** _ini is defined
 	 */
 	function _iniFileIsDefined =

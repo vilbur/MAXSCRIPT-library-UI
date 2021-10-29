@@ -9,7 +9,9 @@ struct Events_v
 (
 	Custom	= List_v(),
 	Defaults	= List_v(),
-	event_types,
+	
+	event_types,  -- #( #changed, #rightclick  )
+	event_params, -- #( #(#changed, "val inSpin_arg"), #rightclick  )
 	
 	/** Set Event to Custom
 	 */
@@ -23,7 +25,7 @@ struct Events_v
 	 */
 	function add Event =
 	(
-		--print ( "Events_v.add()")
+		print ( "Events_v.add()")
 		this.Custom.setVal Event.type Event
 	),
 	
@@ -40,14 +42,15 @@ struct Events_v
 	 */
 	function getEvents =
 	(
-		--print ( "Events_v.getEvents() " + event_types as string )
+		print ( "Events_v.getEvents() " + event_types as string )
 		events_merged	= #()
 
 		if(  event_types != undefined ) then
 			for event_type in event_types do
 				append events_merged (this.getMergedEvent event_type)
+		
 			
-			for Event_merged in events_merged where Event_merged != undefined collect Event_merged --return
+		for Event_merged in events_merged where Event_merged != undefined collect Event_merged --return
 	),
 
 	/** Get events
