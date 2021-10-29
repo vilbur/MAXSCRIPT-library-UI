@@ -38,11 +38,11 @@ struct ControlEvents_v
 	control_types_events = #(
 		#( ),			-- #label	
 		#( #pressed,	#rightclick ),		-- #button	
-		#( #(#changed, "val"),	#rightclick  ),		-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
-		#( #(#changed),	#rightclick ),		-- #checkbutton	
-		#( #(#changed, "val inSpin_arg"),	#entered, #buttondown, #buttonup ),		-- #spinner	
-		#( #(#changed),	#entered ),		-- #edittext	
-		#( #(#changed),	#entered ),		-- #browsePath	
+		#( #(#changed, "val"),	#rightclick ),		-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
+		#( #(#changed, "val"),	#rightclick ),		-- #checkbutton	
+		#( #(#changed, "val inSpin_arg"),	#(#entered, "inSpin_arg inCancel_arg"), #(#buttonup, "inCancel_arg"), #buttondown ),		-- #spinner	
+		#( #(#changed, "val"),	#entered ),		-- #edittext	
+		#( #(#changed, "val"),	#entered ),		-- #browsePath	
 		#( #selected,	#doubleClicked, #rightClick ),		-- #listbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
 		#( #selected,	#doubleClicked, #rightClick, #selectionEnd ) ),		-- #multilistbox	
 
@@ -91,12 +91,12 @@ struct ControlEvents_v
 		
 		this._setCallbackParamter &params type
 		this._addFunctionBrackets &callback params
-		format "callback	= % \n" callback
+		--format "callback	= % \n" callback
+		--format "params	= % \n" params
 
-		--_EventFired = this.Events.setEventFired type (Parent_Control.getId())
-		format "params	= % \n" params
-		--this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
-		this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
+		_EventFired = this.Events.setEventFired type (Parent_Control.getId())
+		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
+		--this.Events.add (Event_v type:type code:callback tooltip:tooltip params:params)
 		
 		--this._addToStartupEvents type callback
 		
@@ -119,7 +119,10 @@ struct ControlEvents_v
 	 */
 	function _addFunctionBrackets &callback params =
 	(
-		--format "ControlEvents_v._addFunctionBrackets	= % \n" callback
+		print "ControlEvents_v._addFunctionBrackets()"
+		--format "params	= % \n" params
+		if( params == "" ) then 
+			params = "()"
 		
 		if not( matchPattern callback pattern:"macros.run*" ) then 
 			if not( matchPattern callback pattern:("*(*)") ) then
