@@ -57,7 +57,7 @@ struct BrowsePath_v
 		--format "browse_button_id	= % \n" browse_button_id
 		ControlBox.Parent_roll.RolloutCreator.addControl #button browse_button_id caption (this._getButtonParameters())
 	),
-	 
+	 toolDeleteGlobal 
 	 /** _add browse button event
 	  */
 	 function _addBrowseButtonEvent =
@@ -78,11 +78,14 @@ struct BrowsePath_v
 	 */
 	function _addTextField =
 	(
-		print("BrowsePath._addTextField() " + id.id)
-
-		--print ("ControlBox.EditText \"\" " + (this._getEditTextParameters()))
-				
-		EditText = execute ("ControlBox.EditText \"\" " + (this._getEditTextParameters()))
+		--print("BrowsePath._addTextField() " + id.id)
+		--print ("ControlBox.EditText " + (this._getEditTextParameters()))
+		
+		global ControlBoxEditText = ControlBox
+			
+		EditText = execute ("ControlBoxEditText.EditText \"\" " + (this._getEditTextParameters()))
+		
+		ControlBoxEditText = undefined
 		
 		--format "EditText	= % \n" EditText
 	),
