@@ -94,7 +94,7 @@ function writeControlTypesFile =
 	
 		params_matrix = "#(#(" + params_keys + "), #(" + params_values + "))" -- wrap matrix #( #(), #()) 
 		
-		file_content += "/*\n*/\nfunction "+control_types[i] as string +" caption id: "+params_passed+" =
+		file_content += "/*\n*/\nfunction "+control_types[i] as string +" caption id: "+params_passed+ "add_to_controls:add_to_controls =
 (
 	" +control_types[i] as string +"_v id:id caption:caption add_to_controls:add_to_controls ControlBox:this init_parameters:" + params_matrix + "
 ),\n\n"

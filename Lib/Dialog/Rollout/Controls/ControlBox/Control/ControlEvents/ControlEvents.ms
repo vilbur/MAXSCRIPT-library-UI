@@ -148,7 +148,7 @@ struct ControlEvents_v
 	 */
 	function setDefaultEvents =
 	(
-		format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
+		--format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
 		if( Parent_Control.ControlBox.Parent_roll.ini != undefined ) then
 			this.setSaveToIniCallback()
 	),
@@ -159,7 +159,7 @@ struct ControlEvents_v
 	 */
 	function setSaveToIniCallback =
 	(
-		format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
+		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
 
 		if( this._iniFileIsDefined() ) then
 			for dynamic_event_type in (this._getSaveiniEventType()) do 

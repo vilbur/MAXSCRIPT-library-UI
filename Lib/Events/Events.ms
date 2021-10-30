@@ -25,7 +25,7 @@ struct Events_v
 	 */
 	function add Event =
 	(
-		print ( "Events_v.add()")
+		--print ( "Events_v.add()")
 		this.Custom.setVal Event.type Event
 	),
 	
@@ -42,7 +42,7 @@ struct Events_v
 	 */
 	function getEvents =
 	(
-		print ( "Events_v.getEvents() " + event_types as string )
+		--print ( "Events_v.getEvents() " + event_types as string )
 		events_merged	= #()
 
 		if(  event_types != undefined ) then
@@ -105,17 +105,21 @@ struct Events_v
 			""
 	),
 	
-	/** Set event fired
+	/** Code below fills global variable EventFired with event`s data when event is fired
 	  *
 	  * @return	string	
 	 */
-	function setEventFired type id val:"val" =
+	function getEventFired type: id: params: val:"val" =
 	(
+		--print "Events_v.getEventFired()"
+		--format "params	= % \n" params
+		
 		local EventFired = "EventFired.control=\""+(id)+"\";"
 		
 		EventFired    += "EventFired.type=#"+type+";"
 		
-		EventFired    += "EventFired.value="+val as string +";"
+		for param in params do 
+			EventFired += "EventFired."+param+"="+param+";"
 		
 		EventFired --return
 	),

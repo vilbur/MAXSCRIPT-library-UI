@@ -53,8 +53,8 @@ struct BrowsePath_v
 	 */
 	function _addBrowseButton =
 	(
-		browse_button_id = id.id+"_button"
-		
+		browse_button_id = id.id + "_BUTTON" 
+		--format "browse_button_id	= % \n" browse_button_id
 		ControlBox.Parent_roll.RolloutCreator.addControl #button browse_button_id caption (this._getButtonParameters())
 	),
 	 
@@ -66,7 +66,7 @@ struct BrowsePath_v
 		
 		get_dir_fn	= "local dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
 		if_dir_defined	= "if (dir != undefined) "
-		set_edit_text	= id.id+".text = dir "
+		set_edit_text	= ControlBox.Parent_roll.id + "."+id.id+".text = dir "
 		set_button_tooltip	= browse_button_id+".toolTip = dir"
 		
 		Event.code = get_dir_fn +"\n"+ if_dir_defined + " then ( "+set_edit_text+"\n"+set_button_tooltip+" )"
@@ -80,21 +80,26 @@ struct BrowsePath_v
 	(
 		print("BrowsePath._addTextField() " + id.id)
 
-		ControlBox.Parent_roll.RolloutCreator.addControl #edittext id.id "" (this._getEditTextParameters())
+		--print ("ControlBox.EditText \"\" " + (this._getEditTextParameters()))
+				
+		EditText = execute ("ControlBox.EditText \"\" " + (this._getEditTextParameters()))
+		
+		--format "EditText	= % \n" EditText
 	),
 	
 	/** _get edit text parameters
 	 */
 	function _getEditTextParameters =
 	(
-		pos    = "pos:"  + (this._getEditTextPosition())    as string 
-		width  = "width:"+ (_Parameters.getVal #fieldwidth) as string
+		_id    = "id:"   +	"\""+id.id+"\""
+		pos    = "pos:"  +	(this._getEditTextPosition())    as string 
+		width  = "width:"+	(_Parameters.getVal #fieldwidth) as string
 		params = (_Parameters.join())
 		
-		pos + " " + width + " " + params --return 
+		_id + " " +pos + " " + width + " " + params --return 
 	),
 	
-	/** Get edit text position
+	/** Get edit text position 
 	 */
 	function _getEditTextPosition =
 	(
@@ -135,7 +140,7 @@ struct BrowsePath_v
 		this.setParam #initialDir maxFilePath
 
 		this.onCreate()
-		
+
 
 		if ( add_to_controls ) then
 			this._addToControls()

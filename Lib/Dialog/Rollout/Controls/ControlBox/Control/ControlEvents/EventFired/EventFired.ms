@@ -3,9 +3,14 @@
 struct EventFired_v
 (
 	--ui,
-	value,
+	type,
 	control,
-	type
+	val,
+	
+	inSpin,
+	inCancel,
+	
+	on create do()
 )
 
 global EventFired = EventFired_v()
