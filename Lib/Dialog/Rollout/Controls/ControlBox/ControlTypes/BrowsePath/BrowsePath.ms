@@ -57,7 +57,7 @@ struct BrowsePath_v
 		--format "browse_button_id	= % \n" browse_button_id
 		ControlBox.Parent_roll.RolloutCreator.addControl #button browse_button_id caption (this._getButtonParameters())
 	),
-	 toolDeleteGlobal 
+	  
 	 /** _add browse button event
 	  */
 	 function _addBrowseButtonEvent =
