@@ -4,7 +4,6 @@
  */
 global GROUPBOX_GLOBAL = #() -- store groupboxes for dynamic method creation in ControlBoxControlTypes.ms
 
-
 filein( getFilenamePath(getSourceFileName()) + "/../../../../List/List.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
@@ -18,6 +17,7 @@ filein( getFilenamePath(getSourceFileName()) + "/Subrollouts/Subrollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Controls/Controls.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/Layout/Layout.ms" )
 
+filein( getFilenamePath(getSourceFileName()) + "/Rollouts/Rollouts.ms" )
 filein( getFilenamePath(getSourceFileName()) + "/RolloutEvent/RolloutEvent.ms" )
 
 
@@ -80,10 +80,12 @@ struct Rollout_v
 		--if( this._isSubrollout() == true ) then 
 		Events._addHandlers()
 		
-		try
+		
+		try /*------ PREVENT adding same control again ------*/
 		(
-			/*------ PREVENT adding same control again ------*/
-			RolloutCreator.end()
+			Rollout_new = RolloutCreator.end()
+			
+			ROLLOUTS.add Rollout_new
 		)
 		catch(
 			messageBox (getCurrentException()) beep:false
@@ -151,7 +153,6 @@ struct Rollout_v
 		if( _Ini._path != undefined ) then
 			Events.setSaveToIniEvents()
 	),
-	
 	
 	private
 	
@@ -261,8 +262,6 @@ struct Rollout_v
 
 		this._destroy()
 		
-		--this._setGlobalVariable()
-
 		this.setDefaultEvents()
 				
 		RolloutCreator = RolloutCreator_v id:id title:title
