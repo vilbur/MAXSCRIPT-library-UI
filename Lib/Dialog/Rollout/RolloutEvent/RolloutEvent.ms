@@ -33,7 +33,10 @@ struct RolloutEvent_v
 	 */
 	function setEvent type callback params:"" =
 	(
-		callback = (this.Events.setEventFired type Parent_roll.id) + callback
+		if not( this._isEventExists(type) ) then 
+			this._exception(type)
+		
+		callback = (this.Events.getEventFired type:type id:Parent_roll.id) + callback
 
 		this.Events.add (Event_v type:type code:callback params:"val")
 	),
@@ -155,6 +158,20 @@ struct RolloutEvent_v
 			_Event.code --return
 		else
 			"" --return
+	),
+
+	/** _is event exists
+	 */
+	function _isEventExists type =
+	(
+		findItem Events.event_types type > 0 --return
+	),
+	
+	/** Exception
+	 */
+	function _exception type =
+	(
+		messageBox ("WARNING\n\nUnknown Event Type: #" +type+ "\n\nControl: " + Parent_roll.id )
 	),
 	
 	on create do

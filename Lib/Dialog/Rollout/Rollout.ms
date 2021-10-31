@@ -84,8 +84,9 @@ struct Rollout_v
 		try /*------ PREVENT adding same control again ------*/
 		(
 			Rollout_new = RolloutCreator.end()
-			
-			ROLLOUTS.add Rollout_new
+			format "Rollout_new	= % \n" Rollout_new
+			--ROLLOUTS.add Rollout_new
+			ROLLOUTS_GLOBAL.add Rollout_new
 		)
 		catch(
 			messageBox (getCurrentException()) beep:false
@@ -149,6 +150,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
+		print "Rollout_v.setDefaultEvents()"
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
 		if( _Ini._path != undefined ) then
 			Events.setSaveToIniEvents()

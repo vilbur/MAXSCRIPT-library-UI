@@ -28,5 +28,5 @@ struct Rollouts_v
 	)
 )
 
-if( ROLLOUTS == undefined ) then
-	global ROLLOUTS = Rollouts_v()
+if( ROLLOUTS_GLOBAL == undefined ) then
+	global ROLLOUTS_GLOBAL = Rollouts_v()

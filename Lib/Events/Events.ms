@@ -109,7 +109,7 @@ struct Events_v
 	  *
 	  * @return	string	
 	 */
-	function getEventFired type: id: params: val:"val" =
+	function getEventFired type: id: params:#() val:"val" =
 	(
 		--print "Events_v.getEventFired()"
 		--format "params	= % \n" params
@@ -118,8 +118,8 @@ struct Events_v
 		
 		EventFired    += "EventFired.type=#"+type+";"
 		
-		for param in params do 
-			EventFired += "EventFired."+param+"="+param+";"
+		--for param in params do 
+			--EventFired += "EventFired."+param+"="+param+";"
 		
 		EventFired --return
 	),
