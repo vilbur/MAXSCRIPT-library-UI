@@ -77,7 +77,9 @@ struct Rollout_v
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
-		--if( this._isSubrollout() == true ) then 
+		--if( this._isSubrollout() == true ) then
+		this.setDefaultEvents()
+
 		Events._addHandlers()
 		
 		
@@ -150,7 +152,8 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		print "Rollout_v.setDefaultEvents()"
+		print ("\nRollout_v.setDefaultEvents() " +id)
+		--format "_Ini	= % \n" _Ini
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
 		if( _Ini._path != undefined ) then
 			Events.setSaveToIniEvents()
@@ -166,13 +169,13 @@ struct Rollout_v
 		widths	= #()
 		
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
-	
+		(
 			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
 				append widths (Controlbox_or_Subrollouts.property width:#get)
-				--append widths 256
-			else
-			--if( this._getType Controlbox_or_Subrollouts == "subrollouts" ) then
+
+			else if( Controlbox_or_Subrollouts.Rollouts.count > 0 ) then
 				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
+		)
 		--format "TOTAL widths = % \n" widths
 		this._getMaxWidth widths --return
 	),
@@ -264,8 +267,6 @@ struct Rollout_v
 
 		this._destroy()
 		
-		this.setDefaultEvents()
-				
 		RolloutCreator = RolloutCreator_v id:id title:title
 	)
 
