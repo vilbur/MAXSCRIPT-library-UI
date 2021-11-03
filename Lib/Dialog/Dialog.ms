@@ -20,12 +20,16 @@ struct Dialog_v
 	/*  properties */
 	id,
 
+	/*  properties */
+	style = #(#style_titlebar, #style_sysmenu, #style_resizing ),
+	
 	/* dependency */
 	RolloutMain,
 	Menu	= Menu_v(),
 	Ini	= Ini_v(),
 	
-	/* options */	
+	/* inherit */	
+	Events,
 	
 	/* store */
 	Dialog,
@@ -54,10 +58,12 @@ struct Dialog_v
 		
 	  *
 	 */
-	function create pos: width: height: bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
+	function create pos: width: height: bgcolor: fgcolor: bitmap: style:style modal: escapeEnable: lockHeight:false lockWidth:true parent: =
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
-
+		
+		RolloutMain.Events.setSaveToIniEvents()
+		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 
 		CreateDialog Dialog pos:pos width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
@@ -69,7 +75,7 @@ struct Dialog_v
 		max_width = RolloutMain.setRolloutWidth()
 		
 		this.width max_width
-		
+				
 		this._runCallbacksOnStart()
 	),
 	 
@@ -80,7 +86,6 @@ struct Dialog_v
         RolloutMain.subrollouts() --return
     ),
 	
-	
 	private
 	
 	/** Set main rollout
@@ -88,6 +93,8 @@ struct Dialog_v
 	function _setMainRollout =
 	(
 		RolloutMain	= Rollout_v title:title id:id --ini:ini
+		
+		Events = RolloutMain.Events
 	),
 
 	/** Set id of rollout as global variable

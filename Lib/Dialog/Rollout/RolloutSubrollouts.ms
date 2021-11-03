@@ -2,9 +2,9 @@
 	/** New subrollout
 	  * used in Subrollouts_v
 	 */
-	function newSubrollout title =
+	function newSubrollout title Parent_Subrollouts =
 	(
-		Rollout_v title:title _ini:_ini --return
+		Rollout_v title:title _ini:_ini Parent_Subrollouts:Parent_Subrollouts --return
 	),
 	
 	/** Get new subrollout slot

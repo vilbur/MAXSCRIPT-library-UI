@@ -152,11 +152,23 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		print ("\nRollout_v.setDefaultEvents() " +id)
+		print "\n"
+		print ("Rollout_v.setDefaultEvents() " +id)
 		--format "_Ini	= % \n" _Ini
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
 		if( _Ini._path != undefined ) then
 			Events.setSaveToIniEvents()
+	),
+	
+	/** Test if this rollout is subrollout
+	 */
+	function _isParentRoll =
+	(
+		print ("\nRollout_v._isParentRoll() " + (Parent_Subrollouts == undefined) as string )
+		format "id	= % \n" id
+		--format "Parent_Subrollouts	= % \n" (Parent_Subrollouts == undefined)
+		--format "this	= % \n" this
+		Parent_Subrollouts == undefined --return
 	),
 	
 	private
@@ -236,13 +248,7 @@ struct Rollout_v
 		try( execute("cui.UnRegisterDialogBar " + id) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
 	),
-	
-	/** Test if this rollout is subrollout
-	 */
-	function _isParentRoll =
-	(
-		Parent_Subrollouts == undefined --return
-	),
+
 
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
@@ -268,6 +274,8 @@ struct Rollout_v
 		this._destroy()
 		
 		RolloutCreator = RolloutCreator_v id:id title:title
+		
+		this.Events.setEventTypes()
 	)
 
 )

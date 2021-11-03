@@ -8,7 +8,10 @@ filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 /** CREATE ROLLOUTS 
  *	
  */
-_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) ini:(getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
+_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
+
+_Rollout.ini (getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
+
 
 SubRollouts = _Rollout.subrollouts()
 
@@ -34,11 +37,8 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 --_Rollout.Events.setEvent #resized "onresize val"
 
 
-_Rollout.Events.setEvent #docked  "print \"Custom Event\""
-
-Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
-Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
-
+_Rollout.Events.setEvent #open    "print \"#open\""
+_Rollout.Events.setEvent #close   "print \"#close\""
 
 
 
@@ -50,4 +50,4 @@ CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
 
-cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+--cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)

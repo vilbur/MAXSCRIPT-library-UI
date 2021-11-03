@@ -13,6 +13,19 @@ struct Events_v
 	event_types,  -- #( #changed, #rightclick  )
 	event_params, -- #( #(#changed, "val inSpin_arg"), #rightclick  )
 	
+	/** Set event types available for each type of control
+	 */
+	function setEventTypes _event_params =
+	(
+		print ( "Events_v.setEventTypes()")
+		event_types = for event_type in _event_params collect
+			if( classOf event_type == Array ) then event_type[1] else event_type
+		
+		event_params = for event_type in _event_params where classOf event_type == Array collect event_type
+
+		format "event_types	= % \n" event_types
+		format "event_params	= % \n" event_params
+	),
 	/** Set Event to Custom
 	 */
 	function setDefaultEvent Event =
@@ -113,16 +126,83 @@ struct Events_v
 	(
 		--print "Events_v.getEventFired()"
 		--format "params	= % \n" params
+		params = (filterString (this._getEventParameters type) " ")
 		
-		local EventFired = "EventFired.control=\""+(id)+"\";"
+		_EventFired = "EventFired.control=\""+(id)+"\";"
 		
-		EventFired    += "EventFired.type=#"+type+";"
+		_EventFired    += "EventFired.type=#"+type+";"
 		
-		--for param in params do 
-			--EventFired += "EventFired."+param+"="+param+";"
+		for param in params do 
+			_EventFired += "EventFired."+param+"="+param+";"
 		
-		EventFired --return
+		_EventFired --return
 	),
+	
+	
+
+	
+	
+	/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
+	 */
+	function _addFunctionBrackets &callback params =
+	(
+		--print "Events_v._addFunctionBrackets()"
+		--format "params	= % \n" params
+		if( params == "" ) then 
+			params = "()"
+		
+		if not( matchPattern callback pattern:"* *" ) then 
+			if not( matchPattern callback pattern:("*(*)") ) then
+				callback += " " + params
+				--callback += "("+params+")"
+	),
+		
+	/** Get parameters of callback defined in event_params
+	 */
+	function _setCallbackParamters &params type =
+	(
+		--print "Events_v._setCallbackParamters()"
+		--format "params	= % \n" params
+		
+		if( ( _event_params = this._getEventParameters type ) != undefined and params == "" ) then
+			params = _event_params
+		
+		params --return
+	),
+	
+	/** If event in Events.event_types is Array, then it has parameter
+	 */
+	function _getEventParameters type =
+	(
+		print "Events_v._getEventParameters()"
+		format "type	= % \n" type
+		format "Events_v._getEventParameters	= % \n" type
+		format "event_params	= % \n" event_params
+		
+		--event_params	= #( "val" ) 
+
+		
+		param = ""
+		
+		for event_param in event_params where event_param[1] == type do
+			param = event_param[2]
+			
+		param --return
+	),
+	
+	
+	/** _is event exists
+	 */
+	function _isEventExists type =
+	(
+		--print "Events_v._isEventExists()"
+		--format "event_types	= % \n" event_types
+		findItem event_types type > 0 --return
+	),
+	
+	
+	
+	
 	
 	/**  
 	 *	

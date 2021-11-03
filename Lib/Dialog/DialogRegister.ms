@@ -5,7 +5,7 @@ function _register =
 	--ENABLE_RESIZING = false
 	--print "Dialog._register()"
 	if not( this._isRegistered() ) then 
-		cui.RegisterDialogBar	Dialog style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
+		cui.RegisterDialogBar	Dialog style:#( #cui_dock_all, #cui_floatable, #cui_handles )
 		--minSize:size_init maxSize:size_init
 	--ENABLE_RESIZING = true
 ),

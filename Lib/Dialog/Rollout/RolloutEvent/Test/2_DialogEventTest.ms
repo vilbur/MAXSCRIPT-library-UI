@@ -3,20 +3,19 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../Dialog.ms" )
 
-/** CREATE ROLLOUTS 
- *	
- */
-Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
---_Rollout = Rollout_v title:(getFilenameFile(getSourceFileName())) ini:(getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
-
 /*------ CREATE FLOATER DIALOG ------*/
+Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
-Rollouts = Dialog.rollouts()
-rollout_A	= Rollouts.new "Rollout A"
-rollout_B	= Rollouts.new "Rollout B"
+Dialog.RolloutMain.ini (getFilenamePath(getSourceFileName()) + "2_DialogEventTest.ini")
 
+
+/*------ CREATE ROLLOUTS ------*/
+--Rollouts = Dialog.rollouts()
+--Rollout_A	= Rollouts.new "Rollout A"
+--Rollout_B	= Rollouts.new "Rollout B"
 
 global ENABLE_RESIZING = false
+
 
 /*
 	CHANGE DEFAULT EVENTS
@@ -26,17 +25,16 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 
 */
 
-
 /** On dock test
  */
 function onDockResizeDialogCallback val =
 (
-	print "\n onDockResizeDialogCallback()"
-	
-	format "EventFired = % \n" EventFired
-	
-	format "ENABLE_RESIZING = % \n" ENABLE_RESIZING
-	format "STATE = % \n" (cui.getDockState ROLLOUT_2_dialogeventtest)
+	--print "\n onDockResizeDialogCallback()"
+	--
+	--format "EventFired = % \n" EventFired
+	--
+	--format "ENABLE_RESIZING = % \n" ENABLE_RESIZING
+	--format "STATE = % \n" (cui.getDockState ROLLOUT_2_dialogeventtest)
 
 	if( ENABLE_RESIZING ) then
 	(
@@ -57,47 +55,56 @@ function onDockResizeDialogCallback val =
 	
 )
 
---format "DIALOG_PREVIOUS_STATE = % \n" DIALOG_PREVIOUS_STATE
+/** Button test
+ */
+function CallbackNoParam =
+(
+	print "CallbackNoParam"
+
+	format "EventFired.control 	= % \nEventFired.type 	= % \n\n" EventFired.control EventFired.type
+)
+/** on value changed
+ */
+function CallbackWithValue val =
+(
+	print "CallbackWithValue"
+	
+	format "EventFired.control 	= % \nEventFired.type 	= % \n" EventFired.control EventFired.type
+	
+	format "val 	= % \n" val
+	
+	format "EventFired 	= % \n\n" EventFired
+)
+
+
+/** on value changed
+ */
+function CallbackWith2Params arg_1 arg_2 =
+(
+	print "SpinnerEnteredTest"
+	
+	format "EventFired.control 	= % \nEventFired.type 	= % \n" EventFired.control EventFired.type
+
+	format "arg_1 	= % \narg_2  	= % \n" arg_1 arg_2
+
+	format "EventFired 	= % \n\n" EventFired
+)
+
 /*
 	SET CUSTOM EVENTS
 */
---Dialog.RolloutMain.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
---Dialog.RolloutMain.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
---Dialog.RolloutMain.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
---Dialog.RolloutMain.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
---Dialog.RolloutMain.Events.setEvent #resized "onresize val"
-Dialog.RolloutMain.Events.setEvent #docked   "onDockResizeDialogCallback val"
---
---
---Dialog.RolloutMain.Events.setEvent #docked  "print \"Custom Event\""
-----_Rollout.Events.setEvent #docked  "print current_state as string"
---
---Rollout_A.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
---Rollout_A.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
---
+Dialog.Events.setEvent #open	"CallbackNoParam()"
+Dialog.Events.setEvent #close	"CallbackNoParam()"
+Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
+Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
 
 
+Dialog.Events.setEvent #lbuttondown "CallbackWithValue(val)"
+Dialog.Events.setEvent #oktoclose "CallbackNoParam()"
 
 
 
 /* CREATE DIALOG */
 Dialog.create()
 
---clearListener()
 
-Dialog.dock #right
---
---CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
---
---_Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
---
---
---cui.RegisterDialogBar	ROLLOUT_2_dialogeventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)
---
---
---cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_right
---
-
---sleep 3
---
---cui.DockDialogBar     ROLLOUT_2_dialogeventtest #cui_dock_left

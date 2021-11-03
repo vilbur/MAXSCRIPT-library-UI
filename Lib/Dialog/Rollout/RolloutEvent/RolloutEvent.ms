@@ -1,4 +1,4 @@
-global DIALOG_PREVIOUS_STATE = undefined
+global DIALOG_PREVIOUS_STATE = undefined -- this should be in struct
 
 
 /** RolloutEvent https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -25,20 +25,48 @@ global DIALOG_PREVIOUS_STATE = undefined
 struct RolloutEvent_v 
 (
 	/* dependency */
-	Events	= Events_v event_types:#( #open, #close, #resized, #moved, #docked ),
+	Events	= Events_v(),
 	Parent_roll,
-
+	
+	events_dialog  = #( #open, #close, #(#resized, "val"), #(#moved, "val"), #docked, #oktoclose, #(#lbuttondown, "val")  ), -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	events_rollout = #( #open, #close ),
+	
+	
+	
+	/** Set event types for Main rollout (Dialog) or subrollouts
+	 */
+	function setEventTypes =
+	(
+		print ("RolloutEvent_v.setEventTypes()")
+		--format "Parent_roll._isParentRoll()	= % \n" (Parent_roll._isParentRoll())
+		--this.Events.setEventTypes events_dialog
+		if( Parent_roll._isParentRoll() ) then 
+			this.Events.setEventTypes events_dialog
+		
+		else
+			this.Events.setEventTypes events_rollout
+	),
 	
 	/** Set event
 	 */
 	function setEvent type callback params:"" =
 	(
-		if not( this._isEventExists(type) ) then 
-			this._exception(type)
-		
-		callback = (this.Events.getEventFired type:type id:Parent_roll.id) + callback
+		print ("RolloutEvent_v.setEvent()")
 
-		this.Events.add (Event_v type:type code:callback params:"val")
+		if not( this.Events._isEventExists(type) ) then 
+			this._exception(type)
+			
+		this.Events._setCallbackParamters &params type
+		this.Events._addFunctionBrackets  &callback params
+		
+		--format "type	= % \n" type
+		--format "callback	= % \n" callback
+		--format "params	= % \n" params
+		
+		--callback = (this.Events.getEventFired type:type id:Parent_roll.id) + callback
+		--format "callback	= % \n" callback
+
+		this.Events.add (Event_v type:type code:callback params:params)
 	),
 	
 	/** Add default callback for event
@@ -47,12 +75,16 @@ struct RolloutEvent_v
 	 */
 	function setSaveToIniEvents =
 	(
+		--print ("RolloutEvent_v.setSaveToIniEvents() " +Parent_roll.id)
+		--format "Parent_roll._isParentRoll()	= % \n" (Parent_roll./*_isParentRoll*/())
 		--if( Parent_roll.ini == undefined ) then
 			--return false --return
 		
-		this.setSaveIniDefaultEvent #open  "rolledUp" "(val == false)"
-		this.setSaveIniDefaultEvent #close "rolledUp" "(val == false)"
-		this.setSaveIniDefaultEvent #moved "docked"   ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
+		--this.setSaveIniDefaultEvent #open  "rolledUp" "(val == false)"
+		--this.setSaveIniDefaultEvent #close "rolledUp" "(val == false)"
+		--this.setSaveIniDefaultEvent #moved "docked"   ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
+		
+		
 	),
 	
 	/** Set save to ini default event
@@ -73,34 +105,42 @@ struct RolloutEvent_v
 		--print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
 		--format "Parent_roll._isSubrollout() = % \n" (Parent_roll._isSubrollout())
 		
-		handler_types	= #( #open, #close, #rolledUp, #resized, #moved )
-				
-		for type in handler_types do 
-			this._addHandler type
+		--handler_types	= #( #open, #close, #rolledUp, #resized, #moved, #lbuttondown )
+		_Events = this.Events.getEvents()
+	
+		for Event in _Events do
+			this._addHandler Event
 	),
+	
 	/** _add handler
 	 */
-	function _addHandler type =
+	function _addHandler Event =
 	(
-		val = if( type == #open or type == #close ) then " " else " val "
+		--val = if( Event.type == #open or Event.type == #close ) then " " else " val "
 		
-		callback = this._getCallback type
+		--callback = this._getCallback type
 		--format "callback = % \n" callback
 		
+		
+		--handler = "on "+(Parent_roll.id)+" "+ type as string + " "+val+"do (" +callback+ ")" 
+		handler = "on "+(Parent_roll.id)+" "+ Event.type as string + " "+Event.params+" do (" +Event.code+ ")" 
+		format "handler	= % \n" handler
+		
 		if( callback != "" ) then 
-			Parent_roll.RolloutCreator.addText ("on "+(Parent_roll.id)+" "+ type as string +val+"do (" + callback + ")" )
+			Parent_roll.RolloutCreator.addText(handler)
 	),
+	
 	/** Get callback on rollout open\close
 	 */
 	function _getCallback type =
 	(
-		if( type == #rolledUp ) then
-			this._bindToRolledUpHandler() --return
-		
-		else if( type == #moved ) then
-			this._bindToMovedHandler()
-		
-		else
+		--if( type == #rolledUp ) then
+		--	this._bindToRolledUpHandler() --return
+		--
+		--else if( type == #moved ) then
+		--	this._bindToMovedHandler()
+		--
+		--else
 			this._getEventCode type
 				
 	),
@@ -123,7 +163,7 @@ struct RolloutEvent_v
 	  *	Event #docked is bind to #moved handler
 	  * If dialog is docked then callback of #docked is called
 	  *
-	  * #moved Event is fired many times, gloabl variable DIALOG_PREVIOUS_STATE is used to find out if dialog gets just docket
+	  * #moved Event is fired many times, global variable DIALOG_PREVIOUS_STATE is used to find out if dialog gets just docket
 	  *
 	 */
 	function _bindToMovedHandler =
@@ -136,7 +176,7 @@ struct RolloutEvent_v
 		
 		if_resizing_enabled     =	""
 		--if_resizing_enabled     =	" if(ENABLE_RESIZING != false) then\n" -- this is MUST WRAP ALL STRINGS BELOW IN ()
-		previous_state_definded =	" (DIALOG_PREVIOUS_STATE != false) "
+		previous_state_definded = " (DIALOG_PREVIOUS_STATE != false) "
 		current_state_changed   = " (dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE "
 		state_match_cui         = " matchPattern (dialog_current_state as string) pattern:\"cui_*\" "
 		set_previous_state      = " DIALOG_PREVIOUS_STATE = dialog_current_state "
@@ -146,7 +186,6 @@ struct RolloutEvent_v
 		
 		callback_moved --return
 	),
-	
 
 	/** _get event code
 	 */
@@ -160,12 +199,12 @@ struct RolloutEvent_v
 			"" --return
 	),
 
-	/** _is event exists
-	 */
-	function _isEventExists type =
-	(
-		findItem Events.event_types type > 0 --return
-	),
+	--/** _is event exists
+	-- */
+	--function _isEventExists type =
+	--(
+	--	findItem Events.event_types type > 0 --return
+	--),
 	
 	/** Exception
 	 */
@@ -175,5 +214,8 @@ struct RolloutEvent_v
 	),
 	
 	on create do
-	()
+	(
+		--this.setEventTypes()
+		
+	)
 )
