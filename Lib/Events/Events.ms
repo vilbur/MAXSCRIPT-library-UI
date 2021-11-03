@@ -58,7 +58,7 @@ struct Events_v
 		--print ( "Events_v.getEvents() " + event_types as string )
 		events_merged	= #()
 
-		if(  event_types != undefined ) then
+		if( event_types != undefined ) then
 			for event_type in event_types do
 				append events_merged (this.getMergedEvent event_type)
 		
@@ -161,7 +161,8 @@ struct Events_v
 	 */
 	function _setCallbackParamters &params type =
 	(
-		--print "Events_v._setCallbackParamters()"
+		print "Events_v._setCallbackParamters()"
+		format "type	= % \n" type
 		--format "params	= % \n" params
 		
 		if( ( _event_params = this._getEventParameters type ) != undefined and params == "" ) then
@@ -176,18 +177,19 @@ struct Events_v
 	(
 		print "Events_v._getEventParameters()"
 		format "type	= % \n" type
-		format "Events_v._getEventParameters	= % \n" type
-		format "event_params	= % \n" event_params
+		--format "event_params	= % \n" event_params
 		
-		--event_params	= #( "val" ) 
+		----event_params	= #( "val" ) 
 
 		
-		param = ""
+		params = ""
 		
 		for event_param in event_params where event_param[1] == type do
-			param = event_param[2]
-			
-		param --return
+			params = event_param[2]
+		
+		
+		format "params	= % \n" params
+		params --return
 	),
 	
 	

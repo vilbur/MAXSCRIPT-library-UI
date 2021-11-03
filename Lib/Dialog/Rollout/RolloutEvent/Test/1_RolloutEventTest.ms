@@ -37,8 +37,8 @@ Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messageb
 --_Rollout.Events.setEvent #resized "onresize val"
 
 
-_Rollout.Events.setEvent #open    "print \"#open\""
-_Rollout.Events.setEvent #close   "print \"#close\""
+Rollout_A.Events.setEvent #rolledUp	"print \"#close\""
+Rollout_A.Events.setEvent #rolledDown	"print \"#open\""
 
 
 

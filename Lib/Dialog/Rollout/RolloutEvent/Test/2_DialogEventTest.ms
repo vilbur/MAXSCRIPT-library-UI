@@ -46,14 +46,13 @@ function onDockResizeDialogCallback val =
 		
 	)
 	
-	
 	--max_height	= this._getViewportHeight()
 	--
 	--this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
 	--
-	--this.height max_height -- resize dialog
-	
+	--this.height max_height -- resize dialog	
 )
+
 
 /** Button test
  */
@@ -93,18 +92,26 @@ function CallbackWith2Params arg_1 arg_2 =
 /*
 	SET CUSTOM EVENTS
 */
-Dialog.Events.setEvent #open	"CallbackNoParam()"
-Dialog.Events.setEvent #close	"CallbackNoParam()"
-Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
-Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #open	"CallbackNoParam()"
+--Dialog.Events.setEvent #close	"CallbackNoParam()"
+--Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
 
 
-Dialog.Events.setEvent #lbuttondown "CallbackWithValue(val)"
-Dialog.Events.setEvent #oktoclose "CallbackNoParam()"
+Dialog.Events.setEvent #docked	"print \"\DOCKED\""
+
+
+--Dialog.Events.setEvent #lbuttondown	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #oktoclos	"CallbackNoParam()"
 
 
 
 /* CREATE DIALOG */
 Dialog.create()
+
+
+Dialog.dock #left
+
+
 
 
