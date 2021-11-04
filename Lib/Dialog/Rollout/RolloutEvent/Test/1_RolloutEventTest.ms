@@ -1,9 +1,20 @@
 clearListener()
 
-try(cui.UnRegisterDialogBar ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
-try(DestroyDialog  ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
+
+/*  Import callback methods
+  
+	CallbackNoParam()
+	CallbackWithValue(val)
+	CallbackWith2Params(arg_1) (arg_2)
+*/ 
+filein( getFilenamePath(getSourceFileName()) + "/../../../../Events/Test/inlcude_test_callbacks.ms" )
+
+
+
+try(cui.UnRegisterDialogBar ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
+try(DestroyDialog  ROLLOUT_1_rollouteventtest)catch() --try to unregister if already registered
 
 /** CREATE ROLLOUTS 
  *	
@@ -14,31 +25,20 @@ _Rollout.ini (getFilenamePath(getSourceFileName()) + "1_RolloutEventTest.ini")
 
 
 SubRollouts = _Rollout.subrollouts()
-
 Rollout_A    = SubRollouts.new "Subrollout A"
+
 
 
 /*
 	CHANGE DEFAULT EVENTS
 
-Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onOpen"	code:	"messagebox \"Default Event onOpen\"" )
-Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messagebox \"Default Event onClose\"" )
+	Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onOpen"	code:	"messagebox \"Default Event onOpen\"" )
+	Rollout_A.Events.Events.setDefaultEvent ( Event_v type:"onClose"	code:	"messagebox \"Default Event onClose\"" )
 
 */
 
-
-/*
-	SET CUSTOM EVENTS
-*/
---_Rollout.Events.setEvent #open "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #close "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #moved "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #resized "format \"EventFired = % \n\" EventFired"
---_Rollout.Events.setEvent #resized "onresize val"
-
-
-Rollout_A.Events.setEvent #rolledUp	"print \"#close\""
-Rollout_A.Events.setEvent #rolledDown	"print \"#open\""
+Rollout_A.Events.setEvent #rolledUp	"CallbackWithValue"
+Rollout_A.Events.setEvent #rolledDown	"CallbackWithValue"
 
 
 
@@ -49,5 +49,3 @@ _Rollout.createRollout()
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 height:512
 
 _Rollout.addSubRollouts() -- dialog must exist for adding subrollouts
-
---cui.RegisterDialogBar	ROLLOUT_1_rollouteventtest style:#(#cui_dock_left,#cui_dock_right,#cui_floatable,#cui_handles)

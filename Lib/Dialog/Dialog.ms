@@ -62,7 +62,7 @@ struct Dialog_v
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
-		RolloutMain.Events.setSaveToIniEvents()
+		--RolloutMain.Events.setSaveToIniEvents()
 		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 

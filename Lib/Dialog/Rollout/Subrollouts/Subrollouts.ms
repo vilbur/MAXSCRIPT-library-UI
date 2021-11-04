@@ -29,11 +29,9 @@ struct Subrollouts_v
      */
     function new title =
     (
-        print("Subrollouts.new() title:" +title)
+        --print("Subrollouts.new() title:" +title)
 		new_subrollout = Parent_roll.newSubrollout title this
 		
-		--new_subrollout.Parent_Subrollouts = this
-
 		new_subrollout.Layout = (Parent_roll.Layout.copySetup new_subrollout.Layout)
 		
 		new_subrollout.Layout.slot_padding = 96  --!!! HOT FIX

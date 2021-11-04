@@ -34,7 +34,8 @@ struct RolloutCreator_v
 	 */
 	function addText text =
 	(
-		--format "RolloutCreator_v.addText %\n" text
+		--print "RolloutCreator_v.addText()"
+		--format "text %\n" text
 		_rolloutCreator.addText( text )
 	),
 	

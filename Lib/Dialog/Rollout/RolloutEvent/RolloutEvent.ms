@@ -90,21 +90,39 @@ struct RolloutEvent_v
 	 */
 	function setSaveToIniEvents =
 	(
+		--format "%" "\n"
 		--print ("RolloutEvent_v.setSaveToIniEvents() " +Parent_roll.id)
-		--format "Parent_roll._isParentRoll()	= % \n" (Parent_roll./*_isParentRoll*/())
-		--if( Parent_roll.ini == undefined ) then
-			--return false --return
+		--format "Parent_roll._isParentRoll()	= % \n" (Parent_roll._isParentRoll())
 		
-		--this.setSaveIniDefaultEvent #open  "rolledUp" "(val == false)"
-		--this.setSaveIniDefaultEvent #close "rolledUp" "(val == false)"
-		--this.setSaveIniDefaultEvent #moved "docked"   ("(try(cui.getDockState "+Parent_roll.id+")catch(false))")
+		if( Parent_roll._isParentRoll() ) then 
+			this._dialogSaveIni()
 		
-		
+		else
+			this._rolloutSaveIni()
+	),
+	
+	/** Dialog save ini
+	 */
+	function _dialogSaveIni =
+	(
+		--print "RolloutEvent_v._dialogSaveIni()"
+		this._setSaveIniDefaultEvent #moved	"moved"	"val"
+		this._setSaveIniDefaultEvent #resized	"resized"	"val"
+		this._setSaveIniDefaultEvent #docked	"dock_state"	("(try(cui.getDockState "+Parent_roll.id+")catch(\"cui_floatable\"))")
+	),
+	
+	/** Rollout save ini
+	 */
+	function _rolloutSaveIni =
+	(
+		--print "RolloutEvent_v._rolloutSaveIni()"
+		this._setSaveIniDefaultEvent #rolledDown	"rolledUp"	"(val == false)"
+		this._setSaveIniDefaultEvent #rolledUp	"rolledUp" 	"(val == false)"
 	),
 	
 	/** Set save to ini default event
 	 */
-	function setSaveIniDefaultEvent type key val =
+	function _setSaveIniDefaultEvent type key val =
 	(
 		if_val_not_undefined	= "if( val != undefined ) then" -- on subrollout creation is "rolledUp" fired with undefined value
 		
@@ -120,18 +138,12 @@ struct RolloutEvent_v
 		--print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
 		--format "Parent_roll._isSubrollout() = % \n" (Parent_roll._isSubrollout())
 		
-		--handler_types	= #( #open, #close, #rolledUp, #resized, #moved, #lbuttondown )
-		--_Events = this.Events.getEvents()
-		--format "_Events	= % \n" _Events
-		
-		
 		if( Parent_roll._isParentRoll() ) then
 			for event_type in this._getEventTypes() do
 				this._addHandler event_type
 		
 		else
 			this._addHandler #rolledUp
-
 	),
 	
 	/** Get event types
@@ -171,8 +183,8 @@ struct RolloutEvent_v
 	 */
 	function _getCallback type =
 	(
-		print ("RolloutEvent_v._getCallback()")
-		format "type	= % \n" type
+		--print ("RolloutEvent_v._getCallback()")
+		--format "type	= % \n" type
 		
 		if( type == #rolledUp ) then
 			this._bindToRolledUpHandler() --return
@@ -182,7 +194,6 @@ struct RolloutEvent_v
 		
 		else
 			this._getEventCode type --return
-				
 	),
 	
 	/** Bind to rolled up handler
@@ -192,10 +203,16 @@ struct RolloutEvent_v
 	 */
 	function _bindToRolledUpHandler =
 	(
+		--print ("RolloutEvent_v._bindToRolledUpHandler()")
+		callback = ""
+		
 		callback_rolledown	= this._getEventCode #rolledDown
 		callback_rolledup	= this._getEventCode #rolledUp
 		
-		"if( val == true ) then (" +callback_rolledown+ ")else(" +callback_rolledup+ ")" --return
+		if( callback_rolledup.count > 0 or callback_rolledown.count > 0 ) then
+			callback = "if( val == true ) then (" +callback_rolledown+ ")else(" +callback_rolledup+ ")" --return
+		
+		callback --return
 	),
 	
 	/** Bind #docked to #moved handler
@@ -208,6 +225,7 @@ struct RolloutEvent_v
 	 */
 	function _bindToMovedHandler =
 	(
+		--print ("RolloutEvent_v._bindToMovedHandler()")
 		callback_moved	= this._getEventCode #moved
 		callback_docked	= this._getEventCode #docked
 		

@@ -77,7 +77,6 @@ struct Rollout_v
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
 		
-		--if( this._isSubrollout() == true ) then
 		this.setDefaultEvents()
 
 		Events._addHandlers()
@@ -86,7 +85,7 @@ struct Rollout_v
 		try /*------ PREVENT adding same control again ------*/
 		(
 			Rollout_new = RolloutCreator.end()
-			format "Rollout_new	= % \n" Rollout_new
+			--format "Rollout_new	= % \n" Rollout_new
 			--ROLLOUTS.add Rollout_new
 			ROLLOUTS_GLOBAL.add Rollout_new
 		)
@@ -152,8 +151,8 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		print "\n"
-		print ("Rollout_v.setDefaultEvents() " +id)
+		--print "\n"
+		--print ("Rollout_v.setDefaultEvents() " +id)
 		--format "_Ini	= % \n" _Ini
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
 		if( _Ini._path != undefined ) then
@@ -164,8 +163,8 @@ struct Rollout_v
 	 */
 	function _isParentRoll =
 	(
-		print ("\nRollout_v._isParentRoll() " + (Parent_Subrollouts == undefined) as string )
-		format "id	= % \n" id
+		--print ("\nRollout_v._isParentRoll() " + (Parent_Subrollouts == undefined) as string )
+		--format "id	= % \n" id
 		--format "Parent_Subrollouts	= % \n" (Parent_Subrollouts == undefined)
 		--format "this	= % \n" this
 		Parent_Subrollouts == undefined --return
