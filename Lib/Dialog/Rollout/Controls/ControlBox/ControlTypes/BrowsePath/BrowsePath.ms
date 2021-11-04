@@ -64,15 +64,31 @@ struct BrowsePath_v
 	 (
 		Event = Event_v type:#pressed
 		
-		get_dir_fn	= "local dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
-		if_dir_defined	= "if (dir != undefined) "
-		set_edit_text	= ControlBox.Parent_roll.id + "."+id.id+".text = dir "
-		set_button_tooltip	= browse_button_id+".toolTip = dir"
 		
-		Event.code = get_dir_fn +"\n"+ if_dir_defined + " then ( "+set_edit_text+"\n"+set_button_tooltip+" )"
+		
+		edit_text_id	= ControlBox.Parent_roll.id +"."+ id.id
+		
+
+		get_dir_fn	= "local browsed_dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
+		if_dir_defined	= "if (  browsed_dir != undefined) "
+		set_edit_text	= edit_text_id+".text = browsed_dir "
+		set_button_tooltip	= browse_button_id+".toolTip = browsed_dir"
+		
+		
+		save_to_ini = "setINISetting \"" + (ControlBox.Parent_roll.ini #get) + "\" \"" + ControlBox.Parent_roll.id + "\" \"" + id.id  + "\" browsed_dir" 
+				
+		--set_focus = "\nsetFocus "ControlBox.Parent_roll.id + "."+id.id
+		
+		Event.code = get_dir_fn +"\n"+ if_dir_defined + " then ( "+set_edit_text+"\n"+set_button_tooltip+"\n"+save_to_ini+" )"
+
 		
 		ControlBox.Parent_roll.RolloutCreator.addhandler browse_button_id Event
+		
 	 ),
+	 
+	 
+	 
+	 
 	 
 	/** Add Edit text field http://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
 	 */
