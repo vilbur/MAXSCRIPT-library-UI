@@ -18,7 +18,7 @@ function dock side =
 	
 	this._resizeDialogBeforeDocking()
 	
-	this._register() -- must be after resize
+	this.register() -- must be after resize
 
 	cui.DockDialogBar Dialog dock_state
 ),
@@ -31,8 +31,17 @@ function undock =
 	if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "" --return
 	
-	this._unregister()
+	this.unregister()
 ),
+
+/** Get dock state
+ */
+function getDockState =
+(
+	if ( this._isRegistered() ) then
+		cui.getDockState Dialog --return
+),
+
 
 /** Is floatable
  */
@@ -49,6 +58,7 @@ function _isDocked =
 (
 	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
 ),
+
 
 /** Resize dialog before docking
  */

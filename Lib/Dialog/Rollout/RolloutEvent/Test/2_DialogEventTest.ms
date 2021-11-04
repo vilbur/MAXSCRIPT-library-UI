@@ -1,7 +1,16 @@
 clearListener()
 
-
 filein( getFilenamePath(getSourceFileName()) + "/../../../Dialog.ms" )
+
+
+/*  Import callback methods
+  
+	CallbackNoParam()
+	CallbackWithValue(val)
+	CallbackWith2Params(arg_1) (arg_2)
+*/ 
+filein( getFilenamePath(getSourceFileName()) + "/../../../../Events/Test/inlcude_test_callbacks.ms" )
+
 
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
@@ -54,64 +63,31 @@ function onDockResizeDialogCallback val =
 )
 
 
-/** Button test
- */
-function CallbackNoParam =
-(
-	print "CallbackNoParam"
-
-	format "EventFired.control 	= % \nEventFired.type 	= % \n\n" EventFired.control EventFired.type
-)
-/** on value changed
- */
-function CallbackWithValue val =
-(
-	print "CallbackWithValue"
-	
-	format "EventFired.control 	= % \nEventFired.type 	= % \n" EventFired.control EventFired.type
-	
-	format "val 	= % \n" val
-	
-	format "EventFired 	= % \n\n" EventFired
-)
-
-
-/** on value changed
- */
-function CallbackWith2Params arg_1 arg_2 =
-(
-	print "SpinnerEnteredTest"
-	
-	format "EventFired.control 	= % \nEventFired.type 	= % \n" EventFired.control EventFired.type
-
-	format "arg_1 	= % \narg_2  	= % \n" arg_1 arg_2
-
-	format "EventFired 	= % \n\n" EventFired
-)
-
 /*
 	SET CUSTOM EVENTS
 */
 --Dialog.Events.setEvent #open	"CallbackNoParam()"
 --Dialog.Events.setEvent #close	"CallbackNoParam()"
---Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
+Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
 --Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
+Dialog.Events.setEvent #docked	"CallbackWithValue(val)"
 
 
-Dialog.Events.setEvent #docked	"print \"\DOCKED\""
+Dialog.Events.setEvent #oktoclose	"CallbackNoParam()"
 
-
---Dialog.Events.setEvent #lbuttondown	"CallbackWithValue(val)"
---Dialog.Events.setEvent #oktoclos	"CallbackNoParam()"
+Dialog.Events.setEvent #lbuttondown	"CallbackWithValue(val)"
 
 
 
 /* CREATE DIALOG */
 Dialog.create()
+Dialog.register()
+
+--clearListener()
+
+--Dialog.dock #left
 
 
-Dialog.dock #left
-
-
-
+--is_docked = Dialog.getDockState()
+--format "is_docked	= % \n" is_docked
 

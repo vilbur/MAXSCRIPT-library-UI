@@ -30,7 +30,7 @@ struct ControlEvents_v
 	*
 	*
 	*/ 
-	control_types_events = #(
+	event_params = #(
 		#( ),				-- #label	
 		#( #pressed,	#rightclick ),			-- #button	
 		#( #(#changed, "val"),	#rightclick ),			-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
@@ -46,8 +46,11 @@ struct ControlEvents_v
 	/** Set event types available for each type of control
 	 */
 	function setEventTypes =
-	(		
-		events_of_control = control_types_events[findItem control_types Parent_Control.type]
+	(	
+		events_of_control = event_params[findItem control_types Parent_Control.type]
+		
+		
+		this.Events.setEventTypes events_of_control
 		
 		Events.event_types = for event_type in events_of_control collect
 			if( classOf event_type == Array ) then event_type[1] else event_type
@@ -69,18 +72,20 @@ struct ControlEvents_v
 	 */
 	function setEvent type callback tooltip params:"" =
 	(
-		--format "\nControlEvents_v.setEvent type:% callback:\"%\" tooltip:\"%\" params:%\n" type callback tooltip params
+		--print ( "ControlEvent_v.setEvent()" )
+
+		--format "type:% callback:\"%\" tooltip:\"%\" params:%\n" type callback tooltip params
 		--format "Events.event_types	= % \n" Events.event_types
 		
-		if not( this._isEventExists(type) ) then 
+		if not( this.Events._isEventExists(type) ) then 
 			this._exception(type)
 		
-		this._setCallbackParamters &params type
-		this._addFunctionBrackets  &callback params
+		this.Events._setCallbackParamters &params type
+		this.Events._addFunctionBrackets  &callback params
 		--format "callback	= % \n" callback
 		--format "params	= % \n" params
 
-		_EventFired = this.Events.getEventFired type:type id:(Parent_Control.getId()) params:(filterString (this._getEventParameters type) " ")
+		_EventFired = this.Events.getEventFired type:type id:(Parent_Control.getId())
 		  
 		
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
@@ -102,47 +107,47 @@ struct ControlEvents_v
 			Parent_Control.ControlBox.Parent_roll.RolloutCreator.addhandler Parent_Control.id.id _Event
 	),
 	
-	/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
-	 */
-	function _addFunctionBrackets &callback params =
-	(
-		--print "ControlEvents_v._addFunctionBrackets()"
-		--format "params	= % \n" params
-		if( params == "" ) then 
-			params = "()"
-		
-		if not( matchPattern callback pattern:"macros.run*" ) then 
-			if not( matchPattern callback pattern:("*(*)") ) then
-				callback += " " + params
-				--callback += "("+params+")"
-	),
-	
-	/** Get parameters of callback defined in control_types_events
-	 */
-	function _setCallbackParamters &params type =
-	(
-		--print "ControlEvents._setCallbackParamters()"
-		--format "params	= % \n" params
-		
-		if( ( event_params = this._getEventParameters type ) != undefined and params == "" ) then
-			params = event_params
-		
-		params --return
-	),
-	
-	/** If event in Events.event_types is Array, then it has parameter
-	 */
-	function _getEventParameters type =
-	(
-		--format "ControlEvents_v._getEventParameters	= % \n" type
-
-		param = ""
-		
-		for event_param in Events.event_params where event_param[1] == type do
-			param = event_param[2]
-			
-		param --return
-	),
+	--/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
+	-- */
+	--function _addFunctionBrackets &callback params =
+	--(
+	--	--print "ControlEvents_v._addFunctionBrackets()"
+	--	--format "params	= % \n" params
+	--	if( params == "" ) then 
+	--		params = "()"
+	--	
+	--	if not( matchPattern callback pattern:"macros.run*" ) then 
+	--		if not( matchPattern callback pattern:("*(*)") ) then
+	--			callback += " " + params
+	--			--callback += "("+params+")"
+	--),
+	--
+	--/** Get parameters of callback defined in event_params
+	-- */
+	--function _setCallbackParamters &params type =
+	--(
+	--	print "ControlEvents._setCallbackParamters()"
+	--	--format "params	= % \n" params
+	--	
+	--	if( ( event_params = this._getEventParameters type ) != undefined and params == "" ) then
+	--		params = event_params
+	--	
+	--	params --return
+	--),
+	--
+	--/** If event in Events.event_types is Array, then it has parameter
+	-- */
+	--function _getEventParameters type =
+	--(
+	--	--format "ControlEvents_v._getEventParameters	= % \n" type
+	--
+	--	param = ""
+	--	
+	--	for event_param in Events.event_params where event_param[1] == type do
+	--		param = event_param[2]
+	--		
+	--	param --return
+	--),
 	
 	/** Set default event, save to ini if ini is defined in rollout
 	 */
@@ -188,13 +193,13 @@ struct ControlEvents_v
 	
 	private
 
-	/** _is event exists
-	 */
-	function _isEventExists type =
-	(
-		findItem Events.event_types type > 0 --return
-	),
-	
+	--/** _is event exists
+	-- */
+	--function _isEventExists type =
+	--(
+	--	findItem Events.event_types type > 0 --return
+	--),
+	--
 	/** Exception
 	 */
 	function _exception type =

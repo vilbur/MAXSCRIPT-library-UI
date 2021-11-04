@@ -6,7 +6,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 -----------------------------------------*/
 
 global _Rollout = Rollout_v title:(getFilenameFile(getSourceFileName()))
-_Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_Rollout.ini	(getFilenamePath(getSourceFileName()) + "ControlTest.ini")
 
 
 
@@ -15,9 +15,9 @@ _Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
 	ADD CONTROLS
 -----------------------------------------*/
 
-/** Set control properties
+/** Create controls with evets
  */
-function cretateControlWithPropertiesTest =
+function cretateControlWithEvents =
 (
 	global _controls_1  = _Rollout.controls.new groupbox:"Control types"
 	
@@ -29,10 +29,12 @@ function cretateControlWithPropertiesTest =
 	(
 		--execute("global _Control = (_controls_1."+control_type as string +" \"Props "+control_type+"\")")
 		execute("_Control = (_controls_1."+control_type as string +" \"Props "+control_type+"\")")
-		--format "_Control.Events.Events.event_types = % \n" _Control.Events.Events.event_types
+		format "_Control.Events.Events.event_types = % \n" _Control.Events.Events.event_types
+		format "_Control	= % \n" _Control
 		
 		for event_type in _Control.Events.Events.event_types do
-			_Control.Events.setEvent event_type ("print (\""+event_type+" \"+ val as string )") "tooltip"
+			_Control.Events.setEvent event_type ("print") "tooltip"
+			--_Control.Events.setEvent event_type ("print (\""+event_type+" \"+ val as string )") "tooltip"
 		
 	)
 )
@@ -50,7 +52,7 @@ function remoteCheckbox =
 
 )
 
-cretateControlWithPropertiesTest()
+cretateControlWithEvents()
 
 /* CREATE ROLLOUT */
 _Rollout.createRollout()

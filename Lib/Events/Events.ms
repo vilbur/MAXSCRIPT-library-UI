@@ -17,14 +17,14 @@ struct Events_v
 	 */
 	function setEventTypes _event_params =
 	(
-		print ( "Events_v.setEventTypes()")
+		--print ( "Events_v.setEventTypes()")
 		event_types = for event_type in _event_params collect
 			if( classOf event_type == Array ) then event_type[1] else event_type
 		
 		event_params = for event_type in _event_params where classOf event_type == Array collect event_type
 
-		format "event_types	= % \n" event_types
-		format "event_params	= % \n" event_params
+		--format "event_types	= % \n" event_types
+		--format "event_params	= % \n" event_params
 	),
 	/** Set Event to Custom
 	 */
@@ -139,9 +139,6 @@ struct Events_v
 	),
 	
 	
-
-	
-	
 	/** Add function brackets E.g.: "fooCallback" return "fooCallback()|fooCallback(val)"
 	 */
 	function _addFunctionBrackets &callback params =
@@ -161,8 +158,8 @@ struct Events_v
 	 */
 	function _setCallbackParamters &params type =
 	(
-		print "Events_v._setCallbackParamters()"
-		format "type	= % \n" type
+		--print "Events_v._setCallbackParamters()"
+		--format "type	= % \n" type
 		--format "params	= % \n" params
 		
 		if( ( _event_params = this._getEventParameters type ) != undefined and params == "" ) then
@@ -175,8 +172,8 @@ struct Events_v
 	 */
 	function _getEventParameters type =
 	(
-		print "Events_v._getEventParameters()"
-		format "type	= % \n" type
+		--print "Events_v._getEventParameters()"
+		--format "type	= % \n" type
 		--format "event_params	= % \n" event_params
 		
 		----event_params	= #( "val" ) 
@@ -188,7 +185,7 @@ struct Events_v
 			params = event_param[2]
 		
 		
-		format "params	= % \n" params
+		--format "params	= % \n" params
 		params --return
 	),
 	

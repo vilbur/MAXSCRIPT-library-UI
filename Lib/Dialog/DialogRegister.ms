@@ -1,6 +1,6 @@
 /** Register dialog bar
  */
-function _register =
+function register =
 (
 	--ENABLE_RESIZING = false
 	--print "Dialog._register()"
@@ -12,7 +12,7 @@ function _register =
 
 /** Unregister dialog bar
  */
-function _unregister =
+function unregister =
 (
 	--print "Dialog._unregister()"
 	try(cui.UnRegisterDialogBar Dialog)catch() --try to unregister if already registered
@@ -25,7 +25,7 @@ function _unregisterOldDialog =
 	--print "Dialog._unregisterOldDialog()"
 
 	if( ( Dialog_global = DialogGlobals.get(RolloutMain.id) )!= undefined ) then
-		Dialog_global._unregister()
+		Dialog_global.unregister()
 ),
 
 /** _is registered

@@ -176,7 +176,7 @@
 
 		this._checkConstctructProperties()
 	
-		this.Events.setEventTypes()
+		this.Events.setEventTypes() -- IMPORTANT: this._setType() MSUT be executed before this
 		
 		this._setCaption()
 		

@@ -30,13 +30,29 @@ struct RolloutEvent_v
 	
 	events_rollout = #( #(#rolledUp, "val"), #(#rolledDown, "val") ),
 	
-	events_dialog  = #( #open, #close,  #(#resized, "val"), #(#moved, "val"), #docked, #oktoclose, #(#lbuttondown, "val")  ), -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	
+	-- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_816D257C_CD2D_4753_A792_6E7AEFAFA6A7_htm
+	events_dialog  = #( #open, #close,  #(#resized, "val"), #(#moved, "val"), #docked, #oktoclose,
+					   
+					   /* Mouse button events */ 
+					   #(#lbuttondown,	"val"),
+					   #(#lbuttonup,	"val"),
+					   #(#lbuttondblclk,	"val"),
+					   
+					   #(#mbuttondown,	"val"),
+					   #(#mbuttonup,	"val"),
+					   #(#mbuttondblclk,	"val"),
+					   
+					   #(#rbuttondown,	"val"),
+					   #(#rbuttonup,	"val"),
+					   #(#rbuttondblclk,	"val")
+	),
 	
 	/** Set event types for Main rollout (Dialog) or subrollouts
 	 */
 	function setEventTypes =
 	(
-		print ("RolloutEvent_v.setEventTypes()")
+		--print ("RolloutEvent_v.setEventTypes()")
 		--format "Parent_roll._isParentRoll()	= % \n" (Parent_roll._isParentRoll())
 		--this.Events.setEventTypes events_dialog
 		if( Parent_roll._isParentRoll() ) then 
@@ -50,7 +66,7 @@ struct RolloutEvent_v
 	 */
 	function setEvent type callback params:"" =
 	(
-		print ("RolloutEvent_v.setEvent()")
+		--print ("RolloutEvent_v.setEvent()")
 
 		if not( this.Events._isEventExists(type) ) then 
 			this._exception(type)
@@ -62,7 +78,7 @@ struct RolloutEvent_v
 		--format "callback	= % \n" callback
 		--format "params	= % \n" params
 		
-		--callback = (this.Events.getEventFired type:type id:Parent_roll.id) + callback
+		callback = (this.Events.getEventFired type:type id:Parent_roll.id) + callback
 		--format "callback	= % \n" callback
 
 		this.Events.add (Event_v type:type code:callback params:params)
@@ -101,42 +117,53 @@ struct RolloutEvent_v
 	 */
 	function _addHandlers =
 	(
-		print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
+		--print ("RolloutEvent_v._addHandlers() " +Parent_roll.id)
 		--format "Parent_roll._isSubrollout() = % \n" (Parent_roll._isSubrollout())
 		
 		--handler_types	= #( #open, #close, #rolledUp, #resized, #moved, #lbuttondown )
 		--_Events = this.Events.getEvents()
 		--format "_Events	= % \n" _Events
 		
+		
 		if( Parent_roll._isParentRoll() ) then
-		(
-			for event_type in Events.event_types do
+			for event_type in this._getEventTypes() do
 				this._addHandler event_type
-		)
+		
 		else
 			this._addHandler #rolledUp
 
+	),
+	
+	/** Get event types
+	  *
+	  * Remove #docked event
+	 */
+	function _getEventTypes =
+	(
+		--print "RolloutEvent_v._getEventTypes()"
+		all_event_types = Events.event_types
+		
+		if( (docked = findItem all_event_types #docked) > 0 ) then 
+			all_event_types = deleteItem all_event_types docked
+
+		all_event_types --return
 	),
 	
 	/** _add handler
 	 */
 	function _addHandler event_type =
 	(
-		print "\n"
-		print ("RolloutEvent_v._addHandler()")
-		format "event_type	= % \n" event_type
+		--print "\n"
+		--print ("RolloutEvent_v._addHandler()")
+		--format "event_type	= % \n" event_type
 		--params = if( event_type == #open or event_type == #close or event_type == #oktoclose ) then "" else "val"
 		params = this.Events._getEventParameters event_type
 		
 		callback = this._getCallback event_type
-		--format "callback = % \n" callback
-		
-		
-		--handler = "on "+(Parent_roll.id)+" "+ type as string + " "+val+"do (" +callback+ ")" 
+				
 		handler = "on "+(Parent_roll.id)+" "+ event_type as string + " "+params+" do (" +callback+ ")" 
-		format "handler	= % \n" handler
 		
-		if( callback != "" ) then 
+		if( callback.count > 0 ) then
 			Parent_roll.RolloutCreator.addText(handler)
 	),
 	
@@ -144,14 +171,17 @@ struct RolloutEvent_v
 	 */
 	function _getCallback type =
 	(
+		print ("RolloutEvent_v._getCallback()")
+		format "type	= % \n" type
+		
 		if( type == #rolledUp ) then
 			this._bindToRolledUpHandler() --return
 		
 		else if( type == #moved ) then
-			this._bindToMovedHandler()
+			this._bindToMovedHandler() --return
 		
 		else
-			this._getEventCode type
+			this._getEventCode type --return
 				
 	),
 	
@@ -168,7 +198,7 @@ struct RolloutEvent_v
 		"if( val == true ) then (" +callback_rolledown+ ")else(" +callback_rolledup+ ")" --return
 	),
 	
-	/** Bind to moved handler
+	/** Bind #docked to #moved handler
 	  *
 	  *	Event #docked is bind to #moved handler
 	  * If dialog is docked then callback of #docked is called
@@ -180,7 +210,6 @@ struct RolloutEvent_v
 	(
 		callback_moved	= this._getEventCode #moved
 		callback_docked	= this._getEventCode #docked
-		
 		
 		--_format = "\nformat \"TEST DIALOG_PREVIOUS_STATE %\" DIALOG_PREVIOUS_STATE \n"
 		_format = ""

@@ -2,6 +2,14 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Dialog/Dialog.ms" )
 
+/*  Import callback methods
+  
+	CallbackNoParam()
+	CallbackWithValue(val)
+	CallbackWith2Params(arg_1) (arg_2)
+*/ 
+filein( getFilenamePath(getSourceFileName()) + "/inlcude_test_callbacks.ms" )
+
 /**
  * Test events on Dialog, Rollout and control at same time 
  *	
