@@ -73,7 +73,9 @@ struct Dialog_v
 		max_width = RolloutMain.setRolloutWidth()
 		
 		this.width max_width
-				
+		
+		this.dockOnInit()
+		
 		this._runCallbacksOnStart()
 	),
 	 
@@ -133,7 +135,7 @@ struct Dialog_v
 		else
 			pos --return
 	),
-	
+
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/

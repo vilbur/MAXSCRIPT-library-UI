@@ -57,6 +57,7 @@ struct Ini_v
 	 */
 	function loadValuesOnInit =
 	(
+		--print ( "Ini_v.loadValuesOnInit()" )
 		this.isDefined() and load_values_on_init
 	),
 	
@@ -74,12 +75,10 @@ struct Ini_v
 	 */
 	function load _section _key default:undefined =
 	(
-		--format "------------\nIni.load()"
-		_section	= _section	as string
-		_key	= _key	as string
+		--print "Ini.load()"
 		val	= default
 		
-		val_from_ini = getINISetting _path _section _key -- return
+		val_from_ini = getINISetting _path ( _section	as string ) ( _key as string ) -- return
 		--format "\nval_from_ini = % \n" val_from_ini
 		if( val_from_ini == "" or val_from_ini == undefined ) then val else this._convertToDatatypeValue(val_from_ini) --return
 	),
@@ -96,6 +95,15 @@ struct Ini_v
 			_path = _dir +"\\" + _file
 	),
 
+	
+	/**  
+		!!!! TODO:
+		
+			1) Refract methods for convert value to OWN struct E.G.: DataTypeConvertor
+			2) Add remaining datatypes 
+	 */
+	
+	
 	/** Format string value to valid datatype
 	  *
 	  * Put quotes around string value
@@ -108,9 +116,10 @@ struct Ini_v
 		
 		case data_type of
 		(
-			(#boolean):	this._convertToBoolean val
-			(#number):	this._convertToNumber  val
-			(#color):	this._convertToColor   val
+			#boolean:	this._convertToBoolean val
+			#number:	this._convertToNumber  val
+			#number:	this._convertToNumber  val
+			#point2:	this._convertToPoint2  val
 			default:	val
 		)
 	),
@@ -127,6 +136,9 @@ struct Ini_v
 		
 		else if( matchPattern val pattern:"color*" ) then
 			#color --return
+		
+		else if( matchPattern val pattern:"[*,*]" ) then
+			#point2 --return
 		
 		else
 			#string
@@ -172,6 +184,15 @@ struct Ini_v
 		val as number --return
 	),
 	
+	/** _convert to point2
+	 */
+	function _convertToPoint2 val =
+	(
+		split  = filterString ( trimRight ( trimLeft val "[" ) "]" ) ","
+		
+		[split[1] as number, split[2] as number] --return
+	),
+	
 	/** Set default path to ini file
 	  *
 	  * Default dir:	"#temp\ini-files\" E.G.: ""C:\Users\[USERNAME]\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\temp""
@@ -186,7 +207,6 @@ struct Ini_v
 			file ( (getFilenameFile id) + ".ini" )
 			
 		this._combinePath()
-		format "_path = % \n" _path
 	),
 	
 	/** Get\set value of property 

@@ -1,5 +1,6 @@
 global DIALOG_PREVIOUS_STATE = undefined -- this should be in struct
 
+global ENABLE_DOCKED_EVENT = true -- prevent crash on destroying  of dialog
 
 /** RolloutEvent https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
   * 
@@ -12,13 +13,6 @@ global DIALOG_PREVIOUS_STATE = undefined -- this should be in struct
   *	
   *	------------------------------------------------------------------------------------------------------------
   *	
-  * #OPEN and #CLOSE:
-  *		Dialog  #open and #close fires when dialog is  opened or closed
-  *		Rollout #open and #close fires when subrollout is roll up or down
-  *	
-  *	
-  *	#DOCKED
-  *		If fired each time dialog change its docked state, on dock or undock
   *	
   *	
   */
@@ -108,7 +102,8 @@ struct RolloutEvent_v
 		--print "RolloutEvent_v._dialogSaveIni()"
 		this._setSaveIniDefaultEvent #moved	"moved"	"val"
 		this._setSaveIniDefaultEvent #resized	"resized"	"val"
-		this._setSaveIniDefaultEvent #docked	"dock_state"	("(try(cui.getDockState "+Parent_roll.id+")catch(\"cui_floatable\"))")
+		--this._setSaveIniDefaultEvent #docked	"dock_state"	("if(ENABLE_DOCKED_EVENT)then(try(cui.getDockState "+Parent_roll.id+")catch(\"cui_floatable\"))")
+		this._setSaveIniDefaultEvent #docked	"dock_state"	("(try(cui.getDockState "+Parent_roll.id+")catch(\"SHIT\"))")
 	),
 	
 	/** Rollout save ini
@@ -124,7 +119,13 @@ struct RolloutEvent_v
 	 */
 	function _setSaveIniDefaultEvent type key val =
 	(
-		if_val_not_undefined	= "if( val != undefined ) then" -- on subrollout creation is "rolledUp" fired with undefined value
+		
+		--enable_save_docked_state = if( type == #docked ) then " and ENABLE_DOCKED_EVENT" else ""
+		enable_save_docked_state = ""
+		
+		if_val_not_undefined	= "if( val != undefined "+enable_save_docked_state+" ) then " -- on subrollout creation is "rolledUp" fired with undefined value
+		
+		
 		
 		save_to_ini	= "( setINISetting \""+(Parent_roll.ini #get)+"\" \""+Parent_roll.id+"\" \""+key+"\" ("+val+" as string) )"
 		
@@ -220,7 +221,7 @@ struct RolloutEvent_v
 	  *	Event #docked is bind to #moved handler
 	  * If dialog is docked then callback of #docked is called
 	  *
-	  * #moved Event is fired many times, global variable DIALOG_PREVIOUS_STATE is used to find out if dialog gets just docket
+	  * #docked is not native maxscript event, it is simulated by checking dock state on #moved event
 	  *
 	 */
 	function _bindToMovedHandler =
@@ -229,18 +230,20 @@ struct RolloutEvent_v
 		callback_moved	= this._getEventCode #moved
 		callback_docked	= this._getEventCode #docked
 		
-		--_format = "\nformat \"TEST DIALOG_PREVIOUS_STATE %\" DIALOG_PREVIOUS_STATE \n"
+
 		_format = ""
 		
 		if_resizing_enabled     =	""
 		--if_resizing_enabled     =	" if(ENABLE_RESIZING != false) then\n" -- this is MUST WRAP ALL STRINGS BELOW IN ()
+		if_docked_event_enabled = " if(ENABLE_DOCKED_EVENT) then "
+
 		previous_state_definded = " (DIALOG_PREVIOUS_STATE != false) "
 		current_state_changed   = " (dialog_current_state = try(cui.getDockState "+Parent_roll.id+")catch(false)) != DIALOG_PREVIOUS_STATE "
 		state_match_cui         = " matchPattern (dialog_current_state as string) pattern:\"cui_*\" "
 		set_previous_state      = " DIALOG_PREVIOUS_STATE = dialog_current_state "
 		
 		if( callback_docked != "" ) then -- on move, if dialog is docked and change its state then call #docked callback
-			callback_moved += if_resizing_enabled +"\n"+"if ( "+previous_state_definded+" and  "+current_state_changed+" and "+state_match_cui+") then (" + callback_docked + ")\n" + set_previous_state
+			callback_moved += if_resizing_enabled +"\n"+"if ( "+previous_state_definded+" and  "+current_state_changed+" and "+state_match_cui+") then ( "+if_docked_event_enabled+" (" + callback_docked + "))\n" + set_previous_state
 		
 		callback_moved --return
 	),

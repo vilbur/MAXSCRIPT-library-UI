@@ -4,6 +4,7 @@
  */
 global GROUPBOX_GLOBAL = #() -- store groupboxes for dynamic method creation in ControlBoxControlTypes.ms
 
+
 filein( getFilenamePath(getSourceFileName()) + "/../../../../List/List.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Events/Event/Event.ms" )
@@ -137,12 +138,11 @@ struct Rollout_v
 	  *
 	  * @return	string path	to ini file
 	 */
-	function ini _path load:true =
+	function ini _path load: =
 	(
 		--print "Rollout_v.ini()"
-		--format "_path	= % \n" _path
-		
-		_Ini.load_values_on_init = load
+		if( load != unsupplied ) then
+			_Ini.load_values_on_init = load
 
 		_Ini.path _path --return
 	),
@@ -161,10 +161,7 @@ struct Rollout_v
 	 */
 	function setDefaultEvents =
 	(
-		--print "\n"
 		--print ("Rollout_v.setDefaultEvents() " +id)
-		--format "_Ini	= % \n" _Ini
-		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
 		if( _Ini.isDefined() ) then
 			Events.setSaveToIniEvents()
 	),
@@ -174,9 +171,6 @@ struct Rollout_v
 	function _isParentRoll =
 	(
 		--print ("\nRollout_v._isParentRoll() " + (Parent_Subrollouts == undefined) as string )
-		--format "id	= % \n" id
-		--format "Parent_Subrollouts	= % \n" (Parent_Subrollouts == undefined)
-		--format "this	= % \n" this
 		Parent_Subrollouts == undefined --return
 	),
 	
@@ -254,8 +248,12 @@ struct Rollout_v
 	 */
 	function _destroy =
 	(
+		ENABLE_DOCKED_EVENT = false
+				
 		try( execute("cui.UnRegisterDialogBar " + id) )catch()
 		try( execute("DestroyDialog "           + id) )catch()
+		
+		ENABLE_DOCKED_EVENT = true
 	),
 
 

@@ -15,11 +15,14 @@ function dock side =
 		dock_state = ("cui_dock_" + side as string) as name
 	else
 		dock_state = #cui_floatable
-	
-	this._resizeDialogBeforeDocking()
-	
-	this.register() -- must be after resize
 
+	if ( dock_state != #cui_floatable ) then 
+	(
+		this._resizeDialogBeforeDocking()
+		
+		this.register() -- must be after resize
+	)
+	
 	cui.DockDialogBar Dialog dock_state
 ),
 
@@ -42,7 +45,18 @@ function getDockState =
 		cui.getDockState Dialog --return
 ),
 
+/** Dock on init
+*/
+function dockOnInit =
+(   
+   dock_state = _Ini.load (RolloutMain.id) #dock_state default:#cui_floatable --return
 
+	if ( dock_state != #cui_floatable ) then 
+		this.register()
+   
+   cui.DockDialogBar Dialog ( dock_state as name )
+),
+	
 /** Is floatable
  */
 function _isFloatable =
