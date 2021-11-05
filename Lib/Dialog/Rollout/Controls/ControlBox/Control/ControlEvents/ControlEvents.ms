@@ -33,13 +33,13 @@ struct ControlEvents_v
 	event_params = #(
 		#( ),				-- #label	
 		#( #pressed,	#rightclick ),			-- #button	
-		#( #(#changed, "val"),	#rightclick ),			-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
-		#( #(#changed, "val"),	#rightclick ),			-- #checkbutton	
-		#( #(#changed, "val inSpin"),	#(#entered, "inSpin inCancel"),	#(#buttonup, "inCancel"),	#buttondown ),	-- #spinner	
-		#( #(#changed, "val"),	#(#entered, "val") ),			-- #edittext	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
+		#( #(#changed,  "val"),	#rightclick ),			-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
+		#( #(#changed,  "val"),	#rightclick ),			-- #checkbutton	
+		#( #(#changed,  "val inSpin"),	#(#entered, "inSpin inCancel"),	#(#buttonup, "inCancel"),	#buttondown ),	-- #spinner	
+		#( #(#changed,  "val"),	#(#entered, "val") ),			-- #edittext	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#(#rightClick, "val")),		-- #listbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#rightClick,	#selectionEnd ),	-- #multilistbox	
-		#( #(#changed, "val"),	#(#entered, "val") ) ),			-- #browsePath	
+		#( #(#changed,  "val"),	#(#entered, "val") ) ),			-- #browsePath	
 
 	
 	
@@ -90,7 +90,7 @@ struct ControlEvents_v
 		
 		this.Events.add (Event_v type:type code:(_EventFired + callback) tooltip:tooltip params:params)
 		
-		--this._addToStartupEvents type callback
+		--this._addToStartupEvents type callback -- IMPORTANT FIX THIS !!!!!! 
 		
 		Parent_Control --return
 	),

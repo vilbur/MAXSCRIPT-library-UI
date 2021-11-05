@@ -20,8 +20,6 @@ _Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
 
 
 
-
-
 /* BUTTON  */
 _Button = _Controls.button "Test 1" 
 
@@ -50,6 +48,8 @@ BrowsePath = _Controls.BrowsePath	"Get Dir" columns:16
 /* LISTBOX  */
 Listbox = _Controls.Listbox	"Listbox"
 
+/* MULTILISTBOX  */
+Multilistbox = _Controls.Multilistbox "Multilistbox" items:#("item 1","item 2","item 3")
 
 
 /** Grid of buttons 

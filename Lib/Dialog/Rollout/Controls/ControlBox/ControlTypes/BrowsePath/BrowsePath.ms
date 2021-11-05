@@ -64,15 +64,16 @@ struct BrowsePath_v
 	 (
 		Event = Event_v type:#pressed
 		
-		edit_text_id	= ControlBox.Parent_roll.id +"."+ id.id
-
+		_rollout	= ControlBox.Parent_roll
+		ini_path	= _rollout.ini #get
+		edit_text_id	= _rollout.id +"."+ id.id
+		
 		get_dir_fn	= "local browsed_dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
 		if_dir_defined	= "if (  browsed_dir != undefined) "
 		set_edit_text	= edit_text_id+".text = browsed_dir "
 		set_button_tooltip	= browse_button_id+".toolTip = browsed_dir"
-		
-		
-		save_to_ini = "setINISetting \"" + (ControlBox.Parent_roll.ini #get) + "\" \"" + ControlBox.Parent_roll.id + "\" \"" + id.id  + "\" browsed_dir" 
+				
+		save_to_ini = if( ini_path != undefined ) then  "setINISetting \"" + ini_path + "\" \"" + _rollout.id + "\" \"" + id.id  + "\" browsed_dir"  else ""
 				
 		Event.code = get_dir_fn +"\n"+ if_dir_defined + " then ( "+set_edit_text+"\n"+set_button_tooltip+"\n"+save_to_ini+" )"
 		
