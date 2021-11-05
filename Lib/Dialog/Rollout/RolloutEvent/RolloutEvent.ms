@@ -273,7 +273,5 @@ struct RolloutEvent_v
 	
 	on create do
 	(
-		--this.setEventTypes()
-		
 	)
 )

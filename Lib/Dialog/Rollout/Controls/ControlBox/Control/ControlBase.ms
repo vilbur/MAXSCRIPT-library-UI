@@ -184,7 +184,7 @@
 		
 		_Parameters.setValues init_parameters[1] init_parameters[2]
 
-		--this._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
+		
 		this.CotrolValue._getValueFromIni() -- get values after setting of parameters, ini values then overwrite given values
 			
 	),

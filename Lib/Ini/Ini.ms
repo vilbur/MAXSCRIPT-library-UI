@@ -1,12 +1,16 @@
 /** Save Load ini settings
   *
   *
+  * TODO: remove unused properties and methods OR make it work
+  *
   */
 struct Ini_v
 (
 	_dir,	-- dir of *.ini file
 	_file,	-- *.ini filename
 	_path,	-- full pah to *.ini file*
+	
+	load_values_on_init = true,
 	
 	/** Set path to dir which contains *.ini fie
 	  * @property	string	_path	path to dir
@@ -47,6 +51,13 @@ struct Ini_v
 	function isDefined =
 	(
 		_path != undefined
+	),
+	
+	/** Load values on init
+	 */
+	function loadValuesOnInit =
+	(
+		this.isDefined() and load_values_on_init
 	),
 	
 	/** Ini save control state

@@ -129,12 +129,18 @@ struct Rollout_v
 		(execute id) != undefined --return
 	),
 	
-	/** Ini
+	/** Ini set\get ini path
+	  *
+	  * @property	string|#get	_path	set or get path t ini file
+	  *
+	  * @return	string path	to ini file
 	 */
-	function ini _path =
+	function ini _path load:true =
 	(
 		--print "Rollout_v.ini()"
-		_Ini.path _path
+		_Ini.load_values_on_init = load
+
+		_Ini.path _path --return
 	),
 	
 	/** Get id
@@ -155,7 +161,7 @@ struct Rollout_v
 		--print ("Rollout_v.setDefaultEvents() " +id)
 		--format "_Ini	= % \n" _Ini
 		--print (  "Rollout_v.setDefaultEvents() "+title+ " " + ( _Ini ) as string )
-		if( _Ini._path != undefined ) then
+		if( _Ini.isDefined() ) then
 			Events.setSaveToIniEvents()
 	),
 	

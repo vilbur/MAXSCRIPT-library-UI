@@ -64,10 +64,7 @@ struct BrowsePath_v
 	 (
 		Event = Event_v type:#pressed
 		
-		
-		
 		edit_text_id	= ControlBox.Parent_roll.id +"."+ id.id
-		
 
 		get_dir_fn	= "local browsed_dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
 		if_dir_defined	= "if (  browsed_dir != undefined) "
@@ -77,13 +74,9 @@ struct BrowsePath_v
 		
 		save_to_ini = "setINISetting \"" + (ControlBox.Parent_roll.ini #get) + "\" \"" + ControlBox.Parent_roll.id + "\" \"" + id.id  + "\" browsed_dir" 
 				
-		--set_focus = "\nsetFocus "ControlBox.Parent_roll.id + "."+id.id
-		
 		Event.code = get_dir_fn +"\n"+ if_dir_defined + " then ( "+set_edit_text+"\n"+set_button_tooltip+"\n"+save_to_ini+" )"
-
 		
 		ControlBox.Parent_roll.RolloutCreator.addhandler browse_button_id Event
-		
 	 ),
 	 
 	 

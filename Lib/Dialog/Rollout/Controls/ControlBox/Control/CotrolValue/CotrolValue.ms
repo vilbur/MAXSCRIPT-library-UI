@@ -14,16 +14,16 @@ struct CotrolValue_v
 	(
 		--print "CotrolValue_v._getValueFromIni()"
 		
-		if( this._isIniIsDefined() and Parent_Control.name_of_value_param != undefined ) then 
+		if( this.loadIniValuesOnInit() and Parent_Control.name_of_value_param != undefined ) then 
 			if( (val = this._loadValueFromFile()) != undefined ) then
 				Parent_Control._Parameters.setVal Parent_Control.name_of_value_param (this._convertValueForControlTye val)
 	),
 	
 	/** _if ini is defined
 	 */
-	function _isIniIsDefined =
+	function loadIniValuesOnInit =
 	(
-		Parent_Control.ControlBox.Parent_roll._Ini.isDefined() --return
+		Parent_Control.ControlBox.Parent_roll._Ini.loadValuesOnInit() --return
 	),
 
 	/** _load value from file

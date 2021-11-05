@@ -26,10 +26,11 @@ struct Dialog_v
 	/* dependency */
 	RolloutMain,
 	Menu	= Menu_v(),
-	Ini	= Ini_v(),
+	_Ini	= Ini_v(),
 	
 	/* inherit */	
 	Events,
+	ini,
 	
 	/* store */
 	Dialog,
@@ -95,6 +96,8 @@ struct Dialog_v
 		RolloutMain	= Rollout_v title:title id:id --ini:ini
 		
 		Events = RolloutMain.Events
+		
+		ini = RolloutMain.ini
 	),
 
 	/** Set id of rollout as global variable

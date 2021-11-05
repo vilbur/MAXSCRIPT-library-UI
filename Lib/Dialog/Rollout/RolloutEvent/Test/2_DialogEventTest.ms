@@ -15,7 +15,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../Events/Test/inlcude
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
-Dialog.RolloutMain.ini (getFilenamePath(getSourceFileName()) + "2_DialogEventTest.ini")
+Dialog.ini (getFilenamePath(getSourceFileName()) + "2_DialogEventTest.ini")
 
 
 

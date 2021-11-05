@@ -36,7 +36,7 @@ struct ControlEvents_v
 		#( #(#changed, "val"),	#rightclick ),			-- #checkbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_D23A42EA_7B69_4DEF_9D6E_C6C85F884268_htm
 		#( #(#changed, "val"),	#rightclick ),			-- #checkbutton	
 		#( #(#changed, "val inSpin"),	#(#entered, "inSpin inCancel"),	#(#buttonup, "inCancel"),	#buttondown ),	-- #spinner	
-		#( #(#changed, "val"),	#(#entered, "val") ),			-- #edittext	
+		#( #(#changed, "val"),	#(#entered, "val") ),			-- #edittext	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#(#rightClick, "val")),		-- #listbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#rightClick,	#selectionEnd ),	-- #multilistbox	
 		#( #(#changed, "val"),	#(#entered, "val") ) ),			-- #browsePath	
@@ -154,7 +154,7 @@ struct ControlEvents_v
 	function setDefaultEvents =
 	(
 		--format "------------\nControlEvents.setDefaultEvents() % %\n" Parent_Control.id.id Parent_Control.type
-		if( Parent_Control.ControlBox.Parent_roll.ini != undefined ) then
+		if( Parent_Control.ControlBox.Parent_roll._Ini.isDefined() ) then
 			this.setSaveToIniCallback()
 	),
 	
@@ -165,10 +165,9 @@ struct ControlEvents_v
 	function setSaveToIniCallback =
 	(
 		--format "ControlEvents.setSaveToIniCallback() % %\n" Parent_Control.id.id Parent_Control.type
-
-		if( this._iniFileIsDefined() ) then
-			for dynamic_event_type in (this._getSaveiniEventType()) do 
-				this.Events.setDefaultEvent(Event_v type:dynamic_event_type code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
+		
+		for dynamic_event_type in (this._getSaveiniEventType()) do
+			this.Events.setDefaultEvent(Event_v type:dynamic_event_type code:("( setINISetting \""+(Parent_Control.ControlBox.Parent_roll.ini #get)+"\" \""+Parent_Control.ControlBox.Parent_roll.id+"\" \""+Parent_Control.id.id+"\" (val as string) )") params:"val")
 	),
 	
 	/** Get saveini event type
@@ -206,14 +205,7 @@ struct ControlEvents_v
 	(
 		messageBox ("WARNING\n\nUnknown Event Type: #"+ type + "\n\nControl: "+ (Parent_Control.Id.get() ))
 	),
-	
-	/** _ini is defined
-	 */
-	function _iniFileIsDefined =
-	(
-		Parent_Control.ControlBox.Parent_roll._Ini.isDefined() --return
-	),
-	
+
 	
 	on create do
 	(
