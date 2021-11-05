@@ -55,12 +55,13 @@ struct Rollout_v
 	/* dependency */
 	RolloutCreator,
 	
-	_Ini       = Ini_v(),
 	Events	    = RolloutEvent_v    Parent_roll:   this,
  	Controls   = Controls_v        Parent_roll:   this,
 	Layout     = Layout_v          Parent_roll:   this,
 	Properties = Properties_v      Parent_Control:this, -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
 
+	/* inherit */	
+	_Ini       = Ini_v(),
 	
 	/* reference */
 	Parent_Subrollouts,
@@ -132,12 +133,15 @@ struct Rollout_v
 	/** Ini set\get ini path
 	  *
 	  * @property	string|#get	_path	set or get path t ini file
+	  * @property	boolean	load	load values from ini on init
 	  *
 	  * @return	string path	to ini file
 	 */
 	function ini _path load:true =
 	(
 		--print "Rollout_v.ini()"
+		--format "_path	= % \n" _path
+		
 		_Ini.load_values_on_init = load
 
 		_Ini.path _path --return

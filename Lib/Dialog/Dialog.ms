@@ -30,7 +30,6 @@ struct Dialog_v
 	
 	/* inherit */	
 	Events,
-	ini,
 	
 	/* store */
 	Dialog,
@@ -63,11 +62,9 @@ struct Dialog_v
 	(		
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
-		--RolloutMain.Events.setSaveToIniEvents()
-		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
 
-		CreateDialog Dialog pos:pos width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
+		CreateDialog Dialog pos:(this._getDialogPosition pos) width:width height:height menu:(Menu.create()) bgcolor:bgcolor fgcolor:fgcolor bitmap:bitmap style:style modal:modal escapeEnable:escapeEnable lockHeight:lockHeight lockWidth:lockWidth parent:parent
 
 		RolloutMain.addSubRollouts() -- dialog must exist for adding subrollouts
 		
@@ -87,19 +84,30 @@ struct Dialog_v
         RolloutMain.subrollouts() --return
     ),
 	
+	/** Ini set\get ini path
+	  *
+	  * @property	string|#get	_path	set or get path t ini file
+	  * @property	boolean	load	load values from ini on init
+	  *
+	  * @return	string path	to ini file
+	 */
+	function ini _path load:true =
+	(
+		--print "Dialog_v.ini()"
+		RolloutMain.ini _path load:load --return
+	),
+	
 	private
 	
 	/** Set main rollout
 	 */
 	function _setMainRollout =
 	(
-		RolloutMain	= Rollout_v title:title id:id --ini:ini
+		RolloutMain	= Rollout_v title:title id:id _Ini:_Ini --ini:ini
 		
 		Events = RolloutMain.Events
-		
-		ini = RolloutMain.ini
 	),
-
+	
 	/** Set id of rollout as global variable
 	  *	Id is sanitized title to id "Foo Bar" >>> "foo_bar"
 	  */
@@ -115,7 +123,17 @@ struct Dialog_v
 		for callback in STARTUP_EVENTS do
 			execute (callback)
 	),
-
+	
+	/** 
+	 */
+	function _getDialogPosition pos =
+	(
+		if( _Ini.loadValuesOnInit() ) then 
+			_Ini.load (RolloutMain.id) #moved default:pos --return
+		else
+			pos --return
+	),
+	
 	/*------------------------------------------------------------------------------
 		CONSTRUCT
 	--------------------------------------------------------------------------------*/
