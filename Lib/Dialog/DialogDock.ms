@@ -48,13 +48,16 @@ function getDockState =
 /** Dock on init
 */
 function dockOnInit =
-(   
-   dock_state = _Ini.load (RolloutMain.id) #dock_state default:#cui_floatable --return
-
-	if ( dock_state != #cui_floatable ) then 
-		this.register()
-   
-   cui.DockDialogBar Dialog ( dock_state as name )
+(
+	if( _Ini.loadValuesOnInit() ) then
+	(
+		dock_state = _Ini.load (RolloutMain.id) #dock_state default:#cui_floatable --return
+	 
+		 if ( dock_state != #cui_floatable ) then 
+			 this.register()
+		
+		cui.DockDialogBar Dialog ( dock_state as name )
+	)
 ),
 	
 /** Is floatable
