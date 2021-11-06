@@ -2,8 +2,8 @@ clearListener()
 
 filein ( getFilenamePath(getSourceFileName()) + "/../Menu.ms" );
 
-/** CREATE MENU 
- */
+
+try( DestroyDialog rollout_test )catch()
 
 /* DEFINE MAIN MENU */
 Menu = Menu_v name:"TestMenu"
@@ -14,8 +14,10 @@ menu_2	= Menu.menu "Menu 2"
 
 
 /** MENU ITEMS 
- */
-menu_1.item "Item 1" "messagebox \"Item 1\"" id:"test_item1"
+-- */
+menu_1.item "Item 1" "messagebox \"Item 1\"" 
+menu_1.item "Exit" "try( execute(\"DestroyDialog rollout_test\") )catch()" 
+
 
 
 /* DEFINE SUBMENU */
@@ -31,11 +33,12 @@ menu_2.item "Item 3" "messagebox \"Item 3\""
 
 
 /* define rollout for menu */
-rollout roll_main "Menu Test"
+rollout rollout_test "Menu Test"
 (
 )
+
 
 /** CREATE ROLLOUT 
  *	
  */
-CreateDialog roll_main menu:(Menu.create())
+CreateDialog rollout_test menu:(Menu.create())

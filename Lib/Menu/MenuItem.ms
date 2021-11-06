@@ -14,7 +14,8 @@ struct MenuItem_v
 	function create =
 	(
 		this.setId()
-		
+		this._addSuffix()
+
 		if( title=="separator" ) then 
 			return "\n	separator sep"+( (random 1 1000000000) as string )
 		
@@ -36,6 +37,19 @@ struct MenuItem_v
 	function setId =
 	(
 		if( id=="" ) then
-			id = ( dotnetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_";
+			id = ( dotNetObject "System.Text.RegularExpressions.Regex" @"\s+" ).Replace ( toLower title ) "_"
+			
+	),
+	
+	/** Add suffix to menu item
+	  *
+	  * PREVENT ERRORS when maxscript preserved keyword is used as item name E.G.: "Exit|Return|Rolllout"
+	  *
+	  *
+	 */
+	function _addSuffix =
+	(
+		--print "MenuItem_v._addSuffix()"
+		id += "_item"
 	)
 )

@@ -32,7 +32,8 @@ struct Menu_v
 	 */
 	function item title command id:"" =
 	(
-		this._addItem (MenuItem_v title:title command:command id:id)
+		--print "Menu_v.item()"
+		this._addItem (MenuItem_v title:(title as string) command:command id:id)
 	),
 
 	/** Set separator item
@@ -50,14 +51,13 @@ struct Menu_v
 	 */
 	function create =
 	(
-		--format "Menu_v.create()\n"
-		
+		--print "Menu_v.create()"
 		menu_def	= this._getMenuDefinition()
 		subitems	= this._getDefinitionsOfMenuItems()
 		commands	= this._getAllCommandsDefinitions()
 		
 		definition = menu_def + "\n(\n" + subitems + commands + "\n)"
-		--format "definition = % \n" definition
+		--format "\n\nDefinition = \n% \n" definition
 		if( type == "RCmenu" ) then
 			(execute definition) -- return if menu
 		else
