@@ -4,6 +4,7 @@ filein( getFilenamePath(getSourceFileName()) + "/Rollout/Rollout.ms" )
 
 filein( getFilenamePath(getSourceFileName()) + "/DialogGlobals/DialogGlobals.ms" )
 
+filein( getFilenamePath(getSourceFileName()) + "/DialogMenu/DialogMenu.ms" )
 
 /** Use Rollout as dialog
   *
@@ -21,11 +22,14 @@ struct Dialog_v
 	id,
 
 	/*  properties */
-	style = #(#style_titlebar, #style_sysmenu, #style_resizing ),
+	--style = #(#style_titlebar, #style_sysmenu, #style_resizing ),
+	style = #( #style_resizing ),
 	
 	/* dependency */
 	RolloutMain,
-	Menu	= Menu_v(),
+	--Menu	= Menu_v(),
+	--Menu	= DialogMenu_v(),
+	Menu	= DialogMenu_v Dialog:this,
 	_Ini	= Ini_v(),
 	
 	/* inherit */	
@@ -99,6 +103,13 @@ struct Dialog_v
 		RolloutMain.ini _path load:load --return
 	),
 	
+	/** Test
+	 */
+	function test =
+	(
+		messageBox ("Dialog "+ RolloutMain.id)
+	),
+	
 	private
 	
 	/** Set main rollout
@@ -117,6 +128,17 @@ struct Dialog_v
 	(
 		DIALOG_GLOBALS.setDialog RolloutMain.id this
 	),
+	
+	
+	--/** Set menu
+	-- */
+	--function setMenu =
+	--(
+	--	--print "Dialog_v.setMenu()"
+	--	
+	--	
+	--	
+	--),
 	
 	/** Run callbacks of controls on start
 	 */
