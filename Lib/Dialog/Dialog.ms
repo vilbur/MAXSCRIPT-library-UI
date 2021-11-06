@@ -115,7 +115,7 @@ struct Dialog_v
 	  */
 	function _setDialogGlobal =
 	(
-		DialogGlobals.setDialog RolloutMain.id this
+		DIALOG_GLOBALS.setDialog RolloutMain.id this
 	),
 	
 	/** Run callbacks of controls on start

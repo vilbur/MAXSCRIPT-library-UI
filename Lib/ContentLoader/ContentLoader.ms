@@ -29,7 +29,7 @@ struct ContentLoader_v
 	 */
 	function create pos: width: height: menu: bgcolor: fgcolor: bitmap: style: modal: escapeEnable: lockHeight: lockWidth: parent: =
 	(
-		Dialog	= Dialog_v title:ContentRollout.title id:ContentRollout.title
+		--Dialog	= Dialog_v title:ContentRollout.title id:ContentRollout.title
 
 		if( ini != undefined ) then
 			Dialog.RolloutMain.ini ini
@@ -63,5 +63,9 @@ struct ContentLoader_v
 		this._checkConstctructProperties()
 		
 		ContentRollout =  ContentRollout_v path:path
+		
+		Dialog	= Dialog_v title:ContentRollout.title id:ContentRollout.title
+
+		ContentRollout
 	)
 )

@@ -94,7 +94,7 @@ function onDockResizeDialogCallback val =
 	if( ENABLE_RESIZING ) then
 	(
 
-		if( ( Dialog_global = DialogGlobals.get(EventFired.Control) )!= undefined ) then
+		if( ( Dialog_global = DIALOG_GLOBALS.get(EventFired.Control) )!= undefined ) then
 		(
 			Dialog_global.resizeSubrolloutsOfDockedDialog()
 		)

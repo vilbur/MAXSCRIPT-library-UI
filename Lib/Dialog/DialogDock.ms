@@ -10,14 +10,18 @@
  */
 function dock side =
 (
-	--print "dock.undock()"
+	print "DialogDock.dock()"
 	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
 		dock_state = ("cui_dock_" + side as string) as name
 	else
 		dock_state = #cui_floatable
-
+	
+	format "dock_state	= % \n" dock_state
+	
 	if ( dock_state != #cui_floatable ) then 
 	(
+		this.unregister()
+
 		this._resizeDialogBeforeDocking()
 		
 		this.register() -- must be after resize
@@ -34,7 +38,7 @@ function undock =
 	if ( this._isRegistered() and this._isDocked() ) then 
 		this.dock "" --return
 	
-	this.unregister()
+	--this.unregister()
 ),
 
 /** Get dock state
@@ -49,14 +53,16 @@ function getDockState =
 */
 function dockOnInit =
 (
+	print "DialogDock.dockOnInit()"
+	
+
 	if( _Ini.loadValuesOnInit() ) then
 	(
-		dock_state = _Ini.load (RolloutMain.id) #dock_state default:#cui_floatable --return
-	 
-		 if ( dock_state != #cui_floatable ) then 
-			 this.register()
+		this._resizeDialogBeforeDocking()
+
+		this.register()
 		
-		cui.DockDialogBar Dialog ( dock_state as name )
+		cui.DockDialogBar Dialog ( (_Ini.load (RolloutMain.id) #dock_state default:#cui_floatable ) as name )
 	)
 ),
 	
@@ -69,6 +75,7 @@ function _isFloatable =
 	
 	if ( this._isRegistered() and cui.getDockState Dialog == #cui_floatable ) then true else false --return;
 ),
+
 /** _is docked
  */
 function _isDocked =
@@ -81,9 +88,39 @@ function _isDocked =
  */
 function _resizeDialogBeforeDocking =
 (
+	print "Dialog._resizeDialogBeforeDocking()"
 	max_height	= this._getViewportHeight()
+	
 	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
+	
 	this.height max_height -- resize dialog
+),
+  
+    
+/** Get height of maximized viewport to find out height of docked dialog
+ */
+function _getViewportHeight =
+(
+	is_maximized = viewport.numViews == 1
+
+	height_of_ui = 0 -- Add heigh
+
+	--if( trackbar.visible ) then 
+	--	height_of_ui	+= 27
+	--
+	--if( timeSlider.isVisible() ) then 
+	--	height_of_ui	+= 18
+	
+
+	if not( is_maximized ) then 
+		actionMan.executeAction 0 "50026"  -- Tools: Maximize Viewport Toggle
+	
+	viewport_area_size = getViewSize()
+	
+	if not( is_maximized ) then 
+		actionMan.executeAction 0 "50026"  -- Tools: Maximize Viewport Toggle
+	
+	(viewport_area_size[2] as integer) + height_of_ui --return
 ),
 
 
@@ -118,30 +155,3 @@ function _resizeDialogBeforeDocking =
 --	
 --),
 
-  
-    
-/** Get height of maximized viewport to find out height of docked dialog
- */
-function _getViewportHeight =
-(
-	is_maximized = viewport.numViews == 1
-
-	height_of_ui = 0 -- Add heigh
-
-	--if( trackbar.visible ) then 
-	--	height_of_ui	+= 27
-	--
-	--if( timeSlider.isVisible() ) then 
-	--	height_of_ui	+= 18
-	
-
-	if not( is_maximized ) then 
-		actionMan.executeAction 0 "50026"  -- Tools: Maximize Viewport Toggle
-	
-	viewport_area_size = getViewSize()
-	
-	if not( is_maximized ) then 
-		actionMan.executeAction 0 "50026"  -- Tools: Maximize Viewport Toggle
-	
-	(viewport_area_size[2] as integer) + height_of_ui --return
-),

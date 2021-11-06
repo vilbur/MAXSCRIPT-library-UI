@@ -6,7 +6,7 @@ function destroy =
 (
 	ENABLE_DOCKED_EVENT = false
 	
-	if( ( Dialog_global = DialogGlobals.get(RolloutMain.id) )!= undefined ) then
+	if( ( Dialog_global = DIALOG_GLOBALS.get(RolloutMain.id) )!= undefined ) then
 		try
 		(
 			DestroyDialog Dialog_global.Dialog

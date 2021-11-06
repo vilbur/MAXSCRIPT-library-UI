@@ -5,7 +5,6 @@ struct DialogGlobals_v
 	ids     = #(),
 	Dialogs = #(),
 
-	
 	/** Set dialog
 	 */
 	function setDialog id Dialog =
@@ -19,7 +18,6 @@ struct DialogGlobals_v
 	 */
 	function get id =
 	(
-		
 		index = this.index id
 		
 		if( index > 0 ) then 
@@ -33,19 +31,23 @@ struct DialogGlobals_v
 		findItem ids id
 	),
 	
+	/** Test
+	 */
+	function test =
+	(
+		print "DIALOG_GLOBALS.test()"
+	),
+	
 	private
 	
-
 	/**  
 	 */
 	on create do
 	(
 		print("DialogGlobal_v.onCreate()")
 	)
-	
 )
 
 
-
-if( DialogGlobals == undefined ) then
-	global DialogGlobals = DialogGlobals_v()
+if( DIALOG_GLOBALS == undefined ) then
+	global DIALOG_GLOBALS = DialogGlobals_v()
