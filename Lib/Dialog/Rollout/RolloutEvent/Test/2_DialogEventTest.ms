@@ -15,29 +15,30 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../Events/Test/inlcude
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog	= Dialog_v title:(getFilenameFile(getSourceFileName()))
 
-Dialog.ini (getFilenamePath(getSourceFileName()) + "2_DialogEventTest.ini")
+Dialog.ini (getFilenamePath(getSourceFileName()) + "2_DialogEventTest.ini") load:true
 
 
 
 /*
 	SET CUSTOM EVENTS
 */
-Dialog.Events.setEvent #open	"CallbackNoParam()"
-Dialog.Events.setEvent #close	"CallbackNoParam()"
-Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
-Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
-Dialog.Events.setEvent #docked	"CallbackWithValue(val)"
-
-
-Dialog.Events.setEvent #oktoclose	"CallbackNoParam()"
-
-Dialog.Events.setEvent #lbuttondown	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #open	"CallbackNoParam()"
+--Dialog.Events.setEvent #close	"CallbackNoParam()"
+--Dialog.Events.setEvent #moved	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #resized	"CallbackWithValue(val)"
+--Dialog.Events.setEvent #docked	"CallbackWithValue(val)"
+--
+--
+--Dialog.Events.setEvent #oktoclose	"CallbackNoParam()"
+--
+--Dialog.Events.setEvent #lbuttondown	"CallbackWithValue(val)"
 
 
 /* CREATE DIALOG */
 Dialog.create()
 
---Dialog.register()
+Dialog.register()
 
 
 --Dialog.dock #left
+

@@ -4,8 +4,12 @@
  */
 function destroy =
 (
+	print "DialogRemote.destroy()"
+
 	ENABLE_DOCKED_EVENT = false
 	
+	this.unregister()
+
 	if( ( Dialog_global = DIALOG_GLOBALS.get(RolloutMain.id) )!= undefined ) then
 		try
 		(

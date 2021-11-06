@@ -20,4 +20,5 @@ Controls.label	"Test"
 /*------ CREATE FLOATER DIALOG ------*/
 Dialog.create() -- DEFAULT STYLE #(#style_titlebar, #style_sysmenu, #style_resizing )
 
+
 --Dialog.create pos:[0,0] width:512 height:512 bgcolor:(color 128 128 128) fgcolor:red style:#(#style_resizing)

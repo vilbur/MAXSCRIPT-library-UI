@@ -18,6 +18,8 @@ struct DialogGlobals_v
 	 */
 	function get id =
 	(
+		id = id as string 
+		
 		index = this.index id
 		
 		if( index > 0 ) then 
@@ -35,7 +37,7 @@ struct DialogGlobals_v
 	 */
 	function test =
 	(
-		print "DIALOG_GLOBALS.test()"
+		messageBox "DIALOG_GLOBALS.test()"
 	),
 	
 	private

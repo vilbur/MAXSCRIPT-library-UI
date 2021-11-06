@@ -20,16 +20,20 @@ Dialog.create()	-- create with default params
 
 /* DOCKING DIALOG */
 
-Dialog.dock #right
+--Dialog.dock #right
 
-messageBox "Dialog is docked right" beep:false
+--messageBox "Dialog is docked right" beep:false
+--
+--
+--Dialog.dock #left
+--
+--messageBox "Dialog is docked left" beep:false
+format "%" "\n"
+format "%" "\n"
 
+--Dialog.undock()
 
-Dialog.dock #left
+--messageBox "Dialog is undocked" beep:false
 
-messageBox "Dialog is docked left" beep:false
-
-
-Dialog.undock()
-
-messageBox "Dialog is undocked" beep:false
+--messageBox "Dialog is docked left" beep:false
+--Dialog.destroy()	

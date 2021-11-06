@@ -1,3 +1,31 @@
+
+/** Dock left
+ */
+function dockLeft =
+(
+	this.dock #left
+),
+
+/** Dock right
+ */
+function dockRight =
+(
+	this.dock #right
+),
+
+/** Undock dialog
+ */
+function undock =
+(
+	print "Dialog.undock()"
+	format "this._isRegistered()	= % \n" (this._isRegistered())
+	format "this._isDocked()	= % \n" (this._isDocked())
+	
+	
+	if ( this._isRegistered() and this._isDocked() ) then
+		this.dock "" --return
+),
+
 /** Dock\Undock sidebar to window
   * 
   * Subrollouts and dialog are resized BEFORE docking
@@ -11,35 +39,34 @@
 function dock side =
 (
 	print "DialogDock.dock()"
-	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
-		dock_state = ("cui_dock_" + side as string) as name
-	else
-		dock_state = #cui_floatable
-	
+	dock_state = this._getDockStateName side
 	format "dock_state	= % \n" dock_state
 	
-	if ( dock_state != #cui_floatable ) then 
+	if ( dock_state != #cui_floatable ) then
 	(
-		this.unregister()
-
 		this._resizeDialogBeforeDocking()
+			
+		this.register()
 		
-		this.register() -- must be after resize
+		cui.DockDialogBar Dialog dock_state
+		
 	)
 	
-	cui.DockDialogBar Dialog dock_state
+	if ( dock_state == #cui_floatable ) then
+	(
+		this.register()
+
+		--cui.RegisterDialogBar	Dialog style:#( #cui_floatable, #cui_handles)
+		cui.floatDialogBar Dialog
+		
+
+		--this.unregister()
+	)
+
 ),
 
-/** Undock dialog
- */
-function undock =
-(
-	--print "Dialog.undock()"
-	if ( this._isRegistered() and this._isDocked() ) then 
-		this.dock "" --return
-	
-	--this.unregister()
-),
+
+
 
 /** Get dock state
  */
@@ -53,8 +80,7 @@ function getDockState =
 */
 function dockOnInit =
 (
-	print "DialogDock.dockOnInit()"
-	
+	--print "DialogDock.dockOnInit()"
 
 	if( _Ini.loadValuesOnInit() ) then
 	(
@@ -80,7 +106,8 @@ function _isFloatable =
  */
 function _isDocked =
 (
-	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:@"_dock_" ) then true else false --return
+	--print "Dialog._isDocked()"
+	if ( matchPattern ((cui.getDockState Dialog) as string ) pattern:"*_dock_*" ) then true else false --return
 ),
 
 
@@ -88,7 +115,9 @@ function _isDocked =
  */
 function _resizeDialogBeforeDocking =
 (
-	print "Dialog._resizeDialogBeforeDocking()"
+	--print "Dialog._resizeDialogBeforeDocking()"
+	this.unregister()
+	
 	max_height	= this._getViewportHeight()
 	
 	this.RolloutMain.Layout.fitSubrollouts dialog_height:max_height -- resize subrollouts
@@ -123,7 +152,15 @@ function _getViewportHeight =
 	(viewport_area_size[2] as integer) + height_of_ui --return
 ),
 
-
+/** _get dock state name
+ */
+function _getDockStateName side =
+(
+	if( findItem #( #left, #right, #top, #bottom ) ( side as name ) > 0 ) then 
+		("cui_dock_" + side as string) as name --return 
+	else
+		#cui_floatable --return 
+),
 
 -- /** Resize subrollouts
 --  */

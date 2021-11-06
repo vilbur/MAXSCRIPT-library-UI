@@ -38,4 +38,4 @@ rollout roll_main "Menu Test"
 /** CREATE ROLLOUT 
  *	
  */
-CreateDialog roll_main menu:(Menu.create())
+CreateDialog roll_main menu:(Menu.create()) style:#(#style_border, #style_resizing )

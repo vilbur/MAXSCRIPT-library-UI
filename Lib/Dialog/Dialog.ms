@@ -23,7 +23,9 @@ struct Dialog_v
 
 	/*  properties */
 	--style = #(#style_titlebar, #style_sysmenu, #style_resizing ),
-	style = #( #style_resizing ),
+	--style = #(#style_titlebar, #style_resizing ),
+	--style = #( #style_resizing ),
+	style = #(  ),
 	
 	/* dependency */
 	RolloutMain,
@@ -63,7 +65,9 @@ struct Dialog_v
 	  *
 	 */
 	function create pos: width: height: bgcolor: fgcolor: bitmap: style:style modal: escapeEnable: lockHeight:false lockWidth:true parent: =
-	(		
+	(
+		print "Dialog.create()"
+
 		RolloutMain.createRollout() -- create all rollouts and subrollouts
 		
 		Dialog = RolloutMain.RolloutCreator.getDefinition()
@@ -101,13 +105,6 @@ struct Dialog_v
 	(
 		--print "Dialog_v.ini()"
 		RolloutMain.ini _path load:load --return
-	),
-	
-	/** Test
-	 */
-	function test =
-	(
-		messageBox ("Dialog "+ RolloutMain.id)
 	),
 	
 	private

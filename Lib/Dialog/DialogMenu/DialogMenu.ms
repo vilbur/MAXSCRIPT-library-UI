@@ -42,12 +42,14 @@ struct DialogMenu_v
 		--menu_2.separator()
 		--menu_2.item "Item 3" "messagebox \"Item 3\""
 		
-		Main_Menu	= Menu.menu Dialog.title
+		--Main_Menu	= Menu.menu Dialog.title
+		Main_Menu	= Menu.menu "Menu"
 		
 			DockMenu = Main_Menu.menu "Dock"
 	
-			DockMenu.item "Left" (this.accessDialog method:#dock)
-			--DockMenu.item "Left" (this.accessDialog method:#dock)
+			DockMenu.item "Left"	(this.accessDialog method:#dockLeft)
+			DockMenu.item "Right"	(this.accessDialog method:#dockRight)
+			DockMenu.item "Undock"	(this.accessDialog method:#undock)
 
 		
 		Main_Menu.item "Exit" (this.accessDialog method:#destroy)
