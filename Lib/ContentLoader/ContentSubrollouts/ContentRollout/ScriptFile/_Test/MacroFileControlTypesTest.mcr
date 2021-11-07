@@ -78,6 +78,21 @@ macroscript macroFileTest_checkbox_right
 	print "checkbox #rightclick"
 )
 	
+/*------------------------------------------------------------------------------
+  EditText
+--------------------------------------------------------------------------------*/	
+
+/*  
+*/ 
+macroscript macroFileTest_edittext
+	category:	"MacroFileTest"
+	buttontext:	"EditText"
+	toolTip:	"EditText tooltip"
+	icon:	"type:EditText|width:256"
+(
+	print "BrowsePath test"
+	format " EventFired.value = % \n"  EventFired.value
+)
 
 
 /*------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ struct ControlCreator_v
 		--format "Macro.tooltip	= % \n" Macro.toolTip
 		CONTROLBOX_CONTROL_CREATOR = ControlBox
 
-		ControlBox.add_to_controls = false
+		ControlBox.add_to_controls = true
 		
 		params = substituteString (Macro.getParams())  "'" "\""
 		
