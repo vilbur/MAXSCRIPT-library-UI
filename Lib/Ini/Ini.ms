@@ -80,12 +80,24 @@ struct Ini_v
 		
 		val_from_ini = getINISetting _path ( _section	as string ) ( _key as string ) -- return
 		--format "\nval_from_ini = % \n" val_from_ini
-		if( val_from_ini == "" or val_from_ini == undefined ) then val else this._convertToDatatypeValue(val_from_ini) --return
+		if( val_from_ini == "" or val_from_ini == undefined ) then val else this._convertDatatype(val_from_ini) --return
 	),
 
+	/** Format string value to valid datatype
+	 */
+	function _convertDatatype val =
+	(		
+		if( (for pattern in #( "true", "false", "color*", "[*,*]" ) where matchPattern val pattern:pattern collect pattern).count > 0 ) then 
+			execute val
+
+		else if( ( val_as_number = val as number) != undefined ) then 
+			val_as_number --return
+			
+		else
+			val --return
+	),
 	
 	private
-
 
 	/** Combine path
 	 */
@@ -95,104 +107,6 @@ struct Ini_v
 			_path = _dir +"\\" + _file
 	),
 
-	
-	/**  
-		!!!! TODO:
-		
-			1) Refract methods for convert value to OWN struct E.G.: DataTypeConvertor
-			2) Add remaining datatypes 
-	 */
-	
-	
-	/** Format string value to valid datatype
-	  *
-	  * Put quotes around string value
-	  *
-	  *
-	 */
-	function _convertToDatatypeValue val =
-	(		
-		data_type	= this._getDataType val
-		
-		case data_type of
-		(
-			#boolean:	this._convertToBoolean val
-			#number:	this._convertToNumber  val
-			#number:	this._convertToNumber  val
-			#point2:	this._convertToPoint2  val
-			default:	val
-		)
-	),
-
-	/** _get data type
-	 */
-	function _getDataType val =
-	(
-		if( this._isValueBooleanString val ) then
-			#boolean --return
-		
-		else if( val as number != undefined ) then 
-			#number --return
-		
-		else if( matchPattern val pattern:"color*" ) then
-			#color --return
-		
-		else if( matchPattern val pattern:"[*,*]" ) then
-			#point2 --return
-		
-		else
-			#string
-	),
-	
-	/** Find out if value boolean string ? E.G.: "true" OR "false"
-	 */
-	function _isValueBooleanString val =
-	(
-		matchPattern val pattern:"true" or matchPattern val pattern:"false" 
-	),
-	
-	/** Format boolean
-	  *
-	  * @return	Boolean
-	 */
-	function _convertToBoolean val =
-	(
-		( toLower val ) == "true" --return 
-	),
-	
-	/** _convertTo color
-	  *
-	  * @return	Color
-	 */
-	function _convertToColor val =
-	(
-		pattern = "color\s+(\d+)\s+(\d+)\s+(\d+)"
-		rx         = dotNetClass "System.Text.RegularExpressions.RegEx"
-		rx_options	= dotNetClass "System.Text.RegularExpressions.RegexOptions"
-		
-		matches = rx.matches val pattern rx_options.IgnoreCase
-		
-		_rgb = (for matchIdx = 0 to matches.count-1 collect for groupIdx = 0 to matches.item[matchIdx].groups.count-1 collect ( matches.item[matchIdx].groups.item[groupIdx].val )) --return
-
-		color (_rgb[1][2] as number) (_rgb[1][3] as number) (_rgb[1][4] as number)
-	),
-	
-	/** _convertTo number
-	 */
-	function _convertToNumber val =
-	(
-		val as number --return
-	),
-	
-	/** _convert to point2
-	 */
-	function _convertToPoint2 val =
-	(
-		split  = filterString ( trimRight ( trimLeft val "[" ) "]" ) ","
-		
-		[split[1] as number, split[2] as number] --return
-	),
-	
 	/** Set default path to ini file
 	  *
 	  * Default dir:	"#temp\ini-files\" E.G.: ""C:\Users\[USERNAME]\AppData\Local\Autodesk\3dsMax\2016 - 64bit\ENU\temp""
