@@ -45,11 +45,23 @@ _Controls.edittext	"Edit Text"
 /* BROWSEPATH  */
 BrowsePath = _Controls.BrowsePath	"Get Dir" columns:16 
 
+
 /* LISTBOX  */
 Listbox = _Controls.Listbox	"Listbox"
 
+
 /* MULTILISTBOX  */
 Multilistbox = _Controls.Multilistbox "Multilistbox" items:#("item 1","item 2","item 3")
+
+
+/* DROPDOWNLSIT  */
+Dropdownlist = _Controls.Dropdownlist "Dropdownlist" items:#("item 1","item 2","item 3")
+
+
+
+
+
+
 
 
 /** Grid of buttons 
