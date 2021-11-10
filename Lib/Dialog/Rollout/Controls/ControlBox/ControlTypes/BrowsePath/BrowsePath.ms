@@ -31,7 +31,7 @@ struct BrowsePath_v
 	function _setDefaultFiledWidth =
 	(
 		fieldwidth = _Parameters.getVal #fieldwidth
-		format "fieldwidth = % \n" fieldwidth
+		--format "fieldwidth = % \n" fieldwidth
 		
 		if( fieldwidth == undefined ) then
 			_Parameters.setVal #fieldwidth (_Parameters.getVal #width - button_default_width)
@@ -68,9 +68,13 @@ struct BrowsePath_v
 		ini_path	= _rollout.ini #get
 		edit_text_id	= _rollout.id +"."+ id.id
 		
-		get_dir_fn	= "local browsed_dir = getSavePath caption:@Test path...@ initialDir:@"+initial_dir+"@ "
+		
+		
+		get_dir_fn	= "local browsed_dir = getSavePath caption:@Browse path...@ initialDir:@"+initial_dir+"@ "
 		if_dir_defined	= "if (  browsed_dir != undefined) "
+		--set_edit_text	= edit_text_id+".text = browsed_dir "
 		set_edit_text	= edit_text_id+".text = browsed_dir "
+
 		set_button_tooltip	= browse_button_id+".toolTip = browsed_dir"
 				
 		save_to_ini = if( ini_path != undefined ) then  "setINISetting \"" + ini_path + "\" \"" + _rollout.id + "\" \"" + id.id  + "\" browsed_dir"  else ""

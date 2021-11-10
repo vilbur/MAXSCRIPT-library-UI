@@ -7,10 +7,11 @@
 	caption,
 
 	/* properties */ 
-	name_of_value_param,
-	init_parameters     = #( #(), #() ), -- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
-	add_to_controls		= true, -- add control to UI on creation, false for example when generating controls in ControlCreator_v.createControl()
+	name_of_value_param, -- each control has different property where value is stored E.G.: EditText.text|Checkbox.checked|Spinner.range
 	
+	init_parameters	= #( #(), #() ),	-- 2D matrix of keys and values of parameters E.G.: #( #( #width, #height ), #( 64, 32 ) )
+	add_to_controls	= true,	-- add control to UI on creation, false for example when generating controls in ControlCreator_v.createControl()
+
 	/* dependency */
 	Menu,
 	Id,
@@ -123,26 +124,26 @@
 		--format "ControlOnCreate._setType %\n" type
 	),
 	
-	/** _get value from ini
-	 */
-	function _getValueFromIni =
-	(
-		--print "ControlBase.ms _getValueFromIni()"
-		--format "ControlBox.Parent_roll._Ini.isDefined()	= % \n" (ControlBox.Parent_roll._Ini.isDefined())
-		--format "name_of_value_param	= % \n" name_of_value_param
-		if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
-		(
-			val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
-			
-			if( val == undefined ) then
-				return false
-			--format "type = % \n" type
-			if( type == #spinner ) then
-				val   = this. _setValueTopoint3 val
-
-			_Parameters.setVal name_of_value_param val
-		)
-	),
+	--/** _get value from ini
+	-- */
+	--function _getValueFromIni =
+	--(
+	--	--print "ControlBase.ms _getValueFromIni()"
+	--	--format "ControlBox.Parent_roll._Ini.isDefined()	= % \n" (ControlBox.Parent_roll._Ini.isDefined())
+	--	--format "name_of_value_param	= % \n" name_of_value_param
+	--	if( (ControlBox.Parent_roll._Ini.isDefined()) and name_of_value_param != undefined ) then 
+	--	(
+	--		val = ControlBox.Parent_roll._Ini.load (ControlBox.Parent_roll.id) (id.id)
+	--		
+	--		if( val == undefined ) then
+	--			return false
+	--		--format "type = % \n" type
+	--		if( type == #spinner ) then
+	--			val   = this. _setValueTopoint3 val
+	--
+	--		_Parameters.setVal name_of_value_param val
+	--	)
+	--),
 
 	
 	/** _set value topoint3

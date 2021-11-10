@@ -1,16 +1,19 @@
 clearListener()
 
-/**
- *	
- *	
+
+/**	This is generator of file "../ControlBoxControlTypes.ms"
  *	
  *	!!!!!!!!! NOTES FOR ADDING NEW TYPE OF CONTROL !!!
  *	
- *	1) Add control type to array PARAM_COMMON
+ *	1) Add new struct to dir "../ControlTypes/", this struct is called in "../ControlBoxControlTypes.ms"
  *	
- *	2) Add parameters to PARAMS_BY_TYPE array
+ *	2) Include this struct to "../ControlTypes/includes.ms"
  *	
- *	3) Edit arrays: control_types_events, control_types, events_with_param in file "../Control/ControlEvents/ControlEvents.ms"
+ *	3) Add control type to array param_common
+ *	
+ *	4) Add parameters to params_by_type array
+ *	
+ *	5) Edit arrays: control_types, event_params in file "../Control/ControlEvents/ControlEvents.ms"
  *	
  *	
  *	
@@ -33,14 +36,14 @@ function writeControlTypesFile =
 	
 	file_content = ""
 	--print ("------------\n ControlBox.writeControlTypesFile()" + Groupbox.id.id as string )
-	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #listbox, #multiListBox, #browsePath )
+	control_types	= #( #label, #button, #checkbox, #spinner, #edittext, #checkbutton, #listbox, #multiListBox, #dropdownlist, #browsePath )
 	
 	
 	param_custom = #( #columns )  
 	param_shared = #( #tooltip )  
-	PARAM_COMMON = #( #pos, #height, #width, #align, #offset, #across ) -- this array are KEYS for PARAMS_BY_TYPE -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
+	param_common = #( #pos, #height, #width, #align, #offset, #across ) -- this array are KEYS for params_by_type -- http://help.autodesk.com/view/3DSMAX/2016/ENU/?guid=__files_GUID_EA37E7DB_1E74_4377_B3D8_EDAE19CE27E7_htm
 	
-	PARAMS_BY_TYPE = #(
+	params_by_type = #(
 		#( #images, #border )	-- button
 		,#( #style_sunkenedge )	-- label
 		
@@ -51,28 +54,29 @@ function writeControlTypesFile =
 		,#( #checked,	#highlightColor, #images )	-- checkbutton	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_084BC777_9353_455E_A869_9F5C514E0CE6_htm
 		,#( #selection,	#items, #readOnly )	-- Listbox	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
 		,#( #selection,	#items )	-- Multilistbox	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DBFFD89F_A6DD_46DC_BE74_5B8CEEA5402C_htm
+		,#( #selection,	#items )	-- Dropdownlist	https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_172DE6D6_796F_419B_936E_4FD64AD24CB9_htm
 		
 		/* Custom compounded controls */ 
 		,#( #text, #fieldwidth, #initialDir )                                                -- browsePath
 	)
 
-	params_defaults = param_custom + PARAM_COMMON + param_shared
+	params_defaults = param_custom + param_common + param_shared
 	
 	--params_all = #()
 	--
-	--for param_by_type in PARAMS_BY_TYPE do 
+	--for param_by_type in params_by_type do 
 	--	params_all += param_by_type
 	
 		
-	--PARAMS_BY_TYPE = join #(makeUniqueArray params_all) PARAMS_BY_TYPE
-	--format "PARAMS_BY_TYPE = % \n" PARAMS_BY_TYPE
+	--params_by_type = join #(makeUniqueArray params_all) params_by_type
+	--format "params_by_type = % \n" params_by_type
 	
 	for i = 1 to control_types.count do
 	(
 		format "control_types[i] = % \n" control_types[i]
-		format "PARAMS_BY_TYPE[i] = % \n" PARAMS_BY_TYPE[i]
+		format "params_by_type[i] = % \n" params_by_type[i]
 		
-		params_keys_array = params_defaults + PARAMS_BY_TYPE[i]
+		params_keys_array = params_defaults + params_by_type[i]
 		
 		
 		params_passed = ""

@@ -23,7 +23,7 @@ struct EditText_v
 	 */
 	function _valueAsTooltip toggle =
 	(
-		print "------------\nEditText.valueAsTooltip()"
+		--print "------------\nEditText.valueAsTooltip()"
 		--if( toggle != true ) then
 			--return ()
 	),
@@ -34,7 +34,7 @@ struct EditText_v
 	function _setFiledWidth =
 	(
 		fieldwidth = _Parameters.getVal #fieldwidth
-		format "fieldwidth = % \n" fieldwidth
+		--format "fieldwidth = % \n" fieldwidth
 		
 		if( fieldwidth != undefined ) then
 			_Parameters.delete #width 

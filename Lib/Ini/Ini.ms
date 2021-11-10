@@ -94,7 +94,7 @@ struct Ini_v
 			val_as_number --return
 			
 		else
-			val --return
+			substituteString val "\\" "\\\\" -- escape string
 	),
 	
 	private

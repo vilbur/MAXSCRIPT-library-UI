@@ -7,9 +7,13 @@ global STARTUP_EVENTS = #() -- run callbacks of controls like checkbox, checkbut
  *
  * DEFAULT CALLBACKS:
  *		1) Fire global variable EventFired = EventFired_v
- * 		2) Save ctrl value to ini if ini file is defined
+ * 		2) Save value of control to ini file if is defined
  * 		
- *
+ * 		
+ * 		
+ *	!!!!!!!!! NOTES FOR ADDING NEW TYPE OF CONTROL !!!
+ * 		
+ *		Edit arrays: control_types, event_params
  */
 struct ControlEvents_v 
 (
@@ -21,14 +25,15 @@ struct ControlEvents_v
 	/* Properties */ 
 	save_to_ini_events = #( #changed, #selected ), -- this events fires default save to ini callback
 
-	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox, #multilistbox, #browsePath  ),
+	
+	/* Keys for event_params array
+	*/ 
+	control_types	= #( #label, #button, #checkbox, #checkbutton, #spinner, #edittext, #listbox, #multilistbox, #dropdownlist, #browsePath  ),
 	
 	
 	/* If event is array then it has "val" param
 	*
 	* Other items in array defines additional params for event.
-	*
-	*
 	*/ 
 	event_params = #(
 		#( ),				-- #label	
@@ -39,8 +44,11 @@ struct ControlEvents_v
 		#( #(#changed,  "val"),	#(#entered, "val") ),			-- #edittext	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_FC73C160_735C_4F65_A71D_722D63BBB591_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#(#rightClick, "val")),		-- #listbox	https://help.autodesk.com/view/3DSMAX/2017/ENU/?guid=__files_GUID_7C37748B_C682_4834_B5A6_74185C8C661A_htm
 		#( #(#selected, "val"),	#(#doubleClicked, "val"),	#rightClick,	#selectionEnd ),	-- #multilistbox	
-		#( #(#changed,  "val"),	#(#entered, "val") ) ),			-- #browsePath	
-
+		#( #(#selected, "val"),	#rightClick ),			-- #dropdownlist	
+		
+		/* Custom compounded controls */
+		#( #(#changed,  "val"),	#(#entered, "val") )	-- #browsePath	
+	),
 	
 	
 	/** Set event types available for each type of control
