@@ -9,10 +9,25 @@ CONTROLS_COUNT = 4
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
 
+/** Layout setup
+ */
+--_Rollout.Layout.columns  = 16
+--_Rollout.Layout.grid     = 48
+
+_Rollout.Layout.padding  = 2
+_Rollout.Layout.margin.x = 0
+_Rollout.Layout.margin.y = 0
+
+
+
+
 /* DEFINE GROUPBOXES */ 
 --_Buttons    = _Rollout.Controls.new()
-_Buttons  = _Rollout.Controls.new groupbox:"Buttons"
-_Spinners = _Rollout.Controls.new groupbox:"Spinners"
+_Buttons	= _Rollout.Controls.new groupbox:"Buttons"
+_Spinners	= _Rollout.Controls.new groupbox:"Spinners"
+_Dropdowns	= _Rollout.Controls.new groupbox:"_Dropdowns"
+
+
 
 
 /** Add extra rollout
@@ -33,13 +48,27 @@ function addSpinners =
 )
 
 
+/** Add dropdowns
+ */
+function addDropdowns =
+(
+	captions = #(
+		--"Dropdown",
+		"" -- Dropdown without caption
+	)
+	
+	for caption in captions do 
+		_Dropdowns.dropdownlist caption
+
+)
 
 
 /*---------------------------------------
 	RUN TEST
 -----------------------------------------*/
 addButtons()
-addSpinners()
+--addSpinners()
+addDropdowns()
 
 
 /* CREATE ROLLOUT */
