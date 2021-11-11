@@ -23,11 +23,10 @@ struct Layout_v
 	padding	= 4,	-- padding between controls
 	margin	= [padding, padding],
 	
-	_pos_last = [0,0],    -- store origin of last added control 
+	slot_padding = 32,
 
-	slot_padding        = 32,
-	_padding_corrention = 12,
-
+	_pos_last = [0,0], -- store origin of last added control 
+	
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutControl.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutGroupbox.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Layout/LayoutSubrollouts.ms"
@@ -99,10 +98,11 @@ struct Layout_v
 	 */
 	function copySetup Layout =
 	(
-		Layout.columns = columns
-		Layout.grid    = grid
-		Layout.padding = padding
-		Layout.margin  = margin
+		print "Layout.copySetup() !!!!! IS THIS USED ??????"
+		--Layout.columns = columns
+		--Layout.grid    = grid
+		--Layout.padding = padding
+		--Layout.margin  = margin
 
 		Layout --return
 	),

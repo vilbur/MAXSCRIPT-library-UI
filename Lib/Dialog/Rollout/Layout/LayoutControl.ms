@@ -135,10 +135,10 @@
 		--grid --return
 		
 		if( hasProperty Control "_getControlHeight" ) then
-			Control._getControlHeight() + padding
+			Control._getControlHeight()
 		
 		else
-			grid + padding
+			grid
 		
 		--multiplier	= findItem double_height_controls Control.type 
 		

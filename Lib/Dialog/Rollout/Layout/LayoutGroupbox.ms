@@ -1,4 +1,5 @@
-	
+	_padding_top = 12,
+
 	groupbox_margin = 0,
 	
 	/** Set init _pos_last 
@@ -11,7 +12,7 @@
 		_pos_last = copy Bbox.origin
 		--format "_pos_last	= % \n" _pos_last
 		
-		this._addFirstControlPadding()
+		this._addDefaultTopPadding()
 	),
 
 	/** Set position, width and height of groupbox
@@ -19,8 +20,8 @@
 	function setGroupboxDimensions &Groupbox =
 	(
 		--print "Layout.setGroupboxDimensions()"
-		--Groupbox.params pos:Bbox.origin width:(Bbox.width + padding) height:(Bbox.height + padding)
 		Groupbox._Parameters.setValues #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height + padding) )
+		--Groupbox._Parameters.setValues #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height) )
 	),
 	
 	/** _get bbox origin
@@ -52,10 +53,10 @@
 
 	/** Set first
 	 */
-	function _addFirstControlPadding =
+	function _addDefaultTopPadding =
 	(
 		if( _pos_last == Bbox.origin ) then
-            _pos_last.y  += _padding_corrention + padding
+            _pos_last.y  += _padding_top + padding
 	),
 	
 	/** _offset groubox

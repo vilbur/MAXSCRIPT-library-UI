@@ -9,7 +9,6 @@ struct Bbox_v
 	
 	_construct = #( #origin ),
 	
-	
 	/* properties */
 	width	= 0,
 	height	= 0,
