@@ -1,16 +1,16 @@
 	
-	groupbox_margin = 4,
+	groupbox_margin = 0,
 	
 	/** Set init _pos_last 
 	 */
 	function newControlsBox =
 	(
-		--format "\n------------\nLayout.newControlsBox()\n"
+		--print "LayoutGroupbox.ms.newControlsBox()"
 		Bbox = Bbox_v origin:(this._getBboxOrigin())
-
+		--format "Bbox.origin	= % \n" Bbox.origin
 		_pos_last = copy Bbox.origin
-		--format "% = % \n" Parent_roll.id Bbox.origin
-
+		--format "_pos_last	= % \n" _pos_last
+		
 		this._addFirstControlPadding()
 	),
 

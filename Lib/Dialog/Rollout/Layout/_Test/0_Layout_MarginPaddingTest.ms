@@ -47,9 +47,9 @@ function addDropdowns =
 
 rollout_titles = #(
 	"Rollout_1",
-	--"Rollout_2",
-	--"Rollout_3",
-	--"Rollout_4",
+	"Rollout_2",
+	"Rollout_3",
+	"Rollout_4",
 	"Rollout_5"
 )
 
@@ -57,28 +57,30 @@ for rollout_title in rollout_titles do
 (
 	try( execute("destroyDialog ROLLOUT_"+rollout_title) )catch()
 
-	r	= (findItem rollout_titles rollout_title)-1
+	r	= (findItem rollout_titles rollout_title) - 1
 	
 	/* ROLLOUT DEFINITION */
 	_Rollout	= Rollout_v title:rollout_title
 
 	/** LAYOUT SETUP	 */
-	--_Rollout.Layout.columns  = 4
+	--_Rollout.Layout.columns  = 24
 	--_Rollout.Layout.grid     = 48
 	
 	_Rollout.Layout.padding  = r*2
 	_Rollout.Layout.margin.x = r*2
 	_Rollout.Layout.margin.y = r*2
 	
-	--format "_Rollout.Layout.padding 	= % \n" _Rollout.Layout.padding 
-	--format "_Rollout.Layout.margin	= % \n" _Rollout.Layout.margin
+	format "\n"
+	print rollout_title
+	format "_Rollout.Layout.padding = % \n" _Rollout.Layout.padding 
+	format "_Rollout.Layout.margin  = % \n" _Rollout.Layout.margin
 
 	/*---------------------------------------
 		ADD CONTROLS
 	-----------------------------------------*/
 	addButtons()
-	--addSpinners()
-	--addDropdowns()
+	addSpinners()
+	addDropdowns()
 
 	
 	offset_position_x = (r + 2) * 380
