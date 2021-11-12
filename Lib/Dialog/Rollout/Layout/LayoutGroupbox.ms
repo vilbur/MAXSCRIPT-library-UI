@@ -1,6 +1,6 @@
 	_padding_top = 12,
 
-	groupbox_margin = 0,
+	--groupbox_margin = 0,
 	
 	/** Set init _pos_last 
 	 */
@@ -29,7 +29,7 @@
 	function _getBboxOrigin =
 	(
 		--print "Layout._getBboxOrigin()"
-		box_origin = [groupbox_margin,0]
+		box_origin = [padding, padding]
 		
 		if( this._isNotFirstGroupBox() == true ) then
 			box_origin.y = this._setNextGroupBoxOrigin box_origin
@@ -66,7 +66,7 @@
 		--print("LayoutGroupbox.ms _offsetGroubox()")
 		--format "ControlBox = % \n" ControlBox
 		
-		ControlBox.offsetGroupbox [groupbox_margin, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
+		ControlBox.offsetGroupbox [padding, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
 		--format "offset = % \n" offset
 		offset += (ControlBox.property height:#get)
 		--offset += (ControlBxo._Params.getVal #height)

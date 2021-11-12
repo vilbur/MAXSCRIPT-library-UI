@@ -47,13 +47,14 @@
     function _isControlFitIntoRollout control_width =
     (
 		--print ("LayoutControl.ms._isControlFitIntoRollout " + control_width as string )
-		--print ("LayoutControl.ms._getRollWidthByColumns() " + (this._getRollWidthByColumns()) as string )
-		--format "control_width 	 = % \n" control_width
+
 		--format "_pos_last.x	= % \n" _pos_last.x
+		--format "control_width = % \n" control_width
+		--format "new control	  = % \n" (_pos_last.x + control_width)
 		
-        fit_test = (_pos_last.x + control_width) <= this._getRollWidthByColumns() --return
+        fit_test = (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
 		
-		--format "fit_test	= % \n" fit_test
+		--format "fit_test  	= % \n" fit_test
 		fit_test --return
     ),
 	
@@ -64,7 +65,7 @@
 		--(columns * grid) + margin.x*4 + _padding_corrention --return
 		controlbox_width = (grid + margin.x ) * columns
 		
-		--format "controlbox_width = % \n" ( controlbox_width as integer ) 
+		--format "controlbox 	  = % \n" ( controlbox_width as integer ) 
 		controlbox_width --return
 	),
 
@@ -81,32 +82,24 @@
 	function _getControlWidth Control =
 	(
 		--print "LayoutControl.ms _getControlWidth()"
+
 		_width = Control._Parameters.getVal #width
 		
 		if( _width == undefined ) then
-			_width = this._getControlWidthRaw Control
+			_width = this._getControlWidthByColumns Control
 		
+		--format "_width	= % \n" _width
 		_width --return
 	),
 	
 	/** Get height
 	 */
-	function _getControlWidthRaw Control =
+	function _getControlWidthByColumns Control =
 	(
-		--format "HOTFIX LayoutControl.ms _getControlWidthRaw()\n"
-		--format "Control._Parameters.keys = % \n" Control._Parameters.keys
-		--format "Control.params columns:#get = % \n" (Control.params columns:#get)
-		columns_count = Control._Parameters.getVal #columns
-		--format "columns_count = % \n" columns_count
-		if( columns_count == undefined ) then 
-			columns_count = columns_default -- set default columns width 
-
-		width_raw = columns_count * grid
+		if( (columns_count = Control._Parameters.getVal #columns) == undefined ) then 
+			columns_count = columns_default -- set default columns width
 		
-		--width_raw += columns_count-1 * padding
-		
-		
-		width_raw --return
+		((grid + margin.x) * columns_count) - margin.x --return
 	),
 	
 	/** _get control height
@@ -114,24 +107,24 @@
 	function _getControlHeight Control =
 	(
 		--print "LayoutControl.ms _getControlHeight()"
-		height = Control._Parameters.getVal #height -- if is user defined
+		 -- if is user defined
 		--format "height	= % \n" height
 		
-		if( height == undefined ) then
-			height = this._getControlHeightRaw Control
+		if( (height = Control._Parameters.getVal #height) == undefined ) then
+			height = this._getControlHeightByColumns Control
 		
 		height --return
 	),
 	
 	/** Get height
 	 */
-	function _getControlHeightRaw Control =
+	function _getControlHeightByColumns Control =
 	(
 		double_height_controls = #( #dropdownList )
 		
 		--format "Control.type	= % \n" Control.type
 		--format "ROLLOUT_1_controlstypestestms.DROPDOWNLIST_dropdownlist.height	= % \n" ROLLOUT_1_controlstypestestms.DROPDOWNLIST_dropdownlist.height
-		--format "HOTFIX LayoutControl.ms _getControlHeightRaw()\n"
+		--format "HOTFIX LayoutControl.ms _getControlHeightByColumns()\n"
 		--grid --return
 		
 		if( hasProperty Control "_getControlHeight" ) then

@@ -41,7 +41,7 @@ function addCheckboxes =
 function addDropdowns =
 (
 	captions = #(
-		--"Dropdown",
+		"Dropdown",
 		"" -- Dropdown without caption
 	)
 	
@@ -70,7 +70,7 @@ function addRollouts padding: margin_x: margin_y: =
 	(
 		try( execute("destroyDialog ROLLOUT_"+rollout_title) )catch()
 	
-		r	= (findItem rollout_titles rollout_title) - 1
+		r = (findItem rollout_titles rollout_title) - 1
 		
 		/* ROLLOUT DEFINITION */
 		_Rollout	= Rollout_v title:rollout_title
@@ -93,9 +93,9 @@ function addRollouts padding: margin_x: margin_y: =
 		-----------------------------------------*/
 		addButtons()
 		--addSpinners()
+		--addCheckboxes()
 		--addDropdowns()
-		addCheckboxes()
-	
+		
 		
 		/* CREATE ROLLOUT */
 		_Rollout.createRollout()
@@ -115,10 +115,10 @@ function addRollouts padding: margin_x: margin_y: =
 )
 
 --addRollouts padding:0 margin_x:0 margin_y:0
---addRollouts padding:0 margin_x:4 margin_y:0
+--addRollouts padding:0 margin_x:8 margin_y:0
 
 addRollouts padding:4 margin_x:4 margin_y:4
---addRollouts padding:8 margin_x:0 margin_y:0
+
 --addRollouts padding:8 margin_x:0 margin_y:0
 
 
