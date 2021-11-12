@@ -2,7 +2,7 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
-CONTROLS_COUNT = 8
+CONTROLS_COUNT = 4
 
 global _Rollout
 	
@@ -36,19 +36,29 @@ function addCheckboxes =
 		_Checkbox.spinner ("Checkbox "+i as string )
 )
 
-/** 
+
+/** Test Dropdown with label and without
+  * First control is without label
  */
 function addDropdowns =
 (
-	captions = #(
-		"Dropdown",
-		"" -- Dropdown without caption
-	)
-	
+
 	_Dropdowns	= _Rollout.Controls.new groupbox:"Dropdowns"
 
-	for caption in captions do 
-		_Dropdowns.dropdownlist caption
+	for i = 1 to CONTROLS_COUNT do
+		_Dropdowns.dropdownlist  ( if( i == 1 ) then "" else "Dropdown "+i as string )
+)
+
+
+/** Test Listbox with label and without 
+  * First control is without label
+ */
+function addListboxes =
+(
+	_Listbox	= _Rollout.Controls.new groupbox:"Listbox"
+	
+	for i = 1 to CONTROLS_COUNT do
+		_Listbox.listbox ( if( i == 1 ) then "" else "Listbox "+i as string )
 )
 	
 /** Add rollouts
@@ -91,10 +101,11 @@ function addRollouts padding: margin_x: margin_y: =
 		/*---------------------------------------
 			ADD CONTROLS
 		-----------------------------------------*/
-		addButtons()
+		--addButtons()
 		--addSpinners()
 		--addCheckboxes()
 		--addDropdowns()
+		addListboxes()
 		
 		
 		/* CREATE ROLLOUT */
