@@ -2,65 +2,26 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
-CONTROLS_COUNT = 4
 
 global _Rollout
 	
-/** 
+CONTROLS_COUNT = 1
+
+/** Create multiple types of controls
  */
-function addButtons =
+function addControl control_type label_test:false =
 (
-	_Buttons	= _Rollout.Controls.new groupbox:"Buttons"
+	 global _Control	= _Rollout.Controls.new groupbox:control_type
 	
 	for i = 1 to CONTROLS_COUNT do
-		_Buttons.button ("Button "+i as string )
+	(
+		_label =  if ( label_test and i == 1 ) then "" else control_type + " "+i as string
+		--format "_label	= % \n" _label
+		execute ("_Control."+control_type+" \"" + _label+"\"") -- execute this kind of code "_Buttons.button ("Button "+i as string )"
+		
+	)
 )
 
-/** 
- */
-function addSpinners =
-(
-	_Spinners	= _Rollout.Controls.new groupbox:"Spinners"
-	
-	for i = 1 to CONTROLS_COUNT do
-		_Spinners.spinner ("Spinner "+i as string )
-)
-
-/** 
- */
-function addCheckboxes =
-(
-	_Checkbox	= _Rollout.Controls.new groupbox:"Checkbox"
-	
-	for i = 1 to CONTROLS_COUNT do
-		_Checkbox.spinner ("Checkbox "+i as string )
-)
-
-
-/** Test Dropdown with label and without
-  * First control is without label
- */
-function addDropdowns =
-(
-
-	_Dropdowns	= _Rollout.Controls.new groupbox:"Dropdowns"
-
-	for i = 1 to CONTROLS_COUNT do
-		_Dropdowns.dropdownlist  ( if( i == 1 ) then "" else "Dropdown "+i as string )
-)
-
-
-/** Test Listbox with label and without 
-  * First control is without label
- */
-function addListboxes =
-(
-	_Listbox	= _Rollout.Controls.new groupbox:"Listbox"
-	
-	for i = 1 to CONTROLS_COUNT do
-		_Listbox.listbox ( if( i == 1 ) then "" else "Listbox "+i as string )
-)
-	
 /** Add rollouts
  */
 function addRollouts padding: margin_x: margin_y: =
@@ -101,11 +62,11 @@ function addRollouts padding: margin_x: margin_y: =
 		/*---------------------------------------
 			ADD CONTROLS
 		-----------------------------------------*/
-		--addButtons()
-		--addSpinners()
-		--addCheckboxes()
-		--addDropdowns()
-		addListboxes()
+		addControl "Button"
+		addControl "Checkbox"
+		addControl "Spinner"
+		addControl "Dropdownlist"	label_test:true
+		addControl "Listbox"	label_test:true
 		
 		
 		/* CREATE ROLLOUT */
