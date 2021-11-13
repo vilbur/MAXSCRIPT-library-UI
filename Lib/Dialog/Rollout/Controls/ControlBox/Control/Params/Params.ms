@@ -72,8 +72,33 @@ struct Params_v
 		
 		else if( classOf val == string ) then
 			val = "\"" + val +"\"" -- Wrap string to escaped qoutes \"\"
-		
+			
+		else if( classOf val == Array ) then
+			val = this._stringifyArray val -- Wrap string to escaped qoutes \"\"
+			
 		val as string --return
+	),
+	
+	/** Stringify array
+	  *
+	  * Workoraund for "as string"
+	  * "as string" works only for array with max 20 items
+	  * https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_92B98D11_60FF_4742_A1BA_692EE135E085_htm
+	  *
+	  * @return	string	
+	  */
+	function _stringifyArray arr =
+	(
+		if( arr.count > 20 ) then
+		(
+			items_string = ""
+			
+			for item in arr do items_string += "\"" + item + "\","
+			
+			"#("+( trimRight items_string ",")+")" --return
+		)
+		else
+			arr as string --return
 	),
 	
 	/** Filter unsupplied parameters
