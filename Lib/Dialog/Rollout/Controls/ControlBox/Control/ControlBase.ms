@@ -25,7 +25,6 @@
 	ControlBox,
 
 	/* options */
-	dimensions	= #(),	-- dimensions of control #( [xy] position, integer width, integer height )
 
 	/** Value
 	 */
@@ -64,10 +63,14 @@
 	
 	/** Set dimensions
      */
-    function setDimensions Dimensions =
+    function _setParamteresPosWidthHeight Dimensions =
     (
-		--format "HOTFIX ControlBase.ms.setDimensions() %\n" Dimensions
-		_Parameters.setValues #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, Dimensions.height )
+		
+		if( hasProperty this "_setParamteresPosWidthHeightByType" ) then
+			this._setParamteresPosWidthHeightByType Dimensions
+		
+		else
+			_Parameters.setValues #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, Dimensions.height )
     ),
 
 	/** Find if control is rendered in ui already

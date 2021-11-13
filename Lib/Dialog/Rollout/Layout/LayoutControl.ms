@@ -10,26 +10,19 @@
 	(
 		--format "\n"
 		--print ("LayoutControl.ms.setControlDimensions() " + (Control.id.get()))
-		--format "Control = % \n" Control._parameters.values
-		_width  = this._getControlWidth  Control
-		_height = this._getControlHeight Control
-		--format "_width	= % \n_height	= % \n\n" _width _height
-		--format "_width	= *% \n" _width
+		Dimensions = Dimensions_v width:( this._getControlWidth  Control ) height:( this._getControlHeight Control )
 		
-		this._trySetNewControlsRow _width
+		this._trySetNewControlsRow Dimensions.width
 		
-		pos    = this._getControlPos Control _width
+		Dimensions.pos = this._getControlPos Control Dimensions.width
 		--format "pos = % \n" pos
-		pos.x += padding -- add padding to left side of group box
+		Dimensions.pos.x += padding -- add padding to left side of group box
 		
-		Dimensions = Dimensions_v pos:pos width:_width height:_height
-		--print Dimensions_v as string 
+		Control._setParamteresPosWidthHeight Dimensions
 		
 		this._setNextControlPosition Dimensions.width
-		--format "Dimensions =%\n" Dimensions	
-
-		Control.setDimensions Dimensions
-
+		--format "Dimensions =%\n" Dimensions
+		
  		Bbox.add Dimensions
 	),
 
@@ -47,15 +40,7 @@
     function _isControlFitIntoRollout control_width =
     (
 		--print ("LayoutControl.ms._isControlFitIntoRollout " + control_width as string )
-
-		--format "_pos_last.x	= % \n" _pos_last.x
-		--format "control_width = % \n" control_width
-		--format "new control	  = % \n" (_pos_last.x + control_width)
-		
-        fit_test = (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
-		
-		--format "fit_test  	= % \n" fit_test
-		fit_test --return
+        (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
     ),
 	
 	/** _get roll _width
@@ -106,36 +91,19 @@
 	 */
 	function _getControlHeight Control =
 	(
-		--print "LayoutControl.ms _getControlHeight()"
+		format "\n"
+		print "LayoutControl.ms _getControlHeight()"
 		 -- if is user defined
-		--format "height	= % \n" height
+		height = Control._Parameters.getVal #height
 		
-		if( (height = Control._Parameters.getVal #height) == undefined ) then
-			height = this._getControlHeightByColumns Control
+		if( hasProperty Control "_getControlHeightByType" ) then
+			height = Control._getControlHeightByType height
+			
+		if( height == undefined ) then -- get default height if not defined by user or control type
+			height = grid
 		
+		format "height	= % \n" height
 		height --return
-	),
-	
-	/** Get height
-	 */
-	function _getControlHeightByColumns Control =
-	(
-		double_height_controls = #( #dropdownList )
-		
-		--format "Control.type	= % \n" Control.type
-		--format "ROLLOUT_1_controlstypestestms.DROPDOWNLIST_dropdownlist.height	= % \n" ROLLOUT_1_controlstypestestms.DROPDOWNLIST_dropdownlist.height
-		--format "HOTFIX LayoutControl.ms _getControlHeightByColumns()\n"
-		--grid --return
-		
-		if( hasProperty Control "_getControlHeight" ) then
-			Control._getControlHeight()
-		
-		else
-			grid
-		
-		--multiplier	= findItem double_height_controls Control.type 
-		
-		--grid - padding * 2 --return
 	),
 	
 	/** _get control position;
