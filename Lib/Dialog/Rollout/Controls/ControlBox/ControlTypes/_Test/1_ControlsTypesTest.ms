@@ -2,6 +2,8 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../../Rollout.ms" )
 
+try( destroyDialog ROLLOUT_1_controlstypestestms )catch()
+
 
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
@@ -13,7 +15,7 @@ _Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
  */
 --_Rollout.Layout.columns  = 16
 --_Rollout.Layout.grid     = 48
-
+--
 --_Rollout.Layout.padding  = 0
 --_Rollout.Layout.margin.x = 0
 --_Rollout.Layout.margin.y = 0
@@ -55,7 +57,7 @@ Multilistbox = _Controls.Multilistbox "Multilistbox" items:#("item 1","item 2","
 
 
 /* DROPDOWNLSIT  */
-Dropdownlist = _Controls.Dropdownlist "Dropdownlist" items:#("item 1","item 2","item 3")
+Dropdownlist = _Controls.Dropdownlist "Test" items:#("item 1","item 2","item 3")
 
 
 

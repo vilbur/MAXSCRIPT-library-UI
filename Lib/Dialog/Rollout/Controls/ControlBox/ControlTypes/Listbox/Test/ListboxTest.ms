@@ -14,14 +14,13 @@ global _Controls	= _Rollout.controls.new groupbox:"Test Groupbox"
 _Rollout.Layout.padding  = 0
 
 /* ITEMS FOR LISTBOX  */ 
-items = for i = 1 to 99 collect (i as string+ " item")
 
 
 /** Listbox in group box
  */
 function testDifferentHeights =
 (
-	for i = 1 to 9 do
+	for i = 4 to 7 do
 	(
 		control_type = "Listbox"
 		
@@ -36,16 +35,19 @@ function testDifferentHeights =
 )
 
 
---testDifferentHeights()
+testDifferentHeights()
+
+
 
 /* LISTBOX  */
-Listbox_1 = _Controls.Listbox	""          items:items height:50
 
-Listbox_2 = _Controls.Listbox	"Colums"          height:3 colums:7
+Listbox_1 = _Controls.Listbox	"" 
 
-Listbox_3 = _Controls.Listbox	"Width"          height:3 width:256
+Listbox_2 = _Controls.Listbox	"Colums"   height:3 columns:8
 
-Listbox_4 = _Controls.Listbox	"Listbox 2" items:items height:99 selection:3
+Listbox_3 = _Controls.Listbox	"Width"    height:3 width:256
+
+Listbox_4 = _Controls.Listbox	"Selected" height:99  items:( for i = 1 to 99 collect (i as string+ " item"))  selection:3
 
 
 
@@ -56,6 +58,6 @@ _Rollout.createRollout()
 CreateDialog ( _Rollout.RolloutCreator.getDefinition() ) width:640 
 
 
+/* TEST SELECTION */ 
 selected = Listbox_4.property #selection #get
-
 format "selected	= % \n" selected

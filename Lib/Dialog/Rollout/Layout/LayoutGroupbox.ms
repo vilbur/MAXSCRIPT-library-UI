@@ -20,6 +20,7 @@
 	function setGroupboxDimensions &Groupbox =
 	(
 		--print "Layout.setGroupboxDimensions()"
+		--format "Bbox.height	= % \n" (Bbox.height as integer )
 		Groupbox._Parameters.setValues #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height + padding) )
 		--Groupbox._Parameters.setValues #( #pos, #width, #height ) #( Bbox.origin, (Bbox.width + padding), (Bbox.height) )
 	),

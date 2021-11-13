@@ -11,7 +11,7 @@
 		--format "\n"
 		--print ("LayoutControl.ms.setControlDimensions() " + (Control.id.get()))
 		Dimensions = Dimensions_v width:( this._getControlWidth  Control ) height:( this._getControlHeight Control )
-		
+		--format "Dimensions	= % \n" Dimensions
 		this._trySetNewControlsRow Dimensions.width
 		
 		Dimensions.pos = this._getControlPos Control Dimensions.width
@@ -26,23 +26,6 @@
  		Bbox.add Dimensions
 	),
 
-	/** Try set new row of controls
-	  * Add margin between controls
-	 */
-	function _trySetNewControlsRow control_width =
-	(
-		if not ( this._isControlFitIntoRollout control_width ) then
-			_pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
-	),
-
-	/** Control is out of rollout
-     */
-    function _isControlFitIntoRollout control_width =
-    (
-		--print ("LayoutControl.ms._isControlFitIntoRollout " + control_width as string )
-        (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
-    ),
-	
 	/** _get roll _width
 	 */
 	function _getRollWidthByColumns =
@@ -69,7 +52,7 @@
 		--print "LayoutControl.ms _getControlWidth()"
 
 		_width = Control._Parameters.getVal #width
-		
+		--format "_width	= % \n" _width
 		if( _width == undefined ) then
 			_width = this._getControlWidthByColumns Control
 		
@@ -81,6 +64,7 @@
 	 */
 	function _getControlWidthByColumns Control =
 	(
+		--print "LayoutControl.ms _getControlWidthByColumns()"
 		if( (columns_count = Control._Parameters.getVal #columns) == undefined ) then 
 			columns_count = columns_default -- set default columns width
 		
@@ -91,10 +75,8 @@
 	 */
 	function _getControlHeight Control =
 	(
-		format "\n"
-		print "LayoutControl.ms _getControlHeight()"
-		 -- if is user defined
-		height = Control._Parameters.getVal #height
+		--print "LayoutControl.ms _getControlHeight()"
+		height = Control._Parameters.getVal #height -- if user defined height
 		
 		if( hasProperty Control "_getControlHeightByType" ) then
 			height = Control._getControlHeightByType height
@@ -102,7 +84,6 @@
 		if( height == undefined ) then -- get default height if not defined by user or control type
 			height = grid
 		
-		format "height	= % \n" height
 		height --return
 	),
 	
@@ -130,4 +111,21 @@
 		--control_pos = [ _pos_last.x, _pos_last.y ] --return
 		[ _pos_last.x, _pos_last.y ] + offset --return
 	),
+
+	/** Try set new row of controls
+	  * Add margin between controls
+	 */
+	function _trySetNewControlsRow control_width =
+	(
+		if not ( this._isControlFitIntoRollout control_width ) then
+			_pos_last = [ Bbox.origin.x, (Bbox.getMax #y) + margin.y ]
+	),
+
+	/** Control is out of rollout
+     */
+    function _isControlFitIntoRollout control_width =
+    (
+		--print ("LayoutControl.ms._isControlFitIntoRollout " + control_width as string )
+        (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
+    ),
 	

@@ -5,19 +5,19 @@ filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 global _Rollout
 	
-CONTROLS_COUNT = 1
+CONTROLS_COUNT = 8
 
 /** Create multiple types of controls
  */
 function addControl control_type label_test:false =
 (
-	 global _Control	= _Rollout.Controls.new groupbox:control_type
+	 global _Controls	= _Rollout.Controls.new groupbox:control_type
 	
 	for i = 1 to CONTROLS_COUNT do
 	(
 		_label =  if ( label_test and i == 1 ) then "" else control_type + " "+i as string
 		--format "_label	= % \n" _label
-		execute ("_Control."+control_type+" \"" + _label+"\"") -- execute this kind of code "_Buttons.button ("Button "+i as string )"
+		execute ("_Controls."+control_type+" \"" + _label+"\"") -- execute this kind of code "_Buttons.button ("Button "+i as string )"
 		
 	)
 )
@@ -28,7 +28,7 @@ function addRollouts padding: margin_x: margin_y: =
 (
 	
 	rollout_titles = #(
-		"Rollout_1",
+		--"Rollout_1",
 		"Rollout_2",
 		"Rollout_3",
 		"Rollout_4",
@@ -62,10 +62,10 @@ function addRollouts padding: margin_x: margin_y: =
 		/*---------------------------------------
 			ADD CONTROLS
 		-----------------------------------------*/
-		addControl "Button"
-		addControl "Checkbox"
-		addControl "Spinner"
-		addControl "Dropdownlist"	label_test:true
+		--addControl "Button"
+		--addControl "Checkbox"
+		--addControl "Spinner"
+		--addControl "Dropdownlist"	label_test:true
 		addControl "Listbox"	label_test:true
 		
 		
@@ -86,10 +86,10 @@ function addRollouts padding: margin_x: margin_y: =
 	
 )
 
---addRollouts padding:0 margin_x:0 margin_y:0
+addRollouts padding:0 margin_x:0 margin_y:0
 --addRollouts padding:0 margin_x:8 margin_y:0
 
-addRollouts padding:4 margin_x:4 margin_y:4
+--addRollouts padding:4 margin_x:4 margin_y:4
 
 --addRollouts padding:8 margin_x:0 margin_y:0
 

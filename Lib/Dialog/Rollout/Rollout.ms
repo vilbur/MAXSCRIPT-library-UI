@@ -56,7 +56,7 @@ struct Rollout_v
 	/* dependency */
 	RolloutCreator,
 	
-	Events	    = RolloutEvent_v    Parent_roll:   this,
+	Events	   = RolloutEvent_v    Parent_roll:   this,
  	Controls   = Controls_v        Parent_roll:   this,
 	Layout     = Layout_v          Parent_roll:   this,
 	Properties = Properties_v      Parent_Control:this, -- https://help.autodesk.com/view/3DSMAX/2015/ENU/?guid=__files_GUID_DC435555_362D_4A03_BCF2_21179C5442F2_htm
@@ -74,7 +74,7 @@ struct Rollout_v
 	 */
 	function createRollout =
 	(
-		--format "Rollout_v.createRollout %\n" id
+		print ("Rollout_v.createRollout() " + id)
 
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 			Controlbox_or_Subrollouts.create()
@@ -120,8 +120,9 @@ struct Rollout_v
 		--Controlboxes_and_Subrollouts = Parent_Subrollouts.Parent_roll.Controlboxes_and_Subrollouts
 		max_width = this._getMaxWidthOfNestedElements()
 		
-		-- HOTFIX WIDTH OF ROLLUTS
-		max_width + 24 --return
+		--max_width + 96 --return
+		max_width + (Layout.padding*2) --return
+		--max_width + (Layout.padding) --return
 	),
 	
 	/** Find if rollout has been added to UI already

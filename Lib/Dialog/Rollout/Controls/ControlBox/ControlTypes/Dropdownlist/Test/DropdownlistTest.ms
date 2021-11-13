@@ -2,6 +2,7 @@ clearListener()
 
 filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 
+try( destroyDialog ROLLOUT_dropdownlisttestms )catch()
 
 /** Test callback
  */

@@ -2,7 +2,6 @@
  */
 struct Dropdownlist_v 
 (
-
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlBase.ms"	-- "../../Control/ControlBase.ms"
 	include "Library/UI/Lib/Dialog/Rollout/Controls/ControlBox/Control/ControlAddToUi.ms"	-- "../../Control/ControlAddToUi.ms"
 	
@@ -12,13 +11,11 @@ struct Dropdownlist_v
 	 */
 	function _getControlHeightByType height =
 	(
-		print "Dropdownlist_v._getControlHeightByType()"
-		format "height	= % \n" height
-		
-		if( caption == "" ) then 
-			20 --return
-		else
+		--print "Dropdownlist_v._getControlHeightByType()"
+		if( caption != "" ) then 
 			36 --return
+		else
+			20 --return
 	),
 	
 	/** Set dimensions
@@ -26,8 +23,10 @@ struct Dropdownlist_v
      */
     function _setParamteresPosWidthHeightByType Dimensions =
     (
-		--print "Dropdownlist_v.setDimensionsByType()"
-		_Parameters.setValues #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, unsupplied )
+		--print "Dropdownlist_v._setParamteresPosWidthHeightByType()"
+		height_of_items = if( (height_by_user = this._Parameters.getVal #height) != undefined ) then height_by_user else unsupplied
+		--format "height_of_items	= % \n" height_of_items
+		_Parameters.setValues #( #pos, #width, #height ) #( Dimensions.pos, Dimensions.width, height_of_items )
     ),
 
 	/**  
@@ -40,10 +39,7 @@ struct Dropdownlist_v
 		
 		this.onCreate()
 		
-		
-		
 		if ( add_to_controls ) then
 			this._addToControls()
 	)
-	
 )

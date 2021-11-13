@@ -57,7 +57,6 @@ struct ControlBox_v
      */
     function create =
     (
-		--print ("ControlBox_v.create()	"+ (this.getId())  )
 		Layout.newControlsBox()
 		
 		this._addControls()
@@ -103,7 +102,7 @@ struct ControlBox_v
 	 */
 	function offsetGroupbox new_pos =
 	(
-		format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
+		--format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
 		pos_box_current = this.property pos:#get
 		--format "pos_box_current = % \n" pos_box_current
 		this.property pos:new_pos
@@ -173,6 +172,7 @@ struct ControlBox_v
 	 */
 	function _addGroupBoxToUi =
 	(		
+		--print ("ControlBox_v._addGroupBoxToUi()	"+ (this.getId())  )
 		Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox
