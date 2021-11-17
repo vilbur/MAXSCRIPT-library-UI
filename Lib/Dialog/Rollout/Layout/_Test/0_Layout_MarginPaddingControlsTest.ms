@@ -5,7 +5,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../Rollout.ms" )
 
 global _Rollout
 	
-CONTROLS_COUNT = 8
+CONTROLS_COUNT = 4
 
 /** Create multiple types of controls
  */
@@ -28,7 +28,7 @@ function addRollouts padding: margin_x: margin_y: =
 (
 	
 	rollout_titles = #(
-		--"Rollout_1",
+		"Rollout_1",
 		"Rollout_2",
 		"Rollout_3",
 		"Rollout_4",
@@ -48,12 +48,15 @@ function addRollouts padding: margin_x: margin_y: =
 		
 		/** LAYOUT SETUP	 */
 		--_Rollout.Layout.columns  = 24
-		--_Rollout.Layout.grid     = 48
+		_Rollout.Layout.grid     = 48
 		
 		_Rollout.Layout.padding  = r*padding
 		_Rollout.Layout.margin.x = r*margin_x
 		_Rollout.Layout.margin.y = r*margin_y
 		
+		--_Rollout.Layout.padding  = padding
+		--_Rollout.Layout.margin.x = margin_x
+		--_Rollout.Layout.margin.y = margin_y
 		format "\n"
 		print rollout_title
 		format "_Rollout.Layout.padding = % \n" _Rollout.Layout.padding 
@@ -62,11 +65,12 @@ function addRollouts padding: margin_x: margin_y: =
 		/*---------------------------------------
 			ADD CONTROLS
 		-----------------------------------------*/
-		--addControl "Button"
+		addControl "Button"
 		--addControl "Checkbox"
 		--addControl "Spinner"
 		--addControl "Dropdownlist"	label_test:true
-		addControl "Listbox"	label_test:true
+		--addControl "Listbox"	label_test:true
+		addControl "BrowsePath"
 		
 		
 		/* CREATE ROLLOUT */
@@ -86,11 +90,12 @@ function addRollouts padding: margin_x: margin_y: =
 	
 )
 
-addRollouts padding:0 margin_x:0 margin_y:0
+--addRollouts padding:0 margin_x:0 margin_y:0
 --addRollouts padding:0 margin_x:8 margin_y:0
 
 --addRollouts padding:4 margin_x:4 margin_y:4
 
+addRollouts padding:4 margin_x:0 margin_y:0
 --addRollouts padding:8 margin_x:0 margin_y:0
 
 

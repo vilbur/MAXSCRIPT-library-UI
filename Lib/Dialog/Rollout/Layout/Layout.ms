@@ -38,6 +38,7 @@ struct Layout_v
 	 */
 	function fitSubrollouts dialog_height: =
 	(
+		--print "Layout.fitSubrollouts()"
 		Controlboxes_and_Subrollouts = Parent_roll.Controlboxes_and_Subrollouts
 		
 		if( dialog_height == unsupplied ) then
@@ -51,26 +52,28 @@ struct Layout_v
 		
 		slot_height       = if (subrollouts_count>0 )then (empty_space/subrollouts_count) as integer else empty_space
 		offset            = 0
-
-		--format "\nLayout.fitSubrollouts() % \n" Controlboxes_and_Subrollouts.count
-		--format "dialog_height       = % \n" dialog_height
-		--format "fixed_heights       = % \n" fixed_heights
-		--format "fixed_heights.count = % \n" fixed_heights.count
-		--format "fixed_height        = % \n" fixed_height
-		--format "empty_space         = % \n" empty_space
-		--format "subrollouts_count   = % \n" subrollouts_count
-		--format "slot_height         = % \n" slot_height
-		--format "offset              = % \n" offset
 		
+		format "dialog_height       = % \n" dialog_height
+		format "fixed_heights       = % \n" fixed_heights
+		format "fixed_heights.count = % \n" fixed_heights.count
+		format "fixed_height        = % \n" fixed_height
+		format "empty_space         = % \n" empty_space
+		format "subrollouts_count   = % \n" subrollouts_count
+		format "slot_height         = % \n" slot_height
+		format "offset              = % \n" offset
 		
 		if( offset == undefined ) then -- offset can be returned undefined in nested loop of fitSubrollouts()
 			return false
 			
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
+		(
+			format "this._getType Control_or_Rollout	= % \n" (this._getType Control_or_Rollout)
 			if( this._getType Control_or_Rollout == "subrollouts" ) then
 				offset = this._offsetSubrollouts Control_or_Rollout slot_height offset
 			else
 				offset = this._offsetGroubox Control_or_Rollout offset
+			format "offset                          = % \n" offset 
+		)
 	),
 	
 	/** Collect heights of all elements which ARE NOT Subrollout with default height
@@ -78,17 +81,12 @@ struct Layout_v
 	 */
 	function _getOccupiedHeights Controlboxes_and_Subrollouts =
 	(
+		--print "Layout._getOccupiedHeights()"
 		occupied_heights = #()
 		
 		for Control_or_Rollout in Controlboxes_and_Subrollouts do
-		(
-			height       = Control_or_Rollout.property #height #get
-			control_type = this._getType Control_or_Rollout
-			
-			--if( control_type != "subrollouts" or ( control_type == "subrollouts" and height != LAYOUT_FITSUBROLLOUTS_DEFAULT_HEIGHT ) ) then 
-			if( control_type != "subrollouts" ) then 
-				append occupied_heights height
-		)
+			if( this._getType Control_or_Rollout == "controlbox" ) then 
+				append occupied_heights ( Control_or_Rollout.property #height #get)
 
 		occupied_heights --return
 	),
@@ -98,11 +96,11 @@ struct Layout_v
 	 */
 	function copySetup Layout =
 	(
-		print "Layout.copySetup() !!!!! IS THIS USED ??????"
-		--Layout.columns = columns
-		--Layout.grid    = grid
-		--Layout.padding = padding
-		--Layout.margin  = margin
+		--print "Layout.copySetup()"
+		Layout.columns = columns
+		Layout.grid    = grid
+		Layout.padding = padding
+		Layout.margin  = margin
 
 		Layout --return
 	),

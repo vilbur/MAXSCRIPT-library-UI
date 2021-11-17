@@ -4,7 +4,7 @@ filein( getFilenamePath(getSourceFileName()) + "/../../../../../Rollout.ms" )
 
 /* ROLLOUT DEFINITION */
 _Rollout	= Rollout_v title:(filenameFromPath(getSourceFileName()))
-_Rollout.ini	= getFilenamePath(getSourceFileName()) + "ControlTest.ini"
+_Rollout.ini	(getFilenamePath(getSourceFileName()) + "ControlTest.ini")
 _controls_1	= _Rollout.controls.new groupbox:"Test Groupbox"
 
 

@@ -186,16 +186,30 @@ struct Rollout_v
 		
 		for Controlbox_or_Subrollouts in Controlboxes_and_Subrollouts do
 		(
-			if( this._getType Controlbox_or_Subrollouts == "controlbox" ) then
+			if( this._isControlBox(Controlbox_or_Subrollouts) ) then
 				append widths (Controlbox_or_Subrollouts.property width:#get)
 
-			else if( Controlbox_or_Subrollouts.Rollouts.count > 0 ) then
+			else if( this._rolloutWithSubrollouts(Controlbox_or_Subrollouts) ) then
 				append widths (Controlbox_or_Subrollouts.resizeSobrolloutsSlot())
 		)
 		--format "TOTAL widths = % \n" widths
 		this._getMaxWidth widths --return
 	),
-
+	
+	/** _is control box
+	 */
+	function _isControlBox Controlbox_or_Subrollouts =
+	(
+		this._getType Controlbox_or_Subrollouts == "controlbox"
+	),
+	
+	/** _rollout with subrollouts
+	 */
+	function _rolloutWithSubrollouts Controlbox_or_Subrollouts =
+	(
+		Controlbox_or_Subrollouts.Rollouts.count > 0
+	),
+	
 	/** Get name given struct
 	  * @property	struct	_Struct
 	  *

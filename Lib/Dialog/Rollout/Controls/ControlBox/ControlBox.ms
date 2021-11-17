@@ -71,12 +71,16 @@ struct ControlBox_v
 	  *
 	  * @property	mixed	name|title|open|scrollPos|height|width
      */
-    function property caption: pos: height: width: =
+--    function property caption: pos: height: width: =
+--    (
+--		--format "ControlBox_v.property pos % \n" pos
+--		Properties.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
+--	),
+    function property key val =
     (
-		--format "ControlBox_v.property pos % \n" pos
-		Properties.getOrSet #( #caption, #pos, #height, #width ) #( caption, pos, height, width )
+		--print ("ControlBox.property() " + id.id as string )
+		Properties.getOrSet #( key ) #( val )
 	),
-	
 	/** Get existing control
 	  * @return	Control_v|undefined
 	 */
@@ -102,21 +106,22 @@ struct ControlBox_v
 	 */
 	function offsetGroupbox new_pos =
 	(
-		--format "ControlBox_v.offsetGroupbox new_pos % \n" new_pos
-		pos_box_current = this.property pos:#get
-		--format "pos_box_current = % \n" pos_box_current
-		this.property pos:new_pos
+		--print ("ControlBox.offsetGroupbox() " + new_pos as string )
+		controlbox_pos = this.property #pos #get
+		----format "controlbox_pos = % \n" controlbox_pos
+		this.property #pos new_pos
+
+	
 		
 		for Control in Controls do
 		(
-			--format "Control = % \n" Control._Parameters
-			pos    = Control._Parameters.getVal #pos
-			--format "pos = % \n" pos
-			offset  = pos - pos_box_current
-		
+			control_pos    = Control._Parameters.getVal #pos
+			--format "pos      = % \n" pos
+			offset  = control_pos - controlbox_pos
+			
 			pos_new = new_pos + offset
-		
-			Control.property pos:pos_new  --!!! PREDELAT Cotrol.Properties na Control.property()
+			--format "pos_new	= % \n" pos_new
+			Control.property #pos pos_new
 		)
 	),
 	
@@ -172,7 +177,7 @@ struct ControlBox_v
 	 */
 	function _addGroupBoxToUi =
 	(		
-		--print ("ControlBox_v._addGroupBoxToUi()	"+ (this.getId())  )
+		--print ("ControlBox_v._addGroupBoxToUi()	"+ (this.getId()) )
 		Layout.setGroupboxDimensions Groupbox
 
 		this._addControlToUi Groupbox

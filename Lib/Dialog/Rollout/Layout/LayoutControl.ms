@@ -25,18 +25,6 @@
 		
  		Bbox.add Dimensions
 	),
-
-	/** _get roll _width
-	 */
-	function _getRollWidthByColumns =
-	(
-		--(columns * grid) + margin.x*4 + _padding_corrention --return
-		controlbox_width = (grid + margin.x ) * columns
-		
-		--format "controlbox 	  = % \n" ( controlbox_width as integer ) 
-		controlbox_width --return
-	),
-
 	/** Set new control position
 	  * Add margin between controls
   	 */
@@ -56,8 +44,8 @@
 		if( _width == undefined ) then
 			_width = this._getControlWidthByColumns Control
 		
-		--format "_width	= % \n" _width
-		_width --return
+		--format "_width	= % \n"( _width as integer )
+		(_width as integer) --return
 	),
 	
 	/** Get height
@@ -125,7 +113,26 @@
      */
     function _isControlFitIntoRollout control_width =
     (
-		--print ("LayoutControl.ms._isControlFitIntoRollout " + control_width as string )
-        (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
+		--print ("LayoutControl.ms._isControlFitIntoRollout()" )
+		--format "_pos_last.x	     = % \n" (_pos_last.x as integer )
+		--format "control_width	 = % \n" control_width
+		
+       test = (_pos_last.x + control_width) <= (this._getRollWidthByColumns()) --return
+		
+		--format "test	= % \n" test
+		test --return
     ),
-	
+
+	/** _get roll _width
+	 */
+	function _getRollWidthByColumns =
+	(
+		--print ("LayoutControl.ms._getRollWidthByColumns()")
+		controlbox_width = (grid + margin.x ) * columns
+		
+		controlbox_width += padding -- add padding on left side of rollout
+		
+		--format "controlbox_width = % \n" ( controlbox_width as integer ) 
+		( controlbox_width as integer )  --return
+	),
+

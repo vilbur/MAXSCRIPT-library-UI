@@ -69,8 +69,8 @@
 		
 		ControlBox.offsetGroupbox [padding, offset] -- !!! TODO: ADD X POSITION TO OFFSET FUNCTION
 		--format "offset = % \n" offset
-		offset += (ControlBox.property height:#get)
-		--offset += (ControlBxo._Params.getVal #height)
+		offset += (ControlBox.property #height #get)
+
 		--format "offset = % \n" offset
 		
 		offset --return
